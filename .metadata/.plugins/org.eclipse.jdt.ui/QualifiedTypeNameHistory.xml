@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<qualifiedTypeNameHistroy>
+<fullyQualifiedTypeName name="com.ctl.it.qa.bpms.pages.TasksPage"/>
+<fullyQualifiedTypeName name="cucumber.api.DataTable"/>
+<fullyQualifiedTypeName name="java.util.HashMap"/>
+<fullyQualifiedTypeName name="java.util.Map"/>
+<fullyQualifiedTypeName name="org.openqa.selenium.WebDriver"/>
+<fullyQualifiedTypeName name="com.ctl.it.qa.bpms.steps.common.CommonObjectsPageSteps"/>
+<fullyQualifiedTypeName name="com.ctl.it.qa.staf.HtmlReport"/>
+<fullyQualifiedTypeName name="org.openqa.selenium.support.ui.Select"/>
+<fullyQualifiedTypeName name="java.lang.Exception"/>
+<fullyQualifiedTypeName name="java.lang.AssertionError"/>
+<fullyQualifiedTypeName name="com.ibm.icu.impl.Assert"/>
+<fullyQualifiedTypeName name="org.openqa.selenium.support.ui.ExpectedConditions"/>
+<fullyQualifiedTypeName name="org.openqa.selenium.Keys"/>
+</qualifiedTypeNameHistroy>

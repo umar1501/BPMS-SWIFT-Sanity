@@ -1,0 +1,878 @@
+package com.ctl.it.qa.bpms.steps;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+
+import java.util.List;
+
+import org.junit.Assert;
+import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Wait;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import com.ctl.it.qa.bpms.pages.OpportunityDetailLightningPage;
+import com.ctl.it.qa.bpms.pages.ProductSummaryPage;
+import com.ctl.it.qa.bpms.pages.QuoteDetailPage;
+import com.ctl.it.qa.bpms.pages.SalesforceHomeLightningPage;
+import com.ctl.it.qa.staf.Steps;
+
+import net.thucydides.core.annotations.Step;
+
+public class OpportunityDetailLightningSteps extends Steps{
+	private transient Logger slf4jLogger = LoggerFactory.getLogger(OpportunityDetailLightningSteps.class);
+	transient OpportunityDetailLightningPage opportunityDetailLightningPage;
+	SalesforceHomeLightningSteps salesforceHomeLightningSteps;
+	transient QuoteDetailPage quoteDetailPage;
+	ProductSummaryPage productSummaryPage;
+	SalesforceHomeLightningPage salesforceHomeLightningPage;
+	
+	public OpportunityDetailLightningSteps changeOpportunityStageLevel(String stage,String TestID) throws Exception {
+		try {
+			WebDriver driver = getDriver();
+			Wait<WebDriver> wait = new WebDriverWait(driver, 10000);
+			driver.navigate().refresh();
+			waitABit(5000);
+			WaitForPageToLoad(5000);
+			
+			if(stage.contains("Agreement")) { //normal submission
+				wait.until(ExpectedConditions.elementToBeClickable(opportunityDetailLightningPage.stageLabelAgreement));
+				opportunityDetailLightningPage.stageLabelAgreement.click();
+				Thread.sleep(2000);
+				opportunityDetailLightningPage.markStageAs.click();
+				slf4jLogger.info(TestID + ":" + System.currentTimeMillis()+ "Select Agreement on Staging Element.... Success");
+				driver.switchTo().activeElement();
+				wait.until(ExpectedConditions.elementToBeClickable(opportunityDetailLightningPage.winLossReasonLabel));
+				opportunityDetailLightningPage.winLossReasonLabel.click();
+				opportunityDetailLightningPage.reasonNone.click();
+				opportunityDetailLightningPage.reasonWonCustRelnship.click();
+				Thread.sleep(3000);
+				opportunityDetailLightningPage.btnDone.click();
+				slf4jLogger.info(TestID + ":" + System.currentTimeMillis() + "Click On Done.... Success");
+			}
+			else if(stage.contains("Proposed")){
+				wait.until(ExpectedConditions.elementToBeClickable(opportunityDetailLightningPage.stageLabelProposed));
+				opportunityDetailLightningPage.stageLabelProposed.click();	//predeploy submission
+				Thread.sleep(2000);
+				opportunityDetailLightningPage.markStageAs.click();
+				slf4jLogger.info(TestID + ":" + System.currentTimeMillis()+ "Select Proposed on Staging Element.... Success");
+				Thread.sleep(5000);
+			}
+			/*else if(stage.contains("Qualified")) {
+				opportunityDetailLightningPage.stageLabelQualified.click();
+			}*/
+			else {
+				slf4jLogger.info("Opportunity stage selection - Catch Block!!");
+			}
+		
+			if(stage.contains("Proposed")){
+				changeprobability(TestID, "80");
+			}	
+			Thread.sleep(5000);
+		} 
+		catch (Exception e) {
+			Assert.fail(TestID + ": @" +System.currentTimeMillis() + "@"+ "Error while changing opportunity stage..!");
+		}
+		return new OpportunityDetailLightningSteps();
+	}
+	
+	public OpportunityDetailLightningSteps changeprobability(String TestID, String probabilityPreDeploy) throws Exception {
+		try {
+			WebDriver driver = getDriver();
+			Wait<WebDriver> wait = new WebDriverWait(driver, 10000);
+			wait.until(ExpectedConditions.elementToBeClickable(opportunityDetailLightningPage.opportunityProbabilityEditPencil));
+			opportunityDetailLightningPage.opportunityProbabilityEditPencil.click();
+			WaitForPageToLoad(10000);
+			opportunityDetailLightningPage.opportunityProbability.clear();
+			Thread.sleep(1000);
+			opportunityDetailLightningPage.opportunityProbability.sendKeys(probabilityPreDeploy);	
+			Thread.sleep(1000);
+			opportunityDetailLightningPage.btnSave.click();
+			WaitForPageToLoad(10000);
+			
+		} catch (Exception e) {
+			slf4jLogger.error(TestID + ":" + System.currentTimeMillis() + e);
+			Assert.fail(TestID + ": @" + System.currentTimeMillis() + "@"+ "Error Occured while Changing the probability");
+		}
+		return new OpportunityDetailLightningSteps();
+		
+	}
+	
+	public QuoteDetailPage clickOnQuoteNumber(String TestID) throws Exception {
+		try {
+			WebDriver driver = getDriver();
+			Thread.sleep(3000);
+			driver.switchTo().defaultContent();
+			Thread.sleep(5000);
+			
+			salesforceHomeLightningSteps.switchToQuotesTab();
+			/*driver.switchTo().frame(driver.findElement(By.xpath("//iframe[@title='accessibility title']")));
+			List<WebElement> quotesTitle = driver.findElements(By.id("j_id0:j_id2:relatedQuotesId"));
+			quotesTitle.get(0).click();*/
+			WaitForPageToLoad(10000);
+			driver.switchTo().frame(opportunityDetailLightningPage.oppQuotesFrame);
+			
+			try {
+				do {
+					quoteDetailPage.quoteNumber.click();
+					Thread.sleep(8000);
+					WaitForPageToLoad(5000);
+				}
+				while(quoteDetailPage.quoteNumber.isDisplayed());
+			}
+			catch(Exception e) {
+				WaitForPageToLoad(5000);
+				slf4jLogger.info("Catch block");
+				Thread.sleep(8000);
+			}
+			
+			Thread.sleep(3000);
+			slf4jLogger.info(TestID + ":" + System.currentTimeMillis()
+					+ "Click On Prepare Scenario Order.... Success");
+			driver.switchTo().defaultContent();
+			
+
+		} catch (Exception e) {
+			Assert.fail(TestID + ": @" + System.currentTimeMillis() + "@"
+					+ "Exception occured while clicking on prepare order Scanrio.");
+
+		}
+		return new QuoteDetailPage();
+	}
+	
+	public void readAndVerifyScenarioCurrency(String TestID) throws Exception {
+		try {
+			WebDriver driver = getDriver();
+			Thread.sleep(5500);
+			driver.switchTo().defaultContent();
+			driver.switchTo().frame(opportunityDetailLightningPage.oppQuotesFrame);
+			
+			Thread.sleep(100);
+			String MRC = opportunityDetailLightningPage.mrcXpath.getText();
+			String NRC = opportunityDetailLightningPage.nrcXpath.getText();
+			slf4jLogger.info("MRC:" + MRC + " NRC:" + NRC);
+			if (!(MRC.contains("USD") && (NRC.contains("USD")))) {
+				Assert.fail(TestID + ": @" + System.currentTimeMillis() + "@"
+						+ "Error in Currency Dislayed......");
+			}
+			slf4jLogger.info(TestID + ":" + System.currentTimeMillis()
+					+ "Currency is verified in Opportunity Detail Page....");
+		} catch (Exception e) {
+			Assert.fail(TestID + ": @" + System.currentTimeMillis() + "@"
+					+ "Error while reading and verifying scenario currency");
+		}
+		
+	}
+	
+	public OpportunityDetailLightningPage clickOnCopyScenario(String TestID) throws Exception {
+		try {
+			WebDriver driver = getDriver();
+			JavascriptExecutor js = (JavascriptExecutor) driver;
+			Wait<WebDriver> wait = new WebDriverWait(driver, 10000);
+			
+			Thread.sleep(10000);
+			driver.switchTo().defaultContent();
+			driver.switchTo().frame(opportunityDetailLightningPage.oppQuotesFrame);
+			
+			Thread.sleep(1500);
+			
+			slf4jLogger.info(TestID + ":" + System.currentTimeMillis() + "Frame is switched to Opp Quotes");
+			js.executeScript("window.scrollBy(0,400)", "");
+			Thread.sleep(4000);
+			wait.until(ExpectedConditions.elementToBeClickable(opportunityDetailLightningPage.copyScenario));
+			
+			slf4jLogger.info(TestID + ":" +  System.currentTimeMillis()  + "Element located");
+			
+			Thread.sleep(5000);
+			wait.until(ExpectedConditions.elementToBeClickable(opportunityDetailLightningPage.copyScenario));
+			opportunityDetailLightningPage.copyScenario.click();
+			slf4jLogger.info(TestID + ":" +  System.currentTimeMillis()  + "Clicked on Copy Scenario Button");
+	
+			Thread.sleep(40000);
+			js.executeScript("window.scrollBy(0,100)", "");
+			try {
+				
+				wait.until(ExpectedConditions.elementToBeClickable(opportunityDetailLightningPage.selectButton1));
+				slf4jLogger.info(TestID + ":" +  System.currentTimeMillis()  + "Located select Button");
+				
+				opportunityDetailLightningPage.selectButton1.click();
+				Thread.sleep(5000);
+				driver.switchTo().alert().accept();
+			} catch (Exception e) {
+				
+				Actions builder = new Actions(driver);
+				builder.moveToElement(opportunityDetailLightningPage.copyScenario).click(opportunityDetailLightningPage.copyScenario);
+				builder.perform();
+				slf4jLogger.info(TestID + ":" +  System.currentTimeMillis()  + "Clicked on Copy Scenario Button(2)");
+	
+				
+				Thread.sleep(5000);
+				
+				wait.until(ExpectedConditions.elementToBeClickable(opportunityDetailLightningPage.selectButton2));
+				slf4jLogger.info(TestID + ":" +  System.currentTimeMillis() + "Located select Button");
+				try {
+					opportunityDetailLightningPage.selectButton2.click();
+				} catch (Exception e1) {
+					slf4jLogger.info("Catch Block");
+				}
+			}
+	
+			Thread.sleep(3000);
+			
+			Thread.sleep(3000);
+					
+			try {
+				try {
+					wait.until(ExpectedConditions.elementToBeClickable(opportunityDetailLightningPage.okButton1));
+					slf4jLogger.info(TestID + ":" + System.currentTimeMillis() + "Located ok Button");
+					Thread.sleep(2000);
+					
+					wait.until(ExpectedConditions.elementToBeClickable(opportunityDetailLightningPage.okButton1));
+					
+					opportunityDetailLightningPage.okButton1.click();
+				}catch (Exception e) {
+					wait.until(ExpectedConditions.elementToBeClickable(opportunityDetailLightningPage.okButton2));
+					slf4jLogger.info(TestID + ":" + System.currentTimeMillis() + "Located ok Button");
+					Thread.sleep(2000);
+					
+					wait.until(ExpectedConditions.elementToBeClickable(opportunityDetailLightningPage.okButton2));
+					
+					opportunityDetailLightningPage.okButton2.click();
+				}
+			} catch (Exception e) {
+			
+				opportunityDetailLightningPage.okButtons.get(opportunityDetailLightningPage.okButtons.size() - 1).click();
+			}
+			slf4jLogger.info(TestID + ":" +  System.currentTimeMillis()  + "Clicking on ok button success");
+			
+			Thread.sleep(1000);
+			
+			Thread.sleep(10000);
+			
+			int noOfScenarios = opportunityDetailLightningPage.scenarios.size();
+			slf4jLogger.info("noOfScenarios:" +noOfScenarios);
+			if(noOfScenarios<2){
+				
+				Actions builder = new Actions(driver);
+				builder.moveToElement(opportunityDetailLightningPage.copyScenario).click(opportunityDetailLightningPage.copyScenario);
+				builder.perform();
+				slf4jLogger.info(TestID + ":" +  System.currentTimeMillis()  + "Clicked on Copy Scenario Button(2)");
+	
+				
+				Thread.sleep(5000);
+				
+				wait.until(ExpectedConditions.elementToBeClickable(opportunityDetailLightningPage.selectButton2));
+				slf4jLogger.info(TestID + ":" + System.currentTimeMillis() + "Located select Button");
+				try {
+					opportunityDetailLightningPage.selectButton2.click();
+				} catch (Exception e1) {
+					slf4jLogger.info("Catch block");
+				}
+				Thread.sleep(3000);
+				driver.switchTo().alert().accept();
+				Thread.sleep(3000);
+				
+				
+				try {
+					try {
+						wait.until(ExpectedConditions.elementToBeClickable(opportunityDetailLightningPage.okButton3));
+						slf4jLogger.info(TestID + ":" + System.currentTimeMillis() + "Located ok Button");
+						Thread.sleep(2000);
+						
+						wait.until(ExpectedConditions.elementToBeClickable(opportunityDetailLightningPage.okButton3));
+						
+						opportunityDetailLightningPage.okButton3.click();
+					}catch (Exception e) {
+						wait.until(ExpectedConditions.elementToBeClickable(opportunityDetailLightningPage.okButton2));
+						slf4jLogger.info(TestID + ":" + System.currentTimeMillis()  + "Located ok Button");
+						Thread.sleep(2000);
+						
+						wait.until(ExpectedConditions.elementToBeClickable(opportunityDetailLightningPage.okButton2));
+						
+						opportunityDetailLightningPage.okButton2.click();
+					}
+				} catch (Exception e) {
+					opportunityDetailLightningPage.okButtons.get(opportunityDetailLightningPage.okButtons.size() - 1).click();
+				}
+			}
+			verifyCopiedScenario(TestID);
+		} catch (Exception e) {
+			Assert.fail(TestID + ": @" +  System.currentTimeMillis()  + "@"
+					+ "Error occured while clicking on copy scenario");
+		}
+		return new OpportunityDetailLightningPage();
+	}
+	
+	@Step
+	public void verifyCopiedScenario(String TestID) {
+		try {
+			WebDriver driver =getDriver();
+			
+			Wait<WebDriver> wait = new WebDriverWait(driver, 10000);
+			
+			if(TestID.equals("1942") || TestID.equals("1943") || TestID.equals("2051")){
+				wait.until(ExpectedConditions.elementToBeClickable(opportunityDetailLightningPage.copiedScenarioLink));
+				slf4jLogger.info(TestID + ":" +  System.currentTimeMillis()  + "Located Copied Scenario");
+				
+				String totalQuoteMRC =opportunityDetailLightningPage.totalQuoteMRCXpath.getText();
+				String copyTotalQuoteMRC =opportunityDetailLightningPage.copyTotalQuoteMRCXpath.getText();
+				
+				if(!totalQuoteMRC.equals(copyTotalQuoteMRC)){
+					Assert.fail(TestID + ": @" +  System.currentTimeMillis()  + "@"
+							+ "Error occured while validating the copied scenario");
+				}	
+			}
+			
+		}catch (Exception e) {
+			Assert.fail(TestID + ": @" +  System.currentTimeMillis()  + "@"
+					+ "Error occured while clicking on copy scenario");
+		}
+	}
+	
+	public void clickOnGenerateDocument( String TestID) throws Exception {
+		try {
+			
+			Thread.sleep(5000);
+			opportunityDetailLightningPage.generateDocument.click();
+			
+			Thread.sleep(1000);
+			slf4jLogger.info(TestID + ":" + System.currentTimeMillis() + "Click on generate document....success");
+		
+		} catch (Exception e) {
+			Assert.fail(TestID + ": @" + System.currentTimeMillis() + "@"
+					+ "Error while clicking on generate document");
+	
+		}
+		
+	}
+	public void enterDocumentTypeAndName( String TestID) throws Exception {
+		try {
+			WebDriver driver =getDriver();
+			Wait<WebDriver> wait = new WebDriverWait(driver, 10000);
+			slf4jLogger.info(
+					TestID + ":" + System.currentTimeMillis() + "Entered enterDocumentTypeAndName method");
+			
+			Thread.sleep(20000);
+					
+			wait.until(ExpectedConditions.elementToBeClickable(opportunityDetailLightningPage.docType));
+			opportunityDetailLightningPage.docType.click();
+			slf4jLogger.info(TestID + ":" + System.currentTimeMillis() + "Doc Type Click Completed");
+			
+			Thread.sleep(8000);
+			opportunityDetailLightningPage.docType.sendKeys("Quote");
+			slf4jLogger.info(TestID + ":" + System.currentTimeMillis() + "Doc type selected");
+			
+			wait.until(ExpectedConditions.elementToBeClickable(opportunityDetailLightningPage.docName));
+			opportunityDetailLightningPage.docName.click();
+			slf4jLogger.info(TestID + ":" + System.currentTimeMillis() + "Doc name click completed ");
+			
+			Thread.sleep(2000);
+			opportunityDetailLightningPage.docName.sendKeys("Quote");
+			slf4jLogger.info(TestID + ":" + System.currentTimeMillis() + "Entered document name and type");
+			Thread.sleep(2000);
+			
+			wait.until(ExpectedConditions.elementToBeClickable( opportunityDetailLightningPage.generateDocumentnextButton));
+			opportunityDetailLightningPage.generateDocumentnextButton.click();
+			
+			Thread.sleep(5000);
+			slf4jLogger.info(TestID + ":" + System.currentTimeMillis() + "Click On Next Button success");
+		} catch (Exception e) {
+			
+			Assert.fail(TestID + ": @" + System.currentTimeMillis() +"@"+"Error while entering document name and type");
+	
+		}
+	}
+
+	public void verifyErrorMessageinDocInsertpage(String TestID) throws Exception {
+		try {
+			WebDriver driver =getDriver();
+			Wait<WebDriver> wait = new WebDriverWait(driver, 10000);
+			
+			Thread.sleep(10000);
+			 wait.until(ExpectedConditions.presenceOfElementLocated(By.id("page:myForm:messages:j_id15:j_id16:0:j_id17")));
+			
+			Thread.sleep(5000);
+			
+			String error = opportunityDetailLightningPage.errorXpath.getText();
+			
+			if (!(error.contains("Quote cannot be generated for one or more of the products"))) {
+				Assert.fail("Error messages are not displayed correctly");
+			}
+			slf4jLogger.info(TestID + ":" + System.currentTimeMillis() + "Verified error messages");
+		} catch (Exception e) {
+			Assert.fail(TestID + ": @" + System.currentTimeMillis() +"@"+"Error in verifying error messages in Insert Document page");
+	
+		}
+		
+		}
+	public void returnToQuoteAfterVerifyingErrMsg(String TestID) throws Exception {
+		try {
+		WebDriver driver =getDriver();
+		Wait<WebDriver> wait = new WebDriverWait(driver, 10000);
+		
+		Thread.sleep(5000);
+	
+	wait.until(ExpectedConditions.visibilityOf(opportunityDetailLightningPage.cancel));
+	opportunityDetailLightningPage.cancel.click();
+	
+	Thread.sleep(5000);
+	
+	slf4jLogger.info(TestID + ":" +  System.currentTimeMillis() + "Click On Cancel Button success");
+	slf4jLogger.info(TestID + ":" + System.currentTimeMillis() + "verifying Psp Flag ");
+	
+	Thread.sleep(2000);
+	String error = null;
+	try {
+		slf4jLogger.info(TestID + ":" + System.currentTimeMillis() + "PSP Text from try Block");
+		error = opportunityDetailLightningPage.error1.getText();
+	} catch (Exception ignore) {
+		slf4jLogger.info(TestID + ":" + System.currentTimeMillis() + "PSP Text from catch Block");
+		error = opportunityDetailLightningPage.error2.getText();
+	}
+	slf4jLogger.info(error);
+	slf4jLogger.info(TestID + ":" + System.currentTimeMillis() + "PSP Errors is ::" + error);
+	
+	if (!(error.contains("Gate Quote:Gate SOF"))) {
+		Assert.fail(TestID + ": @" + System.currentTimeMillis() + "@"
+				+ "PSP error is not displayed correctly");
+	}
+	slf4jLogger.info(TestID + ":" + System.currentTimeMillis() + "PSP Errors are verified");
+	
+	wait.until(ExpectedConditions.visibilityOf(opportunityDetailLightningPage.pspError));
+	opportunityDetailLightningPage.pspError.click();
+	
+	Thread.sleep(8000);
+	driver.switchTo().frame(driver.findElement(By.tagName("iframe")));
+	slf4jLogger.info(TestID + ":" + System.currentTimeMillis() + "Click on quote...success");
+		} catch (Exception ignore) {
+			slf4jLogger.info(TestID + ":" + System.currentTimeMillis() + "Error while returning to quote after verifying error messages in Insert Document page");
+			
+		}
+}
+	public void submitDocumentDetailsAndVerify(String TestID) throws Exception {
+		try {
+			WebDriver driver =getDriver();
+			Wait<WebDriver> wait = new WebDriverWait(driver, 10000);
+			
+			slf4jLogger.info(TestID + ":" +  System.currentTimeMillis() + "Entered enterContact method");
+			Thread.sleep(40000);
+			
+			wait.until(ExpectedConditions.visibilityOf(opportunityDetailLightningPage.replacementContractualForm));
+			opportunityDetailLightningPage.replacementContractualForm.click();
+			slf4jLogger.info(TestID + ":" +  System.currentTimeMillis() + "enterContact click completed");
+			
+			Thread.sleep(1000);
+			wait.until(ExpectedConditions.visibilityOf(opportunityDetailLightningPage.proposalAddlInfo));
+			opportunityDetailLightningPage.proposalAddlInfo.click();
+			
+			Thread.sleep(1000);
+			
+			Thread.sleep(2000);
+			slf4jLogger.info(TestID + ":" +  System.currentTimeMillis() + "Entered document contact");
+			
+			wait.until(ExpectedConditions.visibilityOf(opportunityDetailLightningPage.generateDocumentInsertSubmit));
+			opportunityDetailLightningPage.generateDocumentInsertSubmit.click();
+			
+			Thread.sleep(5000);
+			slf4jLogger.info(TestID + ":" + System.currentTimeMillis() + "Click On submit Button success");
+			
+			try {
+				Thread.sleep(2000);
+				opportunityDetailLightningPage.documentID.click();
+			} catch (Exception e) {
+				try {
+					slf4jLogger.info(TestID + ":" + System.currentTimeMillis()
+							+ "Trying to click on document id from Catch Block");
+					
+					wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("")));
+					opportunityDetailLightningPage.documentIDXpath.click();
+					slf4jLogger.info(TestID + ":" + System.currentTimeMillis()
+							+ "Click on document id...success from 1st Catch Block");
+				} catch (Exception e1) {
+					slf4jLogger.info(TestID + ":" + System.currentTimeMillis()
+							+ "Trying to click on document id from 2ndCatch Block");
+					
+					driver.findElement(By.partialLinkText("DOC-")).click();
+				}
+			}
+			
+		} catch (Exception ignore) {
+			slf4jLogger.info(TestID + ":" + System.currentTimeMillis() + "Error while submitting document details");
+			
+		}
+}
+	
+	@Step
+	public void clickOnCopiedScenario(String TestID) {
+
+		try {
+			WebDriver driver =getDriver();
+			Wait<WebDriver> wait = new WebDriverWait(driver, 10000);
+			opportunityDetailLightningPage.copiedScenarioLink.click();
+			WaitForPageToLoad(5000);
+			slf4jLogger.info(TestID + ":" + System.currentTimeMillis() + "Opening copied scenario ..Success");
+			WaitForPageToLoad(5000);
+			wait.until(ExpectedConditions.visibilityOfAllElements(driver.findElements(By.id("quote-iframe"))));
+			if(driver.findElements(By.id("quote-iframe")).size() > 0)
+				driver.switchTo().frame("quote-iframe");
+		} catch (Exception e) {
+			Assert.fail(TestID + ": @" + System.currentTimeMillis() +"@"+"Error while opening Copied Scenario..!!");
+
+		}	
+	}
+
+	@Step
+	public void verifyApprovals(String TestID) {
+	try {
+		WebDriver driver = getDriver();
+		Wait<WebDriver> wait = new WebDriverWait(driver, 10000);
+		JavascriptExecutor js = (JavascriptExecutor) driver;
+		salesforceHomeLightningSteps.switchToQuotesTab();
+		WaitForPageToLoad(5000);
+		Thread.sleep(5000);
+		driver.switchTo().frame(driver.findElement(By.xpath("//iframe[@title='accessibility title']")));
+		List<WebElement> quotesTitle = driver.findElements(By.id("j_id0:j_id2:relatedQuotesId"));
+		quotesTitle.get(0).click();
+	//	driver.switchTo().frame(driver.findElement(By.cssSelector("iframe[title='OpportunityQuotes']")));
+	//	driver.switchTo().frame("0662A000002Kmds");
+		slf4jLogger.info("Inside frame");
+		js.executeScript("window.scrollBy(0,400)", "");
+		Thread.sleep(4000);
+		WaitForPageToLoad(5000);
+		WaitForPageToLoad(5000);
+		String approvals=null;
+			Thread.sleep(5000);
+			slf4jLogger.info(opportunityDetailLightningPage.pendingApprovals.getText());
+			if(TestID.equals("7363")) {
+				slf4jLogger.info(opportunityDetailLightningPage.cpqStatus.getText());
+				Thread.sleep(5000);
+				slf4jLogger.info("Pending Approvals: " +opportunityDetailLightningPage.pendingApprovals.getText());
+				approvals = opportunityDetailLightningPage.pendingApprovals.getText();
+				Thread.sleep(4000);
+				if(approvals.contains("CAT Approval")) {
+					slf4jLogger.info("CAT Approval pending..!!");
+					Thread.sleep(4000);
+				}
+				if(approvals.contains("Profit Approval")) {
+					slf4jLogger.info("Profit Approval pending..!!");
+					Thread.sleep(4000);
+				}
+				if(approvals.contains("Pricing ICB")) {
+					slf4jLogger.info("Pricing ICB pending..!!");
+					Thread.sleep(4000);
+				}
+				Thread.sleep(5000);
+				try {
+					do {
+						opportunityDetailLightningPage.scenarioManagerLink.click();
+						Thread.sleep(8000);
+						WaitForPageToLoad(5000);
+					}
+					while(opportunityDetailLightningPage.scenarioManagerLink.isDisplayed());
+				}
+				catch(Exception e) {
+					WaitForPageToLoad(5000);
+					slf4jLogger.info("Catch block");
+					Thread.sleep(8000);
+				}
+				driver.switchTo().defaultContent();
+				slf4jLogger.info("Returning to SD Page..!!");
+				driver.switchTo().frame("quote-iframe");
+				slf4jLogger.info("Scenario Status:" +productSummaryPage.scenStatus.getText());
+				Thread.sleep(3000);
+			}
+			else if(TestID.equals("40278")) {
+				assertEquals("CPQ Status is not Valid for Scenario", "Valid", opportunityDetailLightningPage.cpqStatus.getText());
+			}
+		}
+		catch(Exception e) {
+			slf4jLogger.info("Test Fail...!!!" +e.getMessage());
+			Assert.fail(e.getMessage());
+		}
+	}
+	
+	@Step
+	public void moveToOppDetailPage(String TestID) {
+	try {
+		slf4jLogger.info("Moving from Opportunity Detail Page from Generated Document Page");
+		Thread.sleep(6000);
+		opportunityDetailLightningPage.moveToOppDetailPageLink.click();
+	}
+	catch(Exception e) {
+		slf4jLogger.info("Test Fail...!!!" +e.getMessage());
+		Assert.fail(e.getMessage());
+	}
+	}
+	
+	@Step
+	public void federalCheck() throws InterruptedException {
+		try {
+			WaitForPageToLoad(5000);
+			Thread.sleep(3000);
+			slf4jLogger.info("Inside Federal check method");
+				
+			WaitForPageToLoad(5000);
+			Thread.sleep(3000);
+			WebDriver driver = getDriver();
+	
+			WebDriverWait wait = new WebDriverWait(driver,30);
+			
+			wait.until(ExpectedConditions.textToBePresentInElement(opportunityDetailLightningPage.salesRegionTag, "Sales Region"));
+	
+			WaitForPageToLoad(5000);
+			Thread.sleep(3000);
+			
+			if(!(opportunityDetailLightningPage.salesRegionLabel.getText().equalsIgnoreCase("Federal"))){
+				slf4jLogger.info("Check complete- Sales Region Value is not Federal....");
+			}
+			else {
+				slf4jLogger.info("Sales Region Value is Federal....");
+			}
+			
+			}
+	
+			catch (Exception e) {
+				slf4jLogger.info(e.getMessage());
+			}
+		}
+	public void returnToOpportunityDetailPage() throws Exception{
+		try {
+			WebDriver driver = getDriver();
+			driver.switchTo().defaultContent();
+			productSummaryPage.backToOppertunity.click();
+			slf4jLogger.info("Back to Opportunity Page...");
+			WaitForPageToLoad(5000);
+			Thread.sleep(10000);
+		}
+		catch(Exception e) {
+			slf4jLogger.info("Test Fail...!!!" +e.getMessage());
+			Assert.fail(e.getMessage());
+		}
+	}
+	
+	public OpportunityDetailLightningPage clickOnMoveScenario(String TestID,String newOppName, String newScenarioName) throws Exception {
+		try {
+			WebDriver driver = getDriver();
+			JavascriptExecutor js = (JavascriptExecutor) driver;
+			Wait<WebDriver> wait = new WebDriverWait(driver, 10000);
+			
+			Thread.sleep(10000);
+			driver.switchTo().defaultContent();
+			driver.switchTo().frame(driver.findElement(By.cssSelector("iframe[title='OpportunityQuotes']")));
+			
+			Thread.sleep(1500);
+			
+			slf4jLogger.info(TestID + ":" + System.currentTimeMillis() + "Frame is switched to Opp Quotes");
+			js.executeScript("window.scrollBy(0,400)", "");
+			Thread.sleep(4000);
+			WaitForPageToLoad(5000);
+			slf4jLogger.info("Creating Scenario");
+			boolean isFramePresent = false;
+			salesforceHomeLightningPage.newSMQuoteBtn.click();
+			WaitForPageToLoad(10000);
+			waitABit(5000);
+			driver.switchTo().frame("quote-iframe");
+			salesforceHomeLightningPage.scenarioName.sendKeys(newScenarioName);
+            WaitForPageToLoad(5000);
+			
+            salesforceHomeLightningPage.currency.click();
+            WaitForPageToLoad(5000);
+			Thread.sleep(3000);
+			ExpectedConditions.visibilityOf(salesforceHomeLightningPage.currencyList);
+			int numCurrency = salesforceHomeLightningPage.scenarioCurrencyOptions.size();
+			for(int i=1;i<=numCurrency;i++) {
+				if(driver.findElement(By.xpath("/html/body/div[1]/div[4]/div/div/div/mat-option[" + i + "]/span")).getText().equalsIgnoreCase("US Dollars - USD")){
+					driver.findElement(By.xpath("/html/body/div[1]/div[4]/div/div/div/mat-option[" + i + "]")).click();
+				}
+			}
+	        WaitForPageToLoad(5000); 
+	        
+	        salesforceHomeLightningPage.saveButton.click();
+			WaitForPageToLoad(8000);
+			
+			slf4jLogger.info("Scenario created succesfully");
+			
+			driver.switchTo().defaultContent();
+			productSummaryPage.backToOppertunity.click();
+			slf4jLogger.info("Back to Opportunity Page...");
+			WaitForPageToLoad(5000);
+			Thread.sleep(10000);
+			
+			salesforceHomeLightningSteps.switchToQuotesTab();
+			WaitForPageToLoad(5000);
+			Thread.sleep(5000);
+			driver.switchTo().frame(driver.findElement(By.xpath("//iframe[@title='accessibility title']")));
+			List<WebElement> quotesTitle = driver.findElements(By.id("j_id0:j_id2:relatedQuotesId"));
+			quotesTitle.get(0).click();
+			/*driver.switchTo().defaultContent();
+			driver.switchTo().frame(driver.findElement(By.cssSelector("iframe[title='OpportunityQuotes']")));
+			*/
+			Thread.sleep(1500);
+			
+			slf4jLogger.info(TestID + ":" + System.currentTimeMillis() + "Frame is switched to Opp Quotes");
+			js.executeScript("window.scrollBy(0,400)", "");
+			Thread.sleep(4000);
+			
+			wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@id='quoteGrid']/div[4]/div[3]/div/div/div[1]/input")));
+			driver.findElement(By.xpath("//*[@id='quoteGrid']/div[4]/div[3]/div/div/div[1]/input")).click();; //selecting checkbox of SM quote needs to be moved to another opportunity
+			
+			wait.until(ExpectedConditions.elementToBeClickable(opportunityDetailLightningPage.moveSMQuote));
+			
+			slf4jLogger.info(TestID + ":" +  System.currentTimeMillis()  + "Element located");
+			
+			Thread.sleep(5000);
+			wait.until(ExpectedConditions.elementToBeClickable(opportunityDetailLightningPage.moveSMQuote));
+			opportunityDetailLightningPage.moveSMQuote.click();
+			slf4jLogger.info(TestID + ":" +  System.currentTimeMillis()  + "Clicked on Move Scenario Button");
+
+			Thread.sleep(40000);
+			js.executeScript("window.scrollBy(0,100)", "");
+			//span[text()='opp11marCopy']//preceding::input[@value='Select']
+			try {
+				
+				wait.until(ExpectedConditions.elementToBeClickable(driver.findElement(By.xpath(
+						"/html/body/form/span[1]/div[2]/div/div/div/div/div[2]/div/table/tbody/tr[1]/td[1]/input"))));
+				slf4jLogger.info(TestID + ":" +  System.currentTimeMillis()  + "Located select Button");
+				
+				driver.findElement(By.xpath(
+						"/html/body/form/span[1]/div[2]/div/div/div/div/div[2]/div/table/tbody/tr[1]/td[1]/input"))
+						.click();
+				Thread.sleep(5000);
+				driver.switchTo().alert().accept();
+			} catch (Exception e) {
+				
+				Actions builder = new Actions(driver);
+				builder.moveToElement(opportunityDetailLightningPage.moveSMQuote).click(opportunityDetailLightningPage.moveSMQuote);
+				builder.perform();
+				slf4jLogger.info(TestID + ":" +  System.currentTimeMillis()  + "Clicked on Move Scenario Button(2)");
+
+				
+				Thread.sleep(5000);
+				
+				wait.until(ExpectedConditions.elementToBeClickable(driver.findElement(By.id(
+						"j_id0:j_id2:j_id72:j_id101:0:j_id106"))));
+				slf4jLogger.info(TestID + ":" +  System.currentTimeMillis() + "Located select Button");
+				try {
+					driver.findElement(By.id(
+							"j_id0:j_id2:j_id72:j_id101:0:j_id106"))
+							.click();
+				} catch (Exception e1) {
+				}
+			}
+
+			Thread.sleep(3000);
+			//driver.switchTo().alert().accept();
+			Thread.sleep(3000);
+					
+			try {
+				try {
+					wait.until(ExpectedConditions.elementToBeClickable(
+							driver.findElement(By.xpath("//*[@id='j_id0:j_id2:j_id140:j_id167']"))));
+					slf4jLogger.info(TestID + ":" + System.currentTimeMillis() + "Located ok Button");
+					Thread.sleep(2000);
+					
+					wait.until(ExpectedConditions.elementToBeClickable(
+							driver.findElement(By.xpath("//*[@id='j_id0:j_id2:j_id140:j_id167']"))));
+					
+						driver.findElement(By.xpath("//*[@id='j_id0:j_id2:j_id140:j_id167']")).click();
+				}catch (Exception e) {
+					wait.until(ExpectedConditions.elementToBeClickable(
+							driver.findElement(By.xpath("//input[@id='j_id0:j_id1:j_id153:j_id180']"))));
+					slf4jLogger.info(TestID + ":" + System.currentTimeMillis() + "Located ok Button");
+					Thread.sleep(2000);
+					
+					wait.until(ExpectedConditions.elementToBeClickable(
+							driver.findElement(By.xpath("//input[@id='j_id0:j_id1:j_id153:j_id180']"))));
+					
+						driver.findElement(By.xpath("//input[@id='j_id0:j_id1:j_id153:j_id180']")).click();
+				}
+			} catch (Exception e) {
+				List<WebElement> okButtons = driver
+						.findElements(By.xpath("//input[@class='btn' and @value='OK']"));
+				okButtons.get(okButtons.size() - 1).click();
+			}
+			slf4jLogger.info(TestID + ":" +  System.currentTimeMillis()  + "Clicking on ok button success");
+			
+			Thread.sleep(1000);
+			
+			Thread.sleep(10000);
+			verifyMovedScenario(TestID,newOppName);
+		}catch (Exception e) {
+			Assert.fail(TestID + ": @" +  System.currentTimeMillis()  + "@"
+					+ "Error occured while clicking on move scenario");
+		}
+		return new OpportunityDetailLightningPage();
+	}
+	
+	@Step
+	public void verifyMovedScenario(String TestID,String newOppName) {
+		try {
+			WebDriver driver =getDriver();
+			JavascriptExecutor js = (JavascriptExecutor) driver;
+			driver.switchTo().defaultContent();
+			Wait<WebDriver> wait = new WebDriverWait(driver, 10000);
+			js.executeScript("window.scrollBy(0,-350)", "");
+			opportunityDetailLightningPage.opportunityTab.click();
+			wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//a[text()='"+newOppName+"']")));
+			driver.findElement(By.xpath("//a[text()='"+newOppName+"']")).click();
+			WaitForPageToLoad(10000);
+			salesforceHomeLightningSteps.switchToQuotesTab();
+			WaitForPageToLoad(5000);
+			Thread.sleep(5000);
+			driver.switchTo().frame(driver.findElement(By.xpath("//iframe[@title='accessibility title']")));
+			List<WebElement> quotesTitle = driver.findElements(By.id("j_id0:j_id2:relatedQuotesId"));
+			quotesTitle.get(0).click();
+		//	driver.switchTo().frame(driver.findElement(By.cssSelector("iframe[title='OpportunityQuotes']")));
+			slf4jLogger.info("Inside frame");
+			WaitForPageToLoad(5000);
+			if(TestID.equals("40278")){
+				slf4jLogger.info("Pending Approvals: " +opportunityDetailLightningPage.pendingApprovals.getText());
+				String approvals = opportunityDetailLightningPage.pendingApprovals.getText();
+				Thread.sleep(4000);
+				if(!approvals.contains("Profit Approval") || !approvals.contains("Pricing ICB")) {
+					Assert.fail("Moved SM quote details doesn't match");
+				}
+			}
+			
+		}catch (Exception e) {
+			Assert.fail(TestID + ": @" +  System.currentTimeMillis()  + "@"
+					+ "Error occured while verifying moved scenario");
+		}
+	}
+	
+	public void verifyCMMCValidationAttributesInSFDCPage(String string, String oppAccname, String oppName) {
+		slf4jLogger.info("verify CMMC Validation Attributes In SFDC Page");
+		WebDriver driver = getDriver();
+		Wait<WebDriver> wait = new WebDriverWait(driver, 1000);
+	//	wait.until(ExpectedConditions.elementToBeClickable());
+		WaitForPageToLoad(5000);
+		try {
+			switch(SalesforceLoginSteps.federalUserType) {
+			case "Authorized" :
+			{
+				assertTrue("Opportunity Account Name is not in plain text", opportunityDetailLightningPage.opportunityAccountNameText.getText().equals(oppAccname));
+				assertTrue("Opportunity Name is not in plain text", opportunityDetailLightningPage.opportunityNameText.getText().equals(oppName));
+			}
+			case "UnAuthorized":
+			{
+				assertFalse("Opportunity Account Name is not in encrypted format", opportunityDetailLightningPage.opportunityAccountNameText.getText().equals(oppAccname));
+				assertFalse("Opportunity Name is not in encrypted format", opportunityDetailLightningPage.opportunityNameText.getText().equals(oppName));
+			}
+		}
+		}catch (Exception e) {
+			slf4jLogger.info("verification of CMMC Validation Attributes In SFDC Page Failed...");
+			Assert.fail(e.getMessage());
+		}
+		slf4jLogger.info("verification of CMMC Validation Attributes In SFDC Page Passed...");
+		
+		
+	}
+
+}

@@ -1,0 +1,12 @@
+package com.ctl.it.qa.bpms.steps;
+
+import com.ctl.it.qa.bpms.pages.ImportPage;
+import com.ctl.it.qa.staf.Steps;
+
+@SuppressWarnings("serial")
+public class ImportSteps extends Steps {
+	transient ImportPage ImportPage;
+	
+	
+	
+}

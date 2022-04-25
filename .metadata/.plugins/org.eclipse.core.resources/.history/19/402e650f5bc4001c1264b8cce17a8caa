@@ -1,0 +1,583 @@
+package com.ctl.it.qa.bpms.pages;
+
+import java.util.List;
+
+import org.openqa.selenium.WebElement;
+
+import com.ctl.it.qa.staf.Page;
+
+import net.serenitybdd.core.annotations.findby.FindBy;
+import net.serenitybdd.core.pages.WebElementFacade;
+
+public class ScenarioDetailPage extends Page {
+	
+	public static final String NRC = null;
+
+	public static final String MRC = null;
+
+	
+	@FindBy(xpath = ".//*[@id='package-summary-grid']/div[2]/table/tbody/tr[1]/td[10]/span")
+	public WebElementFacade approvaluni1;
+	
+	@FindBy(xpath = ".//*[@id='package-summary-grid']/div[2]/table/tbody/tr[2]/td[10]/span")
+	public WebElementFacade approvaluni2;
+	
+	@FindBy(xpath = ".//*[@id='package-summary-grid']/div[2]/table/tbody/tr[3]/td[10]/span[3]")
+	public WebElementFacade approvalcolo1;
+	
+	@FindBy(xpath = ".//*[@id='package-summary-grid']/div[2]/table/tbody/tr[4]/td[10]/span[3]")
+	public WebElementFacade approvalcolo2;
+	
+	@FindBy(xpath = ".//*[@id='package-summary-grid']/div[2]/table/tbody/tr[5]/td[10]/span[3]")
+	public WebElementFacade approvalcolo3;
+	
+	@FindBy(xpath = ".//*[@id='package-summary-grid']/div[2]/table/tbody/tr[6]/td[10]/span")
+	public WebElementFacade approvaldia1;
+	
+	@FindBy(xpath = ".//*[@id='package-summary-grid']/div[2]/table/tbody/tr[7]/td[10]/span")
+	public WebElementFacade approvaldia2;
+	
+	@FindBy(xpath = ".//*[@id='package-summary-grid']/div[2]/table/tbody/tr[8]/td[10]/span")
+	public WebElementFacade approvaldia3;
+	
+	@FindBy(xpath = ".//*[@id='package-summary-grid']/div[2]/table/tbody/tr[9]/td[10]/span")
+	public WebElementFacade approvaldia4;
+	
+	@FindBy(xpath = ".//*[@id='scenario-header']/tbody/tr[5]/td[4]")
+	public WebElementFacade currency;
+	
+	@FindBy(xpath = ".//*[@id='package-summary-grid']/div[2]/table/tbody/tr[4]/td[9]/span/span")
+	public WebElementFacade package4status;
+	
+	@FindBy(xpath = "./html/body/div[22]/div/div[1]/table/tbody/tr/td[3]")
+	public WebElementFacade errormessage;
+	
+	@FindBy(xpath = ".//*[@id='package-summary-grid']/div[2]/table/tbody/tr[1]/td[9]/span/span")
+	public WebElementFacade package1status;
+	
+	@FindBy(xpath = "./html/body/div[15]/div[2]/div/div[1]/div/span/span/input")
+	public WebElementFacade addServiceLocationText2;
+	
+	@FindBy(xpath = "./html/body/div/div[3]/table/tbody/tr/td[2]/div[4]/div[2]/div[3]/table/tbody/tr[2]/td[2]/div/a")
+	public WebElementFacade quotenamelink;
+	
+	@FindBy(xpath = ".//*[@id='quoteGrid']/div[4]/div[3]/div/div/div[4]/a")
+	public WebElementFacade summaryoffer;
+	
+	@FindBy(xpath = ".//*[@id='LocationSearchGrid']/div[2]/table/tbody/tr[1]/td[3]/a")
+	public WebElementFacade siteaddressfirstrow;
+	
+	@FindBy(xpath = "//*[@id=\"package-summary-grid\"]/div[2]/table/tbody/tr/td[3]/div")
+	public WebElementFacade CTLIndicator;
+	
+	@FindBy(xpath = ".//*[@id=\"package-summary-grid\"]/div[2]/table/tbody/tr/td[3]/i")
+	public WebElementFacade OffNetIndicator;
+	
+	@FindBy(xpath = "/html/body/div[22]/div/div[1]")
+	public WebElementFacade CTLIndicator_toolTip;
+	
+	@FindBy(xpath = "/html/body/div[22]/div/div[1]")
+	public WebElementFacade offnetIndicator_toolTip;
+	
+	@FindBy(xpath = ".//*[@id='ProductPackageWizardView']/div[1]/div[5]/div[2]/div[4]/button")
+	public WebElementFacade locatisaveproduct;
+	
+	@FindBy(xpath = ".//*[@id='locations-grid']/div[2]/table/tbody/tr/td[4]/div/img")
+	public WebElementFacade locationflrm;
+	
+	@FindBy(id = "glmCodeInput_value")
+	public WebElement glm_input;
+	
+	
+	@FindBy(xpath = ".//*[@id='LocationSearchGrid']/div[3]/span[2]")
+	public WebElementFacade no_addrssselected;
+	
+	
+	@FindBy(xpath = ".//*[@id='locationSearchContainer']/form/div[2]/div/div/div[2]")
+	public WebElementFacade postalcodesearch_Others;
+	
+	@FindBy(xpath = ".//*[@id='locationSearchContainer']/form/div[2]/div/div/div[3]")
+	public WebElementFacade GLMsearch_Others;
+	
+	@FindBy(xpath = ".//*[@id='scenario-packages-header']/table/tbody/tr/td[2]/table/tbody/tr/td[6]/button")
+	public WebElementFacade export;
+	
+	@FindBy(xpath = ".//*[@id='scenario-packages-body']/div/table/tbody/tr/td[4]/div/button")
+	public WebElementFacade repricebutton;
+	
+	@FindBy(xpath = ".//*[@id='scenario-header']/tbody/tr[5]/td[6]")
+	public WebElementFacade lastModified;
+	
+	@FindBy(xpath = ".//*[@id='scenario-header']/tbody/tr[1]/td[2]")
+	public WebElementFacade accountName;
+	
+	@FindBy(xpath = ".//*[@id='scenario-header']/tbody/tr[1]/td[6]")
+	public WebElementFacade opportunityName;
+	
+	@FindBy(xpath = ".//*[@id='scenario-header']/tbody/tr[3]/td[6]")
+	public WebElementFacade opportunityOwner;
+
+	@FindBy(xpath = ".//*[@id='scenario-header']/tbody/tr[3]/td[2]")
+	public WebElementFacade scenarioID;
+	
+	@FindBy(xpath = ".//*[@id='scenario-header']/tbody/tr[2]/td[2]")
+	public WebElementFacade scenarioName;
+	
+	
+	@FindBy(xpath = ".//*[@id='package-summary-grid']/div[2]/table/tbody/tr[3]/td[17]")
+	public WebElementFacade relatedpackageidevc;
+	
+	@FindBy(xpath = ".//*[@id='package-summary-grid']/div[2]/table/tbody/tr[2]/td[17]/div/span")
+	public WebElementFacade relatedpackageiduni2;
+	
+	@FindBy(xpath = ".//*[@id='package-summary-grid']/div[2]/table/tbody/tr[1]/td[17]/div/span")
+	public WebElementFacade relatedpackageiduni1;
+	
+	@FindBy(xpath = ".//*[@id='package-summary-grid']/div[2]/table/tbody/tr[3]/td[16]/div")
+	public WebElementFacade packageidevc;
+	
+	@FindBy(xpath = ".//*[@id='package-summary-grid']/div[2]/table/tbody/tr[2]/td[16]/div")
+	public WebElementFacade packageiduni2;
+	
+	@FindBy(xpath = ".//*[@id='package-summary-grid']/div[2]/table/tbody/tr[1]/td[16]/div")
+	public WebElementFacade packageiduni1;
+	
+	@FindBy(id = "searchButton")
+	public WebElement search;
+	
+	@FindBy(xpath = ".//*[@id='package-summary-grid']/div[2]/table/tbody/tr/td[10]")
+	public WebElementFacade approvals;
+	
+	@FindBy(xpath = ".//*[@id='locationSearchContainer']/form/div[2]/div/div/div[1]")
+	public WebElementFacade addressSearch;
+	
+	@FindBy(id = "postalCodeInput_value")
+	public WebElement postalCodeInput;
+
+	@FindBy(xpath=".//*[@class='pageDescription']")
+	public WebElement scenarioDetailPageName;
+	
+	@FindBy(xpath = ".//*[@id='package-summary-grid']/div[2]/table/tbody/tr[1]/td[10]/span[1]")
+	public WebElementFacade firstpackagepricingapprovalstatus;
+	
+	@FindBy(xpath = ".//*[@id='package-summary-grid']/div[2]/table/tbody/tr[1]/td[10]/span")
+	public WebElementFacade pricingapprovalstatus;
+	
+	@FindBy(xpath = ".//*[@id='package-summary-grid']/div[2]/table/tbody/tr[1]/td[10]/span[2]")
+	public WebElementFacade firstpackagepricingicbstatus;
+	
+	@FindBy(xpath = "./html/body/div[7]/div[2]/div[1]/div[2]/table/tbody/tr[4]/td[1]/div/input")
+	public WebElementFacade lastCheckBox;
+	
+	@FindBy(xpath = "./html/body/div[7]/div[2]/div/div[1]/div[2]/table/tbody/tr[1]/td[1]/div/input")
+	public WebElementFacade firstcheckbox;
+	
+	@FindBy(xpath = ".//*[@id='package-summary-grid']/div[2]/table/tbody/tr/td[4]/a")
+	public WebElementFacade packagename;
+	
+	@FindBy(xpath = ".//*[@id='ProductGrid-summary-grid']/div[2]/table/tbody/tr[1]/td[1]/div/div[1]/span[2]/a")
+	public WebElementFacade parentProduct;
+	
+	@FindBy(xpath = ".//*[@class='discounting-button']")
+	public WebElementFacade discountingbutton;
+	
+	@FindBy(xpath = ".//button[text()='Update Current Access Points']")
+	public WebElementFacade updateCurrentAccessPointButton;
+	
+	@FindBy(id = "update-access-points")
+	public WebElementFacade updatedrole;
+	
+	@FindBy(id = "DebugArrowRt")
+	public WebElementFacade debugarrow;
+	
+	@FindBy(xpath = ".//*[@id='DebugArrowRt']/div")
+	public WebElementFacade debug;
+	
+	@FindBy(xpath = "/html/body/app-root/app-product-summary/div/app-quote-products/div[2]/div/table/thead/tr[3]/th")
+	public WebElementFacade header1;
+	
+	@FindBy(xpath = "/html/body/app-root/app-product-summary/div/app-quote-action/div[2]/div")
+	public WebElementFacade header2;
+	
+	@FindBy(xpath = "./html/body/div[7]/div[2]/div/div[1]/div[3]/span[2]")
+	public WebElementFacade TotalCount;//not yet developed
+	
+	@FindBy(xpath = "/html/body/app-root/app-product-summary/div/app-quote-products/div[2]/div/table/tbody/tr[1]/td[4]")
+	public WebElementFacade Address1;
+	
+	@FindBy(xpath = "/html/body/app-root/app-product-summary/div/app-quote-products/div[2]/div/table/tbody/tr[1]/td[4]/span")
+	public WebElementFacade Address2;
+	
+	@FindBy(xpath = ".//*[@id='package-summary-grid']/div[3]/a[3]/span")
+	public WebElementFacade arrow;//not yet developed
+	
+	@FindBy(xpath = "./html/body/div[4]/div[2]/div[3]/div[2]/div[2]/div/table/tbody/tr[1]/td[2]/div/span/span/span[1]")
+	public WebElementFacade packagetypearrow;
+
+	@FindBy(xpath = "/html/body/app-root/app-product-summary/div/app-quote-detail/div/table[3]/tr[2]/td[2]")
+	public WebElementFacade scenarioStatus;
+
+	@FindBy(xpath = "//button/span[text()=' Add New Product ']")
+	public WebElementFacade createNewProductPakage;
+
+	@FindBy(xpath = "//*[@id='LocationSearchGrid']//div[2]/table/tbody/tr[1]/td[4]/div/img")
+	public WebElementFacade ButtontoaddServiceLocationButtonEnable;
+	
+	@FindBy(xpath = "//html/body/div[13]/div[2]/div/div[1]/div/span/span/input")
+	public WebElementFacade addServiceLocationText1;
+	
+	@FindBy(xpath = "//*[@id='selectAllCheckBox']")
+	public WebElementFacade selectAllCheckBox;
+	
+	@FindBy(xpath = "//*[@id='LocationSearchGrid']/div[1]")
+	public WebElementFacade loadingSpinner;
+	
+	@FindBy(id = "countrySelect")
+	public WebElementFacade country;
+	
+	@FindBy(id = "siteAddressInput_value")
+	public WebElementFacade SiteAddressInput;
+	
+	@FindBy(id = "resetButton")
+	public WebElementFacade resetButton;
+
+	@FindBy(xpath = "/html/body/app-root/app-product-summary/div/app-quote-products/div[3]/div/table/tbody/tr[1]/td[3]/span[2]")
+	public WebElementFacade prodPackageName;
+	
+	@FindBy(xpath = "/html/body/app-root/app-product-summary/div/app-quote-products/div[2]/div/table/tbody/tr[1]/td[12]")
+	public WebElementFacade prodPackageId;
+	
+	@FindBy(xpath = "/html/body/app-root/app-product-summary/div/app-quote-action/div[2]/div/button[1]")
+	public WebElementFacade editScenario;
+	
+	@FindBy(xpath = ".//*[@id='ProductPackageWizardView']/div[1]/div[5]/div[2]/div[3]/button")
+	public WebElementFacade nextBtn;
+	
+	@FindBy(xpath = ".//*[@id='locationSearchContainer']/form/div[2]/div/div/div[2]")
+	public WebElementFacade gLmSearchBtn;
+	
+	@FindBy(xpath = ".//*[@id='siteAddressInput_value']")
+	public WebElementFacade gLmAdressText;
+	
+	@FindBy(xpath = "//*[@id='siteAddressInput_dropdown']/div[3]/div")
+	public WebElementFacade gLmAdressDropdown;
+	
+	@FindBy(xpath="/html/body/app-root/app-product-summary/div/app-quote-products/div[2]/div/table/thead/tr[1]/th[1]/mat-checkbox/label/div")
+	public WebElementFacade allCheckbox;
+	
+	@FindBy(xpath = "/html/body/app-root/app-product-summary/div/app-quote-products/div[2]/div/table/thead/tr[3]/th/span[5]/mat-slide-toggle/label/div/input")
+	public WebElementFacade selectAllCheckBoxPreDeploy;
+	
+	@FindBy(xpath = ".//*[@id='locationSearchContainer']")
+	public WebElementFacade gLmAdress;
+	
+	@FindBy(xpath = "/html/body/app-root/app-product-summary/div/app-quote-action/div[2]/div/button[2]")
+	public WebElementFacade manageLocations;
+
+	@FindBy(xpath = "/html/body/app-root/app-product-summary/div/app-quote-products/div[2]/div/table/thead/tr[3]/th/span[1]/button")
+	public WebElementFacade deleteButton;
+
+	@FindBy(xpath = "/html/body/app-root/app-product-summary/div/app-quote-products/div[1]/div[2]/div[1]/mat-icon")
+	public WebElementFacade refreshButton;
+
+	@FindBy(xpath="/html/body/app-root/app-product-summary/div/app-quote-action/div[2]/div/button[6]")
+	public WebElementFacade exportButton;
+	
+	@FindBy(xpath = "//*[@id='profit-toolbar-right']/button[2]")
+	public WebElementFacade populatePricingBtn;
+
+	@FindBy(xpath = "//*[@id='profit-toolbar-right']/button[1]")
+	public WebElementFacade refreshPricingBtn;
+
+	@FindBy(xpath = "//*[@id='profit-toolbar-right']/button[4]")
+	public WebElementFacade pricingSavebutton;
+	
+//	@FindBy(xpath = "//*[@id='divPreDeployWarningMessageWindow']/div")
+//	public WebElementFacade predeployAlertPopUp;
+	
+	@FindBy(xpath = "/html/body/app-root/app-product-summary/div/app-quote-products/div[2]/div/table/thead/tr[1]/th[12]/div/div[1]")
+	public WebElementFacade packageIDSort;
+	
+//	@FindBy(id = "preDeployWarningMessageYesButton")
+//	public List<WebElementFacade> preDeployWarningMessageYesButton;
+	
+	@FindBy(xpath = "/html/body/app-root/app-product-summary/div/app-quote-products/div[2]/div/table/tbody/tr/td[2]/app-popup-menu/div/div[2]/div/span[4]/mat-slide-toggle/label/div/input")
+	public WebElementFacade preDeployCheckbox;
+	
+	@FindBy(xpath = "//*[@id='profit-toolbar-right']/button[5]")
+	public WebElementFacade cancelChangesbutton;
+	
+	@FindBy(id = "scenarioDetailHomeLink")
+	public WebElementFacade returnToScenarioDetailbutton;
+	
+	@FindBy(xpath="/html/body/app-root/app-product-summary/div/app-quote-action/div[2]/div/button[3]")
+	public WebElementFacade vendorBidManagementButton;
+	
+	@FindBy(xpath="//*[@class='mat-row ng-star-inserted']")
+	public List<WebElementFacade> products;
+	
+	@FindBy(xpath="/html/body/app-root/app-product-summary/div/app-quote-products/div[2]/div/table/tbody/tr[1]/td[2]/app-quote-product-menu/div/button")
+	public WebElementFacade menuBtn;
+	
+	@FindBy(xpath="/html/body/app-root/app-product-summary/div/app-quote-products/div[2]/div/table/tbody/tr[1]/td[2]/app-quote-product-menu/div/div[2]/div/span[1]/i")
+	public WebElementFacade EditButton;
+	
+	@FindBy(xpath="/html/body/app-root/app-product-summary/div/app-quote-products/div[2]/div/table/tbody/tr/td[2]/app-popup-menu/div/div[2]/div/span[3]")
+	public WebElementFacade copyToNewLocation;
+	
+	@FindBy(xpath="//*[@id=\"LocationSearchGrid\"]/div[2]/table/tbody/tr")
+	public WebElementFacade LocationGrid;
+	
+	@FindBy(xpath="/html/body/app-root/app-product-summary/div/app-quote-products/div[2]/div/table/tbody/tr/td[2]/app-popup-menu/div/div[2]/div/span[2]")
+	public WebElementFacade copyToCurrentLocation;
+		
+	@FindBy(xpath="/html/body/div[2]/div[2]/div/mat-dialog-container/app-copy-current-location/mat-dialog-content/div/mat-form-field/div/div[1]/div[3]/input")
+	public WebElementFacade noOfCopiesInput;
+		
+	@FindBy(xpath="/html/body/div[23]/div[2]/div[6]/div/button[2]")
+	public WebElementFacade continueBtn;
+		
+	@FindBy(xpath="//*[@id='select-option']/option")
+	public List <WebElementFacade> selectDropDwn;
+		
+	@FindBy(xpath="//*[@id=\"package-summary-grid\"]/div[3]/span[1]")
+	public WebElementFacade selectedPackageCount;//not yet developed
+		
+//	@FindBy(xpath="/html/body/div[7]/div[2]/div/div[1]/div[1]/div/table/thead/tr/th[4]/a[1]/span")
+//	public WebElementFacade prdPackageOpt;
+		
+	@FindBy(xpath="/html/body/div[22]/div/ul/li[6]/span")
+	public WebElementFacade prdFilterOpt;
+		
+	@FindBy(xpath="/html/body/div[22]/div/ul/li[6]/div/ul/li/div/form/ul/li[2]/label/input")
+	public WebElementFacade filterPrd1;
+		
+	@FindBy(xpath="/html/body/div[22]/div/ul/li[6]/div/ul/li/div/form/button[1]")
+	public WebElementFacade filterBtn;
+		
+	@FindBy(xpath="/html/body/div[22]/div/ul/li[6]/div/ul/li/div/form/button[2]")
+	public WebElementFacade clearFilterBtn;
+		
+	@FindBy(xpath="//*[@id=\"package-summary-grid\"]/div[3]/span[2]")
+	public WebElementFacade packageCountTxt;
+	
+	@FindBy(xpath="//*[@id='ScenarioForm']/div/div[2]/table/tbody/tr[2]/td[2]/div[1]/img")
+	public WebElementFacade sdgStatusIcon;
+	
+	@FindBy(xpath="//*[@id='CancelButton']")
+	public WebElementFacade cancelButton;
+	
+	@FindBy(xpath="//*[@id='SaveButton']")
+	public WebElementFacade saveButton;
+	
+	@FindBy(xpath="//*[@id='ScenarioForm']/div/div[2]/table/tbody/tr[2]/td[2]/div[2]/span[1]/span")
+	public WebElementFacade currencyDropDown;
+	
+	@FindBy(xpath="//*[@id='scenario-header']/tbody/tr[1]/td[4]/span")
+	public WebElementFacade TotalMRC;
+	
+	@FindBy(xpath = "//*[@id=\"scenario-header\"]/tbody/tr[5]/td[2]")
+	public WebElementFacade PkgStatus;
+	
+	@FindBy(xpath = "//*[@id='scenario-header']/tbody/tr[3]/td[4]/span")
+	public WebElementFacade TotalNRC;
+	
+	@FindBy(xpath = "//*[@id='package-summary-grid']/div[2]/table/tbody/tr/td[10]")
+	public WebElementFacade approval_Status;
+	
+	@FindBy(xpath = "//*[@id='package-summary-grid']/div[2]/table/tbody/tr/td[2]/span/i")
+	public WebElementFacade Edit;
+	
+	@FindBy(xpath = "//*[@class='fa fa-pencil']")
+	public WebElementFacade Edit2;
+	
+	@FindBy(xpath = "//*[@class='fa fa-archive']")
+	public WebElementFacade Edit3;
+	
+	@FindBy(xpath = "//*[@id=\"ImportPackageId\"]")
+	public WebElementFacade importPackageId;
+	
+	@FindBy(xpath = "//*[@id=\"import-menu\"]/li/span")
+	public WebElementFacade importMenu;
+	
+	@FindBy(xpath = "//*[@id=\"import-menu\"]/li/div/ul/li[1]/span")
+	public WebElementFacade importPackageToModifyOption;
+	
+	@FindBy(xpath = "//*[@id=\"import-menu\"]/li/div/ul/li[2]/span")
+	public WebElementFacade importPackageForRenewalOption;
+	
+	@FindBy(xpath = "//*[@id=\"import-menu\"]/li/div/ul/li[3]/span")
+	public WebElementFacade importPackageForExternalquote;
+
+	@FindBy(xpath = "//*[@id='scenario-packages-body']/div/table/tbody/tr/td[3]/button")
+	public WebElementFacade ValidateButton;
+	
+	@FindBy(xpath = "//*[@id='package-summary-grid']/div[2]/table/tbody/tr[1]/td[9]/span")
+	public WebElementFacade PkgStatusName;
+	
+	@FindBy(xpath = "//*[@id='package-summary-grid']/div[2]/table/tbody/tr/td[10]/span[2]")
+	public WebElementFacade PkgStatus_VB;
+	
+	@FindBy(xpath = ".//*[@id='package-summary-grid']/div[2]/table/tbody/tr/td[5]/a")
+	public WebElementFacade Address1firstrow;
+	
+	@FindBy(xpath = ".//*[@id='package-summary-grid']/div[2]/table/tbody/tr/td[7]/a")
+	public WebElementFacade Address2firstrow;
+	
+	@FindBy(xpath = ".//*[@id='package-summary-grid']/div[2]/table/tbody/tr[1]/td[16]/div")
+	public WebElementFacade packageidfirstrow;
+	
+	@FindBy(xpath = ".//*[@id='package-summary-grid']/div[2]/table/tbody/tr[4]/td[7]/a")
+	public WebElementFacade evc2address2;
+	
+	@FindBy(xpath = ".//*[@id='package-summary-grid']/div[2]/table/tbody/tr[3]/td[7]/a")
+	public WebElementFacade evc1address2;
+	
+	@FindBy(xpath = ".//*[@id='package-summary-grid']/div[2]/table/tbody/tr[4]/td[5]/a")
+	public WebElementFacade evc2address1;
+	
+	@FindBy(xpath = ".//*[@id='package-summary-grid']/div[2]/table/tbody/tr[3]/td[5]/a")
+	public WebElementFacade evc1address1;
+	
+	
+	@FindBy(xpath = ".//*[@id='package-summary-grid']/div[2]/table/tbody/tr[3]/td[17]")
+	public WebElementFacade relatedpackageidsevc1;
+	
+	@FindBy(xpath = ".//*[@id='package-summary-grid']/div[2]/table/tbody/tr[4]/td[17]")
+	public WebElementFacade relatedpackageidsevc2;
+	
+	@FindBy(xpath = "//*[@id='scenario-header']/tbody/tr[4]/td[2]")
+	public WebElement description;
+	
+	@FindBy(id = "scenario-status")
+	public WebElement scenStatus;
+	
+	@FindBy(xpath = "//*[@id='scenario-header']/tbody/tr[1]/td[4]")
+	public WebElement totalMRC_nospan;
+	
+	@FindBy(xpath = "//*[@id='scenario-header']/tbody/tr[2]/td[4]")
+	public WebElement netMRC;
+	
+	@FindBy(xpath = "//*[@id='scenario-header']/tbody/tr[3]/td[4]")
+	public WebElement totalNRC_nospan;
+	
+	@FindBy(xpath = "//*[@id='scenario-header']/tbody/tr[4]/td[4]")
+	public WebElement unitCostID;
+	
+	@FindBy(xpath = "//*[@id='scenario-header']/tbody/tr[5]/td[4]")
+	public WebElement curncy;
+	
+	@FindBy(xpath = "//*[@id='scenario-header']/tbody/tr[1]/td[6]")
+	public WebElement opptName;
+	
+	@FindBy(xpath = "//*[@id='scenario-header']/tbody/tr[2]/td[6]")
+	public WebElement opptID;
+	
+	@FindBy(id = "ScenarioExpirationDate")
+	public WebElement expirationDate;
+	
+	@FindBy(xpath = "//*[@id='scenario-header']/tbody/tr[1]/td[1]")
+	public WebElement accNameLabel;
+	
+	@FindBy(xpath = "//*[@id='package-summary-grid']/div[2]/table/tbody/tr/td[5]/a")
+	public WebElement Address_A;
+	
+	@FindBy(xpath = "//*[@id='package-summary-grid']/div[2]/table/tbody/tr/td[7]/a")
+	public WebElement Address_Z;
+	
+	@FindBy(xpath = ".//*[@aria-owns='ScenarioCurrency_listbox']")
+	public WebElement edit_scen_currency;
+	
+	@FindBy(xpath = "//*[@data-field='TermString']/a[2]")
+	public WebElement term_Label_Column;
+	
+	@FindBy(xpath = "//*[@id='package-summary-grid']/div[2]/table/tbody/tr/td[14]")
+	public WebElement term_Value_Column;
+	
+	@FindBy(xpath = "/html/body/div[7]/div[2]/div/div[1]/div[2]/table/tbody/tr/td[1]/div/input")
+	public WebElement firstpackage_Checkbox;
+	
+	@FindBy(xpath = "//*[@id='scenario-packages-body']/div/table/tbody/tr/td[6]/span")
+	public WebElement term_Button;
+	
+	@FindBy(xpath="/html/body/div[7]/div[2]/div/div[1]/div[2]/table/tbody/tr/td[4]/a")
+	public WebElement firstpackage;
+	
+	@FindBy(xpath="/html/body/div[7]/div[1]/table/tbody/tr/td[2]/table/tbody/tr/td[3]/button")
+	public WebElementFacade vendorBidManagementBtn;
+	
+	@FindBy(xpath="/html/body/div[7]/div[2]/div/div[1]/div[2]/table/tbody/tr/td[5]/a")
+	public WebElementFacade addressColumnA;
+	
+	@FindBy(xpath="/html/body/div[7]/div[2]/div/div[1]/div[2]/table/tbody/tr/td[7]/a")
+	public WebElementFacade addressColumnZ;
+	
+	@FindBy(xpath="/html/body/div[7]/div[2]/div/div[1]/div[2]/table/tbody/tr/td[9]/span")
+	public WebElementFacade statusColumn;
+	
+	@FindBy(xpath="/html/body/div[7]/div[2]/div/div[1]/div[2]/table/tbody/tr/td[10]/span")
+	public WebElementFacade approvalsColumn;
+	
+	@FindBy(xpath="/html/body/div[7]/div[2]/div/div[1]/div[2]/table/tbody/tr/td[11]/span")
+	public WebElementFacade totalMRCColumn;
+	
+	@FindBy(xpath="/html/body/div[7]/div[2]/div/div[1]/div[2]/table/tbody/tr/td[12]/span")
+	public WebElementFacade totalNRCColumn;
+	
+	@FindBy(xpath="/html/body/div[7]/div[2]/div/div[1]/div[2]/table/tbody/tr/td[14]/span")
+	public WebElementFacade termColumn;
+	
+	@FindBy(xpath="/html/body/div[7]/div[2]/div/div[1]/div[2]/table/tbody/tr/td[15]/span")
+	public WebElementFacade expiration;
+	
+	@FindBy(xpath="/html/body/div[7]/div[2]/div/div[1]/div[2]/table/tbody/tr/td[16]/div")
+	public WebElementFacade packageID;
+	
+	@FindBy(xpath="/html/body/div[7]/div[2]/div/div[1]/div[2]/table/tbody/tr/td[18]/div/span")
+	public WebElementFacade packageType;
+	
+	@FindBy(xpath="/html/body/div[7]/div[2]/div/div[1]/div[2]/table/tbody/tr/td[17]")
+	public WebElementFacade relatedPackageID;
+	
+	@FindBy(xpath="/html/body/div[7]/div[2]/div/div[1]/div[2]/table/tbody/tr/td[19]/span")
+	public WebElementFacade source;
+	
+	@FindBy(xpath="/html/body/div[7]/div[2]/div/div[1]/div[2]/table/tbody/tr/td[22]")
+	public WebElementFacade modifiedDateColumn;
+	
+	public final String CheckBoxOption1 ="All items on the page";
+	public final String CheckBoxOption2 ="All items on the scenario";
+ 	
+	public List<String> pkgIDs;
+	public List<String> relatedPkgIDs;
+	public List<String> preDeployCheckBoxes;
+	
+	@FindBy(partialLinkText = "Back")
+	public WebElement backToOppertunity;
+	
+	public final String CCM_Contact = "Subash Niroula";
+	public final String SEContact = "Adam Kimbler";
+	public final String NAEContact = "Adam Kimbler";
+	public final String VAEContact = "Amy Vieth";
+	public final String HaulApplicability = "No";
+	public final String MSAPricingApplicability = "No";
+	public final String SubmitToSwiftApplicability = "Yes";
+	public final String preDeploydocName = "PreDeploy_SOF";
+	public final String preDeploydocTerm = "Service Order Form";
+	public final String ContacttoAddinSMDetail = "Kim Alberti";
+	public final String capExDirectCost = "100";
+	public final String capExDirectCostReason = "Updating CapEx Direct";
+	public final String adjustedMRCReason = "To change the Adjusted MRC on this product, you must modify the CDR Rate";
+	public final String successMessage = "Success...!!!";
+	public final String failureMessage = "Failure...!!!";
+	public int count = 0;
+	public String first = null;
+	public String second = null;
+	
+	@Override
+	public WebElementFacade getUniqueElementInPage() {
+		
+		return exportButton;
+	}
+
+}

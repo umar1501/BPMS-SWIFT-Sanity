@@ -1,0 +1,111 @@
+package com.ctl.it.qa.bpms.pages;
+
+import java.util.List;
+import com.ctl.it.qa.staf.Page;
+
+import net.serenitybdd.core.annotations.findby.FindBy;
+import net.serenitybdd.core.pages.WebElementFacade;
+
+public class ROCDetailsPage extends Page {
+	
+	@FindBy(className = "btn btn-success createBtn")
+	public WebElementFacade createNewBidButton;
+
+	@FindBy(id = "vendorId")
+	public List<WebElementFacade> vendorNameDropdown;
+
+	@FindBy(xpath = "//*[@id='selected-currency']/option")
+	public List<WebElementFacade> currencyDropdown;
+
+	@FindBy(id = "interconnect")
+	public List<WebElementFacade> txtVendorInterconnectPoint;
+
+	@FindBy(id = "vendorClassOfService")
+	public WebElementFacade txtClassOfService;
+
+	@FindBy(id = "vendorProductName")
+	public List<WebElementFacade> txtVendorProductName;
+
+	@FindBy(xpath = "//*[@name='bidAddForm']/div[2]/div[1]/i")
+	public WebElementFacade cbBidIsBudgetary;
+
+	@FindBy(xpath = "//*[@name='bidAddForm']/div[2]/div[2]/i")
+	public WebElementFacade cbIsNearnet;
+
+	@FindBy(id = "txtPOPRecurring12")
+	public WebElementFacade currencyTextbox1;
+
+	@FindBy(id = "txtPOP1Time12")
+	public WebElementFacade currencyTextbox2;
+
+	@FindBy(id = "txtLocalLoopRecurring12")
+	public WebElementFacade currencyTextbox12Month;
+
+	@FindBy(id = "txtLocalLoop1Time12")
+	public WebElementFacade nonRecurringCharge12Month;
+
+	@FindBy(id = "cmdSave")
+	public WebElementFacade saveBtn;
+
+	@FindBy(id = "rptVendors__ctl0_rptVendorBids__ctl0_recommend")
+	public WebElementFacade recommendedChkBox;
+
+	@FindBy(id = "ddlStatus")
+	public WebElementFacade statusDropdown;
+
+	@FindBy(id = "buildingA")
+	public WebElementFacade alocCilly;
+
+	@FindBy(id = "buildingZ")
+	public WebElementFacade zlocCilly;
+
+	@FindBy(name = "segmentType")
+	public WebElementFacade segmentType;
+
+	@FindBy(id = "quotedSubBandwidth")
+	public WebElementFacade quotedSubBandwidth;
+
+	@FindBy(id = "nrc")
+	public WebElementFacade segmentNRC;
+
+	@FindBy(id = "mrc")
+	public WebElementFacade segmentMRC;
+
+	@FindBy(id = "addSegmentButton")
+	public WebElementFacade addSegmentButton;
+
+	@FindBy(id = "modal-comments-box")
+	public WebElementFacade segmentCommentBox;
+
+	@FindBy(xpath = "//*[text()=' Save New Vendor Bid ']")
+	public List<WebElementFacade> saveNewVendorBid;
+
+	@FindBy(xpath = "//*[@id='requestDetailTopActionBar']/div/button")
+	public WebElementFacade saveRequest;
+
+	@FindBy(id = "vendor-remarks")
+	public List<WebElementFacade> vendorRemarks;
+
+	@FindBy(name = "ethernetType")
+	public List<WebElementFacade> ethernetTypeDropDown;
+
+	@FindBy(xpath = "//*[@id='bidTermTable']/tbody/tr[2]/th[6]/span")
+	public WebElementFacade markup;
+	
+	@FindBy(name = "selectedCOGUser")
+	public WebElementFacade assignCOGuser;
+
+	public String markUpPercent;
+	public int newMarkUp;
+
+	public String updatedMRC;
+
+	public String rocEditUrl;
+	
+	@Override
+	public WebElementFacade getUniqueElementInPage() {
+		
+		return markup;
+	}
+
+}

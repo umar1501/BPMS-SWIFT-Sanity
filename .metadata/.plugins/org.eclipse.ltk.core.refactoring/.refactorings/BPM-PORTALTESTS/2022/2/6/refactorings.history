@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename resource &apos;BPM-PORTALTESTS/src/test/resources/Features/sample&apos; to &apos;sample.feature&apos;" description="Rename resource &apos;sample&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="src/test/resources/Features/sample" name="sample.feature" stamp="1643700652412" updateReferences="true"/>
+</session>

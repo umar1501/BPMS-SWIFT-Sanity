@@ -1,0 +1,511 @@
+package com.ctl.it.qa.bpms.pages;
+
+import java.util.List;
+
+import org.openqa.selenium.WebElement;
+
+import com.ctl.it.qa.staf.Page;
+
+import net.serenitybdd.core.annotations.findby.FindBy;
+import net.serenitybdd.core.pages.WebElementFacade;
+
+public class ProductSummaryPage extends Page {
+	
+	@FindBy(xpath="/html/body/app-root/app-product-summary/div/app-quote-detail/app-quote-header/div/div[1]/div[2]/span[1]")
+	public WebElementFacade quoteName;
+	
+	@FindBy(xpath="/html/body/app-root/app-product-summary/div/app-quote-detail/app-quote-header/div/div[2]/div[2]")
+	public WebElementFacade scenId;
+	
+	@FindBy(xpath="/html/body/app-root/app-product-summary/div/app-quote-detail/app-quote-header/div/div[3]/div[2]")
+	public WebElementFacade totalMRC;
+	
+	@FindBy(xpath="/html/body/app-root/app-product-summary/div/app-quote-detail/app-quote-header/div/div[4]/div[2]")
+	public WebElementFacade netMRC;
+		
+	@FindBy(xpath="/html/body/app-root/app-product-summary/div/app-quote-detail/app-quote-header/div/div[5]/div[2]")
+	public WebElementFacade totalNRC;
+	
+	@FindBy(xpath="/html/body/app-root/app-product-summary/div/app-quote-detail/div/button/span")
+	public WebElementFacade showBtntxt;
+	
+	@FindBy(xpath="//button/span[text()=' Show Quote Details ']")
+	public WebElementFacade showBtn;
+	
+	@FindBy(xpath="/html/body/app-root/app-product-summary/div/app-quote-detail/div/table[1]/tr[2]/td[1]")
+	public WebElementFacade accName;
+	
+	@FindBy(xpath="/html/body/app-root/app-product-summary/div/app-quote-detail/div/table[2]/tr[2]/td[1]")
+	public WebElementFacade currency;
+	
+	@FindBy(xpath="/html/body/app-root/app-product-summary/div/app-quote-detail/div/table[3]/tr[2]/td[1]/span")
+	public WebElementFacade scenStatus;
+	
+	@FindBy(xpath="/html/body/app-root/app-product-summary/div/app-quote-detail/div/table[1]/tr[2]/td[2]")
+	public WebElementFacade unitCostID;
+	
+	@FindBy(xpath="/html/body/app-root/app-product-summary/div/app-quote-detail/div/table[2]/tr[2]/td[2]")
+	public WebElementFacade opptName;
+	
+	@FindBy(xpath="/html/body/app-root/app-product-summary/div/app-quote-detail/div/table[3]/tr[2]/td[2]")
+	public WebElementFacade opptID;
+	
+	@FindBy(xpath="/html/body/app-root/app-product-summary/div/app-quote-detail/div/table[1]/tr[2]/td[3]")
+	public WebElementFacade opptOwner;
+	
+	@FindBy(xpath="/html/body/app-root/app-product-summary/div/app-quote-detail/div/table[2]/tr[2]/td[3]")
+	public WebElementFacade expirationDate;
+	
+	@FindBy(xpath="/html/body/app-root/app-product-summary/div/app-quote-detail/div/table[3]/tr[2]/td[3]")
+	public WebElementFacade lastModified;
+	
+	@FindBy(xpath="/html/body/app-root/app-product-summary/div/app-quote-detail/div/table[3]/tr[2]/td[4]")
+	public WebElementFacade description;
+	
+	@FindBy(xpath="/html/body/app-root/app-product-summary/div/app-quote-products/div[2]/div/table")
+	public WebElementFacade packageTable;
+	
+	@FindBy(xpath="/html/body/app-root/app-product-summary/div/app-quote-products/div[3]/div/table/tbody/tr[1]/td[1]/mat-checkbox/label/div")
+	public WebElementFacade firstPackageCheckbox;
+	
+	@FindBy(xpath="/html/body/app-root/app-product-summary/div/app-quote-products/div[2]/div/table/tbody/tr[1]/td[1]/mat-checkbox/label/div/input")
+	public WebElementFacade firstPackageCheckboxAria;
+	
+	@FindBy(xpath="/html/body/app-root/app-product-summary/div/app-quote-products/div[2]/div/table/thead/tr[1]/th[1]/mat-checkbox/label/div")
+	public WebElementFacade allCheckbox;
+	
+	@FindBy(xpath="/html/body/app-root/app-product-summary/div/app-quote-products/div[2]/div/table/thead/tr[1]/th[1]/mat-checkbox/label/div/input")
+	public WebElementFacade allCheckboxAria;
+	
+	@FindBy(xpath="/html/body/app-root/app-product-summary/div/app-quote-products/div[3]/div/table/tbody/tr/td[2]/app-quote-product-menu/div/div[3]/div/span[1]/select")
+	public WebElementFacade editConfigBtn;
+	
+	@FindBy(xpath="//div[@class='mat-tab-label mat-focus-indicator mat-ripple ng-star-inserted']/div[text()='Manage Locations']")
+	public WebElementFacade manageLocationBtn;
+	
+	@FindBy(xpath="//div[@class='mat-tab-label mat-focus-indicator mat-ripple ng-star-inserted']/div[text()='Availability Matrix']")
+	public WebElementFacade avalibilityMatrixBtn;
+	
+	@FindBy(xpath="//button/span[text()='Export']")
+	public WebElementFacade exportReportBtn;
+	
+	@FindBy(xpath="//div[@class='mat-tab-label mat-focus-indicator mat-ripple ng-star-inserted']/div[text()='Product Wizard']")
+	public WebElementFacade productWizardBtn;
+
+	@FindBy(xpath="/html/body/app-root/app-product-summary/div/app-quote-products/div[2]/div[6]/span[text()=' More']")
+	public WebElementFacade moreOptionsBtn;
+	
+	@FindBy(xpath="/html/body/app-root/app-product-summary/div/app-quote-products/div[1]/div[7]/div/div/span[2][text()='Export to Excel ']")
+	public WebElementFacade exportToExcelBtn;
+
+	@FindBy(xpath="/html/body/app-root/app-product-summary/div/app-quote-products/div[3]/div/table/thead/tr[2]/th[3]/app-multiple-selection-filter/mat-form-field/div/div[1]/div/mat-select")
+	public WebElementFacade productNameHeader;
+	
+	@FindBy(xpath="/html/body/div[2]/div[2]/div/div/div/mat-option[2]/mat-pseudo-checkbox")
+	public WebElementFacade firstProductCheckbox;
+	
+	@FindBy(xpath="/html/body/app-root/app-product-summary/div/app-quote-products/div[3]/div/table/thead/tr[2]/th[3]/app-multiple-selection-filter/mat-form-field/div/div[1]/div[1]/mat-select/div/div[1]/span/span")
+	public WebElementFacade selectedProduct;
+	             
+	@FindBy(xpath="/html/body/app-root/app-product-summary/div/app-quote-products/div[4]/div/table/tbody/tr[1]/td[3]/span[2]")
+	public WebElementFacade firstProduct;
+	
+	@FindBy(xpath="/html/body/app-root/app-product-summary/div/app-quote-products/div[3]/div/table/thead/tr[2]/th[3]/app-multiple-selection-filter/mat-form-field/div/div[1]/div[2]/button/span[1]/mat-icon")
+	public WebElementFacade closeHeader;
+			   
+	@FindBy(xpath="/html/body/app-root/app-product-summary/div/app-quote-products/div[4]/div/table/tbody/tr[1]/td[2]/app-quote-product-menu/div/button")
+	public WebElementFacade menuBtn;
+	
+	@FindBy(xpath="/html/body/app-root/app-product-summary/div/app-quote-products/div[3]/div/table/tbody/tr/td[2]/app-popup-menu/div/div[2]/div/span[4]/span")
+	public WebElementFacade predeployTitle;
+	
+	@FindBy(xpath="/html/body/app-root/app-product-summary/div/app-quote-products/div[4]/div/table/tbody/tr/td[2]/app-quote-product-menu/div/div[3]/div")
+	public WebElementFacade openMenu;
+	
+	@FindBy(xpath="/html/body/app-root/app-product-summary/div/app-quote-products/div[4]/div/table/tbody/tr/td[2]/app-quote-product-menu/div/div[3]/div/span[3]/mat-slide-toggle/label/div/input")
+	public WebElementFacade predeployToggle;
+
+	@FindBy(xpath="/html/body/app-root/app-product-summary/div/app-quote-products/div[4]/div/table/tbody/tr/td[8]/span/b")
+	public WebElementFacade predeployStatus;
+	
+	@FindBy(xpath="/html/body/app-root/app-product-summary/div/app-quote-products/div[3]/div/table/tbody/tr/td[7]/div[4]")
+	public WebElementFacade vendorBidStatus;
+	
+	@FindBy(xpath="cdk-overlay-backdrop cdk-overlay-transparent-backdrop cdk-overlay-backdrop-showing")
+	public WebElementFacade outOfFocus;
+	
+	@FindBy(xpath="/html/body/app-root/app-product-summary/div/app-quote-products/div[3]/div/table/thead/tr[1]/th[3]/div")
+	public WebElementFacade productNameHeaderTab;
+	
+	@FindBy(className="fa fa-info-circle")
+	public WebElementFacade infoToolTip;
+	
+	@FindBy(xpath="/html/body/app-root/app-product-summary/div/app-quote-products/div[3]/div/table/tbody/tr/td[5]/popover-content/div")
+	public WebElementFacade predeployInfoMessageBox;
+	
+	@FindBy(xpath="/html/body/app-root/app-product-summary/div/app-quote-products/div[3]/div/table/tbody/tr/td[5]/popover-content/div/div[4]/div")
+	public WebElementFacade predeployInfoMessage;
+	
+	@FindBy(xpath="/html/body/app-root/app-product-summary/div/app-quote-products/div[4]/div/table/tbody/tr/td[7]/div[1]")
+	public WebElementFacade validProductPackageStatus;
+	
+	@FindBy(xpath="/html/body/app-root/app-product-summary/div/app-quote-products/div[4]/div/table/tbody/tr/td[7]/div")
+	public WebElementFacade invalidProductPackageStatus;
+	
+	@FindBy(xpath="/html/body/app-root/app-product-summary/div/app-quote-products/div[3]/div/table/tbody/tr/td[7]/div/popover-content/div/div[4]/div[1]")
+	public WebElementFacade invalidStatusInfoMessage1;
+	
+	@FindBy(xpath="/html/body/app-root/app-product-summary/div/app-quote-products/div[3]/div/table/tbody/tr/td[7]/div/popover-content/div/div[4]/div[2]")
+	public WebElementFacade invalidStatusInfoMessage2;
+	
+	@FindBy(xpath="/html/body/app-root/app-product-summary/div/app-quote-products/div[3]/div/table/tbody/tr/td[7]")
+	public WebElementFacade statusColumn;
+	
+	@FindBy(xpath="/html/body/app-root/app-product-summary/div/app-quote-products/div[3]/div/table/tbody/tr/td[3]/span[2]")
+	public WebElementFacade productNameColumn;
+	
+	@FindBy(xpath="/html/body/app-root/app-product-summary/div/app-quote-products/div[3]/div/table/tbody/tr/td[4]")
+	public WebElementFacade addressColumn;
+	
+	@FindBy(xpath="/html/body/app-root/app-product-summary/div/app-quote-products/div[3]/div/table/tbody/tr[1]/td[6]")
+	public WebElementFacade networkStatusColumn;
+	
+	@FindBy(xpath="/html/body/app-root/app-product-summary/div/app-quote-products/div[3]/div/table/tbody/tr/td[8]")
+	public WebElementFacade totalMRCColumn;
+	
+	@FindBy(xpath="/html/body/app-root/app-product-summary/div/app-quote-products/div[3]/div/table/tbody/tr/td[9]")
+	public WebElementFacade totalNRCColumn;
+	
+	@FindBy(xpath="/html/body/app-root/app-product-summary/div/app-quote-products/div[3]/div/table/tbody/tr/td[10]")
+	public WebElementFacade termColumn;
+	
+	@FindBy(xpath="/html/body/app-root/app-product-summary/div/app-quote-products/div[3]/div/table/tbody/tr/td[12]")
+	public WebElementFacade packageIDColumn;
+	
+	@FindBy(xpath="/html/body/app-root/app-product-summary/div/app-quote-products/div[3]/div/table/tbody/tr/td[13]")
+	public WebElementFacade relatedPackageIDColumn;
+	
+	@FindBy(xpath="/html/body/app-root/app-product-summary/div/app-quote-products/div[3]/div/table/tbody/tr/td[14]")
+	public WebElementFacade packageTypeColumn;
+	
+	@FindBy(xpath="/html/body/app-root/app-product-summary/div/app-quote-products/div[3]/div/table/tbody/tr/td[15]")
+	public WebElementFacade sourceColumn;
+	
+	@FindBy(xpath="/html/body/app-root/app-product-summary/div/app-quote-products/div[3]/div/table/tbody/tr/td[17]")
+	public WebElementFacade modifiedDateColumn;
+	
+	@FindBy(xpath="/html/body/app-root/app-product-summary/div/app-quote-products/div[3]/div/table/tbody/tr/td[11]")
+	public WebElementFacade expireDateColumn;
+	
+	@FindBy(xpath = "/html/body/app-root/app-product-summary/div/app-quote-products/div[1]/div[3]/mat-icon")
+	public WebElementFacade refreshBtn;
+	             
+	@FindBy(xpath="/html/body/app-root/app-product-summary/div/app-quote-products/div[2]/div[6]/div/div/span[1]")
+	public WebElementFacade importProductBtn;
+	
+	@FindBy(xpath = "/html/body/div[2]/div[2]/div/mat-dialog-container/app-import-products/mat-dialog-content/div[1]/mat-form-field/div/div[1]/div/mat-select")
+	public WebElementFacade importFromDrpdwn;
+	
+	@FindBy(xpath = "/html/body/div[2]/div[4]/div/div/div")
+	public WebElementFacade importDrpdwnList;
+	
+	@FindBy(xpath="/html/body/div[2]/div[2]/div/mat-dialog-container/app-import-products/mat-dialog-content/div[2]/mat-form-field/div/div[1]/div/mat-select")
+	public WebElementFacade importTypeDrpdwn;
+	
+	@FindBy(xpath = "//input[@data-placeholder='Package ID, GP ID or Quote item']")
+	public WebElementFacade importPackageId;
+	
+	@FindBy(xpath = "//button/span[text()='IMPORT']")
+	public WebElementFacade importBtn;
+	
+	@FindBy(partialLinkText = "<< Back")
+	public WebElementFacade backToOppertunity;
+	
+	@FindBy(xpath = "//button[text()='Delete']")
+	public WebElementFacade deleteBtn;
+	
+	@FindBy(xpath = "//button[text()=' Validate']")
+	public WebElementFacade validateBtn;
+	
+	@FindBy(xpath = "//button[text()='Re-Price']")
+	public WebElementFacade repriceBtn;
+	
+	@FindBy(xpath = "//*[@id='mat-select-28']")
+	public WebElementFacade termBtn;
+	
+	@FindBy(xpath = "/html/body/app-root/app-product-summary/div/app-quote-products/div[2]/div/table/tbody/tr[3]/td[13]/div/span/div")
+	public WebElementFacade relatedpackageidevc;
+	
+	@FindBy(xpath = "/html/body/app-root/app-product-summary/div/app-quote-products/div[2]/div/table/tbody/tr[4]/td[13]/div/span/div")
+	public WebElementFacade relatedpackageidevc2;
+	
+	@FindBy(xpath = "/html/body/app-root/app-product-summary/div/app-quote-products/div[2]/div/table/tbody/tr[2]/td[13]/div/span/div")
+	public WebElementFacade relatedpackageiduni2;
+	
+	@FindBy(xpath = "/html/body/app-root/app-product-summary/div/app-quote-products/div[2]/div/table/tbody/tr[1]/td[13]/div/span/div")
+	public WebElementFacade relatedpackageiduni1;
+	
+	@FindBy(xpath = "/html/body/app-root/app-product-summary/div/app-quote-products/div[2]/div/table/tbody/tr[3]/td[12]")
+	public WebElementFacade packageidevc;
+	
+	@FindBy(xpath = "/html/body/app-root/app-product-summary/div/app-quote-products/div[2]/div/table/tbody/tr[2]/td[12]")
+	public WebElementFacade packageiduni2;
+	
+	@FindBy(xpath = "/html/body/app-root/app-product-summary/div/app-quote-products/div[2]/div/table/tbody/tr[1]/td[12]")
+	public WebElementFacade packageiduni1;
+	
+	@FindBy(xpath = "/html/body/app-root/app-product-summary/div/app-quote-products/div[2]/div/table/tbody/tr[4]/td[4]/div[2]/span[1]")
+	public WebElementFacade evc2address2;
+	
+	@FindBy(xpath = "/html/body/app-root/app-product-summary/div/app-quote-products/div[2]/div/table/tbody/tr[3]/td[4]/div[2]/span[1]")
+	public WebElementFacade evc1address2;
+	
+	@FindBy(xpath = "/html/body/app-root/app-product-summary/div/app-quote-products/div[2]/div/table/tbody/tr[4]/td[4]/div[1]/span[1]")
+	public WebElementFacade evc2address1;
+	
+	@FindBy(xpath = "/html/body/app-root/app-product-summary/div/app-quote-products/div[2]/div/table/tbody/tr[3]/td[4]/div[1]/span[1]")
+	public WebElementFacade evc1address1;
+	
+	@FindBy(xpath = "//button/span[text()='Edit']")
+	public WebElementFacade editScenarioBtn;
+	
+	@FindBy(xpath = "//button/span[text()=' Add New Product ']")
+	public WebElementFacade createNewProductPakage;
+	
+	@FindBy(id = "scenarioDetailHomeLink")
+	public WebElementFacade returnToScenarioDetailbutton;
+
+	@FindBy(xpath="//*[text()='Vendor Bid Management']")
+	public WebElementFacade vendorBidManagementBtn;
+	
+	@FindBy(xpath="/html/body/div[2]/div[2]/div/div/div/mat-option[2]")
+	public WebElementFacade firstTermOption;
+	
+	@FindBy(xpath="//div[@class='mat-tab-label mat-focus-indicator mat-ripple ng-star-inserted']/div[text()='Discounting & Profitability']")
+	public WebElementFacade discountingProfitabilityBtn;
+	
+	@FindBy(xpath = ".//*[@id=\"profit-toolbar-right\"]/button[4]/span")
+	public WebElementFacade saveChanges;
+	
+	@FindBy(id = "countrySelect")
+	public WebElementFacade country;
+	
+	@FindBy(xpath = ".//*[@id='locationSearchContainer']/form/div[2]/div/div/div[1]")
+	public WebElementFacade addressSearch;
+	
+	@FindBy(xpath = ".//*[@id='locationSearchContainer']/form/div[2]/div/div/div[2]")
+	public WebElementFacade gLmSearchBtn;
+	
+	@FindBy(id = "resetButton")
+	public WebElementFacade resetButton;
+
+	@FindBy(xpath = ".//*[@id='locationSearchContainer']/form/div[2]/div/div/div[2]")
+	public WebElementFacade postalCodeSearchOthers;
+	
+	@FindBy(xpath = ".//*[@id='locationSearchContainer']/form/div[2]/div/div/div[3]")
+	public WebElementFacade glmSearchOthers;
+	
+	@FindBy(id = "postalCodeInput_value")
+	public WebElement postalCodeInput;
+	
+	@FindBy(xpath = ".//*[@id='LocationSearchGrid']/div[3]/span[2]")
+	public WebElementFacade noAddrssSelected;
+	
+	@FindBy(id = "glmCodeInput_value")
+	public WebElement glmInput;
+	
+	@FindBy(id = "siteAddressInput_value")
+	public WebElementFacade SiteAddressInput;
+	
+	@FindBy(xpath="//*[@class='mat-row ng-star-inserted']")
+	public List<WebElementFacade> products;
+	
+	@FindBy(xpath = "/html/body/app-root/app-product-summary/div/app-quote-products/div[3]/div/table/tbody/tr[1]/td[4]/div[1]/span[1]")
+	public WebElement addressA;
+	
+	@FindBy(xpath = "/html/body/app-root/app-product-summary/div/app-quote-products/div[3]/div/table/tbody/tr[1]/td[4]/div[2]/span[1]")
+	public WebElement addressZ;
+	
+	@FindBy(xpath = ".//*[@aria-owns='ScenarioCurrency_listbox']")
+	public WebElement editScenCurrency;
+	
+	@FindBy(xpath="//*[@id='SaveButton']")
+	public WebElementFacade saveButton;
+	
+	@FindBy(xpath="//*[@id=\"LocationSearchGrid\"]/div[2]/table/tbody/tr")
+	public WebElementFacade locationGrid;
+	
+	@FindBy(xpath="/html/body/app-root/app-product-summary/div/app-quote-products/div[3]/div/table/tbody")
+	public WebElementFacade packageTableBody;
+	
+	@FindBy(xpath="/html/body/app-root/app-product-summary/div/app-quote-products/div[2]")
+	public WebElementFacade packageCountTxt;
+	
+	@FindBy(xpath="/html/body/div[2]/div[2]/div/mat-dialog-container")
+	public WebElementFacade importErrorDialogBox;
+	
+	@FindBy(xpath="/html/body/div[2]/div[2]/div/mat-dialog-container/app-import-products/mat-dialog-content/div")
+	public WebElementFacade importErrorMessageBlock;
+	
+	@FindBy(xpath="//span[text()='Copy to current location']")
+//	@FindBy(xpath="/html/body/app-root/app-product-summary/div/app-quote-products/div[4]/div/table/tbody/tr/td[2]/app-quote-product-menu/div/div[3]/div/span[2]/span[1]")
+	public WebElementFacade copyToCurrentLocation;
+	
+	@FindBy(xpath="//span[text()='Copy to new location']")
+	//@FindBy(xpath=" /html/body/app-root/app-product-summary/div/app-quote-products/div[4]/div/table/tbody/tr/td[2]/app-quote-product-menu/div/div[3]/div/span[2]/span[2]")
+	public WebElementFacade copyToNewLocation;
+	
+	@FindBy(xpath="/html/body/div[2]/div[2]/div/mat-dialog-container/app-copy-current-location/mat-dialog-content/div/mat-form-field/div/div[1]/div[3]/input")
+	public WebElementFacade noOfCopies;
+	
+	@FindBy(xpath="/html/body/div[2]/div[2]/div/mat-dialog-container/app-copy-current-location/mat-dialog-actions/button[2]")
+	public WebElementFacade noOfCopiesOKBtn;
+	
+	@FindBy(xpath="/html/body/app-root/app-product-summary/div/app-quote-products/div[3]/div/table/thead/tr[1]/th[3]/div")
+	public WebElementFacade productNameColumnHeading;
+	
+	@FindBy(xpath="/html/body/app-root/app-product-summary/div/app-quote-products/div[4]/div/table/tbody/tr[1]/td[5]/div/mat-icon")
+	public WebElementFacade pencilIcon;
+	
+	@FindBy(xpath="//*[@id='mat-dialog-0']")
+	public WebElementFacade addSLdialogbox;
+	
+	@FindBy(xpath="//*[@id='mat-dialog-title-0']/div[1]/span")
+	public WebElementFacade addSLdialogboxHeader;
+	
+	@FindBy(xpath="//*[@id='mat-select-30']")
+	public WebElementFacade addSLdrpdwn;
+	
+	@FindBy(xpath="//*[@id='mat-option-101']/span")
+	public WebElementFacade addexistingSLoption;
+	
+	@FindBy(xpath="//mat-option[@value='Add New']")
+	public WebElementFacade addnewSLoption;
+	
+	@FindBy(xpath="//app-select-service-location/mat-dialog-content/div/div[1]/div[1]/select")
+	public WebElementFacade floorOption;
+	
+	@FindBy(xpath="//app-select-service-location/mat-dialog-content/div/div[2]/div[1]/select")
+	public WebElementFacade roomOption;
+	
+	@FindBy(xpath="//app-select-service-location/mat-dialog-content/div/div[3]/div[1]/select")
+	public WebElementFacade additionalLocationInfoOption;
+	
+	@FindBy(name = "floorValue")
+	public WebElementFacade floorValue;
+	
+	@FindBy(name = "roomValue")
+	public WebElementFacade roomValue;
+	
+	@FindBy(name = "locationInfoValue")
+	public WebElementFacade locationInfoValue;
+	
+	@FindBy(xpath="//button/span[text()='SAVE LOCATION']")
+	public WebElementFacade saveLocation;
+
+	@FindBy(xpath = "//*[@id='LocationSearchGrid']//div[2]/table/tbody/tr[1]/td[4]/div/img")
+	public WebElementFacade ButtontoaddServiceLocationButtonEnable;
+	
+	@FindBy(xpath = "./html/body/div[15]/div[2]/div/div[1]/div/span/span/input")
+	public WebElementFacade addServiceLocationText2;
+	
+	@FindBy(xpath="/html/body/app-root/app-product-summary/div/app-quote-products/div[3]/div/table/tbody/tr/td[4]/div")
+	public WebElementFacade addressColumnText;
+	
+	@FindBy(xpath = "//html/body/div[13]/div[2]/div/div[1]/div/span/span/input")
+	public WebElementFacade addServiceLocationText1;
+	
+	@FindBy(id = "searchButton")
+	public WebElement search;
+	
+	@FindBy(xpath = "//*[@id='selectAllCheckBox']")
+	public WebElementFacade selectAllCheckBox;
+	
+	@FindBy(xpath = ".//*[@id='ProductPackageWizardView']/div[1]/div[5]/div[2]/div[3]/button")
+	public WebElementFacade nextBtn;
+	
+	@FindBy(xpath = "./html/body/div[4]/div[2]/div[3]/div[2]/div[2]/div/table/tbody/tr[1]/td[2]/div/span/span/span[1]")
+	public WebElementFacade packagetypearrow;
+	
+	@FindBy(xpath = "/html/body/app-root/app-product-summary/div/app-quote-products/div[3]/div/table/tbody/tr[1]/td[4]/div[1]")
+	public WebElementFacade address1;
+	
+	@FindBy(xpath = "/html/body/app-root/app-product-summary/div/app-quote-products/div[3]/div/table/tbody/tr[1]/td[4]/div[2]")
+	public WebElementFacade address2;
+
+	@FindBy(xpath="/html/body/app-root/app-product-summary/div/app-quote-products/div[3]/div/table/tbody/tr/td[4]/div")
+	public List <WebElementFacade> addressColumnTextWhole;
+	
+	@FindBy(xpath = "/html/body/app-root/app-product-summary/div/app-quote-products/div[3]/div/table/tbody/tr/td[5]/div")
+	public List <WebElementFacade> roomColPencilIcons;
+	
+	@FindBy(xpath = "/html/body/app-root/app-product-summary/div/app-quote-detail/div/table[2]/tr[2]/td[1]/span/mat-icon")
+	public WebElementFacade editCurrencyPencilIcon;
+	
+	@FindBy(xpath = "/html/body/app-root/app-product-summary/div/app-quote-detail/app-quote-header/div/div[1]/div[2]/span[2]/mat-icon")
+	public WebElementFacade editScenarioNamePencilIcon;
+	
+	@FindBy(xpath = "/html/body/app-root/app-product-summary/div/app-quote-detail/div/table[3]/tr[2]/td[4]/span/mat-icon")
+	public WebElementFacade editScenarioDescPencilIcon;
+	
+	@FindBy(name = "currencyCode")
+	public WebElement editScenarioCurrency;
+	
+	@FindBy(xpath = "//input[@name='quoteName']")
+	public WebElement editScenarioName;
+	
+	@FindBy(name = "quoteDesc")
+	public WebElement editScenarioDesc;
+	
+	@FindBy(id = "mat-select-30-panel")
+	public WebElement currencyList;
+	
+	@FindBy(xpath = "/html/body/div[2]/div[4]/div/div/div/mat-option")
+	public List<WebElement> scenarioCurrencyOptions;
+	
+	@FindBy(xpath = "//button/span[text()='SAVE']")
+	public WebElement saveScenarioChangesButton;
+	
+	@FindBy(xpath="//div[text()=' SPCR Required ']/i[@class='fa fa-info-circle ng-star-inserted']")
+	public WebElementFacade spcrInfoToolTip;
+	
+    @FindBy(xpath = "/html/body/app-root/app-product-summary/div/app-quote-products/div[4]/div/table/tbody/tr/td[7]/div[3]/popover-content/div/div[4]")
+	public WebElement spcrInfoMsg;
+    
+    @FindBy(id = "DebugArrowRt")
+	public WebElementFacade debugarrow;
+    
+    @FindBy(xpath = ".//*[@id='DebugArrowRt']/div")
+	public WebElementFacade debug;
+    
+    @FindBy(id = "update-access-points")
+	public WebElementFacade updatedrole;
+    
+    @FindBy(xpath = ".//button[text()='Update Current Access Points']")
+	public WebElementFacade updateCurrentAccessPointButton;
+    
+    @FindBy(id = "about")
+	public WebElementFacade smVersionInfo;
+    
+    @FindBy(xpath = "/html/body/app-root/app-product-summary/div/app-quote-products/div[2]/div[5]/span[1]")
+	public WebElementFacade bulkPredeployBtn;
+  
+    @FindBy(xpath = "//*[@id='mat-radio-1']/label/div[2]/span[2]")
+  	public WebElementFacade bulkPredeployON;
+    
+    @FindBy(xpath = " //*[@id='mat-radio-2']/label/div[2]/span[2]")
+  	public WebElementFacade bulkPredeployOFF;
+    
+	public int count = 0;
+	public String first = null;
+	public String second = null;
+
+	
+	
+	@Override
+	public WebElementFacade getUniqueElementInPage() {
+		
+		return scenId;
+	}
+
+}

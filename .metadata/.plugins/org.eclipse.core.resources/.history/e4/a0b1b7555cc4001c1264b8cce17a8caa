@@ -1,0 +1,52 @@
+ackage com.ctl.it.qa.bpms.tests;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
+
+import com.ctl.it.qa.bpms.steps.ImportSteps;
+import com.ctl.it.qa.staf.Page;
+import com.ctl.it.qa.staf.xml.reader.XMLDataWriter;
+
+import cucumber.api.Scenario;
+import cucumber.api.java.After;
+import cucumber.api.java.Before;
+import cucumber.api.java.en.Then;
+import net.serenitybdd.core.Serenity;
+import net.thucydides.core.annotations.Steps;
+
+public class StepDefinition {
+
+    @Steps
+                ImportSteps importSteps;
+
+    @Before
+    public void beforeEveryScenario(Scenario scenario) {
+        Serenity.setSessionVariable("file_type").to(scenario.getName());
+    }
+    
+    @After
+    public void afterEveryScenario(Scenario scenario) {
+        try {
+            com.ctl.it.qa.staf.Steps.isInitialized = false;
+            Page.isInitialized = false;
+            scenario.write("Data used for this test case:" + "\r\n");
+            if (scenario.isFailed()) {
+                byte[] screenshot = ((TakesScreenshot) importSteps.getDriver()).getScreenshotAs(OutputType.BYTES);
+                scenario.embed(screenshot, "image/png");
+            }
+        }catch(Exception e) {
+            
+        }finally {
+               importSteps.captureTestResult(scenario);
+               importSteps.getDriver().close();
+               importSteps.getDriver().quit();
+            
+        }    
+      }
+
+                @Then("^I save \"([^\"]*)\" as \"([^\"]*)\" in data xml$")
+                public void i_should_save_as_in_data_xml(String variableName, String tagName)
+                                                throws Throwable {
+                                Page.envData.getContainer("RefreshData").setFieldValue(tagName, Serenity.sessionVariableCalled(variableName).toString());
+                                new XMLDataWriter().writeXML(Page.data, "sample.xml");
+                }
+}

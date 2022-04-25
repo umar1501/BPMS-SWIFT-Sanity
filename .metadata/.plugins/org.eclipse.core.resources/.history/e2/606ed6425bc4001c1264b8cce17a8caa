@@ -1,0 +1,144 @@
+package com.ctl.it.qa.bpms.steps;
+
+import org.junit.Assert;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import com.ctl.it.qa.bpms.pages.ROCHomePage;
+import com.ctl.it.qa.staf.Steps;
+import com.ctl.it.qa.staf.xml.reader.IntDataContainer;
+
+import net.thucydides.core.annotations.Step;
+
+
+/**
+ * This Class is Similar to Roc Home Page. Where you can search ROCs using
+ * search button.
+ * 
+ * @author niroula.subash
+ *
+ */
+@SuppressWarnings("serial")
+public class ROCHomeSteps extends Steps {
+
+	private final Logger slf4jLogger = LoggerFactory.getLogger(ROCHomeSteps.class);
+	public static String RocID = null;
+	ROCHomePage ROCHomePage;
+	/**
+	 * Method to search Roc based on ROC ID, Click on Searched ROC and Transfer
+	 * driver to that window.
+	 * 
+	 * @param ROCId
+	 * @return
+	 * @throws Exception
+	 */
+	public void setROCId(String rocID) {
+		RocID = rocID;
+	}
+	@Step
+	public void searchRocDetails(String ROCId, String TestID) throws Exception {
+		synchronized (this) {
+			//System.out.println(ROCId);
+			System.out.println(RocID);
+
+			try {
+				
+				
+
+				slf4jLogger.info(TestID + ":" + System.currentTimeMillis()
+						+ "Entering into search roc details method");
+				
+				ROCHomePage.filterButtonElement.click();
+				slf4jLogger.info(TestID + ":" + System.currentTimeMillis() + "Filter Button Click Success");
+			} catch (Exception e) {
+				
+				slf4jLogger.info(TestID + ":" + System.currentTimeMillis()
+						+ "Entering into Catch block for filter button click event");
+				Thread.sleep(2000);
+				WebElement FilterButton = ROCDetailsSteps.ROCdriver
+						.findElement(By.xpath("//*[@id=\"advancedRequestsSearchDropdown\"]/button"));
+				
+				Actions actions = new Actions(ROCDetailsSteps.ROCdriver);
+				actions.moveToElement(FilterButton).click().build().perform();
+				slf4jLogger.info(TestID + ":" + System.currentTimeMillis()
+						+ "Filter Button Click Success from catch block");
+			}
+			
+			Thread.sleep(5000);
+			
+			slf4jLogger.info(TestID + ":" + System.currentTimeMillis() + "New pop up Window Transferred");
+			
+			try {
+				Thread.sleep(4000);
+				/*ROCHomePage.RocIDTextArea.sendKeys(ROCId);*/
+				ROCHomePage.rocIDTextArea.sendKeys(RocID);
+				slf4jLogger.info(
+						TestID + ":" + System.currentTimeMillis() + "Entered Roc ID into textbox success");
+				Thread.sleep(2000);
+				ROCHomePage.searchButton.click();
+				Thread.sleep(8000);
+				slf4jLogger.info(TestID + ":" + System.currentTimeMillis() + "Clicked on search button success");
+				
+			} catch (Exception e) {
+				slf4jLogger.info(TestID + ":" + System.currentTimeMillis()
+						+ "Actual Exception while entering rocid is");
+				Assert.fail(TestID + ": @" + System.currentTimeMillis() +"@"+ "Error while searching ROC ID");
+
+			}
+			try {
+				
+				if (ROCHomePage.resultTable.findElements(By.tagName("tr")).size() > 1) {
+					ROCDetailsSteps.ROCdriver.findElement(By.xpath("//a[@class='btn btn-sm btn-primary btn-right-icon']")).click();
+					
+					Thread.sleep(4000);
+					} else {
+					slf4jLogger.info(TestID + ":" + System.currentTimeMillis() + "ROC Details not found!.");
+					
+				}
+			} catch (Exception e) {
+				ROCHomePage.filterButtonElement.click();
+				slf4jLogger.info(TestID + ":" + System.currentTimeMillis() + "Filter Button Click Success");
+				Thread.sleep(4000);
+				//Thread.sleep(1000);
+				/*ROCHomePage.RocIDTextArea.sendKeys(ROCId);*/
+				ROCHomePage.rocIDTextArea.sendKeys(RocID);
+				ROCHomePage.searchButton.click();
+				slf4jLogger.info(TestID + ":" + System.currentTimeMillis() + "Clicked on search button success");
+				if (ROCHomePage.resultTable.findElements(By.tagName("tr")).size() > 1) {
+					ROCDetailsSteps.ROCdriver.findElement(By.xpath("//a[@class='btn btn-sm btn-primary btn-right-icon']")).click();
+					
+					Thread.sleep(4000);
+					
+				}
+				
+			}
+		}
+	}
+
+	/** Method to login to ROC Application **/
+
+	@Step
+	public ROCHomeSteps logintoROC(String TestID) throws Exception {
+		synchronized (this) {
+			try {
+				slf4jLogger.info(TestID + ":" + System.currentTimeMillis() + "Entering into roc login page.");
+				IntDataContainer dataContainer = envData.getContainer("SalesforceHomePage").getContainer("Valid");
+				Thread.sleep(1000);
+				ROCHomePage.userNameField.sendKeys(dataContainer.getFieldValue("tbx_username"));
+				ROCHomePage.passwordField.sendKeys(dataContainer.getFieldValue("tbx_password"));
+				Thread.sleep(1000);
+
+				ROCDetailsSteps.ROCdriver.findElement(By.xpath("//button[text()=' Submit']")).click();
+				Thread.sleep(2000);
+				
+				slf4jLogger.info(TestID + ":" + System.currentTimeMillis() + "Successfully logged into Roc page");
+			} catch (Exception e) {
+				Assert.fail(TestID + ": @" + System.currentTimeMillis() +"@"+ "Error Occured while login to Roc UI");
+			}
+			return this;
+		}
+	}	
+}

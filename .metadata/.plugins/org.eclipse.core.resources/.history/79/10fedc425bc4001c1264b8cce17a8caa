@@ -1,0 +1,416 @@
+package com.ctl.it.qa.bpms.steps;
+
+import java.util.Iterator;
+import java.util.Set;
+
+import org.apache.commons.lang3.StringUtils;
+import org.junit.Assert;
+import org.openqa.selenium.Alert;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import com.ctl.it.qa.bpms.pages.SalesforceHomePage;
+import com.ctl.it.qa.bpms.pages.ScenarioDetailPage;
+import com.ctl.it.qa.staf.Steps;
+
+import net.thucydides.core.annotations.Step;
+
+@SuppressWarnings("serial")
+public class SalesforceHomeSteps extends Steps{
+
+	private final Logger slf4jLogger = LoggerFactory.getLogger(SalesforceLoginSteps.class);
+	SalesforceHomePage salesforceHomePage;
+	ScenarioDetailPage scenarioDetailPage;
+	@Step
+	public  void createOppurtunity(String oppAccID,String oppName, String oppDt, String oppStage) throws Exception{
+		try {
+			slf4jLogger.info("Creating an Oppurtunity with:  "+oppAccID + "  "+ oppName);
+			WebDriver driver = getDriver();
+			WebDriverWait wait = new WebDriverWait(driver, 1000);
+			WaitForPageToLoad(5000);
+			switchToClassicSalesforce();
+			Thread.sleep(5000);
+			salesforceHomePage.opportunityTab.click();
+			WaitForPageToLoad(5000);
+			salesforceHomePage.newBtn.click();	
+			WaitForPageToLoad(5000);
+			salesforceHomePage.continueBtn.click();
+			WaitForPageToLoad(5000);
+			salesforceHomePage.opportunityAccountName.sendKeys(oppAccID);
+			try{
+				WaitForPageToLoad(5000);
+				String winHandleBefore = driver.getWindowHandle();
+				lookupIconClick(driver);
+				driver.switchTo().window(winHandleBefore);
+				//html/body/div[4]/div[2]/div/div[2]/div/div[2]/div/div/div[1]/records-modal-lwc-detail-panel-wrapper/records-record-layout-event-broker/slot/records-lwc-detail-panel/records-base-record-form/div/div/div/div/records-lwc-record-layout/forcegenerated-detailpanel_opportunity___0122a000000s3nhqaq___full___create___recordlayout2/force-record-layout-block/slot/force-record-layout-section[1]/div/div/div/slot/force-record-layout-row[1]/slot/force-record-layout-item[1]/div/span/slot/slot/force-record-layout-lookup/lightning-lookup/lightning-lookup-desktop/lightning-grouped-combobox/div[1]/div/lightning-base-combobox/div/div[2]/lightning-base-combobox-item[1]/span[2]/span/span
+				//*[@id="input-820-0-820"]/span[2]/span/span
+			//	salesforceHomePage.accselect.click();
+			}catch (Exception e) {
+				slf4jLogger.info(e.getMessage());
+			}
+			salesforceHomePage.opportunityName.sendKeys(oppName);
+			
+			salesforceHomePage.opportunityClosedDate.sendKeys(oppDt);
+			salesforceHomePage.opportunityStage.sendKeys(oppStage);
+			Thread.sleep(5000);
+			salesforceHomePage.saveBtn.click();
+	
+			WaitForPageToLoad(5000);
+			slf4jLogger.info("Oppurtunity created successfully");
+		}
+		catch (Exception e) {
+			slf4jLogger.info(e.getMessage());
+			Assert.fail(e.getMessage());
+		}
+		
+		
+	}
+	
+	@Step
+	public  void switchToClassicSalesforce() throws Exception{
+		try {
+			WebDriver driver = getDriver();
+			
+			slf4jLogger.info(driver.getCurrentUrl());
+			
+			if (driver.getCurrentUrl().contains("lightning")) {
+				
+				try {
+					slf4jLogger.info("Closing Lightning Pop-up if Present");
+					boolean popupPresent = driver.findElement(By.xpath("/html/body/div[4]/div[2]/div/div[2]/div/div[2]")).isDisplayed(); //html/body/section[@role='dialog']
+					if(popupPresent) {
+						slf4jLogger.info("close the modal pop-up");
+						driver.findElement(By.xpath("//button[@class='slds-button slds-button--icon-inverse slds-modal__close uiButton--modal-closeBtn uiButton']")).click();
+					}
+						
+				} catch (Exception e) {
+					slf4jLogger.info("Lightning Pop-up is not present");
+				}
+				
+				salesforceHomePage.user.click();
+				WaitForPageToLoad(5000);
+				WaitForPageToLoad(5000);
+				salesforceHomePage.classicSwitchLink.click();
+				WaitForPageToLoad(5000);
+				WaitForPageToLoad(5000);
+			}
+		}
+		catch (Exception e) {
+			slf4jLogger.info("Inside switchToClassicSalesforce method catch block"+e.getMessage());
+			Assert.fail(e.getMessage());
+		}
+		
+		
+	}
+
+	@Step
+	public  void clickOnSMQuote(String scenarioName, String currency, String testID) throws Exception{
+		try {
+			slf4jLogger.info("Clicking on SM Quote Btn and adding scenario");
+			WaitForPageToLoad(5000);
+			WebDriver driver = getDriver();
+			WebDriverWait wait = new WebDriverWait(driver, 5);
+			wait.until(ExpectedConditions.elementToBeClickable(salesforceHomePage.level3btn));
+			salesforceHomePage.level3btn.click();
+			WaitForPageToLoad(5000);			
+			
+			try {
+				slf4jLogger.info("Accepting Alert");
+				wait.until(ExpectedConditions.alertIsPresent());
+				Alert alert = driver.switchTo().alert();
+				alert.accept();
+			} catch (Exception e) {
+				slf4jLogger.info("Inside Catch Block of Level3 Button"+e.getMessage());
+				Assert.fail();
+			}
+			WaitForPageToLoad(5000);
+			slf4jLogger.info("Creating Scenario");
+			driver.switchTo().frame(driver.findElement(By.xpath("//iframe[@title='OpportunityQuotes']")));
+			WaitForPageToLoad(5000);
+			
+			boolean isFramePresent = false;
+			while(!isFramePresent) {
+				Thread.sleep(4000);
+				if(driver.getCurrentUrl().contains("e2e")) 
+					salesforceHomePage.newSMQuoteBtnITV4.click();
+				else
+			        salesforceHomePage.newSMQuoteBtn.click();
+			     
+				WaitForPageToLoad(5000);
+				isFramePresent = driver.findElements(By.id("quote-iframe")).size() > 0;
+			}
+			driver.switchTo().frame("quote-iframe");
+			
+			if(testID.equals("24736")) {
+				String[] scenName = scenarioName.split(";");
+				for(int i=0;i<scenName.length;i++) {
+					Thread.sleep(2000);
+					salesforceHomePage.scenarioName.clear();
+					salesforceHomePage.scenarioName.sendKeys(scenName[i]);
+					Thread.sleep(4000);
+					
+					driver.findElement(By.xpath("//*[@id='mat-dialog-title-0']/div/span")).click();
+					
+					Thread.sleep(3000);
+					slf4jLogger.info("Checking Scenario name");
+					WaitForPageToLoad(5000);
+					WaitForPageToLoad(5000);
+					
+					if(scenName[i].isEmpty()) {
+						String check = salesforceHomePage.validationMessage.getText();
+						slf4jLogger.info("check message: " +check);
+						Assert.assertTrue(salesforceHomePage.scenarioName.getAttribute("aria-invalid").contains("true"));
+						if(check.equals("  Please enter quote name !! ")) {
+							slf4jLogger.info("Scenario name is empty");
+							WaitForPageToLoad(5000);
+						}	
+					}
+					else if(StringUtils.isAlphanumeric(scenName[i])) {
+						slf4jLogger.info("Scenario name does not contain any Special Characters");
+						Assert.assertTrue(salesforceHomePage.scenarioName.getAttribute("aria-invalid").contains("false"));
+					}
+					else {
+						String check = salesforceHomePage.validationMessage.getText();
+						slf4jLogger.info("check message: " +check);
+						Assert.assertTrue(salesforceHomePage.scenarioName.getAttribute("aria-invalid").contains("true"));
+//						if(check.contains("No special characters")) {
+//							slf4jLogger.info("Scenario name contains Special Characters");
+//							Assert.assertTrue(salesforceHomePage.scenarioName.getAttribute("class").contains("invalid"));
+//							WaitForPageToLoad(5000);
+//						}
+//						else {
+//							slf4jLogger.info("else block");
+//						}
+					}
+				}
+			}
+			else {
+				Thread.sleep(5000);
+				salesforceHomePage.scenarioName.sendKeys(scenarioName);
+			}
+			
+			//int max = Integer.parseInt(salesforceHomePage.scenarioName.getAttribute("maxlength"));	
+			WaitForPageToLoad(5000);
+			
+			if(testID.equals("1958")) {
+				Thread.sleep(4000);
+				String[] currencies =  currency.split(",");
+				salesforceHomePage.currency.click();
+				WaitForPageToLoad(5000);
+				Thread.sleep(3000);
+				ExpectedConditions.visibilityOf(salesforceHomePage.currencyList);
+				for(int i=0;i<currencies.length;i++) {
+					WaitForPageToLoad(5000);
+					Thread.sleep(1000);
+					int numCurrency = salesforceHomePage.scenarioCurrencyOptions.size();
+					for(int j=1;j<=numCurrency;j++) {
+						if(driver.findElement(By.xpath("/html/body/div[1]/div[4]/div/div/div/mat-option[" + j + "]/span")).getText().equalsIgnoreCase(currencies[i])){
+							driver.findElement(By.xpath("/html/body/div[1]/div[4]/div/div/div/mat-option[" + j + "]")).click();
+							break;
+						}
+					}
+					Thread.sleep(3000);
+					WaitForPageToLoad(5000);
+				}
+				Thread.sleep(5000);
+				
+				for (int i = 0; i < currencies.length; i++) {
+					enterDetailsforScenario(testID,"Test",currencies[i],"TestDescription");
+				}	
+			}
+			else {
+				salesforceHomePage.currency.click();
+				WaitForPageToLoad(5000);
+				Thread.sleep(3000);
+				ExpectedConditions.visibilityOf(salesforceHomePage.currencyList);
+				int numCurrency = salesforceHomePage.scenarioCurrencyOptions.size();
+				for(int i=1;i<=numCurrency;i++) {
+					if(driver.findElement(By.xpath("/html/body/div[1]/div[4]/div/div/div/mat-option[" + i + "]/span")).getText().equalsIgnoreCase(currency)){
+						driver.findElement(By.xpath("/html/body/div[1]/div[4]/div/div/div/mat-option[" + i + "]")).click();
+						break;
+					}
+				}
+		        WaitForPageToLoad(5000); 
+			}
+			
+			salesforceHomePage.saveButton.click();
+			WaitForPageToLoad(8000);
+			Thread.sleep(5000);
+			slf4jLogger.info("Scenario created succesfully");
+			
+			if(testID.equals("24735")) {
+				Thread.sleep(5000);
+				int len = scenarioDetailPage.scenarioDetailPageName.getText().length();
+				
+				WaitForPageToLoad(5000);
+				slf4jLogger.info("Scenario details page...");
+				//Assert.assertTrue(len<=max);
+				slf4jLogger.info("Scenario name length less than or equal to 80 characters");
+			}
+			else if(testID.equals("24736")) {
+				slf4jLogger.info("Scenario name validation for special characters validated successfully");
+				WaitForPageToLoad(5000);
+			}
+		}
+		catch (Exception e) {
+			slf4jLogger.info(e.getMessage());
+			Assert.fail(e.getMessage());
+		}
+		
+		
+	}
+	
+	@Step
+	public void clickOnLevel3Quote() {
+		slf4jLogger.info("Clicking on Level 3 Btn");
+		WebDriver driver = getDriver();
+		WebDriverWait wait = new WebDriverWait(driver,10000);
+		WaitForPageToLoad(5000);
+		try {
+			wait.until(ExpectedConditions.elementToBeClickable(salesforceHomePage.level3btn));
+			salesforceHomePage.level3btn.click();
+			WaitForPageToLoad(5000);	
+			slf4jLogger.info("Accepting Alert");
+			wait.until(ExpectedConditions.alertIsPresent());
+			Alert alert = driver.switchTo().alert();
+			alert.accept();
+		} catch (Exception e) {
+			slf4jLogger.info("Inside Catch Block of Level3 Button"+e.getMessage());
+			Assert.fail();
+		}
+	}
+
+public ProductSummarySteps verifyCurrencyUpdateFunctionality(String testID, String product) throws Exception {
+	WebDriver driver= getDriver();
+	try {
+		Thread.sleep(5000);
+		if(testID.equals("1957")) {
+			WebElement statusIcon = driver.findElement(By.className("SDG_StatusIcon"));
+			if(product.equals("Internet")) {
+				if (statusIcon.isDisplayed()) {
+					String ToolTipMessage = statusIcon.getAttribute("title");
+					if (ToolTipMessage.equals("")) {
+						slf4jLogger.info(testID + ":" + System.currentTimeMillis() + ToolTipMessage);
+						slf4jLogger.info(testID + ":" + System.currentTimeMillis() + ToolTipMessage);
+					}
+					slf4jLogger.info(testID + ":" + System.currentTimeMillis() + "Unable to update currency");
+				}
+			}
+		}
+		Thread.sleep(4000);
+	} catch (Exception e) {
+		slf4jLogger.error(testID + ":" + System.currentTimeMillis() + "Error while updating Currency");
+		Assert.fail(testID + ": @" + System.currentTimeMillis() + "@" + e);
+	}
+	return new ProductSummarySteps();
+}
+
+private void enterDetailsforScenario(String testID, String scenarioName, String scenaraioCurrency, String scenarioDescription) {
+	WebDriver driver= getDriver();
+	try {
+
+		slf4jLogger.info(
+				testID + ":" + System.currentTimeMillis() + "Entered to New scenario Details Page....");
+		
+		slf4jLogger.info(testID + ":" + System.currentTimeMillis()
+				+ "[Enter Details for New Scenario Manager .... Started]");
+
+		
+			try {
+				
+				WebElement statusIcon = driver.findElement(By.className("SDG_StatusIcon"));
+				if (statusIcon.isDisplayed()) {
+					slf4jLogger.info(testID + ":" + System.currentTimeMillis() + "Unable to update currency");
+				}
+			} catch (Exception e) {
+				slf4jLogger.info(testID + ":" + System.currentTimeMillis() + "Currency can be updated");
+			}
+		
+
+		slf4jLogger.info(testID + ":" + System.currentTimeMillis()
+				+ " 240: assignAttibuteValueInNewOppertunity Started");
+		
+			} catch (Exception e) {
+				Assert.fail();
+			}
+	
+}
+
+
+public void lookupIconClick(WebDriver driver) {
+	try {
+		slf4jLogger.info("Click on the lookupIcon method!");
+		driver.findElement(By.id("opp4_lkwgt")).click();
+		tranferDriverToAnotherWindow(driver);
+		driver.switchTo().frame("searchFrame");
+		driver.findElement(By.id("lkenhmdSEARCH_ALL")).click();
+		driver.findElement(By.name("go")).click();
+		waitABit(2000);
+		driver.switchTo().defaultContent();
+		driver.switchTo().frame("resultsFrame");
+	//	driver.findElement(By.xpath("/html/body/div/div[3]/div/div/div[2]/div/div[2]/table/tbody/tr[2]/th/a")).click();
+	
+		salesforceHomePage.firstAccount.click();
+	}
+	catch (Exception e) {
+		Assert.fail(e.getMessage());
+	}
+	
+}
+
+@Step
+public void clickOnQuoteLink() {
+	try {
+		WaitForPageToLoad(5000);
+		slf4jLogger.info("Clicking on quote....");	
+		WebDriver driver = getDriver();
+		WebDriverWait wait = new WebDriverWait(driver, 10000);
+		wait.until(ExpectedConditions.elementToBeClickable(salesforceHomePage.smquoteLink));
+		salesforceHomePage.smquoteLink.click();
+		WaitForPageToLoad(5000);
+		waitABit(2000);
+	}catch (Exception e) {
+		Assert.fail("Inside clickOnQuoteLink method catch block... test failed");
+	}
+	
+}
+public  void tranferDriverToAnotherWindow(WebDriver driver) {
+	try {
+		// It will return the parent window name as a String
+		String parent=driver.getWindowHandle();
+
+		Set<String>s=driver.getWindowHandles();
+
+		// Now iterate using Iterator
+		Iterator<String> I1= s.iterator();
+
+		while(I1.hasNext())
+		{
+
+		String child_window=I1.next();
+
+
+		if(!parent.equals(child_window))
+		{
+		driver.switchTo().window(child_window);
+
+		System.out.println(driver.switchTo().window(child_window).getTitle());
+		}
+		}
+
+		/*for (String winHandle : driver.getWindowHandles()) {
+			driver.switchTo().window(winHandle);
+		}*/
+
+	} catch (Exception ex) {
+		slf4jLogger.info(ex.getMessage());
+	}
+
+}	
+	
+}

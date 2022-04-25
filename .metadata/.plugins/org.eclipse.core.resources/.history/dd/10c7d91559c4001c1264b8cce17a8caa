@@ -1,0 +1,1177 @@
+package com.ctl.it.qa.bpms.pages;
+
+import java.util.List;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBys;
+
+import com.ctl.it.qa.staf.Page;
+
+import net.serenitybdd.core.annotations.findby.FindBy;
+import net.serenitybdd.core.pages.WebElementFacade;
+
+public class ProductConfigPage extends Page {
+	
+	@FindBy(xpath = "./html/body/div[3]/h2/label")
+	public WebElementFacade packageHeaderLabel;
+	
+	@FindBy(xpath = ".//*[@aria-owns='Access_One_Type_HA_listbox']")
+	public WebElementFacade accessOneHA;
+	
+	@FindBy(xpath = ".//*[@aria-owns='A1Type_HA_listbox']")
+	public WebElementFacade a1TypeHA;
+	
+	@FindBy(xpath = ".//*[@aria-owns='relAccess_One_Connectivity_DIA_listbox']")
+	public WebElementFacade accessOne;
+	
+	@FindBy(xpath = ".//*[@aria-owns='Inside_Wiring_listbox']")
+	public WebElementFacade insideWiring;
+	
+	@FindBy(xpath = ".//*[@aria-owns='Circuit_Type_listbox']")
+	public WebElementFacade circuitType;
+	
+	@FindBy(xpath = ".//*[@aria-owns='Billing_Method_listbox']")
+	public WebElementFacade billingMethod;
+	
+	
+	@FindBy(xpath = ".//*[@aria-owns='High_Availability_listbox']")
+	public WebElementFacade highAvailabilityListbox;
+	
+	
+	@FindBy(xpath = ".//*[@id='ProductPackageWizardView']/div[1]/div[5]/div[2]/div[2]/button")
+	public WebElementFacade back;
+	
+	@FindBy(xpath = "./html/body/div[40]/div[2]/div/div/div[1]/div[2]/div[2]/table/tbody/tr/td[1]/input")
+	public WebElementFacade aLOCuniSelection;
+	
+	@FindBy(xpath = ".//*[@aria-owns='relALoc_UNI_listbox']")
+	public WebElementFacade relALOCuniListbox;
+	
+	@FindBy(xpath = ".//*[@id='AttributeForm']/div[1]/div[2]/table/tbody/tr[3]/td[3]/span")
+	public WebElementFacade smaddresserror;
+	
+	@FindBy(xpath = ".//*[@id='AttributeForm']/div[3]/div[2]/table/tbody/tr[6]/td[1]/label")
+	public WebElementFacade cdr;
+	
+	@FindBy(xpath = ".//*[@id='AttributeForm']/div[3]/div[2]/table/tbody/tr[6]/td[2]/div/span/span/span[2]/span[1]/span")
+	public WebElementFacade cdrUParror;
+	
+	@FindBy(xpath = ".//*[@id='AttributeForm']/div[3]/div[2]/table/tbody/tr[1]/td[2]/div/span/span/span[1]")
+	public WebElementFacade networkStatus;
+
+	@FindBy(xpath = ".//*[@id='AttributeForm']/div[3]/div[2]/table/tbody/tr[6]/td[2]/div/span/span/span[1]")
+	public WebElementFacade evcType;
+
+	@FindBy(xpath = ".//*[@id='AttributeForm']/div[3]/div[2]/table/tbody/tr[7]/td[2]/div/span/span/span[1]")
+	public WebElementFacade evcbandwidthXpath;
+
+	@FindBy(xpath = ".//*[@id='AttributeForm']/div[3]/div[2]/table/tbody/tr[8]/td[2]/div/span/span/span[1]")
+	public WebElementFacade evcclassXpath;
+	
+	@FindBy(xpath = ".//*[@id='Phone_Number']")
+	public WebElementFacade phoneNumber;
+	
+	@FindBy(xpath = "//label[text()='Phone Number:']")
+	public WebElementFacade phoneNumberLabel;
+	
+	@FindBy(xpath = ".//*[@id='readonlyAddress']")
+	public WebElementFacade addressSelected;
+	
+	@FindBy(xpath = ".//*[@id='packagepnl']/app-panel[1]/div/div[2]/app-package-details/form/div[5]/div[2]/label")
+	public WebElementFacade addressinvalidWarning;
+	
+	@FindBy(xpath = ".//*[@id='packagepnl']/app-panel[1]/div/div")
+	public WebElementFacade packagedetailsHeader;
+	
+	@FindBy(xpath = "./html/body/div[4]/div[2]/div[2]/div[2]/div[4]/div[2]/table/tbody/tr[2]/td[1]/input")
+	public WebElementFacade checkbox2;
+	
+	
+	@FindBy(xpath = ".//*[@id='package-summary']/div[2]/div[3]/button")
+	public WebElementFacade removeSelectedButton;
+	
+	@FindBy(xpath = "./html/body/div[4]/div[2]/div[2]/div[2]/div[4]/div[2]/table/tbody/tr[1]/td[1]/input")
+	public WebElementFacade checkboxPrimary;
+	
+	
+	@FindBy(xpath = ".//*[@id='AttributeForm']/div[3]/div[2]/table/tbody/tr[13]/td[1]/label")
+	public WebElementFacade fvridLabel;
+	
+	
+	@FindBy(xpath = ".//*[@id='FVR_ID']")
+	public WebElementFacade fvrid;
+	
+	@FindBy(xpath = "//*[@id=\"A_Loc_Inside_Wiring_listbox\"]/li[2]")
+	public List<WebElementFacade> aLocExtendedInsideWiringListbox;
+	
+	@FindBy(xpath = "//*[@id='Z_Loc_Inside_Wiring_listbox']/li[2]")
+	public List<WebElementFacade> zLocExtendedInsideWiringListbox;
+ 	
+	@FindBy(xpath = "//*[@id='Address2_listbox']/li")
+	public List<WebElementFacade> addresslist2;
+	
+	@FindBy(xpath = ".//*[@id='AttributeForm']/div[1]/div[2]/table/tbody/tr[4]/td[2]/div/span/span/span[1]")
+	public WebElementFacade addressDropdown2;
+	
+	@FindBy(xpath = ".//*[@id='ProductPackageWizardView']/div[1]/div[5]/div[2]/div[3]/button[@class='sprite wiz-next wiz-butt-margin wiz_next_active']")
+	public WebElementFacade nextbutton2;
+	
+	@FindBy(xpath = "./html/body/div[4]/div[2]/div[2]/div[2]/div[4]/div[2]/table/tbody/tr[2]/td[1]/input")
+	public WebElementFacade secondarypackagecheckbox;
+	
+	@FindBy(xpath = "./html/body/div[4]/div[2]/div[2]/div[2]/div[4]/div[2]/table/tbody/tr[1]/td[1]/input")
+	public WebElementFacade primarypackagecheckbox;
+	
+	@FindBy(xpath = ".//*[@id='package-summary']/div[2]/div[1]/span")
+	public WebElementFacade numberofunipackagesinreviewpage;
+	
+	@FindBy(xpath = ".//*[@aria-owns='EVC_Class_listbox']")
+	public WebElementFacade uniEvc;
+	
+	
+	@FindBy(xpath = ".//*[@aria-owns='Bandwidth_listbox']")
+	public WebElementFacade uniBandwidth;
+	
+	
+	@FindBy(xpath = ".//*[@id='ProductPackageWizardView']/div[1]/div[5]/div[2]/div[4]/button")
+	public WebElementFacade saveproductbutton;
+	
+	
+	@FindBy(xpath = ".//*[@id='ProductPackageWizardView']/div[1]/div[4]/div[2]/button")
+	public WebElementFacade firstnextbutton;
+	
+	
+	@FindBy(xpath = ".//*[@id='ProductGrid']/div[2]/table/tbody/tr[1]/td[1]/div/div[1]/span[2]/a")
+	public WebElementFacade uniproductedit;
+	
+	@FindBy(xpath = "./html/body/div[4]/div[2]/form/div[1]/div[2]/table/tbody/tr[4]/td[2]/div/span/span")
+	public WebElementFacade elineaddress2;
+	
+	@FindBy(xpath = ".//*[@id='RelatedProductSearch-relALoc_UNI']/span/span/span[1]")
+	public WebElementFacade aLocUNI;
+	
+	@FindBy(xpath = ".//*[@id='AttributeForm']/div[1]/div[2]/table/tbody/tr[3]/td[2]/div/span/span/span[1]")
+	public WebElementFacade addressDropdown;
+	
+	@FindBy(xpath = ".//*[@id='RelatedProductSearch-relZLoc_UNI']/span/span/span[1]")
+	public WebElementFacade zLocUNI;
+	
+	@FindBy(xpath = ".//*[@aria-owns='Class_listbox']")
+	public WebElementFacade evcClass;
+	
+	@FindBy(xpath = "//*[@id='Address1_listbox']/li")
+	public List<WebElementFacade> addresslist;
+	
+	@FindBy(xpath = ".//*[@aria-owns='A_Loc_Inside_Wiring_listbox']")
+	public WebElementFacade evcALocBuildingExtension;
+	
+	@FindBy(xpath = ".//*[@aria-owns='Z_Loc_Inside_Wiring_listbox']")
+	public WebElementFacade evcZLocBuildingExtension;
+	
+	@FindBy(xpath = ".//*[@aria-owns='Bandwidth_listbox']")
+	public WebElementFacade evcBandwidth;
+	
+	@FindBy(xpath = ".//*[@aria-owns='EVC_Type_listbox']")
+	public WebElementFacade evcTypelistbox;
+	
+	@FindBy(xpath = "./html/body/div[4]/div[2]/form/div[1]/div[2]/table/tbody/tr[3]/td[2]/div/span/span/span[1]")
+	public WebElementFacade elineAddress1;
+	
+	@FindBy(xpath = ".//*[@aria-owns='Protection_listbox']")
+	public WebElementFacade hsipprotection;
+	
+	@FindBy(xpath = ".//*[@aria-owns='A_Loc_Inside_Wiring_listbox']")
+	public WebElementFacade hsipbillingExtension;
+	
+	@FindBy(xpath = "./html/body/app-root/app-package/kendo-dialog/div[2]/kendo-dialog-actions/div/button[2]")
+	public WebElementFacade finishunusedLocationAlert;
+	
+	@FindBy(xpath = ".//*[@aria-owns='Level_3_Bandwidth_listbox']")
+	public WebElementFacade hsipserviceBandwidth;
+	
+	@FindBy(xpath = ".//*[@aria-owns='Billing_Option_listbox']")
+	public WebElementFacade hsipserviceBillingoption;
+	
+	@FindBy(xpath = ".//*[@id='Protection']")
+	public WebElementFacade protection;
+	
+	@FindBy(xpath = ".//*[@id='ContractType']")
+	public WebElementFacade contractType;
+	
+	@FindBy(xpath = ".//*[@id='PhoneQuantity']")
+	public WebElementFacade phoneQuantity;
+	
+	@FindBy(xpath = ".//*[@id='quote-iframe']")
+	public WebElementFacade quoteIframe;
+	
+	@FindBy(xpath = ".//*[@id='Term']")
+	public WebElementFacade ipvpnTerm;
+	
+	@FindBy(xpath = ".//*[@id='MultiServiceSelection']")
+	public WebElementFacade multiService;
+	
+	@FindBy(xpath = ".//*[@id='productName']")
+	public WebElementFacade productName;
+	
+	@FindBy(xpath = ".//*[@id='VPNDynamicCapacity']")
+	public WebElementFacade vpnDynamicCapacity;
+	
+	@FindBy(xpath = ".//*[@id='DiverseCircuitDiversity']")
+	public WebElementFacade diverseCircuitDiversity;
+	
+	@FindBy(xpath = ".//*[@id='DiverseCircuitType']")
+	public WebElementFacade diverseCircuitType;
+	
+	@FindBy(xpath = ".//*[@id='MultipleLogicals']")
+	public WebElementFacade multipleLogicals;
+	
+	@FindBy(xpath = ".//*[@id='changeLabel-ManagedIntegratedAccessDevice']")
+	public WebElementFacade changeMIA;
+	
+	@FindBy(xpath = ".//*[@id='nonPrimaryChildProds']")
+	public WebElementFacade addoptionalChild;
+
+	@FindBy(xpath = ".//*[@id='nonPrimaryChildProds']/option")
+	public List<WebElementFacade> optionalChildOptions;
+	
+	@FindBy(xpath = ".//*[@id='KitName']/option")
+	public List<WebElementFacade> kitNameOptions;
+	
+	@FindBy(xpath = ".//*[@id='CPEProvider']")
+	public WebElementFacade cpeProvider;
+	
+	@FindBy(xpath = ".//*[@id='CPEProvider']/option[2]")
+	public WebElementFacade cpeProviderCustom;
+	
+	@FindBy(xpath = ".//*[@id='changeLabel-TelecomServicePriorityTSP']")
+	public WebElementFacade changeLabelTelecomServicePriorityTSP;
+	
+	@FindBy(xpath = ".//*[@id='Manufacturer']")
+	public WebElementFacade manufacturer;
+	
+	@FindBy(xpath = ".//*[@id='BackupCircuit']")
+	public WebElementFacade backupCircuit;
+	
+	@FindBy(xpath = ".//*[@id='PrimaryCircuit']")
+	public WebElementFacade primaryCircuit;
+	
+	@FindBy(xpath = ".//*[@id='TotalVPNCIR']")
+	public WebElementFacade totalVPNCIR;
+	
+	@FindBy(xpath = ".//*[@id='VPNCIR']")
+	public WebElementFacade vpnCIR;
+	
+	@FindBy(xpath = ".//*[@id='editingLabel-Devices']")
+	public WebElementFacade editingLabelDevices;
+	
+	@FindBy(xpath = ".//*[@id='packagepnl']/app-panel[1]/div/div[2]/app-package-details/form/div[4]/div/input")
+	public WebElementFacade cotermenddate;
+	
+	@FindBy(xpath = ".//*[@id='packagepnl']/app-panel[1]/div/div/div/h5/i")
+	public WebElementFacade function;
+	
+	@FindBy(xpath = ".//*[@id='idAdditionalCopies']")
+	public WebElementFacade addCopiesInput;
+	
+	@FindBy(xpath = ".//*[@id='idAdditionalCopies']")
+	public List<WebElementFacade> addCopiesInputFields;
+	
+	@FindBy(xpath = ".//*[@id='packagepnl']/app-panel[1]/div/div[2]/app-package-details/form/div[1]/label")
+	public WebElementFacade functionlabel;
+
+	@FindBy(xpath = ".//*[@id='CircuitType']")
+	public WebElementFacade bandwidth;
+	
+	@FindBy(xpath = ".//*[@id='WaveBandwidth']")
+	public WebElementFacade waveBandwidth;
+	
+	@FindBy(xpath = ".//*[@id='BillingArrangementName']")
+	public WebElementFacade billingArrangementName;
+	
+	@FindBy(xpath = ".//*[@id='CurrentBandwidth']")
+	public WebElementFacade currentBandwidth;
+	
+	@FindBy(xpath = ".//*[@id='PackageType']")
+	public WebElementFacade packageType;
+	
+	@FindBy(xpath = ".//*[@id='Quantity']")
+	public WebElementFacade quantity;
+	
+	@FindBy(xpath = ".//*[@id='UpgradeType']")
+	public WebElementFacade upgradeType;
+	
+	@FindBy(xpath = ".//*[@id=\"PackageType\"]/option")
+	public List<WebElementFacade> packageOptions;
+	
+	@FindBy(xpath = ".//*[@id='changeLabel-CenturyLinkEngageA']")
+	public WebElementFacade changeLabelCTLengageA;
+	
+	@FindBy(xpath = ".//*[@id='editingLabel-Package']")
+	public WebElementFacade editingLabelPackage;
+	
+	@FindBy(xpath = ".//*[@id='btnGridAddNew']")
+	public WebElementFacade addNewBtn;
+	
+	@FindBy(xpath = ".//*[@id='deleteLabel-TelecomServicePriorityTSP']")
+	public WebElementFacade deleteTSP;
+	
+	@FindBy(xpath = ".//*[@id='Term']")
+	public WebElementFacade term;
+	
+	@FindBy(xpath = ".//*[@id='ServiceProvider']")
+	public WebElementFacade serviceProvider;
+	
+	@FindBy(xpath = ".//*[@id='PortType']")
+	public WebElementFacade diaBillingType;
+	
+	@FindBy(xpath = ".//*[@id='btnGridDelete']")
+	public List<WebElementFacade> deleteButtons;
+	
+	@FindBy(id = "btnfinish")
+	public WebElementFacade finishbtn;
+	
+	@FindBy(xpath = "//*[@id='AttributeForm']/div[3]/div[1]/button")
+	public WebElementFacade clearSelections;
+	
+	@FindBy(xpath = "//button[text()=' Continue Editing ']")
+	public WebElementFacade continueEditing;
+	
+	@FindBy(xpath = "//label[text()='Shipping cost']")
+	public WebElementFacade shippingCost;
+	
+	@FindBy(xpath = ".//*[@id='DeliveryOption']")
+	public WebElementFacade deliveryOption;
+	
+	@FindBy(xpath = ".//*[@id='btnGridEdit']")
+	public WebElementFacade editButton;
+	
+	@FindBy(xpath = ".//*[@id='btnGridEdit']")
+	public List<WebElementFacade> editButtons;
+	
+	@FindBy(xpath = ".//*[@id='ManagedIntegratedAccessDevice_Quantity']")
+	public WebElementFacade managedIntegratedAccessDeviceQuantity;
+	
+	@FindBy(xpath = "//span[text()='Local Access']")
+	public WebElementFacade localAccess;
+	
+	@FindBy(xpath = "//span[text()='IP Port']")
+	public WebElementFacade ipPort;
+	
+	@FindBy(xpath = "//span[text()='IP Logical']")
+	public WebElementFacade ipLogical;
+	
+	@FindBy(xpath = "//span[text()='Building Extension']")
+	public WebElementFacade buildingExtension;
+	
+	@FindBy(xpath = "//span[text()='Managed Integrated Access Device']")
+	public WebElementFacade managedIntegratedAccessDevice;
+	
+	@FindBy(xpath = "//span[text()='Telecom Service Priority (TSP)']")
+	public WebElementFacade telecomServicePriority;
+	
+	@FindBy(xpath = ".//*[@id='ManagedIntegratedAccessDevice_Nrc']")
+	public WebElementFacade managedIntegratedAccessDeviceNrc;
+	
+	@FindBy(xpath = ".//*[@id='ProductPackageWizardView']/div[3]/div[4]/div[2]/button[@class='sprite wiz-next product-ok-button wiz-butt-margin wiz_next_active']")
+	public WebElementFacade nextbtn1;
+	
+	@FindBy(xpath = ".//*[@class='grid-checkbox']")
+	public List<WebElementFacade> checkBoxes;
+	
+	@FindBy(xpath = ".//*[@id='changeLabel-Devices']")
+	public WebElementFacade changeLabelDevices;
+	
+	@FindBy(xpath = ".//*[@class='sprite wiz-next wiz-butt-margin wiz_next_active']")
+	public WebElementFacade nextbtn2;
+	
+	@FindBy(xpath = ".//*[@class='sprite wiz-save wiz-butt-margin wiz_save_active']")
+	public WebElementFacade saveprodbtn;
+	
+	@FindBy(xpath = ".//*[@id='Transport']")
+	public WebElementFacade access;
+	
+	@FindBy(xpath = ".//*[@id='InsideWiring']")
+	public WebElementFacade billingExtension;
+	
+	@FindBy(xpath = ".//*[@id='AccessSubBandwidth']")
+	public WebElementFacade accessSubBandwidth;
+	
+	@FindBy(xpath = ".//*[@id='ALocInsideWiring']")
+	public WebElementFacade aLocbillingExtension;
+	
+	@FindBy(xpath = ".//*[@id='ZLocInsideWiring']")
+	public WebElementFacade zLocbillingExtension;
+	
+	@FindBy(xpath = ".//*[@id='btnDialogSave']")
+	public WebElementFacade saveButton;
+	
+	@FindBy(xpath = ".//*[@aria-owns='Port_Bandwidth_listbox']")
+	public WebElementFacade uniPortBandwidth;
+	
+	@FindBy(xpath = ".//*[@id='changeLabel-SDRDiversity']")
+	public WebElementFacade changeLabelSDRDiversity;
+	
+	@FindBy(xpath = ".//*[@id='DLR']")
+	public WebElementFacade accessDiversity;
+	
+	@FindBy(xpath = ".//*[@id='ProductPOPDiversity']")
+	public WebElementFacade productPOPDiversity;
+	
+	@FindBy(xpath = ".//*[@id='SPCRID']")
+	public WebElementFacade spcrID;
+	
+	@FindBy(xpath = ".//*[@aria-owns='UNI_Type_listbox']")
+	public WebElementFacade uniType;
+	
+	@FindBy(xpath = ".//*[@id='btnAttribContinue']")
+	public WebElementFacade continuebtn;
+	
+	@FindBy(xpath = ".//*[@id='changeLabel-Package']")
+	public WebElementFacade changeLabelPackage;
+	
+	@FindBy(xpath = ".//*[@id='addLabel-Devices']")
+	public WebElementFacade addLabelDevices;
+	
+	@FindBy(xpath = ".//*[@id='DeviceDisplayName']")
+	public WebElementFacade deviceDisplayName;
+	
+	@FindBy(xpath = ".//*[@aria-owns='Inside_Wiring_listbox']")
+	public WebElementFacade unibillingExtension;
+	
+	@FindBy(xpath = ".//*[@id=\"packagepnl\"]/app-panel[1]/div/div[2]/app-package-details/form/div[5]/div/div[2]/label")
+	public WebElementFacade invalidAddressFilterMessage;
+	
+	@FindBy(xpath = ".//*[@id=\"ProductPackageWizardView\"]/div[3]/div[4]/div[3]/button")
+	public WebElementFacade quickSaveBtn;
+	
+	@FindBy(xpath = ".//*[@id=\"ProductGrid\"]/div[2]/table/tbody/tr[3]/td[1]/div/div[1]/span[2]/a")
+	public WebElementFacade highavailability;
+	
+	@FindBy(xpath = "/html/body/app-root/app-package/kendo-dialog/div[2]")
+	public WebElementFacade editPrevMRCDialoguebox;
+	
+	@FindBy(xpath = "/html/body/app-root/app-package/kendo-dialog/div[2]/div/app-previous-mrc-dialog/div/form/div/div/kendo-numerictextbox/span/input")
+	public WebElementFacade previousmrcXpath;
+	
+	@FindBy(xpath = "./html/body/app-root/app-package/kendo-dialog/div[2]/kendo-dialog-actions/div/button[2]")
+	public WebElementFacade previousMRCSave;
+	
+	@FindBy(xpath = ".//*[@class='form-group row ng-star-inserted']/label[@for='Address1']/following-sibling::div/select[@id='ddlAddress']/option[2]")
+	public WebElementFacade locationA;
+	
+	@FindBy(xpath = "/html/body/ngb-modal-window/div/div/app-product-children-attribute-table-edit/div[2]/div/form/div")
+	public List<WebElementFacade> fields;
+	
+	@FindBy(xpath = "/html/body/div[4]/div[2]/form/div[3]/div[2]/table/tbody/tr")
+	public List<WebElementFacade> smCoreProdFields;
+	
+	@FindBy(xpath = ".//*[@class='form-group row ng-star-inserted']/label[@for='Address2']/following-sibling::div/select[@id='ddlAddress']/option[3]")
+	public WebElementFacade locationZ;
+	
+	@FindBy(xpath = ".//*[@id='WaveBC']")
+	public WebElementFacade wavelengthBasicModule;
+	
+	@FindBy(xpath = ".//*[@id='WaveBandwidth']")
+	public WebElementFacade wlBandwidth;
+	
+	@FindBy(xpath = ".//*[@id='ALocInsideWiring']")
+	public WebElementFacade aLocBuildingExtn;
+	
+	@FindBy(xpath = ".//*[@id='ZLocInsideWiring']")
+	public WebElementFacade zLocBuildingExtn;
+	
+	@FindBy(xpath = ".//*[@id='Access_Three_Type_Bandwidth']")
+	public WebElementFacade accessThreeTypeBandwidth;
+	
+	@FindBy(xpath = ".//*[@id='CustomRoute']/option[2]")
+	public WebElementFacade wlcustomroute;
+	
+	@FindBy(xpath = ".//*[@id='CustomRoute']")
+	public WebElementFacade customRoute;
+	
+	@FindBy(xpath = ".//*[@id='changeLabel-WaveASide']")
+	public WebElementFacade aSideAcccesModule;
+	
+	@FindBy(xpath = ".//*[@id='changeLabel-WaveZSide']")
+	public WebElementFacade zSideAcccesModule;
+	
+	@FindBy(xpath = ".//*[@id='IPPDR']")
+	public WebElementFacade ipPDR;
+	
+	@FindBy(xpath = ".//*[@id='KitName']")
+	public WebElementFacade kitName;
+	
+	@FindBy(xpath = ".//*[@id='CustomKitName']")
+	public WebElementFacade customKitName;
+	
+	@FindBy(xpath = ".//*[@id='packagepnl']/app-panel[1]/div/div")
+	public WebElementFacade packageDetailsPanel;
+	
+	@FindBy(xpath = ".//*[@id='btncancel']")
+	public WebElementFacade cancelBtn;
+	
+	@FindBy(xpath = "/html/body/ngb-modal-window/div/div/app-cancel-changes-dialog/div[3]/button[1]")
+	public WebElementFacade exitWithoutSavingBtn;
+	
+	@FindBy(xpath = ".//*[@id='listedMrc']/span")
+	public WebElementFacade pndMRC;
+	
+	@FindBy(xpath = ".//*[@id='listedNrc']/span")
+	public WebElementFacade pndNRC;
+	
+	@FindBy(xpath = ".//*[@id='deleteLabel-ManagedEthernetAccessCPE']")
+	public WebElementFacade deleteMEACPE;
+	
+	@FindBy(xpath="//*[@id=\"btnGridEdit\"]/i")
+	public List<WebElementFacade> editPens;
+	
+	@FindBy(xpath = "/html/body/ngb-modal-window/div/div/app-product-children-attribute-table-edit/div[2]/div/form/div[1]/div/label")
+	public WebElementFacade pageDesc;
+	
+	@FindBy(xpath=".//*[@id='parentAttributes']/div/div[1]/form/div[4]/div/label")
+	public WebElementFacade currentBandWidthText;
+	
+	@FindBy(xpath = ".//*[@id='packagepnl']/app-panel[2]/div/div[2]/app-product-configuration/div/div[1]/div[1]/div[2]/div/div[3]/div[2]/div/div")
+	public WebElementFacade totalMRC;
+	
+	@FindBy(xpath = ".//*[@id='packagepnl']/app-panel[2]/div/div[2]/app-product-configuration/div/div[1]/div[1]/div[2]/div/div[1]/div[2]/div/div")
+	public WebElementFacade previousMRC;
+	
+	@FindBy(xpath = ".//*[@id='packagepnl']/app-panel[2]/div/div[2]/app-product-configuration/div/div[1]/div[1]/div[2]/div/div[2]/div[2]/div/div")
+	public WebElementFacade netMRC;
+	
+	@FindBy(xpath = ".//*[@id='packagepnl']/app-panel[2]/div/div[2]/app-product-configuration/div/div[1]/div/div[3]/div/div[2]/div[2]/div/div]")
+	public WebElementFacade totalNRC;
+	
+	@FindBy(xpath=".//*[@id='DIA_Mrc']")
+	public WebElementFacade diaMrc;
+	
+	@FindBy(xpath=".//*[@id='DIA_Nrc']")
+	public WebElementFacade diaNrc;
+	
+	@FindBy(xpath=".//*[@id='packageType']")
+	public WebElementFacade packageTypeDQP;
+	
+	@FindBy(xpath="//*[@id=\"Devices_Nrc\"]")
+	public WebElementFacade devicesNRCTotal;
+	
+	@FindBy(xpath=".//*[@id='Devices_anrc']")
+	public WebElementFacade discPageLink;
+	
+	@FindBy(xpath="//*[@id=\"packagepnl\"]/app-panel[2]/div/div[2]/app-product-configuration/div/div[1]/div/div[2]/div/div/div[2]/div")
+	public WebElementFacade discPageLinkOnPageHeader;
+	
+	@FindBy(xpath="//*[@id=\"heading6\"]/div/div/div/div[1]/div/span")
+	public WebElementFacade techInstall;
+		 
+	@FindBy(xpath = ".//*[@id='BillingArrangement']")
+	public WebElementFacade billingArrangement;
+	
+	@FindBy(xpath = ".//*[@id='BillingArrangement']/option")
+	public WebElementFacade billingArrangementOptions;
+	
+	@FindBy(xpath = ".//*[@id='AccessQuantity']")
+	public WebElementFacade	accessQuantity;
+		
+	@FindBy(xpath = ".//*[@id='changeLabel-DIA']")
+	public WebElementFacade	changeLabelDIA;
+		
+	@FindBy(xpath = ".//*[@id='PDR']")
+	public WebElementFacade	pdr;
+		
+	@FindBy(xpath = ".//*[@id='viewLabel-IPLogical']")
+	public WebElementFacade viewIPLogical;
+		
+	@FindBy(xpath = ".//*[@id='viewLabel-IPPort']")
+	public WebElementFacade viewIPPort;
+	
+	@FindBy(xpath = ".//*[@id='btnAddLocationPair']")
+	public WebElementFacade addLocationPairBtn;
+	
+	@FindBy(xpath = ".//*[@id='ddlASideAddress']")
+	public WebElementFacade aSideAddress;
+	
+	@FindBy(xpath = ".//*[@id='ddlASideAddress']/option")
+	public List<WebElementFacade> aSideAddressOptions;
+	
+	@FindBy(xpath = ".//*[@id='ddlZSideAddress']")
+	public WebElementFacade zSideAddress;
+	
+	@FindBy(xpath = ".//*[@id='collapse4']/div/div[2]/div/div/form/div/div[2]/strong")
+	public WebElementFacade changeLabelLocationPair;
+	
+	@FindBy(xpath = ".//*[@id='ddlZSideAddress']/option")
+	public List<WebElementFacade> zSideAddressOptions;
+	
+	@FindBy(xpath = ".//*[@id=\"btnGridDelete\"]")	
+	public WebElementFacade delete;
+		
+	@FindBy(xpath = ".//*[@id='changeLabel-BillingArrangement']")
+	public WebElementFacade changeLabelBA;
+	
+	@FindBy(xpath = ".//*[@id='editingLabel-LocalAccess']")
+	public WebElementFacade editingLabelLocalAccess;
+	
+	@FindBy(xpath = ".//*[@id='changeLabel-LocalAccess']")
+	public WebElementFacade changeLabelLocalAccess;
+	
+	@FindBy(xpath = ".//*[@id='parentAttributes']/div/div[2]/table/tbody[2]/tr/td[4]")
+	public WebElementFacade buildingExtnNRCPrice;
+	
+	@FindBy(xpath = ".//*[@id='parentAttributes']/div/div[2]/table")
+	public WebElementFacade pricingDetailsGrid;
+	
+	@FindBy(xpath = ".//*[@id='NetworkStatus']")
+	public WebElementFacade networkStatusA;
+	
+	@FindBy(xpath = ".//*[@id='NetworkStatus2']")
+	public WebElementFacade networkStatusZ;
+	
+	@FindBy(xpath = ".//*[@id='add-location-pair-actions']/table/tbody/tr[2]/td[1]/span/span/span[1]")
+	public WebElementFacade addALocation;
+		
+	@FindBy(xpath = ".//*[@id='add-location-pair-actions']/table/tbody/tr[2]/td[2]/span/span/span[2]")
+	public WebElementFacade addZLocation;
+	
+	@FindBy(xpath = ".//*[@id='add-location-pair-actions']/table/tbody/tr[2]/td[1]/span/span/span[2]")
+	public WebElementFacade addLocationA;
+		
+	@FindBy(xpath = ".//*[@id='add-location-pair-actions']/table/tbody/tr[2]/td[2]/span/span/span[2]")
+	public WebElementFacade addLocationZ;
+	
+	@FindBy(xpath = "//*[@id='location-a_listbox']/li")
+	public List<WebElementFacade> addLocationAList;
+		
+	@FindBy(xpath = "//*[@id='location-z_listbox']/li")
+	public List<WebElementFacade> addLocationZList;
+	
+	@FindBy(xpath = "//*[@id='Transport_listbox']/li")
+	public List<WebElementFacade> transportListbox;
+	
+	@FindBy(xpath = "//*[@id='Bandwidth_listbox']/li")
+	public List<WebElementFacade> bandwidthListbox;
+	
+	@FindBy(xpath = ".//*[@id='add-location-pair-actions']/table/tbody/tr[2]/td[3]/button")
+	public WebElementFacade addLocationPairBtnSM;
+	
+	@FindBy(xpath = "//*[@id='IP_Pop_listbox']/li")
+	public List<WebElementFacade> ipPoplistbox;
+	
+	@FindBy(xpath = "//*[@id='Preferred_Router_listbox']/li")
+	public List<WebElementFacade> preferredRouterlistbox;
+	
+	@FindBy(xpath = "//*[@aria-owns='A_Loc_Inside_Wiring_listbox']")
+	public WebElementFacade aLocInsideWiringlistbox;
+	
+	@FindBy(xpath = "//*[@aria-owns='Z_Loc_Inside_Wiring_listbox']")
+	public WebElementFacade zLocInsideWiringlistbox;
+	
+	@FindBy(xpath = ".//*[@id='ProductPackageWizardView']/div[1]/div[5]/div[1]/div[5]/button")
+	public WebElementFacade savePrdBtn;
+	
+	@FindBy(xpath = "//*[@id='RouterPOP']")
+	public WebElementFacade routerPOP;
+	
+	@FindBy(xpath = "//*[@id='btnServiceInfo']")
+	public WebElementFacade serviceInfobtn;
+	
+	@FindBy(xpath = "//*[@id='AttributeForm']/div[1]/div[2]/table/tbody/tr[3]/td[2]/div/span/span/span[2]")
+	public WebElementFacade address1;
+	
+	@FindBy(xpath = "//*[@id='Address1_listbox']/li")
+	public List<WebElementFacade> address1List;
+	
+	@FindBy(xpath = "//*[@id='Address2_listbox']/li[3]")
+	public WebElementFacade address2List;
+	
+	@FindBy(xpath = "//*[@id='AttributeForm']/div[1]/div[2]/table/tbody/tr[4]/td[2]/div/span/span/span[2]")
+	public WebElementFacade address2;
+	
+	@FindBy(xpath=".//*[@id='collapse4']/div/div[2]/div/div/form/div[2]/div[4]/table")
+	public WebElementFacade locationPairsGrid;
+	
+	@FindBy(xpath = ".//*[@id='collapse4']/div/div[2]/div/div/form/div[1]/div[2]/span")
+	public WebElementFacade editingLabelLocationPair;
+	
+	@FindBy(xpath = ".//*[@id=collapse4']/div/div[2]/div/div/form/div/div[1]")
+	public WebElementFacade locationPairHeading;
+	
+	@FindBy(xpath = "//*[@id=\"collapse4\"]/div/div[2]/div/div/form/div[2]/div[4]/table/tbody[2]/tr/td[1]/i")
+	public WebElementFacade removeLocationPairBtn;
+	
+	@FindBy(xpath = "//*[@id='ProductGrid']/div[2]/table/tbody/tr[3]/td[4]/div/div[3]/div/div[2]/div[1]/input")
+	public WebElementFacade totalMRR;
+	
+	@FindBy(xpath = "//button[text()='Add Child']")
+	public WebElementFacade addChildBtn;
+	
+	@FindBy(xpath = "//button[text()=' Remove Selected ']")
+	public WebElementFacade removeBtn;
+	
+	@FindBy(xpath = "//*[@id='ProductGrid']/div[2]/table/tbody/tr[1]/td[2]/div/span[2]/span/span[1]")
+	public WebElementFacade childProdDropdown;
+
+	@FindBy(xpath = "//*[@id='Billing_Arrangement_Name']")
+	public WebElementFacade billingArrangementNameID;
+		
+	@FindBy(xpath = "//*[@id='ProductPackageWizardView']/div[1]/div[5]/div[1]/div[2]/div/button")
+	public WebElementFacade quickSaveBtn2;
+	
+	@FindBy(xpath = "//*[@id='ProductGrid']/div[2]/table/tbody/tr[2]/td[2]/div/span[2]/span/span[1]")
+	public WebElementFacade grandChildProdDropdown;
+	
+	@FindBy(xpath = "/html/body/div[4]/div[2]/div[3]/div[4]/div[2]/div/div/div[2]/table/tbody/tr[2]/td[2]/div/button[2]")
+	public WebElementFacade addgrandChildBtn;
+	
+	@FindBy(xpath = "//*[@id='ProductPackageWizardView']/div[1]/div[4]/div[3]/button")
+	public WebElementFacade grandChildQuickSaveBtn;
+	
+	@FindBy(xpath = "//*[@id='WarningMessage']")
+	public WebElementFacade warningMsg;
+	
+	@FindBy(xpath = "//button[(@class='k-button') and (text()='Clone')]")
+	public List<WebElementFacade> cloneChildProdBtns;
+		
+	@FindBy(xpath = "//*[@id=\"CloneWindow\"]/div/span[2]/span/input[1]")
+	public List<WebElementFacade> cloneInput;
+	
+	@FindBy(xpath = "//*[@id='pdbadge']")
+	public WebElementFacade preDeployedLabel;
+	
+	@FindBy(xpath = ".//*[@id='btnROCAccessAndDiversity']")
+	public WebElementFacade rocAccessAndDiversityOption;
+	
+	@FindBy(xpath = "./html/body/ngb-modal-window/div/div[@class='modal-content']")
+	public WebElementFacade rocAccessAndDiversityPopup;
+	
+	@FindBy(xpath = ".//*[@id=\"SolutionID\"]/option[2]")
+	public WebElementFacade rocSolution;
+	
+	@FindBy(xpath = ".//*[@id=\"ROCInstructions\"]")
+	public WebElementFacade dqpROCInstruction;
+	
+	@FindBy(xpath = ".//*[@id=\"DLR\"]/option[4]")
+	public WebElementFacade rocAccessDiversity;
+	
+	@FindBy(xpath = ".//*[@id=\"btnDialogSave\"]")
+	public WebElementFacade rocAccessDiversitySaveBtn;
+	
+	@FindBy(xpath = ".//*[@id=\"listedYrc\"]")
+	public WebElementFacade listedYRC;
+	
+	@FindBy(xpath = ".//*[@id=\"WaveTransport_Yrc\"]")
+	public WebElementFacade transportYRC;
+	
+	@FindBy(xpath = ".//*[@id=\"parentAttributes\"]/div/div[2]/table/tbody[1]/tr/td[5]")
+	public WebElementFacade iruAssetYRC;
+	
+	@FindBy(xpath = ".//*[@id=\"parentAttributes\"]/div/div[2]/table/tbody[2]/tr/td[5]")
+	public WebElementFacade iruMaintainanceYRC;
+	
+	@FindBy(xpath = ".//*[@id=\"WaveASide_Yrc\"]")
+	public WebElementFacade waveASideYrc;
+	
+	@FindBy(xpath = ".//*[@id=\"WaveZSide_Yrc\"]")
+	public WebElementFacade waveZSideYrc;
+	
+	@FindBy(xpath = "//*[@id='AttributeForm']/div[1]/div[2]/table/tbody/tr[5]/td[2]/div")
+	public WebElementFacade promotion;
+	
+	@FindBy(xpath = "//*[@id='Promotion_listbox']/li")
+	public List<WebElementFacade> promotionList;
+		
+	@FindBy(xpath = "//*[@id='selectAllCheckBox']")
+	public WebElementFacade selectAllCheckBox;
+	
+	@FindBy(xpath = "//div[text()='Display Pricing & Price Details']")
+	public WebElementFacade displayPricingButton;
+	
+	@FindBy(xpath = "//*[@id='attributes-pricing-table']/table/tbody/tr[3]/td[2]/input[1]")
+	public WebElementFacade mrcDiscount;
+	
+	
+	@FindBy(xpath = "//td/label[text()='Total Suite Size (Sq Mtrs):']/parent::td/following-sibling::td/div/span/span/input")
+//	@FindBy(xpath = "/html/body/div[4]/div[2]/form/div[3]/div[2]/table/tbody/tr[2]/td[2]/div/span/span/span[2]/span[1]/span")
+	public WebElementFacade totalSqMtrs;
+	
+	@FindBy(xpath = "//td/label[text()='Total Suite Size (Sq Mtrs):']")
+	public WebElementFacade totalSqMtrsLabel;
+	
+	@FindBy(xpath = "//*[@id='WaveASide_anrc']")
+	public WebElementFacade aSideInstallNRC;
+	
+	@FindBy(xpath = "//*[@id='WaveZSide_anrc']")
+	public WebElementFacade zSideInstallNRC;
+	
+	@FindBy(xpath = "//*[@id='parentAttributes']/div/div[2]/table/tbody[2]/tr/td[5]/span/span")
+	public WebElementFacade aSidePricingTabInstallNRC;
+	
+	@FindBy(xpath = "//*[@id='parentAttributes']/div/div[3]/table/tbody[2]/tr/td[5]/span/span")
+	public WebElementFacade zSidePricingTabInstallNRC;
+		
+	@FindBy(xpath = "//*[@id='location-search-product-refer-list']/div/a")
+	public WebElementFacade productOfferAndCountryAvailabilityMatrixLink;
+
+	@FindBy(xpath ="//*[@id='RelatedProductSearch-relALoc_UNI']/span/span/span[1]")
+	public WebElementFacade relAlocUNI;
+	
+	@FindBy(xpath ="//*[@id='RelatedProductSearch-relZLoc_UNI']/span/span/span[1]")
+	public WebElementFacade relZlocUNI;
+	
+	@FindBy(xpath ="//*[@id=\"RelatedProductSearchWindow-relALoc_UNI\"]/div/div/ul/li[2]/span[2]")
+	public WebElementFacade relAlocUNIInventoryTab;
+	
+	@FindBy(xpath ="//*[@id=\"RelatedProductSearchWindow-relZLoc_UNI\"]/div/div/ul/li[2]/span[2]")
+	public WebElementFacade relZlocUNIInventoryTab;
+	
+	@FindBy(xpath ="//*[@id=\"RelatedProductScenarioGrid-relALoc_UNI\"]/div[2]/table/tbody/tr/td[1]/input")
+	public WebElementFacade relAlocUNIInventoryradioBtn;
+	
+	@FindBy(xpath ="//*[@id=\"RelatedProductScenarioGrid-relZLoc_UNI\"]/div[2]/table/tbody/tr/td[1]/input")
+	public WebElementFacade relZlocUNIInventoryradioBtn;
+
+	@FindBy(xpath = "//*[@id='AttributeForm']/div[3]/div[2]/table/tbody/tr[6]/td[1]/label")
+	public WebElementFacade cdrLabelHSIPBA;
+	
+	@FindBy(xpath = "//*[@id='AttributeForm']/div[3]/div[2]/table/tbody/tr[6]/td[2]/div/span/span/span[2]/span[1]")
+	public WebElementFacade cdrTextHSIPBA;
+	
+	@FindBy(xpath = "//*[@id='ProductGrid']/div[2]/table/tbody/tr[1]/td[1]/div/div[1]/span[2]/a")
+	public WebElementFacade hsipBALink;
+	
+	@FindBy(xpath = "//*[@id='ProductGrid']/div[2]/table/tbody/tr[1]/td[1]/div/div[3]/ul[1]/li[4]/span")
+	public WebElementFacade hsipServiceCDRText;
+	
+	@FindBy(xpath = "//*[@id='ProductGrid']/div[2]/table/tbody/tr[1]/td[1]/div/div[3]/ul[1]/li[2]/span")
+	public WebElementFacade diaBACDRText;
+
+	@FindBy(id = "BillingArrangementName")
+	public WebElementFacade ipvpnBAName;
+	
+	@FindBy(id = "VPNCIR")
+	public WebElementFacade ipvpnCIR;
+	
+	@FindBy(id = "BillingPercentileDirection")
+	public WebElementFacade ipvpnBPD;
+	
+	@FindBy(id = "BillingPercentile")
+	public WebElementFacade ipvpnBP;
+	
+	@FindBy(xpath = "/html/body/app-root/app-package/kendo-dialog/div[2]/kendo-dialog-actions/div/button[1]")
+	public WebElementFacade saveAndExit;
+	
+	@FindBy(id = "btnGridAddNew")
+	public WebElementFacade addNewCAMMSATermCommit;
+	
+	@FindBy(id = "SpendCommit")
+	public WebElementFacade spendCommitField;
+	
+	@FindBy(id = "btnDialogSave")
+	public WebElementFacade saveBtnSC;
+	
+	@FindBy(xpath = "/html/body/ngb-modal-window/div/div/app-product-children-attribute-table-edit/div[2]/div/form/div[1]/div[1]/label")
+	public WebElementFacade spendCommitLabel;
+	
+	@FindBy(xpath = "//*[@id='changeLabel-ManagedRouter']")
+	public WebElementFacade changeLabelManagedRouter;
+	
+	@FindBy(xpath = "//*[@id='changeLabel-IPVPN']")
+	public WebElementFacade changeLabelIPVPNlogical;
+	
+	@FindBy(xpath = "//*[@id='changeLabel-WaveTransport']")
+	public WebElementFacade changeLabelWaveTransport;
+	
+	@FindBy(xpath = ".//*[@aria-owns='A_Access_Service_listbox']")
+	public WebElementFacade privateLineASideAccessService;
+	
+	@FindBy(xpath = ".//*[@aria-owns='Z_Access_Service_listbox']")
+	public WebElementFacade privateLineZSideAccessService;
+	
+	@FindBy(xpath = "//*[@id=\"ProductGrid\"]/div[2]/table/tbody/tr[2]/td[1]/div/div[1]/span[2]/a[text()='A-Side Access']")
+	public WebElementFacade privateLineASideAccess;
+	
+	@FindBy(xpath = "//*[@id=\"ProductGrid\"]/div[2]/table/tbody/tr[3]/td[1]/div/div[1]/span[2]/a[text()='Z-Side Access']")
+	public WebElementFacade privateLineZSideAccess;
+	
+	@FindBy(xpath = ".//*[@aria-owns='Solution_ID_listbox']")
+	public WebElement privateLineSolutionID;
+
+	@FindBy(xpath = ".//*[@id='ROC_Instructions']")
+	public WebElementFacade smROCInstruction;
+	
+	@FindBy(xpath = "//*[@id='Specials_ID']")
+	public WebElementFacade privateLineASideSpecialID;
+	
+	@FindBy(xpath = "//*[@id='Specific_Offnet_Vendor_Required_listbox']/li[3]")
+	public WebElementFacade specificOffnetVendor;
+	
+	@FindBy(xpath = "//*[@id='Specific_Vendor_Required_Note']")
+	public WebElementFacade specificOffnetVendorNote;
+	
+	@FindBy(xpath = "//*[@id='Route_Diversity_listbox']/li[3]")
+	public WebElementFacade routeDiversity;
+	
+	@FindBy(xpath = "//*[@id='Route_Diversity_Note']")
+	public WebElementFacade routeDiversityNote;
+	
+	@FindBy(xpath = "//*[@id='Diverse_Building_Entrance_Required_listbox']/li[3]")
+	public WebElementFacade diverseBuildingEntrance;
+	
+	@FindBy(xpath = "//*[@id='Diverse_Building_Entrance_Required_listbox']/li[3]")
+	public WebElementFacade diverseBuildingEntranceNote;
+	
+	@FindBy(xpath = "//*[@id='Equipment_Diversity_Required_listbox']/li[3]")
+	public WebElementFacade vendorEquipmentDiversity;
+	
+	@FindBy(xpath = "//*[@id='Equipment_Diversity_Required_listbox']/li[3]")
+	public WebElementFacade vendorEquipmentDiversityNote;
+	
+	@FindBy(xpath = "//*[@id='Multi_Term_Request_listbox']/li[3]")
+	public WebElementFacade multitermRequest;
+	
+	@FindBy(xpath = "//*[@id='Requested_Terms']")
+	public WebElementFacade requestedTerm;
+	
+	@FindBy(xpath = ".//*[@aria-owns='Service_Type_listbox']")
+	public WebElementFacade hybridconnServiceType;
+	
+	@FindBy(xpath = ".//*[@aria-owns='Access_Quantity_listbox']")
+	public WebElementFacade hybridconnAccessQuantity;
+	
+	@FindBy(xpath = ".//*[@aria-owns='Access_One_Type_listbox']")
+	public WebElementFacade hybridconnAccessOneType;
+	
+	@FindBy(xpath = "/html/body/div[4]/div[2]/form/div[3]/div[2]/table/tbody/tr[4]/td[2]/div/div/span/span/span[2]")
+	public WebElementFacade hybridconnAccessOneTypedropdown;
+	
+	@FindBy(xpath = "/html/body/div[85]/div[2]/div/div/div[1]/div[2]/div[2]/table/tbody/tr[2]/td[1]/input") 
+	public WebElementFacade hybridconnAccessOneTypeCreateNewOption;
+	
+	@FindBy(xpath = ".//*[@aria-owns='Access_Two_Type_listbox']")
+	public WebElementFacade hybridconnAccessTwoType;
+	
+	@FindBy(xpath = "/html/body/div[4]/div[2]/form/div[3]/div[2]/table/tbody/tr[8]/td[2]/div/div/span/span/span[2]")
+	public WebElementFacade hybridconnAccessTwoTypedropdown;
+	
+	@FindBy(xpath = "/html/body/div[218]/div[2]/div/div/div[1]/div[2]/div[2]/table/tbody/tr/td[1]/input")  //DIA
+	public WebElementFacade hybridconnAccessTwoTypeCreateNewOption;
+	
+	@FindBy(xpath = ".//*[@aria-owns='CPE_listbox']")
+	public WebElementFacade hybridconnCPE;
+	
+	@FindBy(xpath = ".//*[@id=\"ProductGrid\"]/div[2]/table/tbody/tr[1]/td[1]/div/div[1]/span[2]/a[text()='Hybrid Connectivity - SD-WAN Premium']")
+	public WebElementFacade hybridConnectivity;
+	
+	@FindBy(xpath = ".//*[@id=\"ProductGrid\"]/div[2]/table/tbody/tr[4]/td[4]/div/div[3]/div/div[2]/div[1]/input")
+	public WebElementFacade hybridConnReplacementMRR;
+	
+	@FindBy(xpath = ".//*[@id='Estimated_Additional_MOU']")
+	public WebElementFacade estimatedAdditionalMOU;
+	
+	@FindBy(xpath = ".//*[@id='PricingPanel']/div[1]/div[2]/div[4]/table/tbody/tr[1]/td[3]/input[1]")
+	public WebElementFacade adjustedIntraRate;
+	
+	@FindBy(xpath = ".//*[@id='PricingPanel']/div[1]/div[2]/div[4]/table/tbody/tr[2]/td[3]/input[1]")
+	public WebElementFacade adjustedInterRate;
+	
+	@FindBy(xpath = ".//*[@id='PricingPanel']/div[1]/div[2]/div[4]/table/tbody/tr[1]/td[5]/span/span/span[1]")
+	public WebElementFacade percentOfMOUIntraRate;
+	
+	@FindBy(xpath = ".//*[@id='PricingPanel']/div[1]/div[2]/div[4]/table/tbody/tr[2]/td[5]/span/span/span[1]")
+	public WebElementFacade percentOfMOUInterRate;
+	
+	@FindBy(xpath = ".//*[@id='PricingPanel']/div[1]/div[2]/div[4]/table/tbody/tr[1]/td[6]/input")
+	public WebElementFacade estMRCIntraprice;
+	
+	@FindBy(xpath = ".//*[@id='PricingPanel']/div[1]/div[2]/div[4]/table/tbody/tr[2]/td[6]/input")
+	public WebElementFacade estMRCInterprice;
+	
+	@FindBy(xpath = ".//*[@id=\"attributes-pricing-table\"]/table/tbody/tr[5]/td[2]/input")
+	public WebElementFacade internetUnitAdjustedMRC;
+	
+	@FindBy(xpath = ".//*[@id=\"attributes-pricing-table\"]/table/tbody/tr[5]/td[4]/input")
+	public WebElementFacade internetUnitAdjustedNRC;
+	
+	@FindBy(xpath = ".//*[@id=\"attributes-pricing-table\"]/table/tbody/tr[6]/td[2]/input")
+	public WebElementFacade internetExtAdjustedMRC;
+	
+	@FindBy(xpath = ".//*[@id=\"attributes-pricing-table\"]/table/tbody/tr[6]/td[4]/input")
+	public WebElementFacade internetExtAdjustedNRC;
+	
+	@FindBy(xpath = ".//*[@id=\"attributes-pricing-table\"]/table/tbody/tr[7]/td[2]/input")
+	public WebElementFacade internetExtApprovedMRC;
+	
+	@FindBy(xpath = ".//*[@id=\"attributes-pricing-table\"]/table/tbody/tr[7]/td[3]/input")
+	public WebElementFacade internetExtApprovedNRC;
+	
+	@FindBy(xpath = "//*[@id='UCaaStype']")
+	public WebElementFacade zoomUcaasType;
+	
+	@FindBy(xpath = "//*[@id='PlanType']")
+	public WebElementFacade zoomPlanType;
+	
+	@FindBy(xpath = "//*[@id='LicenseQuantity']")
+	public WebElementFacade zoomLicenseQuantity;
+	
+	@FindBy(xpath = "//*[@id='DiscountLevel']")
+	public WebElementFacade zoomDiscountLevel;
+	
+	@FindBy(xpath = "//*[@id='DealRegistrationID']")
+	public WebElementFacade zoomRegistrationID;
+	
+	@FindBy(xpath = "//*[@id='AttributeForm']/div[3]/div[2]/table/tbody/tr[3]/td[1]")
+	public WebElementFacade uniBandwidthLabel;
+	
+	@FindBy(xpath = ".//label[text()='UNI Type:']")
+	public WebElementFacade uniTypeLabel;
+	
+	@FindBy(xpath = ".//*[@aria-owns='Network_Status_listbox']")
+	public WebElementFacade uniNetworkStatus;
+	
+	@FindBy(xpath = "//*[@id='AttributeForm']/div[3]/div[2]/table/tbody/tr[5]/td[1]")
+	public WebElementFacade unievclabel;
+	
+	@FindBy(xpath = "//*[@aria-owns='Access_One_Type_listbox']")
+	public WebElementFacade accessOneTypelistbox;
+	
+	@FindBy(xpath = ".//*[@aria-owns='Access_Two_Type_listbox']")
+	public WebElementFacade accessTwoTypelistbox;
+	
+	@FindBy(xpath = ".//*[@aria-owns='Access_Two_Type_Bandwidth_listbox']")
+	public WebElementFacade accessTwoTypeBandwidthlistbox;
+	
+	@FindBy(xpath = "//*[@id='ProductGrid']/div[2]/table/tbody/tr[2]/td[1]/div/div[1]/span[2]/a[text()='Internet Transport']")
+	public WebElementFacade internetTransport;
+	
+	@FindBy(xpath = "//*[@id='ProductGrid']/div[2]/table/tbody/tr[3]/td[1]/div/div[1]/span[2]/a[text()='Managed Router']")
+	public WebElementFacade internetManagedRouter;
+
+	@FindBy(xpath="/html/body/div[4]/div[2]/div[3]/div[4]/div[2]/div/div/div[2]/table/tbody/tr[1]/td[1]/div/div[2]/div/span")
+	public WebElement packageGPID;
+	
+	@FindBy(xpath="/html/body/div[4]/div[1]/div[5]/div[2]/div[1]/button")
+	public WebElement cancelButton;
+	
+	@FindBy(xpath = ".//*[@aria-owns='A1Type_listbox']")
+	public WebElementFacade a1Typelistbox;
+	
+	@FindBy(xpath = ".//*[@aria-owns='Vendor_listbox']")
+	public WebElementFacade vendorListbox;
+	
+	@FindBy(xpath = ".//*[@aria-owns='Transport_Speed_listbox']")
+	public WebElementFacade transportSpeedListbox;
+	
+	@FindBy(xpath = ".//*[@aria-owns='Bundle_listbox']")
+	public WebElementFacade bundleListbox;
+	
+	@FindBy(xpath = ".//*[@aria-owns='CPE_Device_Model_listbox']")
+	public WebElementFacade cpeDeviceModelListbox;
+	
+	@FindBy(xpath = ".//*[@aria-owns='Access_Three_Type_listbox']")
+	public WebElementFacade accessThreeTypeListbox;
+	
+	@FindBy(xpath = ".//*[@aria-owns='Access_Three_Type_Bandwidth_listbox']")
+	public WebElementFacade accessThreeTypeBandwidthListbox;
+	
+	@FindBy(xpath = ".//*[@aria-owns='Access_Four_Type_listbox']")
+	public WebElementFacade accessFourTypeListbox;
+	
+	@FindBy(xpath = ".//*[@aria-owns='A4Type_listbox']")
+	public WebElementFacade a4TypeListbox;
+	
+	@FindBy(xpath = ".//*[@aria-owns='Circuit_Type4_listbox']")
+	public WebElementFacade circuitType4Listbox;
+	
+	@FindBy(xpath = ".//*[@aria-owns='Billing_Method4_listbox']")
+	public WebElementFacade billingMethod4Listbox;
+	
+	@FindBy(xpath = ".//*[@aria-owns='Access_Type4_listbox']")
+	public WebElementFacade accessType4Listbox;
+	
+	@FindBy(xpath = ".//*[@aria-owns='Inside_Wiring4_listbox']")
+	public WebElementFacade insideWiring4Listbox;
+	
+	@FindBy(xpath = ".//*[@id='CPEProvidedBy']")
+	public WebElementFacade ipvpnManagedRouterCPE;
+	
+	@FindBy(xpath = ".//*[@id='Chassis']")
+	public WebElementFacade ipvpnManagedRouterChassis;
+	
+	@FindBy(xpath = ".//*[@aria-owns='Port_Redundancy_listbox']")
+	public WebElementFacade portRedundancyListbox;
+	
+	@FindBy(xpath = "//*[@aria-owns='IP_Pop_listbox']")
+	public WebElementFacade ipPop;
+	
+	@FindBy(xpath = "//*[@aria-owns='OVC_Type_listbox']")
+	public WebElementFacade ovcType;
+	
+	@FindBy(xpath = "//*[@aria-owns='IP_Pop_listbox']")
+	public WebElementFacade ipPop1;
+	
+	@FindBy(xpath = ".//*[@aria-owns='Onsite_Installation_listbox']")
+	public WebElementFacade sm_OnsiteInstallation;
+	
+	@FindBy(id = "OnsiteInstallation")
+	public WebElementFacade dqp_onsiteInstallation;
+	
+	@FindBy(id = "DeviceCategory")
+	public WebElementFacade deviceCategory;
+	
+	@FindBy(id = "DeviceModel")
+	public WebElementFacade deviceModel;
+	
+	@FindBy(id = "DataPlan")
+	public WebElementFacade dataPlan;
+	
+	@FindBy(xpath = ".//*[@id='locations-grid']/div[2]/table/tbody/tr/td[4]/div/img")
+	public WebElementFacade locationflrmPackageDetailsPage;
+	
+	@FindBy(id = "DataCenter")
+	public WebElementFacade dataCenter;
+	
+	@FindBy(id = "DataCenterOther")
+	public WebElementFacade dataCenterOtherValue;
+	
+	@FindBy(id = "OSOptions")
+	public WebElementFacade osOptions;
+
+	@FindBy(xpath = "//*[@id='AttributeForm']/div[3]/div[2]/table/tbody/tr[2]/td[2]/div/span/span/input[1]")
+	public WebElementFacade cdrDIABA;
+	
+	public String[] childProductsInternet = {"Expedited Due Date Charge","Primary DNS Hosting","Secondary DNS Hosting","Shared Web Hosting","Telecom Service Priority (TSP)","VLAN Tag - ITS"};
+	
+	public String[] childProductsELineEVC = {"Expedited Due Date Charge"};
+	
+	String locationAText = "";
+	String locationZText = "";
+	
+	public String getLocationA_Text() {
+		return locationAText;
+	}
+
+
+	public void setLocationA_Text(String locationA_Text) {
+		this.locationAText = locationAText;
+	}
+
+
+	public String getLocationZ_Text() {
+		return locationZText;
+	}
+
+
+	public void setLocationZ_Text(String locationZ_Text) {
+		this.locationZText = locationZText;
+	}
+	
+	
+	
+	@Override
+	public WebElementFacade getUniqueElementInPage() {
+
+		return finishbtn;
+	}
+
+}

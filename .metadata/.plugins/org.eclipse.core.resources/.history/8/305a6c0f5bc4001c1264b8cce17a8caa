@@ -1,0 +1,66 @@
+package com.ctl.it.qa.bpms.pages;
+
+import org.openqa.selenium.support.FindBy;
+
+import net.serenitybdd.core.pages.WebElementFacade;
+
+
+/***
+ * This Class is similar to the Attach New Company Document Page in Scenario
+ * Manager , where we Enter All document information and attach company
+ * document.
+ * 
+ * @author niroula.subash
+ *
+ */
+public class SMAttachNewDocumentFormPage {
+
+
+	@FindBy(id = "j_id0:gaForm:Information:documentInformation:docName")
+	public  WebElementFacade attachedDocumentNameText;
+
+	@FindBy(xpath = "//*[@id=\"j_id0:gaForm:Information:documentContent:documentType\"]")
+	public  WebElementFacade attachedDocumentTypeText;
+
+	//@FindBy(id = "j_id0:cdForm:Information:documentContent:j_id50:signedDate")
+	//public  WebElementFacade attachedDocumentSignedDate;
+
+	@FindBy(id = "j_id0:cdForm:Information:documentContent:j_id46:signedDate")
+	public  WebElementFacade attachedDocumentSignedDateAltr;
+	
+	@FindBy(id = "j_id0:gaForm:Information:documentContent:j_id42:estimatedSignDate")
+	public  WebElementFacade attachedDocumentEstimatedSignDate;
+
+	@FindBy(id = "j_id0:gaForm:Information:documentContent:j_id49:estimatedSignDate")
+	public  WebElementFacade attachedDocumentEstimatedCRD;
+
+	//@FindBy(id = "j_id0:cdForm:Information:documentContent:terms")
+	//public  WebElementFacade attachedDocumentTerm;
+
+	//@FindBy(id = "j_id0:cdForm:Information:documentContent:nonStandard")
+	//public  WebElementFacade NonStandardSelectElement;
+
+	//@FindBy(id = "j_id0:cdForm:Information:documentContent:finalFlag")
+	//public  WebElementFacade attachedDocumentFinalFlag;
+
+	@FindBy(id = "ucAttachment_fileAttach")
+	public  WebElementFacade BrowseButtonForFileAttachement;
+
+	@FindBy(xpath = "/html/body/form/div[3]/div/div[1]/table/tbody/tr/td[1]/input")
+	public WebElementFacade fileAttach;
+	
+	@FindBy(id = "ucAttachment_btnAdd")
+	public  WebElementFacade AddFileButtonForFileAttachement;
+
+	public WebElementFacade getUniqueElementInPage() {
+		
+		return AddFileButtonForFileAttachement;
+	}
+
+	public String AttachedDocumentName = "Service Order Form";
+	public String AttachedDocumentType = "Service Order Form";
+	public String AttachedDocumentSignedDate = "05/19/2020";
+	public String AttachedDocumentTerm = "10";
+	public String NonStandard_SelectElement = "No";
+	public String AttachedDocumentFinalFlag = "Yes";
+}

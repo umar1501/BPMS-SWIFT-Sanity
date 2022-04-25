@@ -1,0 +1,469 @@
+package com.ctl.it.qa.bpms.pages;
+
+import java.util.List;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
+
+import com.ctl.it.qa.staf.Page;
+
+import net.serenitybdd.core.annotations.findby.FindBy;
+import net.serenitybdd.core.pages.WebElementFacade;
+
+public class DiscountingProfitabilityPage extends Page {
+	
+	
+	@FindBy(xpath = "./html/body/div[18]/div/div[2]/div/div[2]/div[2]/span[1]")
+	public WebElementFacade payback1961;
+
+	@FindBy(xpath = "./html/body/div[18]/div/div[2]/div/div[2]/div[3]/span[1]")
+	public WebElementFacade ebtida1961;
+	
+	@FindBy(xpath = "//*[@id='product-tree-items']/table[1]/tbody/tr/td[1]/div/span[1]/input")
+	public WebElementFacade  unicheckBox1;
+	
+	
+	@FindBy(xpath = "//*[@id='product-tree-items']/table[2]/tbody/tr/td[1]/div/span[1]/input")
+	public WebElementFacade  unicheckBox2;
+	
+	@FindBy(xpath = ".//*[@id='product-tree-items']/table/tbody/tr[5]/td[12]/div/div[1]/div[1]/input")
+	public WebElementFacade dataserviceAdjNrc;
+	
+	@FindBy(xpath = ".//*[@id='product-tree-items']/table/tbody/tr[5]/td[11]/div/div[1]/div[1]/input")
+	public WebElementFacade dataserviceAdjMrc;
+	
+	@FindBy(xpath = ".//*[@id='product-tree-items']/table/tbody/tr[5]/td[10]/div/div[1]/div[1]/input")
+	public WebElementFacade dataserviceNrcDiscount;
+	
+	@FindBy(xpath = ".//*[@id='product-tree-items']/table/tbody/tr[5]/td[9]/div/div[1]/div[1]/input")
+	public WebElementFacade dataserviceMrcDiscount;
+	
+	@FindBy(xpath = ".//*[@id='product-tree-items']/table/tbody/tr[5]/td[8]/div[1]/span[3]")
+	public WebElementFacade dataserviceListNrc;
+	
+	
+	@FindBy(xpath = ".//*[@id='product-tree-items']/table/tbody/tr[5]/td[7]/div[1]/span[2]")
+	public WebElementFacade dataserviceListMrc;
+	
+	@FindBy(xpath = ".//*[@id='product-tree-items']/table[3]/tbody/tr/td[12]/div/div[1]/div[1]/input")
+	public WebElementFacade elinenrcDiscount;
+	
+	
+	@FindBy(xpath = ".//*[@id='product-tree-items']/table[3]/tbody/tr/td[11]/div/div[1]/div[1]/input")
+	public WebElementFacade elinemrcDiscount;
+	
+	
+	@FindBy(xpath = ".//*[@id='product-filter-select_taglist']/li[2]/span[2]/span")
+	public WebElementFacade closemark;
+	
+	
+	@FindBy(xpath = ".//*[@id='metrics-toolbar-right']/button[1]")
+	public WebElementFacade updateFinancial;
+	
+	
+	@FindBy(xpath = ".//*[@id='adjusted-metrics-grid']/div[2]/table/tbody/tr[2]/td[22]/div/input")
+	public WebElementFacade reason;
+	
+	@FindBy(xpath = "./html/body/div[8]/div[1]/div/a[3]")
+	public WebElementFacade closeUpdateCost;
+	
+	@FindBy(xpath = ".//*[@id='ProfitablityView']/div[1]/span[4]")
+	public WebElementFacade currency;
+	
+	@FindBy(xpath = ".//*[@id='ProfitablityView']/div[1]/span[3]/span")
+	public WebElementFacade unitcostid;
+	
+	@FindBy(xpath = ".//*[@id='ProfitablityView']/div[1]/span[2]/span")
+	public WebElementFacade scenarioId;
+	
+	@FindBy(xpath = ".//*[@id='ProductTree']/div/div[1]/div/div/table/thead/tr/th[14]")
+	public WebElementFacade approvednrcheader;
+	
+	@FindBy(xpath = ".//*[@id='ProductTree']/div/div[1]/div/div/table/thead/tr/th[13]")
+	public WebElementFacade approvedmrcheader;
+	
+	@FindBy(xpath = ".//*[@id='ProductTree']/div/div[1]/div/div/table/thead/tr/th[12]")
+	public WebElementFacade adjustednrcheader;
+	
+	@FindBy(xpath = ".//*[@id='ProductTree']/div/div[1]/div/div/table/thead/tr/th[11]")
+	public WebElementFacade adjustedmrcheader;
+	
+	@FindBy(xpath = ".//*[@id='ProductTree']/div/div[1]/div/div/table/thead/tr/th[10]")
+	public WebElementFacade nrcdiscountheader;
+	
+	@FindBy(xpath = ".//*[@id='ProductTree']/div/div[1]/div/div/table/thead/tr/th[9]")
+	public WebElementFacade mrcdiscountheader;
+	
+	@FindBy(xpath = ".//*[@id='ProductTree']/div/div[1]/div/div/table/thead/tr/th[8]")
+	public WebElementFacade listnrcheader;
+	
+	@FindBy(xpath = ".//*[@id='ProductTree']/div/div[1]/div/div/table/thead/tr/th[7]")
+	public WebElementFacade listmrcheader;
+	
+	@FindBy(xpath = ".//*[@id='ProductTree']/div/div[1]/div/div/table/thead/tr/th[6]")
+	public WebElementFacade termheader;
+	
+	@FindBy(xpath = ".//*[@id='ProductTree']/div/div[1]/div/div/table/thead/tr/th[5]")
+	public WebElementFacade qtyheader;
+	
+	@FindBy(xpath = ".//*[@id='ProductTree']/div/div[1]/div/div/table/thead/tr/th[4]")
+	public WebElementFacade packagemetricsheader;
+	
+	@FindBy(xpath = ".//*[@id='ProductTree']/div/div[1]/div/div/table/thead/tr/th[3]")
+	public WebElementFacade infoheader;
+	
+	@FindBy(xpath = ".//*[@id='ProductTree']/div/div[1]/div/div/table/thead/tr/th[2]")
+	public WebElementFacade statusheader;
+	
+	
+	@FindBy(xpath = ".//*[@id='ProductTree']/div/div[1]/div/div/table/thead/tr/th[1]/div/span[2]")
+	public WebElementFacade productheader;
+	
+	@FindBy(xpath = ".//*[@id='product-tree-items']/table[2]/tbody/tr/td[11]/div/div[1]/div[1]/input")
+	public WebElementFacade adjmrcfourthrow;
+	
+	
+	@FindBy(xpath = ".//*[@id='product-tree-items']/table[1]/tbody/tr[3]/td[9]/div/div[1]/div[1]/input")
+	public WebElementFacade mrcdiscountthirdrow;
+	
+	
+	@FindBy(xpath = "//*[@id='product-tree-items']/table")
+	public List<WebElementFacade> table;
+	
+	@FindBy(xpath = ".//*[@id='product-tree-items']/table[1]/tbody/tr")
+	public WebElementFacade firstrow;
+	
+	@FindBy(xpath = ".//*[@id='product-tree-items']/table[2]/tbody/tr")
+	public WebElementFacade secondrow;
+	
+	@FindBy(xpath = ".//*[@id='filter-dropdown-btn']")
+	public WebElementFacade filterDropdownButton;
+	
+	
+	@FindBy(xpath = ".//ul[@id='product-filter-select_taglist']/li/span[2]")
+	public WebElementFacade clearfilter;
+	
+	
+	@FindBy(xpath = "./html/body/div[14]/div/div[2]/div")
+	public WebElementFacade profitmaticscontent;
+	
+	@FindBy(xpath = ".//*[@id='profit-toolbar-right']/button[3]/span")
+	public WebElementFacade clearApproval;
+	
+	
+	@FindBy(xpath = ".//*[@id='product-tree-items']/table[1]/tbody/tr[1]/td[1]/div/span[1]/input")
+	public WebElementFacade wavelengthproduct;
+	
+	@FindBy(xpath = "./html/body/div[4]/div[2]/div[4]/div/div[2]/table[2]/tbody/tr[1]/td[11]/div/div[1]/div[1]/input")
+	public WebElementFacade hsipmrcdiscount;
+	
+	@FindBy(xpath = "./html/body/div[4]/div[2]/div[4]/div/div[2]/table[2]/tbody/tr[1]/td[12]/div/div[1]/div[1]/input")
+	public WebElementFacade hsipnrcdiscount;
+	
+	@FindBy(xpath = ".//*[@id='ProductTree']/div/div[3]/table/tfoot/tr/td[12]/div/div/span[2]")
+	public WebElementFacade adjustedNRC;
+	
+	@FindBy(xpath = ".//*[@id='ProductTree']/div/div[3]/table/tfoot/tr/td[15]/div/div/span[2]")
+	public WebElementFacade approvedMRC;
+	
+	@FindBy(xpath = ".//*[@id='ProductTree']/div/div[3]/table/tfoot/tr/td[14]/div/div/span[2]")
+	public WebElementFacade approvedNRC;
+	
+	@FindBy(xpath = "//*[@id='profit-toolbar-right']/button[5]")
+	public WebElementFacade cancelChanges;
+	
+	@FindBy(xpath = ".//*[@id='ProductTree']/div/div[3]/table/tfoot/tr/td[4]/div/div[2]")
+	public WebElementFacade profitmatrix;
+	
+	@FindBy(xpath = ".//*[@id='product-tree-items']/table/tbody/tr[3]/td[3]/div/div[4]/i")
+	public WebElementFacade amorticon;
+	
+	@FindBy(xpath = ".//*[@id='termText']")
+	public WebElementFacade amortizeTermField;
+	
+	@FindBy(xpath = ".//*[@id='product-tree-items']/table/tbody/tr[3]/td[1]/div/span[2]/input")
+	public WebElementFacade ciscopackage;
+	
+	@FindBy(xpath = "//*[@id='profit-toolbar-right']/button[1]")
+	public WebElementFacade refreshPricingBtn;
+	
+	@FindBy(xpath = ".//*[@id='product-tree-items']/table/tbody/tr[3]/td[8]/div[1]/span[3]")
+	public WebElementFacade cisconrc;
+	
+	@FindBy(xpath = ".//*[@id='scenarioDetailHomeLink']")
+	public WebElementFacade backtoscenario;
+	
+	@FindBy(xpath = ".//*[@id='profit-toolbar-left']/table/tbody/tr[5]/td[2]/button[1]")
+	public WebElementFacade amortizeapply;
+	
+	@FindBy(xpath = ".//*[@id='profit-toolbar-left']/table")
+	public WebElementFacade outField;
+	
+	@FindBy(xpath = ".//*[@id='scenarioDetailHomeLink']")
+	public WebElementFacade scenariodetailspagelink;
+	
+	@FindBy(xpath = ".//*[@id='product-tree-items']/table[1]/tfoot/tr/td[7]/div[1]/span[2]")
+	public WebElementFacade listMRC;
+	
+	@FindBy(xpath = ".//*[@id='product-tree-items']/table[1]/tfoot/tr/td[8]/div[1]/span[2]")
+	public WebElementFacade listNRC;
+	
+	@FindBy(xpath = ".//*[@id='ProductTree']/div/div[1]/div/div/table/thead/tr/th[1]/div/span[1]/input")
+	public WebElementFacade productCheckBox;
+	
+	@FindBy(xpath=".//*[@id='profit-toolbar-left']/table/tbody/tr[1]/td[2]/input")
+	public WebElementFacade mrcBulkDiscount;
+	
+	@FindBy(xpath=".//*[@id='profit-toolbar-left']/table/tbody/tr[2]/td[2]/input")
+	public WebElementFacade nrcBulkDiscount;
+	
+	@FindBy(xpath=".//*[@id='profit-toolbar-left']/table/tbody/tr[2]/td[3]/button")
+	public WebElementFacade bulkDiscountApply;
+	
+	@FindBy(xpath = ".//*[@class='pageDescription']")
+	public WebElementFacade pageDescription;
+	
+	@FindBy(xpath = ".//*[@class='discounting-button']")
+	public WebElementFacade discountingbutton;
+	
+	@FindBy(xpath = ".//*[@id='profit-toolbar-right']/button[4]")
+	public WebElementFacade pricingSavebutton;
+	
+	@FindBy(xpath = ".//*[@id='profit-toolbar-right']/button[2]")
+	public WebElementFacade populatepricing;
+	
+	@FindBy(xpath = ".//*[@id='product-tree-items']table[1]/tbody/tr[1]/td[15]/div/div[1]/div[2]/div[1]/input")
+	public WebElementFacade extAdjNRCInput;
+	
+	@FindBy(xpath = ".//*[@id='ProductTree']/div/div[1]/div/div/table/thead/tr/th[15]")
+	public WebElementFacade outHeader;
+	
+	@FindBy(xpath = ".//*[@id='ProductTree']/div/div[3]/table/tfoot/tr/td[7]/div[1]/span[2]")
+	public WebElementFacade listMRC1;
+	
+	@FindBy(xpath = ".//*[@id='ProductTree']/div/div[3]/table/tfoot/tr/td[13]/div/div/span[2]")
+	public WebElementFacade adjustedMRC;
+	
+	@FindBy(xpath = ".//*[@id='product-tree-items']/table/tfoot/tr/td[4]/div/div[2]/div/div[1]/div[1]")
+	public WebElementFacade prodPkgTotalPM1;
+	
+	@FindBy(xpath = ".//*[@id='product-tree-items']/table/tfoot/tr/td[4]/div/div[2]/div/div[1]")
+	public WebElementFacade packageMetricGreen;
+	
+	@FindBy(xpath = ".//*[@id='product-tree-items']/table/tbody/tr[1]/td[13]/div/div[1]/div[1]/span[1]")
+	public WebElementFacade errorBulkDiscount;
+	
+	@FindBy(xpath = ".//*[@id='ProductTree']/div/div[3]/table/tfoot/tr/td[4]/div/div[2]/div[1]/div")
+	public WebElementFacade scenarioPkgTotalPM;
+	
+	@FindBy(xpath = "//*[@id=\"product-tree-items\"]/table/tbody/tr/td[13]/div/div[1]/div[1]/input")
+	public WebElementFacade extAdjustedMRCInput;
+	
+	@FindBy(xpath = "//*[@id=\"product-tree-items\"]/table/tbody/tr/td[14]/div/div[1]/div[1]/input")
+	public WebElementFacade extAdjustedNRCInput;
+	
+	@FindBy(xpath = "//*[@id=\"product-tree-items\"]/table/tfoot/tr/td[13]/div/div/span[2]")
+	public WebElementFacade extAdjustedMRC;
+	
+	@FindBy(xpath = "//*[@id=\"product-tree-items\"]/table/tfoot/tr/td[14]/div/div/span[2]")
+	public WebElementFacade extAdjustedNRC;
+	
+	@FindBy(xpath = "/html/body/div[14]/div/div[2]/div[2]/div[2]/div[2]/span[1]")
+	public WebElementFacade payback;
+
+	@FindBy(xpath = "/html/body/div[14]/div/div[2]/div[2]/div[2]/div[3]/span[1]")
+	public WebElementFacade ebtida;
+	
+	@FindBy(xpath = "/html/body/div[14]/div/div[2]/div[2]/div[2]/div[5]/span[1]")
+	public WebElementFacade capex;
+	
+	@FindBy(xpath = "/html/body/div[14]/div/div[2]/div[2]/div[2]/div[6]/span[1]")
+	public WebElementFacade install;
+	
+	@FindBy(xpath = "/html/body/div[14]/div/div[2]/div[2]/div[2]/div[7]/span[1]")
+	public WebElementFacade opex;
+	
+	@FindBy(xpath = "/html/body/div[14]/div/div[2]/div[2]/div[2]/div[8]/a")
+	public WebElementFacade updatecosts;
+	
+	@FindBy(xpath = "/html/body/div[14]/div/div[1]/a")
+	public WebElementFacade closeprodPkgTotalPM;
+	
+	@FindBy(xpath = "/html/body/div[15]/div/div[1]/a")
+	public WebElementFacade closeScenarioPkgTotalPM;
+	
+	@FindBy(xpath = "/html/body/div[15]/div/div[2]/div/div[3]/a")
+	public WebElementFacade viewScenarioMetricsandCosts;
+	
+	@FindBy(xpath = "//*[@id=\"product-tree-items\"]/table[2]/tbody/tr[2]/td[3]/div/div[3]/i")
+	public WebElementFacade ccIconAccessOnNet;
+	
+	@FindBy(xpath = "//*[@id=\"product-tree-items\"]/table[2]/tbody/tr[2]/td[3]/div/div[3]/i")
+	public WebElementFacade ccIconAccessOnNet2;
+	
+	@FindBy(xpath = "//*[@id=\"product-tree-items\"]/table/tbody/tr[2]/td[3]/div/div[7]/span/i")
+	public WebElementFacade offnetIndicator;
+	
+	@FindBy(xpath = "//*[@id='product-tree-items']/table/tbody/tr")
+	public List<WebElementFacade> productList;
+	
+	@FindBy(xpath = "//*[@id='product-tree-items']/table[2]/tbody/tr[2]/td[1]/div/span[2]/input")
+	public WebElementFacade  checkBox1;
+	
+	@FindBy(xpath = "//*[@id='product-tree-items']/table[2]/tbody/tr[4]/td[1]/div/span[2]/input")
+	public WebElementFacade  checkBox2;
+	
+	@FindBy(xpath = "//input[@class='editableCell editableCell-primary bound']")
+	public List<WebElementFacade> editableFields;
+	
+	@FindBy(xpath = "//input[@class='editableCell editableCell-secondary bound']")
+	public List<WebElementFacade> editableFieldsSecondary;
+	
+	@FindBy(xpath = "//*[@id=\"product-tree-items\"]/table/tbody/tr[2]/td[3]/div/div[8]/span/img")
+	public WebElementFacade ctlIndicator;
+	
+	@FindBy(xpath = "//*[@id=\"product-tree-items\"]/table[2]/tfoot/tr/td[4]/div/div[2]/div/div[1]/div[1]")
+	public WebElementFacade prodPkgTotalPM;
+	
+	@FindBy(xpath = "//*[@id=\"product-tree-items\"]/table[1]/tbody/tr[1]/td[2]/img")
+	public WebElementFacade pricingIcon;
+	
+	@FindBy(xpath = "//*[@id=\"product-tree-items\"]/table/tbody/tr[2]/td[3]/div/div[8]/span]")
+	public WebElementFacade ctlIndicatortoolTip;
+	
+	@FindBy(xpath = "//*[@id=\"adjusted-metrics-grid\"]/div[2]/table/tbody/tr[2]/td[7]/span")
+	public WebElementFacade originalCapExDirect;
+
+	@FindBy(xpath = "/html/body/div[8]/div[2]/div/div/div[2]/div[2]/div[2]/table/tbody/tr[2]/td[13]/div/div[1]/input")
+	public WebElementFacade currentCapExDirect;
+	
+	@FindBy(xpath = "//*[@id=\"adjusted-metrics-grid\"]/div[2]/table/tbody/tr[2]/td[22]/div/input")
+	public WebElementFacade reasonTextBox;
+	
+	@FindBy(xpath = "/html/body/div[8]/div[2]/div/div/div[1]")
+	public WebElementFacade anyPointCapEx;
+	
+	@FindBy(xpath = "/html/body/div[8]/div[2]/div/div/div[2]/div[1]/table/tbody/tr/td[2]/button[1]")
+	public WebElementFacade updateFinancials;
+	
+	@FindBy(xpath = "/html/body/div[8]/div[2]/div/div/div[2]/div[2]/div[2]/table/tbody/tr[5]/td[19]/span")
+	public WebElementFacade netNewCapExDirect;
+	
+	@FindBy(xpath = "/html/body/div[8]/div[1]/div/a[3]")
+	public WebElementFacade closeprodPkgTotalPM1;
+	
+	@FindBy(className = "k-window-actions")
+	public WebElementFacade actions;
+	
+	@FindBy(xpath = "//*[@id='product-tree-items']/table/tbody/tr[1]/td[14]/div/div[1]/div[1]/input")
+	public WebElementFacade adjustedMRCeditBox1HSIPService;
+	
+	@FindBy(xpath = "//*[@id='product-tree-items']/table/tbody/tr[1]/td[14]/div/div[1]/div[1]/span[2]")
+	public WebElementFacade adjustedMRCeditBox2HSIPService;
+	
+	@FindBy(xpath = "//*[@id='product-tree-items']/table/tbody/tr[3]/td[12]/div/div[1]/div[1]/input")
+	public WebElementFacade adjustedMRCeditBox1DIA;
+	
+	@FindBy(xpath = "//*[@id='product-tree-items']/table/tbody/tr[3]/td[12]/div/div[1]/div[1]/span")
+	public WebElementFacade adjustedMRCeditBox2DIA;
+	
+	@FindBy(xpath = "//*[@id='product-tree-items']/table/tbody/tr[1]/td[12]/div/div[1]/div[1]/input")
+	public WebElementFacade adjustedMRCeditBox1BA;
+	
+	@FindBy(xpath = "//*[@id='product-tree-items']/table/tbody/tr[1]/td[12]/div/div[1]/div[1]/span")
+	public WebElementFacade adjustedMRCeditBox2BA;
+	
+	@FindBy(xpath = "//*[@id='product-tree-items']/table/tbody/tr[1]/td[12]/div/div[1]/div[1]/input")
+	public WebElementFacade adjustedNRCgrid1;
+	
+	@FindBy(xpath = "//*[@id='product-tree-items']/table/tbody/tr[1]/td[14]/div/div/div[1]/input")
+	public WebElementFacade adjustedYRCgrid1;
+	
+	@FindBy(xpath = "//*[@id='product-tree-items']/table/tfoot/tr/td[4]/div/div[2]/div/div[1]/div[1]")
+	public WebElementFacade productPackageTotal;
+	
+	@FindBy(xpath = "//*[@id='ProductTree']/div/div[3]/table/tfoot/tr/td[4]/div/div[2]/div[1]/div")
+	public WebElementFacade scenarioTotal;
+	
+	@FindBy(id="filter")
+	public WebElement addressSearchBox;
+	
+	@FindBy(xpath="/html/body/div[4]/div[2]/div[3]/table/tbody/tr/td/table/tbody/tr/td[2]/span/span")
+	public WebElement addressSearchClose;
+	
+	@FindBy(xpath="/html/body/div[4]/div[2]/div[3]/table/tbody/tr/td/table/tbody/tr/td[6]/div/div/ul/li/span[2]/span")
+	public WebElement productFilterClose;
+	
+	@FindBy(xpath="/html/body/div[4]/div[2]/div[3]/table/tbody/tr/td/table/tbody/tr/td[3]/i")
+	public WebElement addressSearchInfo;
+	
+	@FindBy(id="product-filter-select")
+	public WebElement productFilter;
+	
+	@FindBy(xpath="//*[@id='product-tree-items']/table[1]/tbody/tr/td[11]/div/div[1]/div[1]/input")
+	public WebElement firstProductMRCCheckbox;
+	
+	@FindBy(xpath = "/html/body/div[11]/div/div[2]/ul")
+	public WebElementFacade dropdownDisc;
+				   
+	@FindBy(xpath="/html/body/div[4]/div[2]/div[4]/div/div[2]/table[2]/thead/tr/td/div/span[1]/span[3]/span[2]")
+	public WebElement firstAddressUNI;
+	
+	@FindBy(xpath="/html/body/div[4]/div[2]/div[4]/div/div[2]/table[2]/tbody/tr/td[1]/div/span[2]/span")
+	public WebElement firstProductPackageUNI;
+	
+	@FindBy(xpath="/html/body/div[4]/div[2]/div[4]/div/div[2]/table[5]/thead/tr/td/div/span[1]/span[3]/span[2]")
+	public WebElement secondAddressUNI;
+	
+	@FindBy(xpath="/html/body/div[4]/div[2]/div[4]/div/div[2]/table[1]/thead/tr/td/div/span[1]/span[3]/span[2]")
+	public WebElement firstAddress1660;
+	
+	@FindBy(xpath="/html/body/div[4]/div[2]/div[4]/div/div[2]/table[5]/tbody/tr/td[1]/div/span[2]/span")
+	public WebElement secondProductPackageUNI;
+	
+	@FindBy(xpath="//*[@id='product-tree-items']/table[5]/tbody/tr/td[13]/div/div[1]/div[1]/input")
+	public WebElement elineAdjustedMRC;
+	
+	@FindBy(xpath="//*[@id='product-tree-items']/table[5]/tbody/tr/td[14]/div/div[1]/div[1]/input")
+	public WebElement elineAdjustedNRC;
+	
+	@FindBy(xpath="//*[@id='product-tree-items']/table[3]/tbody/tr/td[11]/div/div[1]/div[1]/input")
+	public WebElement uniMRC1;
+	
+	@FindBy(xpath="//*[@id='product-tree-items']/table[4]/tbody/tr/td[11]/div/div[1]/div[1]/input")
+	public WebElement uniMRC2;
+	
+	@FindBy(xpath = "/html/body/div[15]/div/div[2]/div[2]/div[2]/div[2]/span[1]")
+	public WebElementFacade productPackagePayback;
+	
+	@FindBy(className = "packageMetricGreen")
+	public List<WebElement> productMetrics;
+	
+	@FindBy(xpath = "//div[@class='k-tooltip-content']/div[2]/div")
+	public List<WebElement> pmDisplayTable;
+	
+	@FindBy(xpath = "/html/body/div[12]/div/div[2]/div[2]/div[2]/div[2]/span")
+	public List<WebElement> pm;
+	
+	@FindBy(xpath = "//*[@id='profit-toolbar-right']/button[5]/span")
+	public WebElement cancelChangesSpan;
+	
+	@FindBy(xpath = "//*[@id='product-tree-items']/table/tbody/tr[2]/td[3]/div/div[4]/i")
+	public WebElement nrcAmortized;
+	
+	@FindBy(xpath = "/html/body/div[14]/div/div[1]")
+	public WebElement offnetIndicatorToolTip;
+	
+	@FindBy(xpath = "//div[@id='product-tree-items']//tr[4]/td[4]/div/div[2]/div/div")
+	public WebElement miscIndicatorXpath1;
+	
+	@FindBy(xpath = "//div[2][@id='product-tree-items']//tr[@class='SDG_ParentRow']/td[4]")
+	public WebElement miscIndicatorXpath2;
+	
+	@Override
+	public WebElementFacade getUniqueElementInPage() {
+		
+		return productCheckBox;
+	}
+
+}

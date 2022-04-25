@@ -1,0 +1,625 @@
+package com.ctl.it.qa.bpms.steps;
+
+import java.util.List;
+
+import org.junit.Assert;
+import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.Select;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import com.ctl.it.qa.bpms.pages.ScenarioDetailPage;
+import com.ctl.it.qa.staf.Steps;
+
+import net.thucydides.core.annotations.Step;
+
+
+/**
+ * This Class is Similar to Roc Home Page. Where you can search ROCs using
+ * search button.
+ * 
+ * @author niroula.subash
+ *
+ */
+@SuppressWarnings("serial")
+public class ROCDetailsSteps extends Steps {
+
+	private static final String RocEditUrl = null;
+	private static final int NoOfSegment = 0;
+	public static WebDriver ROCdriver;
+	private final Logger slf4jLogger = LoggerFactory.getLogger(ROCDetailsSteps.class);
+	
+	/**
+	 * Method to enter Additional Vendor Bid and transfer driver to Previous window.
+	 * 
+	 * @param RocIndex
+	 * @return
+	 * @throws Exception
+	 */
+	
+	public void setWebDriverForROCPage(WebDriver driver) {
+	     ROCdriver = driver;
+	}
+	
+	@Step
+	public ROCDetailsSteps enterPricingDetailstoRocApplication(String TestID) throws Exception {
+		synchronized (this) {
+			WebDriver driver = getDriver();
+			try {
+				try{
+					Thread.sleep(4000);
+				}catch (Exception e) {
+					slf4jLogger.info(e.getMessage());
+				}
+				if (!(TestID.equals("2050"))) {
+					assignRocRequestToUser(TestID);
+				} 
+				if (!(TestID.equals("1903") || TestID.equals("1896"))) {
+					Thread.sleep(1000);
+					
+					if (TestID.equals("2064") || TestID.equals("25628")) {
+						ROCdriver.findElement(By.xpath("//*[@id=\"bids-head-right\"]/button[3]/i")).click();
+						Thread.sleep(1000);
+						@SuppressWarnings("unused")
+						String vendorName = ROCdriver
+								.findElement(By.xpath("//*[@id=\"prepriceSolutionsTable\"]/tbody[2]/tr[1]/th[1]"))
+								.getText();
+						String MRC = ROCdriver
+								.findElement(By.xpath("//*[@id=\"prepriceSolutionsTable\"]/tbody[2]/tr[1]/th[5]"))
+								.getText();
+						
+						String NRC = ROCdriver
+								.findElement(By.xpath("//*[@id=\"prepriceSolutionsTable\"]/tbody[2]/tr[1]/th[6]"))
+								.getText();
+						
+						String nrc1 = ScenarioDetailPage.NRC;
+						String mrc1 = ScenarioDetailPage.MRC;
+						mrc1 = mrc1.replaceFirst(",", ".");
+						mrc1 = mrc1.substring(0, mrc1.length() - 2);
+						nrc1 = nrc1.substring(0, nrc1.length() - 2);
+						nrc1 = nrc1.replaceAll(",", ".");
+						NRC = NRC.replaceAll(",", ".");
+						if (!(MRC.equals(mrc1) && NRC.equals(nrc1))) {
+
+							Assert.fail(TestID + ": @" + System.currentTimeMillis() + "@"
+									+ "Error in MRC NRC prices in Solutions page.");
+						}
+						slf4jLogger.info(TestID + ":" + System.currentTimeMillis()
+								+ "Verified MRC and NRC prices in Solutions page..");
+						
+						slf4jLogger.info(TestID + ":" + System.currentTimeMillis()
+								+ "Verified vendor name in Solutions page..");
+						Thread.sleep(5000);
+						List<WebElement> button = ROCdriver.findElements(By.xpath("//button[@class='close']"));
+						button.get(1).click();
+						Thread.sleep(1000);
+						
+					}
+					
+					if (!(TestID.equals("2051") || TestID.equals("374160") || TestID.equals("345665")
+							|| TestID.equals("2070") || TestID.equals("345666") || TestID.equals("1884")
+							|| TestID.equals("2050") || TestID.equals("1867") || TestID.equals("363617")
+							|| TestID.equals("2064")))
+						clickOnSaveRequest(TestID);
+					if (!(TestID.equals("2023") || TestID.equals("2026") || TestID.equals("1867")
+							|| TestID.equals("2055") || TestID.equals("2034") || TestID.equals("2050")
+							|| TestID.equals("2051") || TestID.equals("345665") || TestID.equals("345666")
+							|| TestID.equals("1884") || TestID.equals("2064") || TestID.equals("2070")
+							|| TestID.equals("1995") || TestID.equals("363617") || TestID.equals("374160"))) {
+						readMRCValue(TestID);
+					}
+					if (!(TestID.equals("2050") || TestID.equals("2051") || TestID.equals("345665")
+							|| TestID.equals("345666") || TestID.equals("1884") || TestID.equals("2070")
+							|| TestID.equals("1867") || TestID.equals("363617") || TestID.equals("2064")
+							|| TestID.equals("374160") || TestID.equals("25628"))) {
+						clickOnCloseRequest(TestID);
+						try {
+							clickOnSaveRequest(TestID);
+						}catch (Exception e) {
+							slf4jLogger.info(e.getMessage());
+						}
+					}
+				}
+				try{
+					Thread.sleep(4000);
+				}catch (Exception e) {
+					slf4jLogger.info(e.getMessage());
+				}
+			} catch (Exception e) {
+				slf4jLogger.error(TestID + ":" + System.currentTimeMillis()
+						+ "Exception occured in Roc Processing ...Success");
+				Assert.fail(TestID + ": @" + System.currentTimeMillis() + "@"
+						+ "Exception occured in Roc Processing.." + e.getMessage());
+			}
+			return this;
+		}
+	}
+	/*
+	 * Method to go back to Requests
+	 */
+
+	public ROCDetailsSteps goBackToRequests(WebDriver driver, String TestID) throws Exception {
+
+		
+
+		try {
+			Thread.sleep(5000);
+			driver.findElement(By.xpath("/html/body/l3-sd-app/l3-navbar/nav/div/div[1]/a/div")).click();
+			
+		} catch (Exception e) {
+			Assert.fail(TestID + ": @" + System.currentTimeMillis() + "@"
+					+ "Error while returning to ROC requests..!!");
+
+		}
+		return new ROCDetailsSteps();
+	}
+
+	
+
+	
+	/**
+	 * method to read MRC value after applying mark up percent
+	 * 
+	 * @param driver
+	 * @throws Exception
+	 */
+	public void readMRCValue(String TestID) throws Exception {
+		try {
+			WebDriver driver = getDriver();
+			slf4jLogger.info(TestID + ":" + System.currentTimeMillis() + "Entering into readMRCValue ...Method");
+			String MRC = driver.findElement(By.xpath("//*[@id=\"bidTermTable\"]/tbody/tr/td[4]/span")).getText()
+					.substring(1);
+			MRC = MRC.substring(0, MRC.length() - 1);
+			MRC = MRC.replaceAll(",", "");
+			
+			slf4jLogger.info(TestID + ":" + System.currentTimeMillis() + "MRC Value Completed");
+		} catch (Exception e) {
+			Assert.fail(
+					TestID + ": @" + System.currentTimeMillis() + "@" + "Error while reading MRC value");
+		}
+	}
+
+	/** Method to make the Bid as Recommended **/
+
+	public void clickOnRecommended(String TestID) throws Exception {
+		try {
+			
+			Thread.sleep(2500);
+			WebElement recommended =ROCdriver.findElement(By
+					.xpath("//div[@id='vendorBidDetailDiv']/div[1]/div[4]/div[1]/ctl-toggle-slider/div[1]/i"));
+			try {
+				JavascriptExecutor executor = (JavascriptExecutor) ROCdriver;
+				executor.executeScript("arguments[0].click();", recommended);
+			} catch (Exception e) {
+				recommended.click();
+			}
+			
+			Thread.sleep(1000);
+			String RocEditUrl = (String) ((JavascriptExecutor) ROCdriver).executeScript("return window.location.href");
+			slf4jLogger.info(TestID + ":" + System.currentTimeMillis()
+					+ "clicking recommended successful and roc url is :::" + RocEditUrl);
+		} catch (Exception e) {
+			Assert.fail(TestID + ": @" + System.currentTimeMillis() + "@"
+					+ "Error while clicking on recommended");
+
+		}
+	}
+
+	/** Method to save the ROC Request **/
+	@Step
+	public void clickOnSaveRequest(String TestID) throws Exception {
+		try {
+			
+			Thread.sleep(1000);
+			try {
+				slf4jLogger.info(TestID + ":" + System.currentTimeMillis() + "Entering into Try Block ...Method");
+				
+				WebElement Save = ROCdriver
+						.findElement(By.xpath("//*[@id=\"request-detail-sub-header\"]/div[2]/div[3]/button"));
+				
+				Save.click();
+				slf4jLogger.info(TestID + ":" + System.currentTimeMillis()
+						+ "Clicking on Save new Request 2n time...Success from  try block");
+			} catch (Exception e) {
+				Thread.sleep(2000);
+				slf4jLogger.info(TestID + ":" + System.currentTimeMillis()
+						+ "Entering into Catch ...Method of save request 2nd time");
+				
+				WebElement SaveButtonClick = ROCdriver.findElement(
+						By.xpath("//*[@id=\"request-detail-main\"]/div/div[1]/div[1]/div[2]/div[2]/div[2]/div/button"));
+				SaveButtonClick.click();
+				slf4jLogger.info(TestID + ":" + System.currentTimeMillis()
+						+ "Clicking on Save new Request 2n time...Success from catch block");
+
+			}
+			
+			Thread.sleep(1000);
+			
+			slf4jLogger.info(
+					TestID + ":" + System.currentTimeMillis() + "Clicking on Save new Request ...Success");
+		} catch (Exception e) {
+			
+			slf4jLogger.info(
+					TestID + ":" + System.currentTimeMillis() + "Clicking on Save new Request ...Success");
+			Assert.fail(TestID + ": @" + System.currentTimeMillis() + "@"
+					+ "Error while clicking on save request");
+		}
+	}
+
+	/** Method to close the ROC Request **/
+@Step
+	public void clickOnCloseRequest(String TestID) throws Exception {
+		try {
+			WebDriver driver = getDriver();
+			ROCdriver.manage().window().maximize();
+			slf4jLogger.info(TestID + ":" + System.currentTimeMillis()
+					+ "Entering into clickOnCloseRequest ...Method");
+			Thread.sleep(2000);
+			slf4jLogger.info(TestID + ":" + System.currentTimeMillis() + "Waited for Save button ");
+			String rocrequesturl = (String) ((JavascriptExecutor) ROCdriver).executeScript("return window.location.href");
+			slf4jLogger.info(TestID + ":" + System.currentTimeMillis() + "rocrequesturl:::" + rocrequesturl
+					+ "RocEditurl :::" + RocEditUrl);
+			if (!rocrequesturl.contains("edit")) {
+				ROCdriver.get(RocEditUrl);
+			}
+			Thread.sleep(2000);
+			try {
+				ROCdriver.findElement(By.xpath("//*[@id=\"statusButton1\"]")).click();
+				slf4jLogger.info(TestID + ":" + System.currentTimeMillis()
+						+ "Entering into try block to click close button");
+				List<WebElement> buttons = ROCdriver.findElements(By.id("statusButton1"));
+				slf4jLogger.info(TestID + ":" + System.currentTimeMillis()
+						+ "Completed Clicking on Closed Button from try block");
+				Thread.sleep(5000);
+				} catch (Exception ignore) {
+					ROCdriver.findElement(
+						By.xpath("//*[@id=\"request-detail-main\"]/div/div[1]/div[1]/div[2]/div[2]/div/button[2]"))
+						.click();
+				slf4jLogger.info(TestID + ":" + System.currentTimeMillis()
+						+ "Entering into catch block to click close button");
+				Thread.sleep(2000);
+				List<WebElement> buttons = ROCdriver.findElements(By.id("statusButton"));
+				Actions actions = new Actions(ROCdriver);
+				actions.moveToElement(buttons.get(1)).click().perform();
+				slf4jLogger.info(TestID + ":" + System.currentTimeMillis()
+						+ "Completed Clicking on Closed Button from catch block");
+				
+			}
+			
+			Thread.sleep(10000);
+			slf4jLogger.info(TestID + ":" + System.currentTimeMillis() + "Roc Url  after exception"
+					+ (String) ((JavascriptExecutor) ROCdriver).executeScript("return window.location.href"));
+			String rocurl = (String) ((JavascriptExecutor) ROCdriver).executeScript("return window.location.href");
+			if (rocurl.contains("edit")) {
+				slf4jLogger.info(TestID + ":" + System.currentTimeMillis() + "Current page Url inside if loop"
+						+ (String) ((JavascriptExecutor) ROCdriver).executeScript("return window.location.href"));
+				slf4jLogger.info(TestID + ":" + System.currentTimeMillis()
+						+ "*********************************************************************");
+
+				boolean staleElement = true;
+				while (staleElement) {
+					try {
+						slf4jLogger.info(TestID + ":" + System.currentTimeMillis()
+								+ "Entering into stale element block");
+						Thread.sleep(5000);
+						// 
+						try {
+							WebElement StatusBadge = ROCdriver.findElement(By.xpath("//*[@id=\"statusBadge\"]"));
+							} catch (Exception ignore) {
+							slf4jLogger.info(TestID + ":" + System.currentTimeMillis()
+									+ "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+							List<WebElement> buttons = ROCdriver.findElements(By.id("statusButton1"));
+							buttons.get(1).click();
+							Thread.sleep(1000);
+							slf4jLogger.info(TestID + ":" + System.currentTimeMillis()
+									+ "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+							slf4jLogger.info(TestID + ":" + System.currentTimeMillis()
+									+ "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+						}
+						Thread.sleep(1000);
+						WebElement SaveButtonClick = ROCdriver
+								.findElement(By.xpath("//*[@id=\"request-detail-sub-header\"]/div[2]/div[3]/button"));
+						
+						Actions actions = new Actions(ROCdriver);
+						actions.moveToElement(SaveButtonClick).click().perform();
+						
+						staleElement = false;
+					} catch (org.openqa.selenium.StaleElementReferenceException ex) {
+						staleElement = true;
+					}
+				}
+				slf4jLogger.info(TestID + ":" + System.currentTimeMillis()
+						+ "*********************************************************************");
+				Thread.sleep(5000);
+			} else {
+				slf4jLogger.info(TestID + ":" + System.currentTimeMillis()
+						+ "############################################################################");
+				slf4jLogger.info(TestID + ":" + System.currentTimeMillis() + "Roc Url  after else"
+						+ (String) ((JavascriptExecutor) ROCdriver).executeScript("return window.location.href"));
+				ROCdriver.get(RocEditUrl);
+				slf4jLogger.info(TestID + ":" + System.currentTimeMillis() + "Roc URL" + RocEditUrl);
+				
+				ROCdriver.findElement(
+						By.xpath("//*[@id=\"request-detail-main\"]/div/div[1]/div[1]/div[2]/div[2]/div[2]/div/button"))
+						.click();
+				Thread.sleep(1000);
+				slf4jLogger.info(TestID + ":" + System.currentTimeMillis()
+						+ "Entering into try block to click close button");
+				slf4jLogger.info(TestID + ":" + System.currentTimeMillis() + "Current page Url inside else "
+						+ (String) ((JavascriptExecutor) ROCdriver).executeScript("return window.location.href"));
+				List<WebElement> buttons = ROCdriver.findElements(By.id("statusButton"));
+				buttons.get(1).click();
+				slf4jLogger.info(
+						TestID + ":" + System.currentTimeMillis() + "Clicking on Closed button...Success ");
+				Thread.sleep(2000);
+				slf4jLogger.info(TestID + ":" + System.currentTimeMillis()
+						+ "Completed Clicking on Closed Button from try block");
+				WebElement SaveButtonClick = ROCdriver
+						.findElement(By.xpath("//*[@id=\"request-detail-sub-header\"]/div[2]/div[3]/button"));
+				Actions actions = new Actions(ROCdriver);
+				actions.moveToElement(SaveButtonClick).click().perform();
+				slf4jLogger.info(TestID + ":" + System.currentTimeMillis()
+						+ "############################################################################");
+				Thread.sleep(5000);
+			}
+
+			
+			slf4jLogger.info(
+					TestID + ":" + System.currentTimeMillis() + "clickOnCloseRequest . Click event success");
+			
+			Thread.sleep(5000);
+			
+			
+			slf4jLogger.info(TestID + ":" + System.currentTimeMillis() + "Clicking on Closed ...Success");
+
+		} catch (Exception e) {
+			
+			Assert.fail(TestID + ": @" + System.currentTimeMillis() + "@"
+					+ "Error while clicking on close request");
+
+		}
+		if (TestID.equals("2051") || TestID.equals("374160")) {
+			Thread.sleep(5000);
+		}
+	}
+
+	/**
+	 * Method to Submit Additional vendor Bid from Configuraiton File.
+	 * 
+	 * @param RocIndex
+	 */
+	private void submitAdditionalBid(WebDriver driver, String TestID, String RocIndex) throws Exception {
+		synchronized (this) {
+			try {
+				
+				slf4jLogger.info(TestID + ":" + System.currentTimeMillis() + "420: Checking scenario 1");
+				Thread.sleep(4000);
+				Thread.sleep(3000);
+				slf4jLogger.info(TestID + ":" + System.currentTimeMillis() + "420: Checking scenario 2"
+						+ "RocIndex" + RocIndex.toString());
+				
+				slf4jLogger.info(TestID + ":" + System.currentTimeMillis() + "420: Checking scenario 4");
+				
+				try {
+					Select select = new Select(driver.findElement(By.id("vendorId")));
+					select.selectByIndex(1);
+					
+				} catch (Exception e) {
+					Select select = new Select(driver.findElement(By.id("vendorId")));
+					select.selectByIndex(2);
+				}
+				
+				
+				
+				try {
+					WebDriver vendorRemarks;
+					} catch (Exception e) {
+					driver.findElement(By.xpath("//*[@id=\"vendor-remarks\"]")).sendKeys("Test");
+				}
+				slf4jLogger.info(TestID + ":" + System.currentTimeMillis() + "420: Checking scenario 7");
+
+				try {
+					
+					List<WebElement> accessPOP = driver.findElements(By.xpath("//input[@id='interconnect']"));
+					System.out.println("acces pop:" + accessPOP.size());
+					
+					Thread.sleep(1000);
+				} catch (Exception e) {
+
+					driver.findElement(By.xpath("//*[@id=\"interconnectRow\"]/div[1]/div/select")).click();
+					driver.findElement(By.xpath("//*[@id=\"interconnectRow\"]/div[1]/div/select/option[2]")).click();
+
+				}
+				Thread.sleep(4000);
+				
+			
+				
+				Thread.sleep(2000);
+				Thread.sleep(500);
+				slf4jLogger.info(TestID + ":" + System.currentTimeMillis() + "420: Checking scenario 9");
+					for (int segmentNo = 1; segmentNo <= NoOfSegment; segmentNo++) {
+						Thread.sleep(4000);
+						
+						List<WebElement> MRC = driver.findElements(By.id("localLoopRecurring"));
+						
+						for (int i = 0; i < MRC.size(); i++) {
+							
+							Thread.sleep(1000);
+							WebElement element = driver.findElement(By.id("localLoopRecurring"));
+							((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", element);
+							
+							Thread.sleep(1000);
+							MRC.get(i).click();
+							
+							Thread.sleep(1000);
+							Thread.sleep(1000);
+						}
+						List<WebElement> NRC = driver.findElements(By.id("localLoopOneTime"));
+						for (int i = 0; i < NRC.size(); i++) {
+							
+							Thread.sleep(1000);
+							
+							Thread.sleep(1000);
+							Thread.sleep(1000);
+						}
+
+					}
+					Thread.sleep(1000);
+					Thread.sleep(1000);
+					List<WebElement> notes = driver.findElements(By.id("selected-note-add-bid-note-0"));
+					
+					Thread.sleep(1000);
+					try {
+						driver.findElement(By.xpath("//*[@id=\"selected-note-add-bid-note-0\"]")).click();
+						Thread.sleep(3000);
+						driver.findElement(By.xpath("//*[@id=\"selected-note-add-bid-note-0\"]/option[3]")).click();
+						Thread.sleep(1000);
+					} catch (Exception e) {
+						notes.get(notes.size() - 1).click();
+						
+						Thread.sleep(1000);
+						List<WebElement> options = notes.get(notes.size() - 1).findElements(By.tagName("option"));
+						options.get(2).click();
+						Thread.sleep(1000);
+
+						
+					}
+					
+						List<WebElement> addNotes = driver.findElements(By.xpath("//*[@id=\"add-note-add-bid-note-0\"]/i"));
+						
+						Thread.sleep(1000);
+
+						
+						try {
+							addNotes.get(addNotes.size() - 1).click();
+						} catch (Exception e) {
+							notes = driver.findElements(By.id("notes-add-bid-note-0"));
+							notes.get(notes.size() - 1).sendKeys("Test");
+						}
+					
+					
+					Thread.sleep(1000);
+					@SuppressWarnings("unused")
+					List<WebElement> textArea = driver.findElements(By.id("edit-comments-box"));
+					
+					Thread.sleep(1000);
+					
+					Thread.sleep(2000);
+			}catch (Exception e) {
+				slf4jLogger.info(e.getMessage());
+			}
+		}
+					
+					
+			
+			
+	}
+
+	/** Method to Create new vendor bid **/
+	@Step
+	public void createnewBid(String TestID) throws Exception {
+		try {
+			Thread.sleep(5000);
+			ROCdriver.findElement(By.xpath("//button[text()=' Create New Bid ']")).click();
+			slf4jLogger.info(
+					TestID + ":" + System.currentTimeMillis() + "Click on create new vendor bid ...Success");
+			Thread.sleep(2000);
+		} catch (Exception e) {
+			slf4jLogger.info(TestID + ":" + System.currentTimeMillis() + "420: createnewBid" + e.getMessage());
+			Assert.fail(TestID + ": @" + System.currentTimeMillis() + "@"
+					+ "Error while clicking on create new vendor bid");
+
+		}
+
+	}
+	
+	/** Method to click on no bid **/
+	@Step
+	public void clickNoBid(String TestID) throws Exception {
+		WebDriver driver = getDriver();
+		try {
+			Thread.sleep(5000);
+			WebElement buttons = driver.findElement(By.id("statusButton3"));
+			buttons.click();
+			slf4jLogger.info(
+					TestID + ":" + System.currentTimeMillis() + "Click on No bid ...Success");
+			Thread.sleep(5000);
+			List<WebElement> addNotes = driver.findElements(By.xpath("//*[@id=\"selected-note-nobid-note-0\"]/option"));
+			addNotes.get(1).click();
+			Thread.sleep(5000);
+			driver.findElement(By.id("add-note-nobid-note-0")).click();
+			Thread.sleep(5000);
+			clickOnSaveRequest(TestID);
+			} 
+		catch (Exception e) {
+				slf4jLogger.info(TestID + ":" + System.currentTimeMillis() + "420: No Bid" + e.getMessage());
+				Assert.fail(TestID + ": @" + System.currentTimeMillis() + "@"
+						+ "Error while clicking on No Bid");
+
+		}
+
+	}
+
+	/**
+	 * Method to Assign Roc Request to Himself.
+	 */
+	@Step
+	public void assignRocRequestToUser(String TestID) throws Exception {
+		try {
+			Thread.sleep(20000);
+			try {
+				slf4jLogger.info(TestID + ":" + System.currentTimeMillis() + "Entering into assign roc request");
+				WebElement assignCOGUser;
+				WebDriver driver= getDriver();
+				tranferDriverToAnotherWindow(driver);
+				try {
+					Select select = new Select(ROCdriver.findElement(By.name("selectedCOGUser")));
+					select.selectByVisibleText("Sahu, Prachi");
+					assignCOGUser = ROCdriver.findElement(By.xpath("//button[@class='btn btn-primary']/span[text()='Assign']"));
+				//	assigntome = ROCdriver.findElement(By.xpath("//button[@class='btn btn-primary assignToMe']"));
+				} catch (Exception e) {
+					ROCdriver.findElement(By.id("cog-user-input")).click();
+					ROCdriver.findElement(By.id("cog-user-input")).sendKeys("Sahu, Prachi");
+					assignCOGUser = ROCdriver.findElement(By.xpath("//button[@class='btn btn-primary']/span[text()='Assign']"));
+				//	assigntome = ROCdriver.findElement(By.xpath("//button[@class='btn btn-primary assignToMe']"));
+
+				}
+				assignCOGUser.click();
+				
+				slf4jLogger.info(TestID + ":" + System.currentTimeMillis() + "assign roc request completed");
+			} catch (Exception ignore) {
+				slf4jLogger.info(TestID + ":" + System.currentTimeMillis()
+						+ "Entering into assign roc request catch block");
+				ROCdriver.findElement(By.xpath("//button[@class='btn btn-primary']/span[text()='Assign']")).click();
+			//	ROCdriver.findElement(By.xpath("//button[@class='btn btn-primary assignToMe']")).click();
+			}
+			Thread.sleep(1000);
+			slf4jLogger.info(TestID + ":" + System.currentTimeMillis()
+					+ "Click on Buttton Assing to Myself ...Success");
+		} catch (Exception e) {
+			Assert.fail(TestID + ": @" + System.currentTimeMillis() + "@"
+					+ "Error while assigning ROC request to user");
+
+		}
+	
+	}
+	public  void tranferDriverToAnotherWindow(WebDriver driver) {
+		try {
+
+			for (String winHandle : driver.getWindowHandles()) {
+				driver.switchTo().window(winHandle);
+				Thread.sleep(5000);
+			}
+
+		} catch (Exception ex) {
+			slf4jLogger.info(ex.getMessage());
+		}
+
+	}	
+
+}
+	

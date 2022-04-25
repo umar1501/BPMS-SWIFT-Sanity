@@ -1,0 +1,341 @@
+package com.ctl.it.qa.bpms.steps;
+
+import java.util.List;
+
+import org.apache.commons.lang3.StringUtils;
+import org.junit.Assert;
+import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.Keys;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import com.ctl.it.qa.bpms.pages.SalesforceHomeLightningPage;
+import com.ctl.it.qa.bpms.pages.ScenarioDetailPage;
+import com.ctl.it.qa.staf.Steps;
+
+import net.thucydides.core.annotations.Step;
+
+public class SalesforceHomeLightningSteps extends Steps{
+	private final Logger slf4jLogger = LoggerFactory.getLogger(SalesforceLoginSteps.class);
+	SalesforceHomeLightningPage salesforceHomeLightningPage;
+	ScenarioDetailPage scenarioDetailPage;
+	
+	@Step
+	public  void createOppurtunity(String oppAccID,String oppName) throws Exception{
+		try {
+			slf4jLogger.info("Creating an Oppurtunity with:  "+oppAccID + "  "+ oppName);
+			WebDriver driver = getDriver();
+			WebDriverWait wait = new WebDriverWait(driver, 100);
+			WaitForPageToLoad(5000);
+			switchToLightningSalesforce();
+			Thread.sleep(5000);
+			
+			salesforceHomeLightningPage.opportunityTabDrpdwn.click();
+            waitABit(4000);
+            JavascriptExecutor executor = (JavascriptExecutor)getDriver();
+            executor.executeScript("arguments[0].click();", salesforceHomeLightningPage.newOpportunityLink);
+            waitABit(5000);
+            wait.until(ExpectedConditions.elementToBeClickable(salesforceHomeLightningPage.level3QuoteOpportunityRadioBtn));
+            salesforceHomeLightningPage.level3QuoteOpportunityRadioBtn.click();
+            waitABit(2000);
+            executor.executeScript("arguments[0].click();", salesforceHomeLightningPage.nextBtn);
+            waitABit(2000);
+            wait.until(ExpectedConditions.elementToBeClickable(salesforceHomeLightningPage.opportunityAccountName));
+            salesforceHomeLightningPage.opportunityAccountName.sendKeys(oppAccID);
+            try{
+            	waitABit(1000);
+			//	executor.executeScript("arguments[0].click();", salesforceHomeLightningPage.accselect);
+            	String winHandleBefore = driver.getWindowHandle();
+            	salesforceHomeLightningPage.opportunityAccountName.sendKeys(Keys.ENTER);
+				lookupIconClick(driver);
+				driver.switchTo().window(winHandleBefore);
+			}catch (Exception e) {
+				slf4jLogger.info(e.getMessage());
+			}
+            waitABit(1000);
+            
+            salesforceHomeLightningPage.opportunityName.sendKeys(oppName);
+            salesforceHomeLightningPage.outsideElement.click();
+            salesforceHomeLightningPage.opportunitySubtype.click(); 
+            executor.executeScript("arguments[0].click();", salesforceHomeLightningPage.opportunitySubtypeNewService);
+            waitABit(2000);
+            executor.executeScript("window.scrollBy(0,50)", "");
+            salesforceHomeLightningPage.opportunityStage.click();
+            waitABit(2000);
+            executor.executeScript("arguments[0].click();", salesforceHomeLightningPage.opportunityStageQualified);
+            waitABit(2000);
+            salesforceHomeLightningPage.opportunityClosedDate.click();
+            salesforceHomeLightningPage.opportunityClosedDateSelect.click();
+            salesforceHomeLightningPage.OpportunitySaveBtn.click();
+			
+			WaitForPageToLoad(5000);
+			slf4jLogger.info("Oppurtunity created successfully");
+			waitABit(3000);
+		}
+		catch (Exception e) {
+			slf4jLogger.info(e.getMessage());
+			Assert.fail(e.getMessage());
+		}
+		
+		
+	}
+	@Step
+	public  void switchToLightningSalesforce() throws Exception{
+		try {
+			WebDriver driver = getDriver();
+			slf4jLogger.info(driver.getCurrentUrl());
+			
+			if (!driver.getCurrentUrl().contains("lightning")) {
+				System.out.println("We are in classic mode to Lighting Mode");
+				salesforceHomeLightningPage.LightningSwitchLink.click();
+				WaitForPageToLoad(10000);
+			}
+			else {
+				try {
+					slf4jLogger.info("Closing Lightning Pop-up if Present");
+					boolean popupPresent = driver.findElement(By.xpath("/html/body/section[@role='dialog']")).isDisplayed();
+					if(popupPresent) {
+						//close the modal pop-up
+						driver.findElement(By.xpath("//button[@class='slds-button slds-button--icon-inverse slds-modal__close uiButton--modal-closeBtn uiButton']")).click();
+					}
+						
+				} catch (Exception e) {
+					slf4jLogger.info("Lightning Pop-up is not present");
+				}
+				
+			}
+		}
+		catch (Exception e) {
+			slf4jLogger.info("Inside switchToLightningSalesforce method catch block"+e.getMessage());
+			Assert.fail(e.getMessage());
+		}	
+	}
+
+	@Step
+	public void switchToQuotesTab() {
+		slf4jLogger.info("Switching to Quotes Tab");
+		WebDriver driver = getDriver();
+		WebDriverWait wait = new WebDriverWait(driver,10000);
+		WaitForPageToLoad(5000);
+		try {
+			wait.until(ExpectedConditions.elementToBeClickable(salesforceHomeLightningPage.quotesTab));
+			salesforceHomeLightningPage.quotesTab.click();
+			waitABit(3000);
+			WaitForPageToLoad(5000);
+		} catch (Exception e) {
+			slf4jLogger.info("Inside Catch Block of Quotes Tab"+e.getMessage());
+			Assert.fail();
+		}
+	}
+	
+	@Step
+	public  void clickOnSMQuote(String scenarioName, String currency, String testID) throws Exception{
+		try {
+			slf4jLogger.info("Clicking on SM Quote Btn and adding scenario");
+			WaitForPageToLoad(5000);
+			WebDriver driver = getDriver();
+			switchToQuotesTab();
+			WaitForPageToLoad(5000);
+			slf4jLogger.info("Creating Scenario");
+			
+			driver.switchTo().frame(driver.findElement(By.xpath("//iframe[@title='accessibility title']")));
+			List<WebElement> quotesTitle = driver.findElements(By.id("j_id0:j_id2:relatedQuotesId"));
+			quotesTitle.get(0).click();
+			WaitForPageToLoad(10000);
+			waitABit(5000);
+			
+			boolean isFrameOnePresent = false , isFrameTwoPresent=false;
+			while(!isFrameOnePresent && !isFrameTwoPresent) {
+				salesforceHomeLightningPage.newSMQuoteBtn.click();
+				WaitForPageToLoad(10000);
+				waitABit(10000);
+				driver.switchTo().defaultContent();
+				isFrameOnePresent = driver.findElements(By.xpath("//iframe[@title='accessibility title']")).size() > 0;
+				if(isFrameOnePresent)
+					driver.switchTo().frame(driver.findElement(By.xpath("//iframe[@title='accessibility title']")));
+				
+				isFrameTwoPresent = driver.findElements(By.xpath("//iframe[@id='quote-iframe']")).size() > 0;
+			}
+			WaitForPageToLoad(10000);
+			waitABit(5000);
+			driver.switchTo().frame(driver.findElement(By.xpath("//iframe[@id='quote-iframe']")));
+			System.out.println("Switched to Quote frame");
+			if(testID.equals("24736")) {
+				String[] scenName = scenarioName.split(";");
+				for(int i=0;i<scenName.length;i++) {
+					Thread.sleep(2000);
+					salesforceHomeLightningPage.scenarioName.clear();
+					salesforceHomeLightningPage.scenarioName.sendKeys(scenName[i]);
+					Thread.sleep(4000);
+					
+					driver.findElement(By.xpath("//*[@id='mat-dialog-title-0']/div/span")).click();
+					
+					Thread.sleep(3000);
+					slf4jLogger.info("Checking Scenario name");
+					WaitForPageToLoad(5000);
+					WaitForPageToLoad(5000);
+					
+					if(scenName[i].isEmpty()) {
+						String check = salesforceHomeLightningPage.validationMessage.getText();
+						slf4jLogger.info("check message: " +check);
+						Assert.assertTrue(salesforceHomeLightningPage.scenarioName.getAttribute("aria-invalid").contains("true"));
+						if(check.equals("  Please enter quote name !! ")) {
+							slf4jLogger.info("Scenario name is empty");
+							WaitForPageToLoad(5000);
+						}	
+					}
+					else if(StringUtils.isAlphanumeric(scenName[i])) {
+						slf4jLogger.info("Scenario name does not contain any Special Characters");
+						Assert.assertTrue(salesforceHomeLightningPage.scenarioName.getAttribute("aria-invalid").contains("false"));
+					}
+					else {
+						String check = salesforceHomeLightningPage.validationMessage.getText();
+						slf4jLogger.info("check message: " +check);
+						Assert.assertTrue(salesforceHomeLightningPage.scenarioName.getAttribute("aria-invalid").contains("true"));
+					}
+				}
+			}
+			else {
+				Thread.sleep(5000);
+				salesforceHomeLightningPage.scenarioName.sendKeys(scenarioName);
+			}
+			
+			//int max = Integer.parseInt(salesforceHomePage.scenarioName.getAttribute("maxlength"));	
+			WaitForPageToLoad(5000);
+			
+			if(testID.equals("1958")) {
+				Thread.sleep(4000);
+				String[] currencies =  currency.split(",");
+				salesforceHomeLightningPage.currency.click();
+				WaitForPageToLoad(5000);
+				Thread.sleep(3000);
+				ExpectedConditions.visibilityOf(salesforceHomeLightningPage.currencyList);
+				for(int i=0;i<currencies.length;i++) {
+					WaitForPageToLoad(5000);
+					Thread.sleep(1000);
+					int numCurrency = salesforceHomeLightningPage.scenarioCurrencyOptions.size();
+					for(int j=1;j<=numCurrency;j++) {
+						if(driver.findElement(By.xpath("/html/body/div[1]/div[4]/div/div/div/mat-option[" + j + "]/span")).getText().equalsIgnoreCase(currencies[i])){
+							driver.findElement(By.xpath("/html/body/div[1]/div[4]/div/div/div/mat-option[" + j + "]")).click();
+						}
+					}
+					Thread.sleep(3000);
+					WaitForPageToLoad(5000);
+				}
+				Thread.sleep(5000);
+				
+				for (int i = 0; i < currencies.length; i++) {
+					enterDetailsforScenario(testID,"Test",currencies[i],"TestDescription");
+				}	
+			}
+			else {
+				salesforceHomeLightningPage.currency.click();
+				WaitForPageToLoad(5000);
+				Thread.sleep(3000);
+				ExpectedConditions.visibilityOf(salesforceHomeLightningPage.currencyList);
+				int numCurrency = salesforceHomeLightningPage.scenarioCurrencyOptions.size();
+				for(int i=1;i<=numCurrency;i++) {
+					if(driver.findElement(By.xpath("/html/body/div[1]/div[4]/div/div/div/mat-option[" + i + "]/span")).getText().equalsIgnoreCase(currency)){
+						driver.findElement(By.xpath("/html/body/div[1]/div[4]/div/div/div/mat-option[" + i + "]")).click();
+						break;
+					}
+				}
+		        WaitForPageToLoad(5000); 
+			}
+			
+			salesforceHomeLightningPage.saveButton.click();
+			WaitForPageToLoad(8000);
+			Thread.sleep(5000);
+			slf4jLogger.info("Scenario created succesfully");
+			
+			if(testID.equals("24735")) {
+				Thread.sleep(5000);
+				int len = scenarioDetailPage.scenarioDetailPageName.getText().length();
+				
+				WaitForPageToLoad(5000);
+				slf4jLogger.info("Scenario details page...");
+				//Assert.assertTrue(len<=max);
+				slf4jLogger.info("Scenario name length less than or equal to 80 characters");
+			}
+			else if(testID.equals("24736")) {
+				slf4jLogger.info("Scenario name validation for special characters validated successfully");
+				WaitForPageToLoad(5000);
+			}
+		}
+		catch (Exception e) {
+			slf4jLogger.info(e.getMessage());
+			Assert.fail(e.getMessage());
+		}
+	}
+	
+	private void enterDetailsforScenario(String testID, String scenarioName, String scenaraioCurrency, String scenarioDescription) {
+		WebDriver driver= getDriver();
+		try {
+
+			slf4jLogger.info(
+					testID + ":" + System.currentTimeMillis() + "Entered to New scenario Details Page....");
+			
+			slf4jLogger.info(testID + ":" + System.currentTimeMillis()
+					+ "[Enter Details for New Scenario Manager .... Started]");
+			
+				try {
+					WebElement statusIcon = driver.findElement(By.className("SDG_StatusIcon"));
+					if (statusIcon.isDisplayed()) {
+						slf4jLogger.info(testID + ":" + System.currentTimeMillis() + "Unable to update currency");
+					}
+				} catch (Exception e) {
+					slf4jLogger.info(testID + ":" + System.currentTimeMillis() + "Currency can be updated");
+				}
+			
+
+			slf4jLogger.info(testID + ":" + System.currentTimeMillis()
+					+ " 240: assignAttibuteValueInNewOppertunity Started");
+			
+				} catch (Exception e) {
+					Assert.fail();
+				}
+		
+	}
+	
+	@Step
+	public void clickOnQuoteLink() {
+		try {
+			WaitForPageToLoad(5000);
+			WebDriver driver = getDriver();
+			WebDriverWait wait = new WebDriverWait(driver, 10000);
+			wait.until(ExpectedConditions.elementToBeClickable(salesforceHomeLightningPage.smquoteLink));
+			salesforceHomeLightningPage.smquoteLink.click();
+			WaitForPageToLoad(5000);
+			waitABit(2000);
+		}catch (Exception e) {
+			Assert.fail("Inside clickOnQuoteLink method catch block... test failed");
+		}
+		
+	}
+	
+	public void lookupIconClick(WebDriver driver) {
+		try {
+			slf4jLogger.info("Click on the lookupIcon method!");
+			WebDriverWait wait = new WebDriverWait(driver, 100);
+			wait.until(ExpectedConditions.elementToBeClickable(driver.findElement(By.xpath("//span[contains(text(),'Show All Results for')]"))));
+			driver.findElement(By.xpath("//span[contains(text(),'Show All Results for')]")).click();
+			driver.switchTo().activeElement();
+			//*[@id="content_2196:0"]/div/div[2]/div/div/div/div/div[2]/div/div/table/tbody/tr/td[1]/a
+			wait.until(ExpectedConditions.elementToBeClickable(driver.findElement(By.xpath("//*[@class='slds-grid forceSearchBaseSearchPage forceSearchSearch']/div/div/div/div[2]/div/div/table"))));
+			salesforceHomeLightningPage.firstAccount.click();
+			slf4jLogger.info("Opportunity Account Selected");
+			WaitForPageToLoad(5000);
+			
+		}
+		catch (Exception e) {
+			Assert.fail(e.getMessage());
+		}
+		
+	}
+	
+}

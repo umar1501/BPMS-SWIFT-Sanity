@@ -1,0 +1,288 @@
+package com.ctl.it.qa.bpms.steps;
+
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+
+import org.junit.Assert;
+import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Wait;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import com.ctl.it.qa.bpms.pages.DiscountingProfitabilityPage;
+import com.ctl.it.qa.bpms.pages.OpportunityDetailPage;
+import com.ctl.it.qa.bpms.pages.ProductConfigPage;
+import com.ctl.it.qa.bpms.pages.QuoteDetailPage;
+import com.ctl.it.qa.bpms.pages.ScenarioDetailPage;
+import com.ctl.it.qa.bpms.pages.VendorBidManagementPage;
+import com.ctl.it.qa.staf.Steps;
+
+
+@SuppressWarnings("serial")
+public class OpportunityDetailSteps extends Steps{
+
+	private transient Logger slf4jLogger = LoggerFactory.getLogger(OpportunityDetailSteps.class);
+	transient VendorBidManagementPage vendorBidManagementPage;
+	transient ScenarioDetailPage scenarioDetailPage;
+	transient DiscountingProfitabilityPage discountingProfitabilityPage;
+	transient OpportunityDetailPage opportunityDetailPage;
+	transient ProductConfigPage productConfigPage;
+	transient QuoteDetailPage quoteDetailPage;
+	
+	
+	
+	public OpportunityDetailSteps changeOpportunityStageLevel(String stage,String TestID, String date) throws Exception {
+		try {
+			WebDriver driver = getDriver();
+			Wait<WebDriver> wait = new WebDriverWait(driver, 10000);
+		//	returnToOpportunityDetailPage();
+			
+			do {
+				driver.navigate().refresh();
+				Thread.sleep(10000);
+				wait.until(ExpectedConditions.visibilityOf(opportunityDetailPage.stageLabel));
+				WaitForPageToLoad(5000);
+				
+				Actions action = new Actions(driver);
+				action.doubleClick(opportunityDetailPage.opp11ilecell).build().perform();
+				slf4jLogger.info(TestID + ":" + System.currentTimeMillis()+ "Click on double click on Staging Element.... Success");
+			
+				Thread.sleep(3000);
+				opportunityDetailPage.stage.click();
+				Thread.sleep(1000);
+				Thread.sleep(1000);
+				
+				if(stage.contains("Agreement")) { //normal submission
+					opportunityDetailPage.stageElements.get(3).click();
+					Thread.sleep(2000);
+					slf4jLogger.info(TestID + ":" + System.currentTimeMillis()+ "Select Agreement on Staging Element.... Success");
+					opportunityDetailPage.winLossReasonLabel.click();
+					opportunityDetailPage.reasonNone.click();
+					opportunityDetailPage.reasonWonCustRelnship.click();
+					Thread.sleep(6000);
+				}
+				else if(stage.contains("Proposed")){
+					opportunityDetailPage.stageElements.get(2).click();	//predeploy submission
+					Thread.sleep(2000);
+					slf4jLogger.info(TestID + ":" + System.currentTimeMillis()+ "Select Proposed on Staging Element.... Success");
+					opportunityDetailPage.winLossReasonLabel.click();
+					changeprobability(TestID, "80");
+					Thread.sleep(5000);
+				}
+				else if(stage.contains("Qualified")) {
+					opportunityDetailPage.stageElements.get(0).click();
+				}
+				else {
+					slf4jLogger.info("Opportunity stage selection - Catch Block!!");
+				}
+			
+				Thread.sleep(3000);		
+				Thread.sleep(2000);
+				opportunityDetailPage.zenButtons.get(0).click();
+				slf4jLogger.info(TestID + ":" + System.currentTimeMillis() + "Click On OK.... Success");
+				
+				action.doubleClick(opportunityDetailPage.fullyExecutedContractAttached).build().perform();
+				slf4jLogger.info(TestID + ":" + System.currentTimeMillis()+ "Double click on Fully Executed Contract Attached Element.... Success");
+				opportunityDetailPage.fullyExecutedContractAttachedChkbox.click();
+				action.doubleClick(opportunityDetailPage.custSignDate).build().perform();
+				slf4jLogger.info(TestID + ":" + System.currentTimeMillis()+ "Double click on Customer Signature Date Element.... Success");
+				opportunityDetailPage.custSignDateBox.sendKeys(date);
+				opportunityDetailPage.iCommitSalesResultLabel.click();
+				Thread.sleep(1000);
+				action.doubleClick(opportunityDetailPage.iCommitSalesResult).build().perform();
+				slf4jLogger.info(TestID + ":" + System.currentTimeMillis()+ "Double click on I commit to Sales Results per Guidelines Element.... Success");
+				opportunityDetailPage.iCommitSalesResultChkbox.click();
+				
+				((JavascriptExecutor) driver).executeScript("document.querySelectorAll('[title=\"Save\"]')[0].click()");
+				Thread.sleep(5000);
+						
+			}
+			while((driver.findElement(By.id("errorDiv_ep")).isDisplayed()));
+			Thread.sleep(7000);
+		} 
+		catch (Exception e) {
+			Assert.fail(TestID + ": @" +System.currentTimeMillis() + "@"+ "Error while changing opportunity stage..!");
+		}
+		return new OpportunityDetailSteps();
+	}
+
+	public OpportunityDetailSteps changeprobability(String TestID, String probabilityPreDeploy) throws Exception {
+		try {
+			WebDriver driver = getDriver();
+
+			Thread.sleep(6000);
+			try {
+				opportunityDetailPage.opportunityProbability.click();
+				driver.findElement(By.id("opp12")).click();
+				opportunityDetailPage.opportunityProbability.clear();
+				Thread.sleep(1000);
+				opportunityDetailPage.opportunityProbability.sendKeys(probabilityPreDeploy);
+				
+			} catch (Exception e) {
+				opportunityDetailPage.opportunityProbabilityPredeploy.click();
+				Thread.sleep(1000);
+				opportunityDetailPage.opportunityProbabilityPredeploy.clear();
+				Thread.sleep(1000);
+				opportunityDetailPage.opportunityProbabilityPredeploy.sendKeys(probabilityPreDeploy);
+			}
+
+			Thread.sleep(1000);
+			
+		} catch (Exception e) {
+			slf4jLogger.error(TestID + ":" + System.currentTimeMillis() + e);
+			Assert.fail(TestID + ": @" + System.currentTimeMillis() + "@"+ "Error Occured while Changing the probability");
+		}
+		return new OpportunityDetailSteps();
+		
+	}
+
+	public QuoteDetailPage clickOnQuoteNumber(String TestID) throws Exception {
+		try {
+			WebDriver driver = getDriver();
+			Thread.sleep(3000);
+			driver.switchTo().defaultContent();
+			Thread.sleep(5000);
+			
+			driver.switchTo().frame(opportunityDetailPage.oppQuotesFrame);
+			
+			try {
+				do {
+					quoteDetailPage.quoteNumber.click();
+					Thread.sleep(8000);
+					WaitForPageToLoad(5000);
+				}
+				while(quoteDetailPage.quoteNumber.isDisplayed());
+			}
+			catch(Exception e) {
+				WaitForPageToLoad(5000);
+				slf4jLogger.info("Catch block");
+				Thread.sleep(8000);
+			}
+			
+			Thread.sleep(3000);
+			slf4jLogger.info(TestID + ":" + System.currentTimeMillis()
+					+ "Click On Prepare Scenario Order.... Success");
+			driver.switchTo().defaultContent();
+			
+
+		} catch (Exception e) {
+			Assert.fail(TestID + ": @" + System.currentTimeMillis() + "@"
+					+ "Exception occured while clicking on prepare order Scanrio.");
+
+		}
+		return new QuoteDetailPage();
+	}
+
+	public void clickOnGenerateDocument( String TestID) throws Exception {
+		try {
+			
+			Thread.sleep(5000);
+			opportunityDetailPage.generateDocument.click();
+			
+			Thread.sleep(1000);
+			slf4jLogger.info(TestID + ":" + System.currentTimeMillis() + "Click on generate document....success");
+		
+		} catch (Exception e) {
+			Assert.fail(TestID + ": @" + System.currentTimeMillis() + "@"
+					+ "Error while clicking on generate document");
+	
+		}
+		
+	}
+	
+	public void enterDocumentTypeAndName( String TestID) throws Exception {
+		try {
+			WebDriver driver =getDriver();
+			Wait<WebDriver> wait = new WebDriverWait(driver, 10000);
+			slf4jLogger.info(
+					TestID + ":" + System.currentTimeMillis() + "Entered enterDocumentTypeAndName method");
+			
+			Thread.sleep(20000);
+					
+			wait.until(ExpectedConditions.elementToBeClickable(opportunityDetailPage.docType));
+			opportunityDetailPage.docType.click();
+			slf4jLogger.info(TestID + ":" + System.currentTimeMillis() + "Doc Type Click Completed");
+			
+			Thread.sleep(8000);
+			opportunityDetailPage.docType.sendKeys("Quote");
+			slf4jLogger.info(TestID + ":" + System.currentTimeMillis() + "Doc type selected");
+			
+			wait.until(ExpectedConditions.elementToBeClickable(opportunityDetailPage.docName));
+			opportunityDetailPage.docName.click();
+			slf4jLogger.info(TestID + ":" + System.currentTimeMillis() + "Doc name click completed ");
+			
+			Thread.sleep(2000);
+			opportunityDetailPage.docName.sendKeys("Quote");
+			slf4jLogger.info(TestID + ":" + System.currentTimeMillis() + "Entered document name and type");
+			Thread.sleep(2000);
+			
+			wait.until(ExpectedConditions.elementToBeClickable( opportunityDetailPage.generateDocumentnextButton));
+			opportunityDetailPage.generateDocumentnextButton.click();
+			
+			Thread.sleep(5000);
+			slf4jLogger.info(TestID + ":" + System.currentTimeMillis() + "Click On Next Button success");
+		} catch (Exception e) {
+			
+			Assert.fail(TestID + ": @" + System.currentTimeMillis() +"@"+"Error while entering document name and type");
+	
+		}
+	}
+	
+	public void returnToOpportunityDetailPage() throws Exception{
+		try {
+			WebDriver driver = getDriver();
+			driver.switchTo().defaultContent();
+			scenarioDetailPage.backToOppertunity.click();
+			slf4jLogger.info("Back to Opportunity Page...");
+			WaitForPageToLoad(5000);
+			Thread.sleep(10000);
+		}
+		catch(Exception e) {
+			slf4jLogger.info("Test Fail...!!!" +e.getMessage());
+			Assert.fail(e.getMessage());
+		}
+	}
+
+	public void verifyCMMCValidationAttributesInSFDCPage(String string, String oppAccname, String oppName) {
+		slf4jLogger.info("verify CMMC Validation Attributes In SFDC Page");
+		WebDriver driver = getDriver();
+		Wait<WebDriver> wait = new WebDriverWait(driver, 1000);
+		wait.until(ExpectedConditions.elementToBeClickable(driver.findElement(By.xpath("/html/body/div[1]/div[3]/table/tbody/tr/td[2]/div[4]/div[2]/div[4]/table/tbody/tr[3]/td[2]/div/a"))));
+		driver.findElement(By.xpath("/html/body/div[1]/div[3]/table/tbody/tr/td[2]/div[4]/div[2]/div[4]/table/tbody/tr[3]/td[2]/div/a")).click();
+		WaitForPageToLoad(5000);
+		try {
+			switch(SalesforceLoginSteps.federalUserType) {
+			case "Authorized" :
+			{
+				assertTrue("Opportunity Account Name is not in plain text", opportunityDetailPage.opportunityAccountName.getText().equals(oppAccname));
+				assertTrue("Opportunity Name is not in plain text", opportunityDetailPage.opportunityName.getText().equals(oppName));
+			}
+			case "UnAuthorized":
+			{
+				assertFalse("Opportunity Account Name is not in encrypted format", opportunityDetailPage.opportunityAccountName.getText().equals(oppAccname));
+				assertFalse("Opportunity Name is not in encrypted format", opportunityDetailPage.opportunityName.getText().equals(oppName));
+			}
+		}
+		}catch (Exception e) {
+			slf4jLogger.info("verification of CMMC Validation Attributes In SFDC Page Failed...");
+			Assert.fail(e.getMessage());
+		}
+		slf4jLogger.info("verification of CMMC Validation Attributes In SFDC Page Passed...");
+		
+		
+	}
+	public void clickOnPrepareOrder() {
+		WebDriver driver = getDriver();
+		WebDriverWait wait = new WebDriverWait(driver, 1000);
+		wait.until(ExpectedConditions.elementToBeClickable(opportunityDetailPage.prepareScenarioOrderButton));
+		opportunityDetailPage.prepareScenarioOrderButton.click();
+		WaitForPageToLoad(5000);
+		
+	}
+
+}

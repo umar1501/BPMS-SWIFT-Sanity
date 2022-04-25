@@ -1,0 +1,6 @@
+INDEX VERSION 1.4+C:\Users\ac91162\OneDrive - Lumen\Desktop\BPMS Autoamation\bpmportal_sanity-master\.metadata\.plugins\org.eclipse.wst.jsdt.core\indexes
+389097893.index
+1511467310.index
+2313499534.index
+1089264945.index
+980134558.index

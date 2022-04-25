@@ -1,0 +1,4383 @@
+package com.ctl.it.qa.bpms.steps;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+
+import java.text.NumberFormat;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.concurrent.TimeUnit;
+
+import org.apache.http.util.TextUtils;
+import org.junit.Assert;
+import org.openqa.selenium.Alert;
+import org.openqa.selenium.By;
+import org.openqa.selenium.ElementNotVisibleException;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.Keys;
+import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.StaleElementReferenceException;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.FluentWait;
+import org.openqa.selenium.support.ui.Wait;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import com.ctl.it.qa.bpms.pages.DiscountingProfitabilityPage;
+import com.ctl.it.qa.bpms.pages.OpportunityDetailPage;
+import com.ctl.it.qa.bpms.pages.ProductConfigPage;
+import com.ctl.it.qa.bpms.pages.ProductSummaryPage;
+import com.ctl.it.qa.bpms.pages.QuoteDetailPage;
+import com.ctl.it.qa.staf.Steps;
+
+import net.thucydides.core.annotations.Step;
+
+@SuppressWarnings("serial")
+public class ProductSummarySteps extends Steps{
+
+	private final Logger slf4jLogger = LoggerFactory.getLogger(ProductSummarySteps.class);
+	ProductSummaryPage productSummaryPage;
+	public static int counter = 0;
+	ProductConfigPage productConfigPage;
+	DiscountingProfitabilityPage discountingProfitabilityPage;
+	ProductConfigSteps productConfigSteps;
+	OpportunityDetailSteps opportunityDetailSteps;
+	OpportunityDetailPage opportunityDetailPage;
+	QuoteDetailSteps quoteDetailSteps;
+	SMAttachNewDocumentFormSteps smAttachNewDocumentFormSteps;
+	QuoteDetailPage quoteDetailPage;
+	
+	@Step
+	public  void createNewProductPackage() throws InterruptedException{
+		try{
+			WebDriver driver = getDriver();
+			Wait<WebDriver> wait = new WebDriverWait(driver, 10000);
+			Thread.sleep(8000);
+			WaitForPageToLoad(5000);
+			wait.until(ExpectedConditions.elementToBeClickable(productSummaryPage.createNewProductPakage));
+			slf4jLogger.info("Creating New Product Package");
+			productSummaryPage.createNewProductPakage.click();
+			WaitForPageToLoad(5000);
+		}
+		catch (Exception e) {
+			slf4jLogger.info("Package creation failed..");
+			Assert.fail(e.getMessage());
+		}
+	}
+	
+	@SuppressWarnings("deprecation")
+	@Step
+	public  void verifyProductPackage(String product) throws InterruptedException{
+		WebDriver driver = getDriver();
+		try {
+			slf4jLogger.info("Verify Created Product package");
+			WaitForPageToLoad(10000);
+			Thread.sleep(15000);
+			driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
+			
+		    if (!productSummaryPage.firstProduct.getText().contains(product)) {
+		    	Assert.fail("Error while verifying product");
+		    }
+			WaitForPageToLoad(5000);
+			slf4jLogger.info("Product package created succesfully on SM");
+			
+		}
+		catch (Exception e) {
+			slf4jLogger.info(e.getMessage());
+			slf4jLogger.info("Product Verification failed..");
+			Assert.fail(e.getMessage());
+		}
+		
+		
+	}
+	
+	public void getURLScenarioDetailSteps(String Url) {
+		WebDriver driver = getDriver();
+		driver.get(Url);
+		PageFactory.initElements(driver, this);
+	}
+	
+	
+	@Step
+	public void verifyAndAddServiceLocation(String TestID)  throws Exception{
+		try {
+			WebDriver driver = getDriver();
+			Thread.sleep(10000);
+			
+			if(TestID.equals("1989")) {
+				slf4jLogger.info("Starting to go back to oppurtunity page");
+				driver.switchTo().defaultContent();
+				productSummaryPage.backToOppertunity.click();
+				Thread.sleep(10000);
+				driver.switchTo().defaultContent();
+				Actions action = new Actions(driver);
+				action.doubleClick(opportunityDetailPage.opp11ilecell).build().perform();
+				slf4jLogger.info(TestID + "Click on double click on Staging Element.... Success");
+				Thread.sleep(3000);
+				opportunityDetailPage.stage.click();
+				Thread.sleep(1000);
+				
+				Thread.sleep(1000);
+				opportunityDetailPage.stageElements.get(4).click();
+				opportunityDetailPage.stageElements.get(4).click();
+				slf4jLogger.info(TestID + "Select Proposed on Staging Element.... Success");
+				opportunityDetailPage.zenButtons.get(0).click();
+					
+				
+				slf4jLogger.info(TestID +  "Click On OK.... Success");
+				driver.switchTo().defaultContent();
+				Thread.sleep(5000);
+				Thread.sleep(1000);
+				driver.switchTo().defaultContent();
+				
+				Thread.sleep(4000);
+				slf4jLogger.info(TestID + ":" + System.currentTimeMillis() + "Switched to default frame");
+				
+				driver.switchTo().frame(driver.findElement(By.cssSelector("iframe[title='OpportunityQuotes']")));
+				slf4jLogger.info(TestID + ":" + System.currentTimeMillis() + "Switched  frame");
+				slf4jLogger.info(TestID + ":" + System.currentTimeMillis() + "Scrolled down......");
+				Thread.sleep(3000);
+				quoteDetailPage.quoteNumber.click();
+				Thread.sleep(3000);
+				slf4jLogger.info(TestID + ":" + System.currentTimeMillis() + "Clicked on QuoteNumber.....");
+	
+				Thread.sleep(500);
+				driver.switchTo().defaultContent();
+				
+				Thread.sleep(5000);
+				opportunityDetailPage.addServiceLocation.click();
+				slf4jLogger.info(TestID + "Clicked on add service Location.....");
+				Thread.sleep(5000);
+				int size = driver.findElements(By.tagName("iframe")).size();
+				driver.switchTo().frame(driver.findElement(By.tagName("iframe")));
+				slf4jLogger.info(TestID + "to add service location.....");
+				for (int i=0;i<50;i++) {
+					driver.findElement(By.id("import-Refresh-button")).click();
+				}
+				WaitForPageToLoad(5000);
+				Thread.sleep(10000);
+				productSummaryPage.ButtontoaddServiceLocationButtonEnable.click();
+				WaitForPageToLoad(5000);
+				Thread.sleep(1000);
+				productSummaryPage.addServiceLocationText2.click();
+				WaitForPageToLoad(5000);
+				Thread.sleep(1000);
+				productSummaryPage.addServiceLocationText2.sendKeys("Floor 1 Room 1");
+				Wait(1000);
+				Thread.sleep(1000);
+				productSummaryPage.addServiceLocationText2.sendKeys(Keys.ENTER);
+				Thread.sleep(10000);
+				Thread.sleep(10000);
+						
+				productSummaryPage.returnToScenarioDetailbutton.click();
+				
+		}
+			else if (TestID.equals("1950")) {
+				WaitForPageToLoad(5000);
+				Thread.sleep(10000);
+				productConfigPage.locationflrmPackageDetailsPage.click();
+				WaitForPageToLoad(5000);
+				Thread.sleep(1000);
+				
+				WebElement addServiceLocationText=driver.findElement(By.xpath("/html/body/div[25]/div[2]/div/div[1]/div/span/span/input"));
+				addServiceLocationText.click();
+				WaitForPageToLoad(5000);
+				Thread.sleep(1000);
+				addServiceLocationText.sendKeys("Floor 1 Room 1");
+				Wait(1000);
+				Thread.sleep(1000);
+				addServiceLocationText.sendKeys(Keys.ENTER);
+				Thread.sleep(10000);
+				Thread.sleep(10000);
+				productConfigPage.saveproductbutton.click();
+				Thread.sleep(5000);
+				createNewProductPackage();
+				Thread.sleep(1000);
+				String addresstext=productSummaryPage.addressColumnText.getText();
+				System.out.println(addresstext);
+				if(!addresstext.contains("Floor 1 Room 1"))
+					Assert.fail("The service location is not associated with This scenario");
+			}
+			
+			else if (TestID.equals("1949")) {
+				slf4jLogger.info("1949 started");
+				WaitForPageToLoad(5000);
+				Thread.sleep(10000);
+				productConfigPage.locationflrmPackageDetailsPage.click();
+				WaitForPageToLoad(5000);
+				Thread.sleep(1000);
+				
+				WebElement addServiceLocationText=driver.findElement(By.xpath("/html/body/div[114]/div[2]/div/div[1]/div/span/span/input"));
+				addServiceLocationText.click();
+				WaitForPageToLoad(5000);
+				Thread.sleep(1000);
+				addServiceLocationText.sendKeys("Floor 1 Room 1");
+				Wait(1000);
+				Thread.sleep(1000);
+				addServiceLocationText.sendKeys(Keys.ENTER);
+				Thread.sleep(10000);
+				Thread.sleep(10000);
+				productConfigPage.nextbutton2.click();
+				Thread.sleep(5000);
+				productConfigPage.saveproductbutton.click();
+				Thread.sleep(5000);
+				createNewProductPackage();
+				Thread.sleep(1000);
+				String addresstext=productSummaryPage.addressColumnText.getText();
+				System.out.println(addresstext);
+				if(!addresstext.contains("Floor 1 Room 1"))
+					Assert.fail("The service location is not associated with This scenario");
+			}
+		}
+		catch (Exception e) {
+			slf4jLogger.info("verifying failed..");
+			Assert.fail(e.getMessage());
+		}
+		slf4jLogger.info("Verifying ADDRESS service location - success");
+
+	}
+	
+	@Step
+	public void validateProductsCreated(String TestID) throws Exception {
+		try {
+			WebDriver driver = getDriver();
+			Thread.sleep(60000);
+			//waitForValidStatus(TestID);	--> uncomment after editing
+			if(TestID.equals("2007")) {
+				
+				int counthsip=0;
+				int countwave=0;
+				
+				for(int i=1;i<=productSummaryPage.products.size();i++){
+					String prodName = driver.findElement(By.xpath("/html/body/app-root/app-product-summary/div/app-quote-products/div[3]/div/table/tbody/tr["+i+"]/td[3]/span[2]")).getText();
+					if(prodName.contains("HSIP"))
+						counthsip++;
+					else if(prodName.contains("Wavelength"))
+						countwave++;
+				}
+				if(!(countwave==2 &&counthsip==1 )) {
+					Assert.fail("Error while verifying products created");
+				}
+				slf4jLogger.info(TestID + "Verified  products created");
+			}
+			
+			else if(TestID.equals("1989")) {
+				
+				int countuni=0;
+				int countwave=0;
+				
+				for(int i=1;i<=productSummaryPage.products.size();i++){
+					String prodName = driver.findElement(By.xpath("/html/body/app-root/app-product-summary/div/app-quote-products/div[3]/div/table/tbody/tr["+i+"]/td[3]/span[2]")).getText();
+					if(prodName.contains("UNI"))
+						countuni++;
+					else if(prodName.contains("Wavelength"))
+						countwave++;
+									
+					String address=driver.findElement(By.xpath("/html/body/app-root/app-product-summary/div/app-quote-products/div[3]/div/table/tbody/tr["+i+"]/td[4]/div[1]")).getText();
+					if (!address.contains("Room"))
+						Assert.fail("Error while verifying address of products created");
+					
+				}
+				if(!(countwave==1 &&countuni==1 )) {
+					Assert.fail("Error while verifying products created");
+				}
+				slf4jLogger.info(TestID + "Verified  products created");
+			}
+			else if(TestID.equals("27984")) {
+				int countwave=0;
+				for(int i=1;i<=productSummaryPage.products.size();i++){
+					String prodName = driver.findElement(By.xpath("/html/body/app-root/app-product-summary/div/app-quote-products/div[3]/div/table/tbody/tr["+i+"]/td[3]/span[2]")).getText();
+					if(prodName.contains("Wavelength"))
+						countwave++;
+					if(!(countwave==2 )) {
+						Assert.fail("Error while verifying products created");
+					}
+					slf4jLogger.info(TestID + "Verified  products created");
+				}
+				
+			}
+			else if(TestID.equals("1999")) {
+				
+				int counthsip=0;
+				for(int i=1;i<=productSummaryPage.products.size();i++){
+					String prodName = driver.findElement(By.xpath("/html/body/app-root/app-product-summary/div/app-quote-products/div[3]/div/table/tbody/tr["+i+"]/td[3]/span[2]")).getText();
+					if(prodName.contains("HSIP"))
+						counthsip++;	
+				}
+				if(!(counthsip==2 )) {
+					Assert.fail("Error while verifying products created");
+				}
+				slf4jLogger.info(TestID + "Verified  products created");
+			}
+			else if(TestID.equals("28140")) {
+				int countwave =0;
+				for(int i=1;i<=productSummaryPage.products.size();i++){
+					String prodName = driver.findElement(By.xpath("/html/body/app-root/app-product-summary/div/app-quote-products/div[3]/div/table/tbody/tr["+i+"]/td[3]/span[2]")).getText();
+					if(prodName.contains("Wavelength"))
+						countwave++;
+					
+					String addressA = driver.findElement(By.xpath("/html/body/app-root/app-product-summary/div/app-quote-products/div[3]/div/table/tbody/tr["+i+"]/td[4]/div[1]")).getText();
+					String addressZ = driver.findElement(By.xpath("/html/body/app-root/app-product-summary/div/app-quote-products/div[3]/div/table/tbody/tr["+i+"]/td[4]/div[2]")).getText();
+						
+					assertEquals("Error while verifying address of products created", productConfigPage.getLocationA_Text(), addressA);
+					assertEquals("Error while verifying address of products created", productConfigPage.getLocationZ_Text(), addressZ);
+					if(!(countwave==2 )) {
+						Assert.fail("Error while verifying products created");
+					}
+					slf4jLogger.info(TestID + "Verified  products created");
+				}
+			}
+			else if(TestID.equals("28141")) {
+				int countwave =0;
+				for(int i=1;i<=productSummaryPage.products.size();i++){
+					String prodName = driver.findElement(By.xpath("/html/body/app-root/app-product-summary/div/app-quote-products/div[3]/div/table/tbody/tr["+i+"]/td[3]/span[2]")).getText();
+					if(prodName.contains("Wavelength"))
+						countwave++;
+				}
+				if(!(countwave==6 )) {
+					Assert.fail("Error while verifying products created");
+				}
+				slf4jLogger.info(TestID + "Verified  products created");
+			}
+					
+			else if(TestID.equals("2049")) {
+				for(int i=1;i<=productSummaryPage.products.size();i++){
+					String prodName = driver.findElement(By.xpath("/html/body/app-root/app-product-summary/div/app-quote-products/div[3]/div/table/tbody/tr["+i+"]/td[3]/span[2]")).getText();
+					int countDIA=0;
+					int countBIA=0;
+					int countCIA=0;
+					int SDWAN=0;
+					int HAprod =0;
+					if(prodName.contains("- HA"))
+						HAprod++;
+					if(prodName.contains("SD-WAN"))
+						SDWAN++;
+					if(prodName.contains("Dedicated Internet Access"))
+						countDIA++;
+					if(prodName.contains("Broadband Internet Access"))
+						countBIA++;
+					if(prodName.contains("Cellular Internet Access"))
+						countCIA++;
+					if(!(SDWAN==1 && countDIA==2 && countBIA==2 && countCIA==2 && HAprod==3)) {
+						Assert.fail("Error while verifying products created");
+					}
+					slf4jLogger.info(TestID + "Verified  products created");
+				}
+			}
+			else if(TestID.equals("3115")) {
+				for(int i=1;i<=productSummaryPage.products.size();i++){
+					String prodName = driver.findElement(By.xpath("/html/body/app-root/app-product-summary/div/app-quote-products/div[3]/div/table/tbody/tr["+i+"]/td[3]/span[2]")).getText();
+					int countDIA=0;
+					int countBIA=0;
+					int countHC=0;
+					
+					if(prodName.contains("Dedicated Internet Access"))
+						countDIA++;
+					if(prodName.contains("Broadband Internet Access"))
+						countBIA++;
+					if(prodName.contains("Hybrid Connectivity"))
+						countHC++;
+					if(!(countDIA==1 && countBIA==1 && countHC==1)) {
+						Assert.fail("Error while verifying products created : @"+TestID);
+					}
+					slf4jLogger.info(TestID + "Verified  products created");
+				}
+			}
+			else if(TestID.equals("38466")) {
+				int countDIA=0;
+				int countSDWAN=0;
+				int countHC=0;
+				int countEWAS=0;
+				int countME=0;
+				
+				for(int i=1;i<=productSummaryPage.products.size();i++){
+					String prodName = driver.findElement(By.xpath("/html/body/app-root/app-product-summary/div/app-quote-products/div[3]/div/table/tbody/tr["+i+"]/td[3]/span[2]")).getText();
+					
+					if(prodName.contains("Dedicated Internet Access"))
+						countDIA++;
+					if(prodName.contains("SD WAN"))
+						countSDWAN++;
+					if(prodName.contains("Hybrid Connectivity"))
+						countHC++;
+					if(prodName.contains("Enterprise Wireless Access Service"))
+						countEWAS++;
+					if(prodName.contains("Managed Equipment"))
+						countME++;
+				}
+				if(!(countDIA==2 && countSDWAN==1 && countHC==1 && countEWAS==1 && countME==1)) {
+					Assert.fail("Error while verifying products created : @"+TestID);
+				}
+				slf4jLogger.info(TestID + "Verified  products created");
+			}
+			else if(TestID.equals("45461") || TestID.equals("45994")) {
+				int countManagedServer=0;
+				for(int i=1;i<=productSummaryPage.products.size();i++){
+					String prodName = driver.findElement(By.xpath("/html/body/app-root/app-product-summary/div/app-quote-products/div[3]/div/table/tbody/tr["+i+"]/td[3]/span[2]")).getText();
+					if(prodName.contains("Managed Server"))
+						countManagedServer++;	
+				}
+				if(!(countManagedServer==3 )) {
+					Assert.fail("Error while verifying products created");
+				}
+				slf4jLogger.info(TestID + "Verified  products created");
+			
+			}
+		} 
+		catch (Exception e) {
+			if (e.getMessage().isEmpty()) {
+				Assert.fail(TestID + "Error while verifying the created products");
+			} 
+			else if (e.getMessage().contains(": @")) {
+				Assert.fail(e.getMessage());
+			} 
+			else {
+				Assert.fail(TestID + e);
+			}
+		}
+	}
+	
+	@Step
+	public void verifyProductsCreated(String TestID) throws Exception {
+		try {
+			WebDriver driver = getDriver();
+			Thread.sleep(60000);
+			if(TestID.equals("20826")) {
+				
+				int PortandAccessCount = 0;
+				int logicalInterfaceCount =0;
+				
+				for(int i=1;i<=productSummaryPage.products.size();i++){
+					String prodName = driver.findElement(By.xpath("/html/body/app-root/app-product-summary/div/app-quote-products/div[3]/div/table/tbody/tr["+i+"]/td[3]/span[2]")).getText();
+					if(prodName.contains("IP VPN Port and Access"))
+						PortandAccessCount++;
+					else if(prodName.contains("IP VPN Logical Interface"))
+						logicalInterfaceCount++;
+				}
+				if(!(PortandAccessCount==4 &&logicalInterfaceCount==4 )) {
+					Assert.fail("Error while verifying products created");
+				}
+				slf4jLogger.info(TestID + "Verified  products of IPVPN");
+			}
+		
+		}
+		catch (Exception e) {
+			if (e.getMessage().isEmpty()) {
+				Assert.fail(TestID + "Error while verifying the created products");
+			} 
+			else if (e.getMessage().contains(": @")) {
+				Assert.fail(e.getMessage());
+			} 
+			else {
+				Assert.fail(TestID + e);
+			}
+		}
+		
+	}
+
+	@SuppressWarnings("deprecation")
+	@Step
+	public void assignRoomAndFloor(String Address) throws InterruptedException{
+			try {
+				slf4jLogger.info("Assigning room and floor if present");
+				WebDriver driver = getDriver();
+				Wait<WebDriver> wait = new WebDriverWait(driver, 1000);
+				String address[] = Address.split(",");
+				if (address.length > 5) {
+					String Floor = address[5];
+					String Room = address[6];
+					if (!"".equals(Floor.trim()) && Floor.trim() != null) {
+						String FloorRoom = "";
+						if (!"".equals(Floor.trim()) && Floor.trim() != null && address.length == 7) {
+							FloorRoom = "Floor " + Floor.trim() + " Room " + Room.trim();
+						} else if (!"".equals(Floor.trim()) && Floor.trim() != null && address.length == 6) {
+							FloorRoom = "Floor " + Floor.trim();
+						}
+						 wait.until(ExpectedConditions.elementToBeClickable(productSummaryPage.ButtontoaddServiceLocationButtonEnable));
+						 productSummaryPage.ButtontoaddServiceLocationButtonEnable.click();
+						WaitForPageToLoad(5000);
+						Thread.sleep(1000);
+						wait.until(ExpectedConditions.elementToBeClickable(productSummaryPage.addServiceLocationText1));
+						productSummaryPage.addServiceLocationText1.click();
+						WaitForPageToLoad(5000);
+						Thread.sleep(1000);
+						productSummaryPage.addServiceLocationText1.sendKeys(FloorRoom);
+						waitABit(2000);
+						productSummaryPage.addServiceLocationText1.sendKeys(Keys.ENTER);
+						Thread.sleep(200);
+						
+					}
+				
+				}
+			}
+		catch (Exception e) {
+			slf4jLogger.info(e.getMessage());
+			slf4jLogger.info("Product selection failed..");
+			Assert.fail(e.getMessage());
+		}
+		
+		
+	}
+		
+	@SuppressWarnings("deprecation")
+	@Step
+	public void selectAddress(String AddressList) throws InterruptedException{
+		slf4jLogger.info("Selecting Address");
+		WebDriver driver = getDriver();
+		Wait<WebDriver> wait = new WebDriverWait(driver, 1000);
+		try {
+			WaitForPageToLoad(5000);
+			
+			String addressList[] = AddressList.split(";");
+			for(int i=0;i<addressList.length;i++){
+				String[] address =  addressList[i].split("\\,");
+				if(address.length==1) {
+					if(address[0].contains(":")) {
+						String pair[] = address[0].split(":");
+						String Street = pair[0];
+						String Country = pair[1];
+						productSummaryPage.country.selectByVisibleText(Country);
+						if(Country.equals("United States")) {
+							productSummaryPage.SiteAddressInput.sendKeys(Street);
+						}
+						else {
+							productSummaryPage.addressSearch.click();
+							productSummaryPage.SiteAddressInput.sendKeys(Street);
+						}
+			  			Thread.sleep(5000);
+					}
+					
+					else {
+						productSummaryPage.SiteAddressInput.sendKeys(address[0]);
+                        Thread.sleep(5000);
+                    }
+				
+				}
+				else {
+					String Country = address[3];
+					String Street = address[0];
+					String City = address[1];
+					String StateProvince = address[2].trim();
+					StateProvince = StateProvince.replaceAll("\\s{1,}", " ").trim();
+					
+					if (!Country.toLowerCase().replaceAll("(\\r|\\n|\\t)+", "").trim().equals("united states")) {
+						productSummaryPage.country.selectByVisibleText(Country);
+						productSummaryPage.addressSearch.click();
+					}
+					productSummaryPage.SiteAddressInput.sendKeys(Street);
+		  			Thread.sleep(5000);
+		  			
+				}
+				List<WebElement> suggest=driver.findElements(By.xpath("//*[@id=\"siteAddressInput_dropdown\"]/div[3]/div"));
+				if(suggest.size()>=1) {
+					wait.until(ExpectedConditions.elementToBeClickable(suggest.get(0)));
+		            suggest.get(0).click();
+		        }
+		        
+		        Thread.sleep(5000);
+		        slf4jLogger.info("Clicking on Search Address");
+		        productSummaryPage.search.click();
+		        WaitForPageToLoad(10000);
+		        wait.until(ExpectedConditions.invisibilityOf(driver.findElement(By.xpath("//*[@id='LocationSearchGrid']/div[1]"))));
+		        assignRoomAndFloor(addressList[i]);
+			
+				WaitForPageToLoad(5000);
+				Thread.sleep(2000);
+				Boolean isAnyOneAddressSelected = false;
+				WebElement lastCheckbox = null;
+				Thread.sleep(1000);
+				
+				List<WebElement> checkboxerows = driver.findElements(By.cssSelector("table[role='grid']")).get(1).findElements(By.tagName("tr"));
+				Thread.sleep(6000);
+				for (WebElement checkboxerow : checkboxerows) {
+					lastCheckbox = checkboxerow.findElement(By.tagName("input"));
+					FluentWait<WebDriver> fluentWait=new FluentWait<WebDriver>(driver)
+							.pollingEvery(50, TimeUnit.MILLISECONDS)
+							.withTimeout(5, TimeUnit.MINUTES)
+							.ignoring(NoSuchElementException.class)
+							.ignoring(StaleElementReferenceException.class)
+							.ignoring(ElementNotVisibleException.class);
+					ExpectedConditions.elementToBeClickable(lastCheckbox);
+					Boolean checkboxselect = checkboxerow.findElement(By.tagName("input")).isSelected();
+					if (checkboxselect) {
+						isAnyOneAddressSelected = true;
+						break;
+					}
+				}
+				
+				Thread.sleep(4000);
+				if (!isAnyOneAddressSelected) {
+					Thread.sleep(4000);
+					
+				    wait.until(ExpectedConditions.elementToBeClickable(productSummaryPage.selectAllCheckBox));
+					FluentWait<WebDriver> fluentWait=new FluentWait<WebDriver>(driver)
+							.pollingEvery(50, TimeUnit.MILLISECONDS)
+							.withTimeout(5, TimeUnit.MINUTES)
+							.ignoring(NoSuchElementException.class)
+							.ignoring(StaleElementReferenceException.class)
+							.ignoring(ElementNotVisibleException.class);
+					String siteAddress=productSummaryPage.locationGrid.findElement(By.xpath("//*[1]/td[3]/a")).getText().substring(0, 7);
+					String siteAddr = driver.findElement(By.xpath("//*[@id='siteAddressInput']")).getAttribute("url").replaceAll("%20"," ");
+					System.out.println(siteAddress+siteAddr);
+					if(siteAddr.contains(siteAddress)){
+						driver.findElement(By.xpath("/html/body/div[4]/div[2]/div[3]/div[2]/div[2]/table/tbody/tr[1]/td[1]/input")).click();
+					}
+					else{
+						ExpectedConditions.elementToBeClickable(lastCheckbox);
+						if(lastCheckbox !=null) {
+							lastCheckbox.click();
+						}
+					}
+					Thread.sleep(3000);
+					}
+				
+				if(i<addressList.length-1) {
+					productSummaryPage.resetButton.click();
+				}
+				Thread.sleep(4000);
+				}	
+			  WaitForPageToLoad(5000);
+			  try{
+				  productSummaryPage.nextBtn.click();	
+			  }
+			  catch (Exception e) {
+				  ExpectedConditions.elementToBeClickable(productConfigPage.quickSaveBtn2);
+					  if(productConfigPage.quickSaveBtn2.isPresent() || productConfigPage.quickSaveBtn2.isCurrentlyEnabled()){
+						  productConfigPage.quickSaveBtn2.click();
+						  Thread.sleep(4000);
+					  }
+					  else{
+						  productConfigPage.nextbtn2.click();
+						  }
+					}		
+				WaitForPageToLoad(5000);
+		}
+		catch (Exception e) {
+			slf4jLogger.info("Address selection failed..");
+			Assert.fail(e.getMessage());
+		}
+	}
+
+	@Step
+	public void selectProductTypeAndProduct(String PackageType, String Product) throws InterruptedException{
+		try {
+			WebDriver driver = getDriver();
+			slf4jLogger.info("Selecting Package Type and Product");
+			WaitForPageToLoad(5000);
+			
+			ExpectedConditions.elementToBeClickable(By.xpath("//li[text()='" + PackageType + "']"));
+			WaitForPageToLoad(5000);
+			productSummaryPage.packagetypearrow.click();
+			WaitForPageToLoad(10000);
+			WaitForPageToLoad(5000);
+			Thread.sleep(3000);
+			
+			driver.findElement(By.xpath("//li[text()='" + PackageType.trim() + "']")).click();
+			WaitForPageToLoad(5000);
+			
+			
+			WaitForPageToLoad(5000);
+			String productDropDown = "//*[@id='package-configuration']/div[2]/div[2]/div/table/tbody/tr[4]/td[2]/table/tbody/tr/td[1]/div/span/span/span[1]";
+			driver.findElement(By.xpath(productDropDown)).click();
+			WaitForPageToLoad(5000);
+			Thread.sleep(3000);
+			
+			List<WebElement> products = driver.findElements(By.xpath("//li[text()='" + Product.trim() + "']"));
+			
+			products.get(products.size() - 1).click();		
+			WaitForPageToLoad(5000);
+			Thread.sleep(3000);
+			ExpectedConditions.elementToBeClickable(By.xpath("//*[text()=' New Product']"));
+			
+			driver.findElement(By.xpath("//*[text()=' New Product']")).click();
+			WaitForPageToLoad(5000);
+		}
+		catch (Exception e) {
+			slf4jLogger.info(e.getMessage());
+			Assert.fail(e.getMessage());
+		}
+		
+	}
+	
+	@Step
+	public  void verifyPackageCount(String count,String product) throws InterruptedException{
+		try {
+			WebDriver driver = getDriver();
+			Thread.sleep(5000);
+			slf4jLogger.info("Verify Count of  Product packages created");
+			WaitForPageToLoad(5000);
+			WaitForPageToLoad(5000);
+			WaitForPageToLoad(5000);
+			int ad1=0;
+			int ad2=0;
+			int ad3=0;
+			
+			String Label = productSummaryPage.packageCountTxt.getText();
+			String[] labelSplit = Label.split(" ");
+			int copiesMade = Integer.parseInt(labelSplit[labelSplit.length-2]);
+		    int Total=Integer.parseInt(count);
+		    WaitForPageToLoad(5000);
+		    String FirstAddress=productSummaryPage.address1.getText();
+		    String SecondAddress=productSummaryPage.address2.getText();
+		    for (int i=1;i<=10;i++)
+			{
+				String address=driver.findElement(By.xpath("/html/body/app-root/app-product-summary/div/app-quote-products/div[2]/div/table/tbody/tr["+i+"]/td[4]")).getText();
+				if (address.equals(FirstAddress))
+						ad1++;
+				if(address.equals(SecondAddress)) ad2++;
+			}
+		    
+		    WaitForPageToLoad(5000);
+		    if (product.equals("Dedicated Internet Access")) {
+				if (!(Total == copiesMade) ||!(ad1==ad2)){
+					Assert.fail("Error in copies made for DIA product");
+				}
+			}
+			else if (product.equals("IP VPN Port and Access"))
+			{
+				if (!(Total == copiesMade) ||!(ad1==ad2)||!(ad1==ad3) ||!(ad3==ad2)){
+					Assert.fail("Error in copies made for ipvpn product");
+				}
+			}
+			slf4jLogger.info("Number of packages verified");
+			
+		}
+		catch (Exception e) {
+			slf4jLogger.info(e.getMessage());
+			Assert.fail(e.getMessage());
+		}
+		
+		
+	}
+	
+	@Step
+	public void verifyApprovalStatusInScenarioDetailsPage(String TestID)throws InterruptedException {
+		try {
+			WebDriver driver = getDriver();
+			Thread.sleep(10000);
+			slf4jLogger.info("Verifying Approval Status in Scenario details page for"+TestID);
+			WaitForPageToLoad(5000);
+			if(TestID.equals("23120"))  {
+				for(int i=1;i<7;i++) {
+					String status = driver.findElement(By.xpath("/html/body/app-root/app-product-summary/div/app-quote-products/div[3]/div/table/tbody/tr["+i+"]/td[7]")).getText();
+					if(!(status.contains("Profit Approval OK") && status.contains("Pricing ICB OK")))
+					{
+						Assert.fail("Error while verifying approval status");
+					}	
+		         }
+		     }
+		
+		else if (TestID.equals("2030"))
+		{	
+			String approvals=productSummaryPage.statusColumn.getText();
+			System.out.println(approvals);
+			if (!(approvals.contains("CAT Approval OK") && approvals.contains("Pricing ICB OK") && approvals.contains("Profit Approval OK")))
+				Assert.fail("Error while verifying approval status");
+		}
+		else if (TestID.equals("2073")){
+			String approvals = productSummaryPage.statusColumn.getText();
+			if (!(approvals.contains("Vendor Bid -  Required")||approvals.contains("Vendor Bid -  Open")))
+				Assert.fail("Error while verifying approval status");
+		}
+		
+		else if (TestID.equals("2007")) {
+			for (int i=1;i<=3;i++) {
+				Thread.sleep(2000);
+				String status = driver.findElement(By.xpath("/html/body/app-root/app-product-summary/div/app-quote-products/div[3]/div/table/tbody/tr["+i+"]/td[7]")).getText();
+				System.out.println(status);
+				if (!status.contains("Profit Approval OK"))
+					Assert.fail("Error while verifying approval status");		
+			}
+		}
+		else if (TestID.equals("2008")) {
+				Thread.sleep(2000);
+				String approvals = productSummaryPage.statusColumn.getText();
+				if (!approvals.contains("Pricing ICB OK"))
+					Assert.fail("Error while verifying approval status");
+		}
+			
+		else if (TestID.equals("2035")) {
+				Thread.sleep(2000);
+				String approvals = productSummaryPage.statusColumn.getText();
+				System.out.println(approvals);
+				if (!approvals.contains("CSG"))
+					Assert.fail("Error while verifying approval status");
+				
+			}
+		
+		else if (TestID.equals("2024")) {
+			String status=productSummaryPage.statusColumn.getText();
+			if(!((status.contains("CAT Approval OK"))&&(status.contains("Product Approval Required"))&&(status.contains("Profit Approval OK"))) ) {
+				Assert.fail("Error while verifying approval status");
+			}
+			
+			else if (TestID.equals("2003")) {
+				List<WebElement> statuses = driver.findElements(By.xpath("//*[text()='Profit Approval OK']"));
+				if(statuses.size()!=productSummaryPage.products.size()) {
+					Assert.fail("Error while verifying approval status of CSG user");
+				}
+			}
+			
+		}
+		else if (TestID.equals("2011")) {
+			String status = productSummaryPage.statusColumn.getText();
+			if(!((status.contains("Required")))) {
+				Assert.fail("Error while verifying approval status");
+			}
+		}
+		
+		else if (TestID.contains("2080")){
+			if (TestID.contains("uni")) {
+				if (TestID.contains("before")) {
+					String approvals=productSummaryPage.statusColumn.getText();
+					if(!approvals.equals("Profit Approval Pending"))
+						Assert.fail("Error while verifying approval status-uni-before");
+					String mrc=productSummaryPage.totalMRCColumn.getText();
+					String nrc=productSummaryPage.totalNRCColumn.getText();
+				}
+				else if (TestID.contains("after")) {
+					String approvals=productSummaryPage.statusColumn.getText();
+					if(!approvals.contains("Profit Approval Pending"))
+						Assert.fail("Error while verifying approval status-uni-after");
+				}
+			}
+			else if (TestID.contains("colo")) {
+				if (TestID.contains("before")) {
+					String approvals=productSummaryPage.statusColumn.getText();
+					if(!approvals.contains("Profit Approval Pending"))
+						Assert.fail("Error while verifying approval status-colo-before");
+					String mrc=productSummaryPage.totalMRCColumn.getText();
+					String nrc=productSummaryPage.totalNRCColumn.getText();
+				}
+				else if (TestID.contains("after")) {
+					String approvals=productSummaryPage.statusColumn.getText();
+					if(!approvals.contains("Profit Approval Pending") || !approvals.contains("Profit Approval Pending"))
+						Assert.fail("Error while verifying approval status-colo-aftr");
+				}
+			}
+			
+			else if (TestID.contains("dia")) {
+				if (TestID.contains("before")) {
+					String approvals=productSummaryPage.statusColumn.getText();
+					if(!approvals.contains("Profit Approval Pending"))
+						Assert.fail("Error while verifying approval status-colo-before");
+					String mrc=productSummaryPage.totalMRCColumn.getText();
+					String nrc=productSummaryPage.totalNRCColumn.getText();
+				}
+				else if (TestID.contains("after")) {
+					String approvals=productSummaryPage.statusColumn.getText();
+					if(!approvals.contains("Profit Approval Pending") || !approvals.contains("Profit Approval Pending") || !approvals.contains("Profit Approval Pending"))
+						Assert.fail("Error while verifying approval status-colo-aftr");
+				}
+			}
+		}
+		slf4jLogger.info("Verified Approval Status..");
+	}
+		catch(Exception e){
+			slf4jLogger.info("error while verifying approval status - "+e.getMessage());
+			Assert.fail(e.getMessage());
+		}
+	}
+
+
+	
+	@Step
+	public  void verifyMinimalView(String TestID) throws Exception{
+		try {
+			slf4jLogger.info("Verifying minimal view of Scenario Info in PS Page");
+			Boolean min = false;
+			String show = productSummaryPage.showBtntxt.getText().replace("keyboard_arrow_down","").trim();
+			
+			if(show.equalsIgnoreCase("Show Quote Details")) {
+				slf4jLogger.info("Minimal View");
+				min=true;
+			}
+			else
+				min=false;
+			
+			if(TestID.equals("28555")) {
+				if(min==true) {
+					slf4jLogger.info("Test Pass!! Minimal View of the Scenario Info is the default view");
+					System.exit(0);
+				}
+				else {
+					slf4jLogger.info("Test Fail!! Minimal View of the Scenario Info is not the default view");
+					System.exit(0);
+				}
+			}
+			else if(TestID.equals("28556")) {
+				if(min==true) {
+					ExpectedConditions.elementToBeClickable(productSummaryPage.showBtn);
+					productSummaryPage.showBtn.click();
+				}
+				else
+					slf4jLogger.info("Test Fail!! The Show All Btn is not clickable");
+			}
+			else if(TestID.equals("28558")) {
+				if(min==true) {
+					slf4jLogger.info("Test Pass!! Minimal View of the Scenario Info");
+					ExpectedConditions.elementToBeClickable(productSummaryPage.showBtn);
+					productSummaryPage.showBtn.click();
+				}
+				else
+					slf4jLogger.info("Test Fail!!");
+			}
+		}
+		catch(Exception e) {
+			slf4jLogger.info("Error while verifying minimal view of Scenario Info in PS Page");
+			Assert.fail(e.getMessage());
+		}
+		
+	}
+
+	@Step
+	public  void verifyMaximalView(String TestID) throws Exception{
+		try {
+			slf4jLogger.info("Verifying maximal view of Scenario Info in PS Page");
+			Boolean max = false;
+	
+			if(productSummaryPage.showBtntxt.getText().replace("keyboard_arrow_up","").trim().equalsIgnoreCase("Hide Quote Details")) {
+				slf4jLogger.info("Maximal View");
+				max=true;
+			}
+			else
+				max=false;
+			
+			if(TestID.equals("28556")) {
+				if(max==true)
+					slf4jLogger.info("Test Pass!! Maximal View of the Scenario Info");
+				else
+					slf4jLogger.info("Test Fail!!");
+			}
+			else if(TestID.equals("28558")) {
+				if(max==true) {
+					slf4jLogger.info("Maximal View of the Scenario Info");
+					ExpectedConditions.elementToBeClickable(productSummaryPage.showBtn);
+					productSummaryPage.showBtn.click();
+				}
+				else
+					slf4jLogger.info("Test Fail!! The Show All Btn is not clickable");
+			}
+		}
+		catch(Exception e) {
+			slf4jLogger.info("Error while verifying maximal view of Scenario Info in PS Page");
+			Assert.fail(e.getMessage());
+		}
+		
+	}
+	
+
+	@Step
+	public  void verifyPackageSelect(String TestID) throws Exception{
+		try {
+			slf4jLogger.info("Verify Package Select in PS Page..");
+			ExpectedConditions.visibilityOf(productSummaryPage.packageTable);
+			
+			WaitForPageToLoad(4000);
+			Thread.sleep(6000);
+			
+			productSummaryPage.firstPackageCheckbox.click();
+			Thread.sleep(7000);
+			
+			slf4jLogger.info(productSummaryPage.firstPackageCheckboxAria.getAttribute("aria-checked"));
+			
+			if(productSummaryPage.firstPackageCheckboxAria.getAttribute("aria-checked").equalsIgnoreCase("true")) {
+				Thread.sleep(4000);
+				if(TestID.equals("31823")||TestID.equals("31824")) {
+					slf4jLogger.info("A Package is selected...!!");
+					if(TestID.equals("31823"))
+						slf4jLogger.info("31823 Test Pass!!");
+				}
+				else if(TestID.equals("31825")||TestID.equals("31826")) {
+					productSummaryPage.allCheckbox.click();
+					Thread.sleep(4000);
+					if((productSummaryPage.allCheckboxAria.getAttribute("aria-checked").equalsIgnoreCase("true"))&&(TestID.equals("31825"))) {
+						slf4jLogger.info("All select checkboxes are enabled..!!");
+						slf4jLogger.info("31825 Test Pass!!");
+					}
+				}
+				else if(TestID.equals("31829")) {
+					if(productSummaryPage.allCheckboxAria.getAttribute("aria-checked").equalsIgnoreCase("mixed"))
+						slf4jLogger.info("31829 Test Pass!!");
+					else
+						slf4jLogger.info("The select all control is not in the mixed state!!");
+				}
+				else
+					slf4jLogger.info("Package Select function else block...!!");
+			}
+			slf4jLogger.info("Package Select verified in PS Page..");
+		}
+		catch(Exception e) {
+			slf4jLogger.info("Error while verifying package select in PS Page");
+			Assert.fail(e.getMessage());
+		}
+		
+	}
+
+	@Step
+	public  void verifyPackageUnSelect(String TestID) throws Exception{
+		try {
+			slf4jLogger.info("Verify Package Unselect in PS Page..");
+			ExpectedConditions.visibilityOf(productSummaryPage.packageTable);
+			WaitForPageToLoad(4000);
+			Thread.sleep(6000);
+
+			if(TestID.equals("31824")) {
+				productSummaryPage.firstPackageCheckbox.click();
+				Thread.sleep(7000);
+				if(productSummaryPage.firstPackageCheckboxAria.getAttribute("aria-checked").equalsIgnoreCase("false")) {
+					slf4jLogger.info("Package unselected...!!");
+					slf4jLogger.info("31824 Test Pass!!");
+				}
+			}
+			else if(TestID.equals("31826")) {
+				productSummaryPage.allCheckbox.click();
+				Thread.sleep(5000);
+				if(productSummaryPage.allCheckboxAria.getAttribute("aria-checked").equalsIgnoreCase("false")) {
+					slf4jLogger.info("All select checkboxes are unchecked..!!");
+					slf4jLogger.info("31826 Test Pass!!");
+				}
+			}
+			slf4jLogger.info("Package Unselect verified in PS Page..");
+		}
+		catch(Exception e) {
+			slf4jLogger.info("Error while verifying package select in PS Page");
+			Assert.fail(e.getMessage());
+		}
+		
+	}
+	
+	@Step
+	public  void verifyNavigationFromSummaryPageToOtherPage(String TestID) throws Exception{
+		try {
+			slf4jLogger.info("Verify Navigation from PS Page..");
+			WaitForPageToLoad(5000);
+			WebDriver driver = getDriver();
+			
+			if(TestID.equals("36955")) {
+				slf4jLogger.info("Verify Navigation from PS Page to Edit Wizard Page..");
+				ExpectedConditions.elementToBeClickable(productSummaryPage.menuBtn);
+				productSummaryPage.menuBtn.click();
+				slf4jLogger.info("Menu Button clicked");
+				WaitForPageToLoad(3000);
+				productSummaryPage.editConfigBtn.click();
+				slf4jLogger.info("Edit Configuration option selected");
+				WaitForPageToLoad(10000);
+				String configPageText = driver.findElement(By.xpath("//*[@id=\"InnerBody\"]/section/div[2]/h4")).getText();
+				if(!configPageText.contains("Configure Package")){
+					slf4jLogger.info("Error while verifying Navigation from PS Page to Edit Wizard Page");
+					Assert.fail();
+				}
+			}
+			else if(TestID.equals("36955_AC2")) {
+				slf4jLogger.info("Verify Navigation from PS Page to Manage Location Page..");
+				ExpectedConditions.elementToBeClickable(productSummaryPage.manageLocationBtn);
+				productSummaryPage.manageLocationBtn.click();
+				slf4jLogger.info("Manage Location Button clicked");
+				String manageLoacationText = driver.findElement(By.xpath("/html/body/div[3]/h2")).getText();
+				if(!manageLoacationText.equals("Manage Locations")) {
+					slf4jLogger.info("Error while verifying Navigation from PS Page to Manage Locations Page");
+					Assert.fail();
+				}
+			}
+			else if(TestID.equals("37437")) {
+				slf4jLogger.info("Verify Navigation from PS Page to Export Report Page..");
+				ExpectedConditions.elementToBeClickable(productSummaryPage.exportReportBtn);
+				productSummaryPage.exportReportBtn.click();
+				slf4jLogger.info("Export Report Button clicked");
+				ArrayList<String> tabs = new ArrayList<String> (driver.getWindowHandles());
+			    driver.switchTo().window(tabs.get(1));
+			    String ExportReportURL = driver.getCurrentUrl();
+				if(!ExportReportURL.contains("http://reports.corp.global.level3.com")){
+					slf4jLogger.info("Error while verifying Navigation from PS Page to Product Wizard Page");
+					Assert.fail();
+				} 
+			}
+			else if(TestID.equals("37437_AC2")) {
+				slf4jLogger.info("Verify Navigation from PS Page to Product Wizard Page..");
+				ExpectedConditions.elementToBeClickable(productSummaryPage.productWizardBtn);
+				productSummaryPage.productWizardBtn.click();
+				slf4jLogger.info("Product Wizard Button clicked");
+				ArrayList<String> tabs = new ArrayList<String> (driver.getWindowHandles());
+			    driver.switchTo().window(tabs.get(1));
+			    String productWizardURL = driver.getCurrentUrl();
+				if(!productWizardURL.contains("productwizard")){
+					slf4jLogger.info("Error while verifying Navigation from PS Page to Product Wizard Page");
+					Assert.fail();
+				} 
+			}
+			else if(TestID.equals("37437_AC3")) {
+				slf4jLogger.info("Verify Navigation from PS Page to Country Avalibility Matrix Page..");
+				ExpectedConditions.elementToBeClickable(productSummaryPage.avalibilityMatrixBtn);
+				productSummaryPage.avalibilityMatrixBtn.click();
+				WaitForPageToLoad(10000);
+				slf4jLogger.info("Country Avalibility Matrix Button clicked");
+			}
+			else if(TestID.equals("39689")) {
+				slf4jLogger.info("Verify Navigation from PS Page to Export To Excel..");
+				ExpectedConditions.elementToBeClickable(productSummaryPage.moreOptionsBtn);
+				productSummaryPage.moreOptionsBtn.click();
+				WaitForPageToLoad(3000);
+				slf4jLogger.info("More Options Button clicked");
+				ExpectedConditions.elementToBeClickable(productSummaryPage.exportToExcelBtn);
+				productSummaryPage.exportToExcelBtn.click();
+				slf4jLogger.info("Export To Excel Button clicked");
+				WaitForPageToLoad(10000);
+				Thread.sleep(10000);
+			}
+			else if(TestID.equals("37049") || TestID.equals("44335")) {
+				ExpectedConditions.elementToBeClickable(productSummaryPage.showBtn);
+				productSummaryPage.showBtn.click();
+				ExpectedConditions.visibilityOf(productSummaryPage.scenStatus);
+				String vendor = driver.findElement(By.xpath("/html/body/app-root/app-product-summary/div/app-quote-detail/app-quote-action/div/mat-tab-group/mat-tab-header/div[2]/div/div/div[4]")).getAttribute("aria-disabled");
+				slf4jLogger.info("Verify Navigation from PS Page to Vendor Bid Management Page..");
+				slf4jLogger.info(productSummaryPage.scenStatus.getText());
+				if(productSummaryPage.scenStatus.getText().contains("Valid")) {
+					Assert.assertTrue("The button is disabled..!!",vendor.equalsIgnoreCase("false"));
+					ExpectedConditions.elementToBeClickable(productSummaryPage.vendorBidManagementBtn);
+					productSummaryPage.vendorBidManagementBtn.click();
+					Thread.sleep(10000);
+					slf4jLogger.info("Vendor Bid Management Link clicked");
+				}
+				else {
+					Assert.assertTrue("The button is enabled..!!",vendor.equalsIgnoreCase("true"));
+					Thread.sleep(10000);
+					slf4jLogger.info("Vendor Bid Management Link Not clickable");
+				}
+				WaitForPageToLoad(10000);
+				Thread.sleep(10000);
+			}
+			else if(TestID.equals("43627") || TestID.equals("44330")) {
+				ExpectedConditions.elementToBeClickable(productSummaryPage.showBtn);
+				productSummaryPage.showBtn.click();
+				ExpectedConditions.visibilityOf(productSummaryPage.scenStatus);
+				String dpVisibility = driver.findElement(By.xpath("/html/body/app-root/app-product-summary/div/app-quote-detail/app-quote-action/div/mat-tab-group/mat-tab-header/div[2]/div/div/div[3]")).getAttribute("aria-disabled");
+				slf4jLogger.info("Verify Navigation from PS Page to Discounting profitability Page..");
+				if(productSummaryPage.scenStatus.getText().contains("Valid")) {
+					Assert.assertTrue("The button is disabled..!!",dpVisibility.equalsIgnoreCase("false"));
+					ExpectedConditions.elementToBeClickable(productSummaryPage.discountingProfitabilityBtn);
+					productSummaryPage.discountingProfitabilityBtn.click();
+					Thread.sleep(10000);
+					slf4jLogger.info("Discounting profitability Link clicked");
+				}
+				else {
+					Assert.assertTrue("The button is enabled..!!",dpVisibility.equalsIgnoreCase("true"));
+					Thread.sleep(10000);
+					slf4jLogger.info("Discounting profitability Link Not clickable");
+				}
+				WaitForPageToLoad(10000);
+				Thread.sleep(10000);
+			}
+		}
+		catch(Exception e) {
+			slf4jLogger.info("Error while verifying Navigation from PS Page to other Page");
+			Assert.fail();
+		}
+	}
+	
+	public  void columnHeaderSearch(String TestID) throws Exception{
+		try {
+			WebDriver driver = getDriver();
+			Wait<WebDriver> wait = new WebDriverWait(driver, 1000);
+			slf4jLogger.info("Verify Column Header Search in PS Page..");
+			Thread.sleep(5000);
+			ExpectedConditions.visibilityOf(productSummaryPage.packageTable);
+			WaitForPageToLoad(4000);
+			Thread.sleep(6000);
+			productSummaryPage.productNameHeader.click();
+			Thread.sleep(3000);
+			productSummaryPage.firstProductCheckbox.click();
+			slf4jLogger.info("firstProductName: " +productSummaryPage.productNameColumn.getText());
+			Thread.sleep(5000);
+			wait.until(ExpectedConditions.elementToBeClickable(productSummaryPage.productNameHeaderTab));
+//			productSummaryPage.outOfFocus.click();
+//			Thread.sleep(5000);
+//			wait.until(ExpectedConditions.elementToBeClickable(productSummaryPage.productNameHeaderTab));
+//			productSummaryPage.productNameHeaderTab.click();
+//			if(productSummaryPage.selectedProduct.getText().equals(productSummaryPage.firstProductName.getText())) {
+//				slf4jLogger.info("Selected Product Name populated in the column header");
+//				if(productSummaryPage.selectedProduct.getText().equals(productSummaryPage.firstProduct.getText())) {
+//					slf4jLogger.info("Selected Product Name populated in the filtered column");
+//				}
+//				else {
+//					slf4jLogger.info("Error!!");
+//				}
+//			}
+//			else {
+//				slf4jLogger.info("Error..!!");
+//			}
+//			Thread.sleep(5000);
+//			productSummaryPage.closeHeader.click();
+			slf4jLogger.info("Column Header Search verified in PS Page..");
+		}
+		catch(Exception e) {
+			slf4jLogger.info("Error while verifying column Header search in PS Page");
+			Assert.fail(e.getMessage());
+		}
+		
+	}
+	
+
+	@Step
+	public  void predeployFunctionality(String TestID) throws Exception{
+		try {
+			WebDriver driver = getDriver();
+			Wait<WebDriver> wait = new WebDriverWait(driver, 1000);
+			slf4jLogger.info("Verify Predeploy Functionality in PS Page..");
+			ExpectedConditions.visibilityOf(productSummaryPage.packageTable);
+			WaitForPageToLoad(4000);
+			Thread.sleep(6000);
+			slf4jLogger.info(productSummaryPage.predeployStatus.getText());
+			String one = productSummaryPage.predeployStatus.getText();
+			productSummaryPage.menuBtn.click();
+			Thread.sleep(3000);
+			wait.until(ExpectedConditions.visibilityOf(productSummaryPage.predeployTitle));
+			Thread.sleep(4000);
+			wait.until(ExpectedConditions.visibilityOf(productSummaryPage.openMenu));
+			slf4jLogger.info(productSummaryPage.predeployToggle.getAttribute("aria-checked"));
+			String two = productSummaryPage.predeployToggle.getAttribute("aria-checked");
+				
+			if(one.equalsIgnoreCase("ON")&&two.equalsIgnoreCase("True")) {
+				slf4jLogger.info("Predeploy Functionality verified in PS Page..");
+				if(TestID.equals("33843") || TestID.equals("43292")) {
+					slf4jLogger.info("Test Pass");
+				}
+				else if(TestID.equals("1963")) {
+					slf4jLogger.info("Predeploy ON for TC1963 - Before discounting");
+					Thread.sleep(10000);
+					productSummaryPage.discountingProfitabilityBtn.click();
+					Thread.sleep(15000);
+					discountingProfitabilityPage.pricingSavebutton.click();
+					Thread.sleep(10000);
+					ExpectedConditions.visibilityOf(productSummaryPage.packageTable);
+					one = productSummaryPage.predeployStatus.getText();
+					productSummaryPage.menuBtn.click();
+					Thread.sleep(3000);
+					wait.until(ExpectedConditions.visibilityOf(productSummaryPage.predeployTitle));
+					Thread.sleep(4000);
+					slf4jLogger.info(productSummaryPage.predeployToggle.getAttribute("aria-checked"));
+					two = productSummaryPage.predeployToggle.getAttribute("aria-checked");
+					if(one.equalsIgnoreCase("ON")&&two.equalsIgnoreCase("True")) {
+						slf4jLogger.info("Predeploy ON for TC1963 - After discounting");
+						slf4jLogger.info("Test Pass");
+					}
+					else {
+						slf4jLogger.info("TC1963 - After discounting - Test Fail");
+					}
+				}
+				else
+					slf4jLogger.info("Test Case Failed" +TestID + "Predeploy is ON");
+				
+			}
+			else if(one.equalsIgnoreCase("OFF")&&two.equalsIgnoreCase("False")) {
+				if(TestID.equals("33846") || TestID.equals("43292AC2")) {
+					slf4jLogger.info("Test Pass");
+				}
+				else
+					slf4jLogger.info("Test Case Failed" +TestID + "Predeploy is OFF");
+			}
+			else {
+				slf4jLogger.info("Test Case Failed" +TestID + "Predeploy Functionality Not Defined");
+			}
+		}
+		catch(Exception e) {
+			slf4jLogger.info("Error while verifying predeploy functionality in PS Page");
+			Assert.fail(e.getMessage());
+		}
+		
+	}
+	
+	public void validatePredeployCheckForIndividualProduct(String testID, String preDeployChecked) {
+		try {
+				Thread.sleep(20000);
+				ExpectedConditions.elementToBeClickable(productSummaryPage.createNewProductPakage);
+				int rowNum = 1;
+				List<Integer> packageIDs = returnPackageIDsList();
+				for(int i=1;i<=packageIDs.size();i++) {
+					if(Collections.max(packageIDs).equals(packageIDs.get(i)))  {
+						rowNum =i;
+					}
+				}
+				WebElement preDeployCheckbox = productSummaryPage.packageTableBody.findElement(By.xpath("//*tr["+rowNum+"]/td[7]"));
+				if(preDeployChecked.equals("No")) {
+					if(preDeployCheckbox.isDisplayed()) {
+						Assert.fail("Error : Predeploy Checkbox is checked for incorrect product!!");
+					}
+				}
+				else if(preDeployChecked.equals("Yes")) {
+					if(preDeployCheckbox.isDisplayed()) {
+						Assert.fail("Error : Predeploy Checkbox is not checked..!!");
+					}
+				}
+				slf4jLogger.info("Verifying predeploy checkbox - Success!");
+			}
+			catch (Exception e) {
+				slf4jLogger.error(testID + " : Error occured while verifying predeploy checkbox..!");
+				Assert.fail(e.getMessage());
+			}
+		}
+
+		
+	@Step
+	public  void productPackageStatus(String TestID) throws Exception{
+		try {
+			WebDriver driver = getDriver();
+			Wait<WebDriver> wait = new WebDriverWait(driver, 1000);
+			Thread.sleep(8000);
+			slf4jLogger.info("Verify Product Package Status in PS Page..");
+			if(TestID.equals("32600")) {
+				wait.until(ExpectedConditions.visibilityOf(productSummaryPage.validProductPackageStatus));
+				if(productSummaryPage.validProductPackageStatus.getText().equalsIgnoreCase("Valid")) {
+					assertTrue("TC 32600 Fail..!!", productSummaryPage.validProductPackageStatus.getAttribute("style").contains("color: green;"));
+					slf4jLogger.info("TC 32600 Pass..!!");
+				}
+			}
+			else if(TestID.equals("32603")) {
+				wait.until(ExpectedConditions.visibilityOf(productSummaryPage.invalidProductPackageStatus));
+				assertTrue("TC 32603 Fail..!!", productSummaryPage.invalidProductPackageStatus.getAttribute("style").contains("color: red;"));
+				productSummaryPage.infoToolTip.click();
+				Thread.sleep(5000);
+				slf4jLogger.info(productSummaryPage.invalidStatusInfoMessage1.getText());
+				slf4jLogger.info(productSummaryPage.invalidStatusInfoMessage2.getText());
+				slf4jLogger.info("TC 32603 Pass..!!");
+			}
+		}
+		catch(Exception e) {
+			slf4jLogger.info("Error while verifying column Header search in PS Page");
+			Assert.fail(e.getMessage());
+		}
+		
+	}
+	
+	
+	@Step
+	public void predeployStatusDisplay(String TestID) {
+		WebDriver driver = getDriver();
+		Wait<WebDriver> wait = new WebDriverWait(driver, 1000);
+		try {
+			slf4jLogger.info("Verify whether the Predeploy label is displayed in the status column or not");
+			wait.until(ExpectedConditions.visibilityOf(productSummaryPage.packageTable));
+			Thread.sleep(6000);
+			WaitForPageToLoad(4000);
+			wait.until(ExpectedConditions.visibilityOf(productSummaryPage.statusColumn));
+			if(TestID.equals("32634")) {
+				assertTrue("Test Fail..!!", !(productSummaryPage.statusColumn.getText().contains("Pre-deploy")));
+				slf4jLogger.info("32634 Pass..!!");
+			}
+			else if(TestID.equals("32632")) {
+				assertTrue("Test Fail..!!", productSummaryPage.statusColumn.getText().contains("Pre-deploy"));
+				slf4jLogger.info("32632 Pass..!!");
+			}
+		}
+		catch(Exception e) {
+			slf4jLogger.info("Catch block");
+			Assert.fail(e.getMessage());
+		}
+	}
+		
+	@Step
+	public void clickOnVendorBidManagementButton() throws InterruptedException {
+		
+		try {
+			Thread.sleep(5000);
+			ExpectedConditions.elementToBeClickable(productSummaryPage.vendorBidManagementBtn);
+			productSummaryPage.vendorBidManagementBtn.click();
+			WaitForPageToLoad(25000);
+			Thread.sleep(15000);
+		}
+		catch(Exception e){
+			slf4jLogger.info("VendorBidManagementButton Method Error- "+e.getMessage());
+			Assert.fail(e.getMessage());
+		}
+	}
+	
+	@Step
+	public void changeTerm(String testID)throws InterruptedException {
+		try {
+			WebDriver driver = getDriver();
+			Thread.sleep(10000);
+			slf4jLogger.info("Selecting one package copy and change term");
+		
+			ExpectedConditions.visibilityOf(productSummaryPage.packageTable);
+			WaitForPageToLoad(4000);
+			Thread.sleep(6000);
+				
+			JavascriptExecutor js = (JavascriptExecutor) driver;
+			js.executeScript("arguments[0].scrollIntoView();", productSummaryPage.termColumn);
+			slf4jLogger.info("Actual term: " +productSummaryPage.termColumn.getText());
+						
+			Thread.sleep(6000);
+			js.executeScript("arguments[0].scrollIntoView();", productSummaryPage.firstPackageCheckbox);
+				
+			productSummaryPage.firstPackageCheckbox.click();
+			Thread.sleep(1000);
+			productSummaryPage.termBtn.click();
+			Thread.sleep(1000);
+			productSummaryPage.firstTermOption.click();
+			Thread.sleep(10000);
+			//productValidity(testID); waiting for package status to be Valid
+				
+			js.executeScript("arguments[0].scrollIntoView();", productSummaryPage.termColumn);
+			slf4jLogger.info("New term: " +productSummaryPage.termColumn.getText());
+
+			slf4jLogger.info("Selecting one package copy and change term -Completed");
+		}
+		catch(Exception e){
+			slf4jLogger.info("changeTerm Method Error- "+e.getMessage());
+			Assert.fail(e.getMessage());
+		}
+		
+	}
+	
+	@Step
+	public void verifyCurrencyUnitInSDPage(String Currency , String TestID) throws Exception {
+		//WebDriver driver = getDriver();
+		try{
+		Thread.sleep(10000);
+		slf4jLogger.info(TestID + ": @" + System.currentTimeMillis() + " Entering method to verify Currency unit");
+		if(TestID.equals("2028")){
+			if(Currency.equals("GBP")){
+				if(productSummaryPage.totalMRC.containsText("TBD")){
+					Thread.sleep(5000);
+					ExpectedConditions.elementToBeClickable(productSummaryPage.refreshBtn);
+					productSummaryPage.refreshBtn.click();
+					Thread.sleep(5000);
+					ExpectedConditions.elementToBeClickable(productSummaryPage.refreshBtn);
+					boolean editable = productSummaryPage.refreshBtn.isPresent();
+					if(!(editable && productSummaryPage.totalMRC.containsText("£"))){
+						slf4jLogger.error(TestID + ": @" + System.currentTimeMillis() + "@" 
+								+ "Error occured while verifying currency unit" + Currency);
+						Assert.fail(TestID + ": @" + System.currentTimeMillis() + "@" 
+								+ "Error occured while verifying currency unit" + Currency);
+						
+					}
+				}
+				
+			}
+		}
+		else if(TestID.equals("5141") || TestID.equals("44108") || TestID.equals("43778")) {
+			if(Currency.contains("USD")) {
+				if(!productSummaryPage.currency.getText().contains("USD"))
+					Assert.fail("Error while verifying USD in scenario page");
+			}
+			if(Currency.contains("Euro")) {
+				if(!productSummaryPage.currency.getText().contains("Euro"))
+					Assert.fail("Error while verifying Euro in scenario page");
+			}
+			if(Currency.contains("GBP")) {
+				if(!productSummaryPage.currency.getText().contains("GBP"))
+					Assert.fail("Error while verifying GBP in scenario page");
+			}
+		}
+		if(TestID.equals("43566") || TestID.equals("43779") || TestID.equals("43198") || TestID.equals("44338")){
+				if(productSummaryPage.totalMRC.containsText("TBD")){
+					Thread.sleep(5000);
+					ExpectedConditions.elementToBeClickable(productSummaryPage.refreshBtn);
+					productSummaryPage.refreshBtn.click();
+					Thread.sleep(5000);
+				}
+				if(Currency.equals("INR")){
+					if(!(productSummaryPage.totalMRC.containsText("₹"))){
+						slf4jLogger.error(TestID + ": @" + System.currentTimeMillis() + "@" 
+								+ "Error occured while verifying currency unit" + Currency);
+						Assert.fail(TestID + ": @" + System.currentTimeMillis() + "@" 
+								+ "Error occured while verifying currency unit" + Currency);	
+				    }	
+				}
+				if(Currency.equals("GBP")){
+					if(!(productSummaryPage.totalMRC.containsText("£"))){
+						slf4jLogger.error(TestID + ": @" + System.currentTimeMillis() + "@" 
+								+ "Error occured while verifying currency unit" + Currency);
+						Assert.fail(TestID + ": @" + System.currentTimeMillis() + "@" 
+								+ "Error occured while verifying currency unit" + Currency);	
+				    }	
+				}
+				if(Currency.equals("CNY")){
+					if(!(productSummaryPage.totalMRC.containsText("£"))){
+						slf4jLogger.error(TestID + ": @" + System.currentTimeMillis() + "@" 
+								+ "Error occured while verifying currency unit" + Currency);
+						Assert.fail(TestID + ": @" + System.currentTimeMillis() + "@" 
+								+ "Error occured while verifying currency unit" + Currency);	
+				    }	
+				}
+		}
+		
+		}
+		catch (Exception e) {
+			slf4jLogger.error(TestID + ": @" + System.currentTimeMillis() + "@" 
+					+ "Error occured while verifying currency unit in SD page");
+			Assert.fail(TestID + ": @" + System.currentTimeMillis() + "@" 
+					+ "Error occured while verifying currency unit in SD page");
+			}
+	}
+	
+	@SuppressWarnings("deprecation")
+	@Step
+	public  void verifyPackageStatusAndHover(String testid) throws Exception{
+		try {
+			slf4jLogger.info("Product package validation started");
+			Thread.sleep(20000);
+			if(testid.equals("2032")) {
+				String status=productSummaryPage.invalidProductPackageStatus.getText();
+				if(!status.equals("Invalid"))
+					Assert.fail("Package status should be invalid");
+				productSummaryPage.infoToolTip.click();
+				String error=productSummaryPage.invalidStatusInfoMessage1.getText();
+				if(error.contains("Required attribute [FVR ID] is missing")) {
+					Assert.fail("invalid message is wrong");
+				}
+			}
+		    
+			slf4jLogger.info("Product package validation done succesfully on SM");
+			
+		}
+		catch (Exception e) {
+			slf4jLogger.info(e.getMessage());
+			slf4jLogger.info("Product Verification failed..");
+			Assert.fail(e.getMessage());
+		}
+		
+		
+	}
+	
+	@Step
+	public void verifyProductPackageStatus(String TestID) throws InterruptedException {
+		try {
+			slf4jLogger.info("Verify Status of Created Product package");
+			WaitForPageToLoad(10000);
+			Thread.sleep(7000);
+			WebDriver driver = getDriver();
+			WebDriverWait wait = new WebDriverWait(driver,30);
+			
+			wait.until(ExpectedConditions.elementToBeClickable(productSummaryPage.showBtn));
+			productSummaryPage.showBtn.click();
+			WaitForPageToLoad(5000);
+			wait.until(ExpectedConditions.visibilityOf(productSummaryPage.scenStatus));
+			if(productSummaryPage.scenStatus.getText().equalsIgnoreCase("Invalid")) {
+				WaitForPageToLoad(5000); 
+	            Thread.sleep(3000);
+	            slf4jLogger.info("Product package is Invalid");
+	        	assertTrue(productSummaryPage.scenStatus.getText().equalsIgnoreCase("Invalid"));
+			}
+			else {
+				WaitForPageToLoad(10000);
+				wait.until(ExpectedConditions.textToBePresentInElement(productSummaryPage.scenStatus, "Valid"));
+				WaitForPageToLoad(5000);
+			
+				if(productSummaryPage.scenStatus.getText().equalsIgnoreCase("Valid")) {
+					slf4jLogger.info("Product package is Valid");
+					assertTrue(productSummaryPage.scenStatus.getText().equalsIgnoreCase("Valid"));
+	        	
+	        	WaitForPageToLoad(5000); 
+	            Thread.sleep(3000);
+	            if(!productSummaryPage.totalMRC.getText().contains("TBD")|| !productSummaryPage.totalNRC.getText().contains("TBD")) {
+	            	slf4jLogger.info("Product pricing is populated");
+	            }  
+	           }
+			   slf4jLogger.info("Product package created succesfully on SM");
+			   if(TestID.equals("24799")||TestID.equals("24801")) {
+				driver.switchTo().defaultContent();
+		        WaitForPageToLoad(5000); 
+		        productSummaryPage.backToOppertunity.click();
+			   }
+			   
+		    }
+	        WaitForPageToLoad(5000); 
+	        Thread.sleep(3000); 
+		}
+		catch (Exception e) {
+			slf4jLogger.info("Product Verification failed..");
+			Assert.fail(e.getMessage());
+		}
+		
+	}
+	
+	@Step
+	public void productApprovalRequired() throws InterruptedException {
+		try {
+			WaitForPageToLoad(5000);
+			Thread.sleep(6000);
+			WebDriver driver = getDriver();
+			Wait<WebDriver> wait = new WebDriverWait(driver, 1000);
+			wait.until(ExpectedConditions.visibilityOf(productSummaryPage.statusColumn));
+			if(productSummaryPage.statusColumn.getText().contains("Product Approval Required")){
+				Thread.sleep(4000);
+				slf4jLogger.info("Product Approval Required");
+			}
+			else {
+				Thread.sleep(4000);
+				slf4jLogger.info("Product Approval Not Required");
+			}
+		}
+		catch (Exception e) {
+			slf4jLogger.info(e.getMessage());
+			Assert.fail(e.getMessage());
+		}
+		
+	}
+	
+	@Step
+	public void productApprovalNotRequired() throws InterruptedException {
+		try {
+			WaitForPageToLoad(5000);
+			Thread.sleep(6000);
+			WebDriver driver = getDriver();
+
+			Wait<WebDriver> wait = new WebDriverWait(driver, 1000);
+			wait.until(ExpectedConditions.textToBePresentInElement(productSummaryPage.statusColumn, "Profit Approval Pending"));
+			if(productSummaryPage.statusColumn.getText().contains("Product Approval Required")) {
+				slf4jLogger.info("Product Approval Required - Need to change configurations again...");
+				System.exit(0);
+			}
+			else {
+				slf4jLogger.info("Product Approval Not Required");
+			}
+		}
+		catch (Exception e) {
+			slf4jLogger.info(e.getMessage());
+			Assert.fail(e.getMessage());
+		}
+		
+	}
+	
+	@Step
+	public void clickOnImportProductPackage(String importAttributesList ) throws Exception {
+		slf4jLogger.info("Importing Package");
+		ProductConfigSteps productConfigSteps=new ProductConfigSteps();
+		Map<String, String> configKeyValuePair = new HashMap<String, String>();
+		configKeyValuePair = productConfigSteps.createConfigKeyValuePair(importAttributesList);
+		try {
+			WebDriver driver = getDriver();
+			Wait<WebDriver> wait = new WebDriverWait(driver, 1000);
+			WaitForPageToLoad(5000);
+			
+			wait.until(ExpectedConditions.elementToBeClickable(productSummaryPage.moreOptionsBtn));
+			productSummaryPage.moreOptionsBtn.click();
+			WaitForPageToLoad(5000);
+			Thread.sleep(3000);
+			wait.until(ExpectedConditions.elementToBeClickable(productSummaryPage.importProductBtn));
+			productSummaryPage.importProductBtn.click();
+			WaitForPageToLoad(5000);
+			
+			if(configKeyValuePair.get("importSource")!=null) {
+				slf4jLogger.info("import Source  method");
+				wait.until(ExpectedConditions.elementToBeClickable(productSummaryPage.importFromDrpdwn));
+				productSummaryPage.importFromDrpdwn.click();
+				WaitForPageToLoad(5000);
+				Thread.sleep(3000);
+				wait.until(ExpectedConditions.elementToBeClickable(productSummaryPage.importDrpdwnList));
+				List<WebElement> options = productSummaryPage.importDrpdwnList.findElements(By.xpath("//*[text()='"+configKeyValuePair.get("importSource")+"']"));
+				Thread.sleep(2000);
+				options.get(options.size() - 1).click();
+				WaitForPageToLoad(5000);
+				Thread.sleep(6000);
+				slf4jLogger.info("selected import Source");
+			}
+			
+			if(configKeyValuePair.get("importType")!=null) {
+				slf4jLogger.info("import Type  method");
+				wait.until(ExpectedConditions.elementToBeClickable(productSummaryPage.importTypeDrpdwn));
+				productSummaryPage.importTypeDrpdwn.click();
+				WaitForPageToLoad(5000);
+				Thread.sleep(6000);
+				wait.until(ExpectedConditions.elementToBeClickable(productSummaryPage.importDrpdwnList));
+				List<WebElement> options = productSummaryPage.importDrpdwnList.findElements(By.xpath("//*[text()='"+configKeyValuePair.get("importType")+"']"));
+				Thread.sleep(2000);
+				options.get(options.size() - 1).click();
+				WaitForPageToLoad(5000);
+				Thread.sleep(6000);
+				slf4jLogger.info("selected import Type");
+			}
+			
+			if(configKeyValuePair.get("packageID")!=null) {
+				slf4jLogger.info("import packageID  method");
+				wait.until(ExpectedConditions.elementToBeClickable(productSummaryPage.importPackageId));
+				productSummaryPage.importPackageId.click();
+				WaitForPageToLoad(5000);
+				productSummaryPage.importPackageId.sendKeys(configKeyValuePair.get("packageID").trim());
+				WaitForPageToLoad(5000);
+				Thread.sleep(1000);
+				slf4jLogger.info("selected import packageID");
+			}
+			slf4jLogger.info("Click on Import");
+			wait.until(ExpectedConditions.elementToBeClickable(productSummaryPage.importBtn));
+			productSummaryPage.importBtn.click();
+			WaitForPageToLoad(10000);
+			slf4jLogger.info("Import button clicked...");
+			
+		}
+		catch (Exception e) {
+			Assert.fail("Error while Clicking on Import package..."+e.getMessage());
+		}
+	}
+
+
+	@Step
+	public void checkDisabledValidateButton() throws InterruptedException{
+		try {
+			slf4jLogger.info("start checkDisabledValidateButton method...");
+			if(!(productSummaryPage.allCheckbox.isSelected())){
+				slf4jLogger.info("Checkbox not enabled....");
+				slf4jLogger.info("Validate button Visible "+productSummaryPage.validateBtn.isDisplayed());
+				if(!productSummaryPage.validateBtn.isDisplayed()) {
+					slf4jLogger.info("Button disabled...!!! Test Success...");
+				}
+				else{
+					slf4jLogger.info("Test Fail.....");
+				}
+			}
+		}
+		catch (Exception e) {
+			slf4jLogger.info(e.getMessage());
+			Assert.fail(e.getMessage());
+		}
+		
+	}
+	
+	@Step
+	public void checkEnabledValidateButton() throws InterruptedException{
+		try {
+			slf4jLogger.info("start checkEnabledValidateButton method...");
+			
+			productSummaryPage.allCheckbox.click();
+			WaitForPageToLoad(5000);
+			if(productSummaryPage.allCheckbox.isSelected()){
+				slf4jLogger.info("Checkbox enabled....");
+			    try {
+			        boolean value = productSummaryPage.validateBtn.isEnabled();
+			        if (!value){
+			        	slf4jLogger.info("Test Fail.....");
+			        }
+			        	slf4jLogger.info("Button enabled...!!! Test Success....");
+			    } 
+			    catch (Exception e) {
+			    	slf4jLogger.info(e.getMessage());
+					Assert.fail(e.getMessage());
+			    }
+			}
+		}
+		catch (Exception e) {
+			slf4jLogger.info(e.getMessage());
+			Assert.fail(e.getMessage());
+		}
+		
+	}
+
+	@Step
+	public void verifyApprovalsAfterTermChange(String testID)throws InterruptedException {
+			try {
+			
+			Thread.sleep(10000);
+			slf4jLogger.info("Verifying approvals after changing term");
+			if (testID.equals("23120"))
+			{
+				String pricingapproval=productSummaryPage.statusColumn.getText();
+				Thread.sleep(1000);
+				
+				if (pricingapproval.contains("Profit Approval Pending") && pricingapproval.contains("Pricing ICB Required"))
+				{
+					slf4jLogger.info("Verifying approvals after changing term-verified");
+				}
+				else
+				{
+					Assert.fail("Error while verifying approval status");
+				}
+			}
+			slf4jLogger.info("Verifying approvals after changing term");
+			
+				
+			}
+		catch(Exception e){
+			slf4jLogger.info("verifyApprovalsAfterTermChange Method Error- "+e.getMessage());
+			Assert.fail(e.getMessage());
+		}
+		
+	}
+	
+	@Step
+	public void verifyRealtedPackageid()  throws Exception{
+		try {
+			WebDriver driver = getDriver();
+			Thread.sleep(15000);
+			slf4jLogger.info("Verifying Related Package id- Started");
+			Wait<WebDriver> wait = new WebDriverWait(driver, 15000);
+			String packageiduni1=productSummaryPage.packageiduni1.getText();
+			String packageiduni2=productSummaryPage.packageiduni2.getText();
+			String packageidevc=productSummaryPage.packageidevc.getText();
+			String relatedpackageiduni1=productSummaryPage.relatedpackageiduni1.getText();
+			String relatedpackageiduni2=productSummaryPage.relatedpackageiduni2.getText();
+			String relatedpackageidevc=productSummaryPage.relatedpackageidevc.getText();
+			
+			if(!relatedpackageiduni1.equals(packageidevc) || !relatedpackageiduni2.equals(packageidevc))
+				Assert.fail("error while verifying realted product package id of unis ");
+			if(!relatedpackageidevc.contains(packageiduni1) || !relatedpackageidevc.contains(packageiduni2))
+				Assert.fail("error while verifying realted product package id of eline evc ");
+			Thread.sleep(1000);
+			WaitForPageToLoad(10000);
+		}
+		catch (Exception e) {
+			slf4jLogger.info("verifying related package id failed..");
+			Assert.fail(e.getMessage());
+		}
+		slf4jLogger.info("Verifying product package id - success");
+
+	}
+	
+	@Step
+	public void packageStatusValidation() throws InterruptedException{
+		try {
+			slf4jLogger.info("start packageStatusValidation method...");
+			productSummaryPage.allCheckbox.click();
+			Thread.sleep(4000);
+			productSummaryPage.validateBtn.click();
+			WaitForPageToLoad(8000);
+			ExpectedConditions.visibilityOf(productSummaryPage.validProductPackageStatus);
+			if((productSummaryPage.validProductPackageStatus.getText().equals("Valid"))||(productSummaryPage.validProductPackageStatus.getText().equals("Invalid"))){
+				slf4jLogger.info("Package Status Validated successfully.....!!! Test Success");
+			}
+			else {
+				slf4jLogger.info("Test Fail....");
+			}
+		}
+		catch (Exception e) {
+			slf4jLogger.info(e.getMessage());
+			Assert.fail(e.getMessage());
+		}
+		
+	}
+	
+	@Step
+	public void verifyScenarioDetailsPage(String AttributesList)throws InterruptedException {
+		
+		try {
+			Thread.sleep(5000);
+			WebDriver driver= getDriver();
+			Map<String, String> configKeyValuePair = new HashMap<String, String>();
+			configKeyValuePair = productConfigSteps.createConfigKeyValuePair(AttributesList);
+			String[] attributes =  AttributesList.split(";");
+			if(!productSummaryPage.editScenarioBtn.isVisible())
+				Assert.fail("Edit scenario button is not present");
+			if(!productSummaryPage.manageLocationBtn.isVisible())
+				Assert.fail("Manage locations is not present");
+			
+			for(int i=0;i<attributes.length;i++)
+			{
+				String[] keyValuePair =  attributes[i].split(":");
+				String key = keyValuePair[0];
+				String value = keyValuePair[1];
+				WaitForPageToLoad(6000);
+				  
+				ExpectedConditions.elementToBeClickable(productSummaryPage.showBtn);
+				productSummaryPage.showBtn.click();
+				WaitForPageToLoad(5000);
+				  
+				  if (key.equals("scenarioName"))
+				  {
+					  String scenarioName=productSummaryPage.quoteName.getText();
+						if(!scenarioName.equals(value))
+							Assert.fail("Error in verifying scenario name");
+				  }
+				  else if (key.equals("Opportunityowner"))
+				  {
+					  String oppoertunityOwner=productSummaryPage.opptOwner.getText();
+						if(!oppoertunityOwner.equals(value))
+							Assert.fail("Error in verifying opportunity owner");
+				  }
+				  
+				  else if (key.equals("opportunityName"))
+				  {
+					  String opportunityName=productSummaryPage.opptName.getText();
+						if(!opportunityName.equals(value))
+							Assert.fail("Error in verifying opportunity name");
+				  }
+				  
+				  else if (key.equals("AccountName"))
+				  {
+					  String AccountName=productSummaryPage.accName.getText();
+						if(!AccountName.equals(value))
+							Assert.fail("Error in verifying opportunity name");
+				  }
+			}
+			
+			if(!productSummaryPage.createNewProductPakage.isVisible())
+				Assert.fail("Error in verifying new button");
+			if(!productSummaryPage.refreshBtn.isVisible())
+				Assert.fail("Error in verifying refresh button");
+			
+			
+			if(!productSummaryPage.exportReportBtn.isVisible())
+				Assert.fail("Error in verifying export button");
+			slf4jLogger.info("before clicking edit");
+
+			productSummaryPage.manageLocationBtn.click();
+			Thread.sleep(5000);
+			productSummaryPage.returnToScenarioDetailbutton.click();
+			Thread.sleep(5000);
+			
+			WaitForPageToLoad(25000);
+			Thread.sleep(15000);
+			productSummaryPage.createNewProductPakage.click();
+			Thread.sleep(5000);
+		}
+		catch(Exception e){
+			slf4jLogger.info("error while verifying scenario details - "+e.getMessage());
+			Assert.fail(e.getMessage());
+		}
+		
+	}
+	
+	@Step
+	public void clickOnDiscountingandProfitabilityButton() throws InterruptedException{
+		
+		try {
+			Thread.sleep(6000);
+			WaitForPageToLoad(10000);
+			do{
+				ExpectedConditions.elementToBeClickable(productSummaryPage.discountingProfitabilityBtn);
+				slf4jLogger.info("Discounting/profitability button enabled");
+				productSummaryPage.discountingProfitabilityBtn.click();
+				slf4jLogger.info("entering into discount and profitability page");	
+				Thread.sleep(2000);
+			}
+			while (productSummaryPage.discountingProfitabilityBtn.isVisible());
+			slf4jLogger.info("D/P Button click success..!!");
+		}
+		catch (Exception e) {
+			slf4jLogger.info("clickOnDiscountingandProfitabilityButton Method Error-" +e.getMessage());
+			Assert.fail(e.getMessage());
+		}
+		
+	}
+	
+	@Step
+	public void clickOnsaveChanges() throws InterruptedException{
+		
+		try {
+			Thread.sleep(6000);
+			WaitForPageToLoad(10000);
+			ExpectedConditions.elementToBeClickable(productSummaryPage.saveChanges);
+			productSummaryPage.saveChanges.click();
+			slf4jLogger.info("save Button click success..!!");
+		}
+		catch (Exception e) {
+			slf4jLogger.info("clickOnsaveChanges Method Error-" +e.getMessage());
+			Assert.fail(e.getMessage());
+		}
+		
+	}
+	
+	@Step
+	public void verifyAddressSearch(String Testid) throws InterruptedException{
+		try {
+			WebDriver driver= getDriver();
+			slf4jLogger.info("starting of address verification");
+			Thread.sleep(10000);
+			//1
+			createNewProductPackage();   
+			Thread.sleep(5000);
+			String country=productSummaryPage.country.getText();
+			if(country.equals("United States"))
+				Assert.fail("Error while verifying country- not united states");
+			if(!productSummaryPage.addressSearch.isVisible()|| !productSummaryPage.gLmSearchBtn.isVisible()) 
+				Assert.fail("Error hile verifying address and GLM search button");
+			Thread.sleep(1000);
+			//2
+			productSummaryPage.country.selectByVisibleText("United Kingdom");
+			Thread.sleep(1000);
+			//2
+			productSummaryPage.resetButton.click();
+			Thread.sleep(5000);
+			String country1=productSummaryPage.country.getText();
+			if(country1.equals("United Kingdom"))
+				Assert.fail("Error while verifying country- not united kingdom");
+			Thread.sleep(1000);
+			//4
+			productSummaryPage.country.selectByVisibleText("Canada");
+			Thread.sleep(1000);
+			String adddresstab=productSummaryPage.addressSearch.getText();
+			String postal=productSummaryPage.postalCodeSearchOthers.getText();
+			String glm=productSummaryPage.glmSearchOthers.getText();
+			System.out.println(adddresstab);
+			System.out.println(postal);
+			System.out.println(glm);
+			if(!adddresstab.trim().equals("Address Search") || !postal.trim().equals("Postal Code Search") || !glm.trim().equals("GLM Search")) 
+				Assert.fail("Error while verifying address tabs");
+			//5
+			productSummaryPage.resetButton.click();
+			Thread.sleep(5000);
+			String country2=productSummaryPage.country.getText();
+			if(country2.equals("Canada"))
+				Assert.fail("Error while verifying country- not Canada");
+			Thread.sleep(1000);
+			//6
+			productSummaryPage.returnToScenarioDetailbutton.click();
+			Thread.sleep(2000);
+			Alert alert = driver.switchTo().alert();
+			System.out.println(alert.getText());
+			alert.accept();
+			Thread.sleep(10000);
+			//7
+			createNewProductPackage(); 
+			//8
+			Thread.sleep(5000);
+			productSummaryPage.country.selectByVisibleText("United Kingdom");
+			Thread.sleep(1000);
+			String adddresstab1=productSummaryPage.addressSearch.getText();
+			String postal1=productSummaryPage.postalCodeSearchOthers.getText();
+			String glm1=productSummaryPage.glmSearchOthers.getText();
+			System.out.println(adddresstab1);
+			System.out.println(postal1);
+			System.out.println(glm1);
+			if(!adddresstab1.trim().equals("Address Search") || !postal1.trim().equals("Postal Code Search") || !glm1.trim().equals("GLM Search")) 
+				Assert.fail("Error while verifying address tabs");
+			//10
+			productSummaryPage.postalCodeInput.sendKeys("AUS");
+			List<WebElement> suggest=driver.findElements(By.xpath("//*[@id=\"postalCodeInput_dropdown\"]/div[3]/div"));
+	        if(suggest.size()>=1) {
+	            suggest.get(0).click();
+	        }
+	        //11
+	        Thread.sleep(5000);
+	        String num=productSummaryPage.noAddrssSelected.getText();
+	        System.out.println(num);
+	        if(num.contains("0"))
+	        	Assert.fail("Error while verifying address returned");
+	        //12
+	        productSummaryPage.resetButton.click();
+	        Thread.sleep(5000);
+	        productSummaryPage.country.selectByVisibleText("Canada");
+			Thread.sleep(1000);
+			String adddresstab2=productSummaryPage.addressSearch.getText();
+			String postal2=productSummaryPage.postalCodeSearchOthers.getText();
+			String glm2=productSummaryPage.glmSearchOthers.getText();
+			System.out.println(adddresstab);
+			System.out.println(postal);
+			System.out.println(glm);
+			if(!adddresstab2.trim().equals("Address Search") || !postal2.trim().equals("Postal Code Search") || !glm2.trim().equals("GLM Search")) 
+				Assert.fail("Error while verifying address tabs");
+			productSummaryPage.postalCodeInput.sendKeys("AUS");
+			List<WebElement> suggest1=driver.findElements(By.xpath("//*[@id=\"postalCodeInput_dropdown\"]/div[3]/div"));
+	        if(suggest1.size()>=1) {
+	            suggest1.get(0).click();
+	        }
+	        String num1=productSummaryPage.noAddrssSelected.getText();
+	        System.out.println(num1);
+	        if(num1.contains("0"))
+	        	Assert.fail("Error while verifying address returned");
+	        productSummaryPage.returnToScenarioDetailbutton.click();
+			Thread.sleep(2000);
+			Alert alert1 = driver.switchTo().alert();
+			System.out.println(alert1.getText());
+			alert1.accept();
+			Thread.sleep(20000);
+			
+			createNewProductPackage();    
+			Thread.sleep(5000);
+			//us
+			if(!productSummaryPage.addressSearch.isVisible()|| !productSummaryPage.gLmSearchBtn.isVisible()) 
+				Assert.fail("Error hile verifying address and GLM search button");
+			Thread.sleep(1000);
+			productSummaryPage.gLmSearchBtn.click();
+			Thread.sleep(2000);
+			productSummaryPage.glmInput.sendKeys("123");
+			List<WebElement> suggest2=driver.findElements(By.xpath("//*[@id=\"glmCodeInput_dropdown\"]/div[3]/div"));
+	        if(suggest2.size()>=1) {
+	            suggest2.get(0).click();
+	        }
+	        productSummaryPage.resetButton.click();
+	        
+	        //uk
+	         
+	        Thread.sleep(5000);
+	        productSummaryPage.country.selectByVisibleText("United Kingdom");
+			Thread.sleep(1000);
+			String adddresstab22=productSummaryPage.addressSearch.getText();
+			String postal22=productSummaryPage.postalCodeSearchOthers.getText();
+			String glm22=productSummaryPage.glmSearchOthers.getText();
+			System.out.println(adddresstab);
+			System.out.println(postal);
+			System.out.println(glm);
+			if(!adddresstab2.trim().equals("Address Search") || !postal2.trim().equals("Postal Code Search") || !glm2.trim().equals("GLM Search")) 
+				Assert.fail("Error while verifying address tabs");
+			productSummaryPage.glmSearchOthers.click();
+			Thread.sleep(1000);
+			productSummaryPage.glmInput.sendKeys("123");
+			List<WebElement> suggest12=driver.findElements(By.xpath("//*[@id=\"glmCodeInput_dropdown\"]/div[3]/div"));
+	        if(suggest12.size()>=1) {
+	            suggest12.get(0).click();
+	        }
+	        String num12=productSummaryPage.noAddrssSelected.getText();
+	        System.out.println(num12);
+	        if(num12.contains("0"))
+	        	Assert.fail("Error while verifying address returned");
+	        
+	        //Germany
+	        
+	        productSummaryPage.resetButton.click();
+	        productSummaryPage.country.selectByVisibleText("Germany");
+	        Thread.sleep(2000);
+	        if(!productSummaryPage.addressSearch.isVisible()|| !productSummaryPage.gLmSearchBtn.isVisible()) 
+				Assert.fail("Error hile verifying address and GLM search button");
+			Thread.sleep(1000);
+			productSummaryPage.gLmSearchBtn.click();
+			Thread.sleep(2000);
+			productSummaryPage.glmInput.sendKeys("123");
+			List<WebElement> suggest22=driver.findElements(By.xpath("//*[@id=\"glmCodeInput_dropdown\"]/div[3]/div"));
+	        if(suggest22.size()>=1) {
+	            suggest22.get(0).click();
+	        }
+	        String num22=productSummaryPage.noAddrssSelected.getText();
+	        System.out.println(num22);
+	        if(num22.contains("0"))
+	        	Assert.fail("Error while verifying address returned");
+	        productSummaryPage.returnToScenarioDetailbutton.click();
+	        Alert alert2 = driver.switchTo().alert();
+			System.out.println(alert2.getText());
+			alert2.accept();
+	        Thread.sleep(10000);
+	        
+	        //albania
+	        createNewProductPackage(); 
+			Thread.sleep(5000);
+			productSummaryPage.country.selectByVisibleText("Albania");
+			if(!productSummaryPage.SiteAddressInput.isEnabled())
+				Assert.fail("Address serach not enabled-Albania");
+			productSummaryPage.resetButton.click();
+			
+			//china
+			
+			Thread.sleep(5000);
+			productSummaryPage.country.selectByVisibleText("China");
+			if(!productSummaryPage.SiteAddressInput.isEnabled())
+				Assert.fail("Address serach not enabled-China");
+			productSummaryPage.resetButton.click();
+			
+			//Canada
+			
+			Thread.sleep(5000);
+			productSummaryPage.country.selectByVisibleText("Canada");
+			if(!productSummaryPage.postalCodeInput.isEnabled())
+				Assert.fail("Address serach not enabled-Canada");
+			productSummaryPage.resetButton.click();
+			
+			
+			productSummaryPage.returnToScenarioDetailbutton.click();
+	        Alert alert3 = driver.switchTo().alert();
+			System.out.println(alert3.getText());
+			alert3.accept();
+	        Thread.sleep(10000);
+	        
+	        createNewProductPackage(); 
+			Thread.sleep(5000);
+			
+			productSummaryPage.SiteAddressInput.sendKeys("123");
+			List<WebElement> addresssuggest=driver.findElements(By.xpath("//*[@id=\"siteAddressInput_dropdown\"]/div[3]/div"));
+	        Thread.sleep(2000);
+	        System.out.println("size of suggestions "+addresssuggest.size());
+			if(addresssuggest.size()>=1)
+	        	Assert.fail("Address type ahead is not expected");
+	        
+			productSummaryPage.resetButton.click();
+			Thread.sleep(1000);
+			productSummaryPage.SiteAddressInput.sendKeys("100 main st");
+	        List<WebElement> addresssuggestion2=driver.findElements(By.xpath("//*[@id=\"siteAddressInput_dropdown\"]/div[3]/div"));
+	        if(addresssuggestion2.size()>=1) {
+	        	addresssuggestion2.get(0).click();
+	        }
+	        String num3=productSummaryPage.noAddrssSelected.getText();
+	        System.out.println(num3);
+	        if(num3.contains("0"))
+	        	Assert.fail("Error while verifying address returned");
+	        
+	        
+	        productSummaryPage.returnToScenarioDetailbutton.click();
+	        Alert alert4 = driver.switchTo().alert();
+			System.out.println(alert4.getText());
+			alert4.accept();
+	        Thread.sleep(10000);
+	        
+	        
+	         //united kingdom
+	        createNewProductPackage();       
+			Thread.sleep(10000);
+			productSummaryPage.country.selectByVisibleText("United Kingdom");
+			Thread.sleep(2000);
+			productSummaryPage.addressSearch.click();
+			productSummaryPage.SiteAddressInput.sendKeys("123");
+			List<WebElement> addresssuggest123=driver.findElements(By.xpath("//*[@id=\"siteAddressInput_dropdown\"]/div[3]/div"));
+	        Thread.sleep(2000);
+	        System.out.println("size of suggestions "+addresssuggest123.size());
+			if(addresssuggest123.size()>=1)
+	        	Assert.fail("Address type ahead is not expected");
+			productSummaryPage.resetButton.click();
+			productSummaryPage.SiteAddressInput.sendKeys("10m");
+	        List<WebElement> addresssuggestion10m=driver.findElements(By.xpath("//*[@id=\"siteAddressInput_dropdown\"]/div[3]/div"));
+	        if(addresssuggestion10m.size()>=1) {
+	        	addresssuggestion10m.get(0).click();
+	        }
+	        String num10m=productSummaryPage.noAddrssSelected.getText();
+	        System.out.println(num10m);
+	        if(num10m.contains("0"))
+	        	Assert.fail("Error while verifying address returned");
+	        productSummaryPage.resetButton.click();
+	        productSummaryPage.SiteAddressInput.sendKeys("100 main st");
+	        List<WebElement> addresssuggestion100=driver.findElements(By.xpath("//*[@id=\"siteAddressInput_dropdown\"]/div[3]/div"));
+	        if(addresssuggestion100.size()>=1) {
+	        	addresssuggestion100.get(0).click();
+	        }
+	        String num100=productSummaryPage.noAddrssSelected.getText();
+	        System.out.println(num100);
+	        if(num100.contains("0"))
+	        	Assert.fail("Error while verifying address returned");
+	        
+	        
+	        productSummaryPage.returnToScenarioDetailbutton.click();
+	        Alert alert5 = driver.switchTo().alert();
+			System.out.println(alert5.getText());
+			alert5.accept();
+	        Thread.sleep(10000);
+	        
+	        
+	         //France
+	        createNewProductPackage();      
+	        Thread.sleep(10000);
+	        productSummaryPage.country.selectByVisibleText("France");
+			Thread.sleep(2000);
+			productSummaryPage.addressSearch.click();
+			productSummaryPage.SiteAddressInput.sendKeys("123");
+			List<WebElement> addresssuggestfrane123=driver.findElements(By.xpath("//*[@id=\"siteAddressInput_dropdown\"]/div[3]/div"));
+	        Thread.sleep(2000);
+	        System.out.println("size of suggestions "+addresssuggestfrane123.size());
+			if(addresssuggestfrane123.size()>=1)
+	        	Assert.fail("Address type ahead is not expected");
+			productSummaryPage.resetButton.click();
+			productSummaryPage.SiteAddressInput.sendKeys("10 m");
+	        List<WebElement> franceaddresssuggestion10m=driver.findElements(By.xpath("//*[@id=\"siteAddressInput_dropdown\"]/div[3]/div"));
+	        if(franceaddresssuggestion10m.size()>=1) {
+	        	franceaddresssuggestion10m.get(0).click();
+	        }
+	        String fnum10m=productSummaryPage.noAddrssSelected.getText();
+	        System.out.println(fnum10m);
+	        if(fnum10m.contains("0"))
+	        	Assert.fail("Error while verifying address returned");
+	        productSummaryPage.resetButton.click();
+	        productSummaryPage.SiteAddressInput.sendKeys("100 main st");
+	        List<WebElement> franceaddresssuggestion100=driver.findElements(By.xpath("//*[@id=\"siteAddressInput_dropdown\"]/div[3]/div"));
+	        if(franceaddresssuggestion100.size()>=1) {
+	        	franceaddresssuggestion100.get(0).click();
+	        }
+	        String fnum100=productSummaryPage.noAddrssSelected.getText();
+	        System.out.println(fnum100);
+	        if(fnum100.contains("0"))
+	        	Assert.fail("Error while verifying address returned");
+	        
+	        
+	        productSummaryPage.returnToScenarioDetailbutton.click();
+	        Alert alert6 = driver.switchTo().alert();
+			System.out.println(alert6.getText());
+			alert6.accept();
+	        Thread.sleep(10000);
+	        
+	        
+			
+		}
+		catch(Exception e) {
+			slf4jLogger.info("FAIL");
+			Assert.fail(e.getMessage());
+		}
+	}
+
+	@Step
+	public void verifyExportValidation(String TestID) throws Exception {
+		try {
+			WebDriver driver= getDriver();
+			slf4jLogger.info(TestID + ": @" + System.currentTimeMillis()  + "@"
+					+ "Entering into exportAllViewsValidation Method");
+			Thread.sleep(8000);
+			productSummaryPage.exportReportBtn.click();
+			
+			Thread.sleep(5000);
+			tranferDriverToAnotherWindow(driver);
+
+			Thread.sleep(2000);
+			driver.close();
+			tranferDriverToAnotherWindow(driver);
+			
+			slf4jLogger.info(TestID + ": @" + System.currentTimeMillis()  + "@"
+					+ "Verified export functionality by selecting all packages");
+			
+		} catch (Exception e) {
+			Assert.fail(TestID + ": @" +  System.currentTimeMillis()  + "@"
+					+ "Error occured while validating Exporting");
+		}
+	}
+
+	public  void tranferDriverToAnotherWindow(WebDriver driver) {
+		try {
+
+			for (String winHandle : driver.getWindowHandles()) {
+				driver.switchTo().window(winHandle);
+				Thread.sleep(5000);
+			}
+
+		} catch (Exception ex) {
+			slf4jLogger.info(ex.getMessage());
+		}
+
+	}	
+	
+	/** Method to read values in product package table **/
+	public void readValuesInProductPackageTable(WebDriver driver, String TestID) throws Exception {
+		try {
+			Thread.sleep(60000);
+			List<String> packageArray= detailedPackageInfo();
+			List<WebElement> noOfProducts = driver
+					.findElement(By.xpath("/html/body/app-root/app-product-summary/div/app-quote-products/div[2]/div/table/tbody"))
+					.findElements(By.tagName("tr"));
+			System.out.println(noOfProducts.size());
+			
+			slf4jLogger.info(TestID + ": @" + System.currentTimeMillis() + "@" + "Product Size: "
+					+ noOfProducts.size());
+			slf4jLogger.info(
+					TestID + ": @" + System.currentTimeMillis() + "@" + "Approval Status: " + packageArray.get(2));
+			String approvalStatus = " ";
+			approvalStatus = packageArray.get(2);
+			
+			String MRC = packageArray.get(3);
+			slf4jLogger.info(TestID + ": @" + System.currentTimeMillis() + "@" + "MRC value: " + MRC);
+			
+			String NRC = packageArray.get(4);
+			slf4jLogger.info(TestID + ": @" + System.currentTimeMillis() + "@" + "NRC value: " + NRC);
+			
+			String location = packageArray.get(1);
+			slf4jLogger.info(TestID + ": @" + System.currentTimeMillis() + "@" + "location: " + location);
+			System.out.println("OPP:" + approvalStatus + " MRC:" + MRC + " NRC:" + NRC);
+
+			String packageName = packageArray.get(0);
+			slf4jLogger.info(TestID + ": @" + System.currentTimeMillis() + "@" + "packageName: " + packageName);
+			String modifiedByAndDate = packageArray.get(11);
+			slf4jLogger.info(TestID + ": @" + System.currentTimeMillis() + "@" + "modifiedByAndDate: "
+					+ modifiedByAndDate);
+			String productPackageId = packageArray.get(7);
+			slf4jLogger.info(TestID + ": @" + System.currentTimeMillis() + "@" + "productPackageId: "
+					+ productPackageId);
+		
+		} catch (Exception e) {
+			Assert.fail(TestID + ": @" + System.currentTimeMillis() + "@"
+					+ "Error occured while Reading values in Product Package Table");
+
+		}
+	}
+	
+	@Step
+	public List<String> detailedPackageInfo() throws Exception {
+		WebDriver driver = getDriver();
+		List<String> stringArray = new ArrayList<>();
+		try{
+				Thread.sleep(6000);
+				slf4jLogger.info("Detailed Package Info...!");
+				driver.switchTo().activeElement();
+				
+				WebDriverWait wait = new WebDriverWait(driver, 100);
+				wait.until(ExpectedConditions.visibilityOf(productSummaryPage.quoteName));
+				
+				Thread.sleep(4000);
+				stringArray.add(productSummaryPage.productNameColumn.getText());	//index 0
+				Thread.sleep(4000);
+				stringArray.add(productSummaryPage.addressColumn.getText());	//index 1
+				Thread.sleep(4000);
+				stringArray.add(productSummaryPage.statusColumn.getText());	//index 2
+				Thread.sleep(4000);
+				stringArray.add(productSummaryPage.totalMRCColumn.getText());	//index 3
+				Thread.sleep(4000);
+				stringArray.add(productSummaryPage.totalNRCColumn.getText());	//index 4
+				Thread.sleep(4000);
+				stringArray.add(productSummaryPage.termColumn.getText());	//index 5
+				Thread.sleep(4000);
+				stringArray.add(productSummaryPage.expireDateColumn.getText());	//index 6
+				Thread.sleep(4000);
+				stringArray.add(productSummaryPage.packageIDColumn.getText());	//index 7
+				Thread.sleep(4000);
+				stringArray.add(productSummaryPage.packageTypeColumn.getText());	//index 8
+				Thread.sleep(4000);
+				stringArray.add(productSummaryPage.relatedPackageIDColumn.getText());	//index 9
+				Thread.sleep(4000);
+				stringArray.add(productSummaryPage.sourceColumn.getText());	//index 10
+				Thread.sleep(4000);
+				stringArray.add(productSummaryPage.modifiedDateColumn.getText());	//index 11
+				Thread.sleep(4000);
+			}
+			catch (Exception e) {
+				slf4jLogger.error("Error occured while fetching package details information from SD Page");
+				Assert.fail(e.getMessage());
+			}
+		return stringArray;
+}
+	
+	/** Method to read currency **/
+	public void readCurrency(String TestID, String currency)
+			throws Exception {
+		try {
+			WebDriver driver= getDriver();
+			Thread.sleep(2000);
+			readValuesInProductPackageTable(driver, TestID);
+			String Currency = productSummaryPage.currency.getText();
+			System.out.println(Currency);
+			if (!(currency.contains(Currency))) {
+				Assert.fail(TestID + "Error in Currency displayed.......");
+			}
+			slf4jLogger.info(TestID + "Currency Verified in Scenarion Detail Page");
+
+		} catch (Exception e) {
+			if (e.getMessage().isEmpty()) {
+				Assert.fail(TestID + ": @" + System.currentTimeMillis() + "@"
+						+ "Error occured while reading currency.......");
+			} else if (e.getMessage().contains(": @")) {
+				throw e;
+			} else {
+				Assert.fail(TestID + ": @" + System.currentTimeMillis() + "@" + e);
+			}
+
+		}
+	}
+	
+	public Map<String, String> createConfigKeyValuePair(String entries) throws Exception {
+		
+		String[] attributes =  entries.split(";");
+		Map<String, String> map = new HashMap<String, String>();
+		for (String entry : attributes) {
+	        if (!TextUtils.isEmpty(entry) && entry.contains(":")) {
+	            String[] keyValue = entry.split(":");
+	            map.put(keyValue[0], keyValue[1]);
+	        }
+	    }
+		
+		return map;
+	}
+	
+	public void verifyApprovalStatusInScenarioDetailsPage(String TestID, String ValidationText) {
+		try {
+			WebDriver driver = getDriver();
+			Thread.sleep(6000);
+			WaitForPageToLoad(6000);
+			Map<String, String> configKeyValuePair = new HashMap<String, String>();
+			configKeyValuePair = createConfigKeyValuePair(ValidationText);
+			if(TestID.equals("2075")) {
+				for(int i=1;i<=2;i++) {
+					String status = driver.findElement(By.xpath("/html/body/app-root/app-product-summary/div/app-quote-products/div[2]/div/table/tbody/tr["+i+"]/td[7]")).getText();
+					if(!(status.equals(configKeyValuePair.get("ApprovalStatus")))) {
+						Assert.fail("Error while verifying Approval status..");
+					}
+				}
+			}
+			else if(TestID.equals("1896") || TestID.equals("45293")) {
+				WebElement Pkgstatus2 = driver.findElement(By.xpath("/html/body/app-root/app-product-summary/div/app-quote-products/div[4]/div/table/tbody/tr[2]/td[7]"));
+				if(TestID.equals("1896")) {
+					if(!(productSummaryPage.statusColumn.getText().contains(configKeyValuePair.get("ApprovalStatus")) && 
+							Pkgstatus2.getText().contains(configKeyValuePair.get("ROCStatus")))) {
+						Assert.fail("Error while verifying approval status...!");
+					}
+				}
+				else if(TestID.equals("45293")) {
+					if(!Pkgstatus2.getText().contains(configKeyValuePair.get("ApprovalStatus")))
+						Assert.fail("Error while verifying approval status...!");
+				}
+				
+			}
+			else if(TestID.equals("2076")) {
+				
+				WebElement Pkgstatus = driver.findElement(By.xpath("/html/body/app-root/app-product-summary/div/app-quote-products/div[2]/div/table/tbody/tr[2]/td[7]/div"));
+				productSummaryPage.infoToolTip.click();
+				WebElement Pkgstatus_tooltip = driver.findElement(By.xpath("/html/body/app-root/app-product-summary/div/app-quote-products/div[2]/div/table/tbody/tr[2]/td[7]/div/span/popover-content/div/div[4]/div[1]"));
+				if(!(Pkgstatus_tooltip.getText().contains(configKeyValuePair.get("ErrorMessage")) && Pkgstatus.getText().contains(configKeyValuePair.get("PackageStatus")))) {
+					Assert.fail("Error while verifying tool tip of Invalid status...!");
+				}
+			}else if(TestID.equals("2085")){
+				Thread.sleep(6000);
+				String status = productSummaryPage.statusColumn.getText();
+				String title = productSummaryPage.statusColumn.getAttribute("title");
+				if(!((status.equals(configKeyValuePair.get("ApprovalStatus")))||(title.equals(configKeyValuePair.get("Title"))))) {
+					Assert.fail("Error while verifying Approval status..");
+				}
+			}
+			else if(TestID.equals("2005")) {
+				List<WebElement> statuses = driver.findElements(By.xpath("//*[text()='Pricing ICB Required']"));
+				if(statuses.size()!=1) {
+					Assert.fail("Error while verifying approval status of CSG user");
+				}
+			}
+			else if(TestID.equals("2051")) {
+				List<WebElement> statuses = driver.findElements(By.xpath("//*[text()='"+configKeyValuePair.get("ApprovalStatus")+"']"));
+				if(statuses.size()!=5) {
+					Assert.fail("Error while verifying approval status as Vendor Bid Required..!");
+				}
+			}
+			else if(TestID.equals("1943")) {
+				if(!(productSummaryPage.statusColumn.getText().contains(configKeyValuePair.get("ApprovalStatus1"))) ||  !(productSummaryPage.statusColumn.getText().contains(configKeyValuePair.get("ApprovalStatus2")))) {
+					Assert.fail("Error while verifying Approval status..");
+				}
+			}
+			if(TestID.equals("45461") | TestID.equals("45994")) {
+				for(int i=1;i<=3;i++) {
+					String status = driver.findElement(By.xpath("/html/body/app-root/app-product-summary/div/app-quote-products/div[4]/div/table/tbody/tr["+i+"]/td[8]/div[1]")).getText();
+					if(!(status.equals(configKeyValuePair.get("PackageStatus")))) {
+						Assert.fail("Error while verifying Package status..");
+					}
+				}
+			}
+			slf4jLogger.info(TestID + System.currentTimeMillis() +"Success...! Verification of Approval status in Scenario Details Page..");		
+		}
+		catch (Exception e) {
+			Assert.fail(e.getMessage());
+		}
+	}
+	
+	public void verifyApprovalStatusInScenarioDetailsPage_AfterDiscounting(String string, String string2) {
+		try {
+			WaitForPageToLoad(5000);
+			WebDriver driver = getDriver();
+		}
+		catch (Exception e) {
+			Assert.fail(e.getMessage());
+		}}
+
+	public void verifyOffnetIndicator(String TestID) {
+		try {	
+			Thread.sleep(10000);
+			slf4jLogger.info("Verification of Offnet Indicator in Scenario Details Page..");	
+			WaitForPageToLoad(5000);
+			ExpectedConditions.visibilityOf(productSummaryPage.networkStatusColumn);
+			if(!(productSummaryPage.networkStatusColumn.getText().contains("Off Net"))) {
+				Assert.fail("Error while verifying Network Status as Offnet!");
+			}
+			slf4jLogger.info(TestID + System.currentTimeMillis() + "Verified : Network Status as Offnet!");
+					
+		}
+		catch (Exception e) {
+			Assert.fail(e.getMessage());
+		}
+	}
+	
+	@Step
+	public WebDriver openNewTabForROCPortal() {
+		WebDriver driver= getDriver();
+		String rocURL = "";
+		
+		if(driver.getCurrentUrl().contains("itv1")){
+			rocURL = "http://rocinternal-env1.level3.com/login" ;
+		}
+		else if(driver.getCurrentUrl().contains("itv2")) {
+			rocURL = "http://rocinternal-env2.level3.com/login" ;
+		}
+		else if(driver.getCurrentUrl().contains("e2e")) {
+			rocURL = "http://rocinternal-env4.level3.com/login" ;
+		}
+		((JavascriptExecutor) driver).executeScript("window.open()");
+		try {
+			Thread.sleep(3000);
+			tranferDriverToAnotherWindow(driver);
+			Thread.sleep(2000);
+		
+		} catch (Exception e) {
+			slf4jLogger.info(e.getMessage());
+		}
+		driver.get(rocURL);	
+		
+		return driver;	
+	}
+	
+	@Step
+	public void relatedPackageidAddressVerification(String testID)  throws Exception{
+		try {
+			WebDriver driver = getDriver();
+			Thread.sleep(10000);
+			slf4jLogger.info("Verifying Related Package id- Started");
+			if(testID.equals("2045")) {
+				Wait<WebDriver> wait = new WebDriverWait(driver, 15000);
+				String packageiduni1=productSummaryPage.packageiduni1.getText();
+				String packageiduni2=productSummaryPage.packageiduni2.getText();
+				String evc1relatedpackageid=productSummaryPage.relatedpackageidevc.getText();
+				String evc2relatedpackageid=productSummaryPage.relatedpackageidevc2.getText();
+				String evc1address1=productSummaryPage.evc1address1.getText();
+				String evc2address1=productSummaryPage.evc2address1.getText();
+				String evc1address2=productSummaryPage.evc1address2.getText();
+				String evc2address2=productSummaryPage.evc2address2.getText();
+				System.out.println(packageiduni1);
+				System.out.println(packageiduni2);
+				System.out.println(evc1relatedpackageid);
+				System.out.println(evc2relatedpackageid);
+				if(!evc1relatedpackageid.contains(packageiduni1) || !evc2relatedpackageid.contains(packageiduni1) || !evc1relatedpackageid.contains(packageiduni2) || !evc2relatedpackageid.contains(packageiduni2))
+					Assert.fail("error while verifying realted product package id of unis and evc prods ");
+				if(!evc1address1.equals(evc2address1) || !evc1address2.equals(evc2address2))
+					Assert.fail("error while verifying address of cloned pckage ");
+			}
+			
+			if(testID.equals("2029")) {
+				String rtPackageId = null;
+				int count=0;
+				String packageIdSdwan=productSummaryPage.packageIDColumn.getText();
+				Thread.sleep(15000);
+				for(int i=2;i<=7;i++) {
+				try {	
+					rtPackageId=driver.findElement(By.xpath("/html/body/app-root/app-product-summary/div/app-quote-products/div[2]/div/table/tbody/tr["+i+"]/td[13]")).getText();
+				if(rtPackageId.contains(packageIdSdwan))	
+					count++;}
+				catch(Exception e) {
+					
+				}
+				}
+				if(count==0)
+					Assert.fail("error while verifying pckage ids ");
+			}
+			
+			if(testID.equals("2018")) {
+				String address=productSummaryPage.addressColumn.getText();
+				if(address.contains("Vietnam"))
+					Assert.fail("error while verifying address in scenario page ");
+			}
+			
+			if(testID.equals("2031")) {
+				List <String> PackageID=new ArrayList();
+				List <String> Related_PackageID=new ArrayList();
+			    for(int i=1;i<6;i++) {
+					try {
+					String package_id=driver.findElement(By.xpath("/html/body/app-root/app-product-summary/div/app-quote-products/div[2]/div/table/tbody/tr["+i+"]/td[12]")).getText();
+					String rel_package_id=driver.findElement(By.xpath("/html/body/app-root/app-product-summary/div/app-quote-products/div[2]/div/table/tbody/tr["+i+"]/td[13]")).getText();
+					PackageID.add(package_id);
+					Related_PackageID.add(rel_package_id);
+					}
+					catch(Exception e) {
+						String package_id=driver.findElement(By.xpath("/html/body/app-root/app-product-summary/div/app-quote-products/div[2]/div/table/tbody/tr["+i+"]/td[12]")).getText();
+						String rel_package_id1=driver.findElement(By.xpath("/html/body/app-root/app-product-summary/div/app-quote-products/div[2]/div/table/tbody/tr["+i+"]/td[13]/div[1]/span/div")).getText();
+						String rel_package_id2=driver.findElement(By.xpath("/html/body/app-root/app-product-summary/div/app-quote-products/div[2]/div/table/tbody/tr["+i+"]/td[13]/div[2]/span/div")).getText();
+						String rel_package_id=rel_package_id1+rel_package_id2;
+						PackageID.add(package_id);
+						Related_PackageID.add(rel_package_id);
+					}
+				}
+				for(int j=0;j<PackageID.size();j++)
+					System.out.println(PackageID.get(j)+  "        "+Related_PackageID.get(j));
+				if(!Related_PackageID.get(2).contains(PackageID.get(4)) || !Related_PackageID.get(3).contains(PackageID.get(4)))
+					Assert.fail("error while verifying package id of e access OVC ");
+				if(!Related_PackageID.get(1).equals(PackageID.get(0)) || !Related_PackageID.get(0).equals(PackageID.get(1)))
+					Assert.fail("error while verifying package id of hsip ");
+				
+			}
+			
+			if(testID.equals("7072")) {
+				String address=productSummaryPage.addressColumn.getText();
+				System.out.println(address);
+				if(!address.contains("UNITED STATES"))
+					Assert.fail("error while verifying NA address ");
+				int count=productSummaryPage.products.size();
+				System.out.println(count);
+			}
+			Thread.sleep(1000);
+			WaitForPageToLoad(10000);
+		}
+		catch (Exception e) {
+			slf4jLogger.info("verifying related package id failed..");
+			Assert.fail(e.getMessage());
+		}
+		slf4jLogger.info("Verifying product package id - success");
+
+	}
+
+	public void verifyROCApprovalStatusAfterROC(String TestID, String ValidationTexts) throws Exception{
+		try {
+			WebDriver driver = getDriver();
+			Thread.sleep(10000);
+			
+			Map<String, String> configKeyValuePair = new HashMap<String, String>();
+			configKeyValuePair = createConfigKeyValuePair(ValidationTexts);
+			
+			if(!(productSummaryPage.statusColumn.getText().contains(configKeyValuePair.get("ROCStatus")))) {
+				Assert.fail(TestID+System.currentTimeMillis()+"Error while verifying status after performing ROC Operations..!");
+			}
+			
+			if(TestID.equals("2051")) {
+				for(int i=1;i<=5;i++) {
+					
+				String status = driver.findElement(By.xpath("/html/body/app-root/app-product-summary/div/app-quote-products/div[2]/div/table/tbody/tr["+i+"]/td[7]")).getText();
+				if(!(status.equals(configKeyValuePair.get("Status"+Integer.toString(i))))){
+					Assert.fail("Error occured while verifying approval status");
+				}
+				}
+			}
+			else if(TestID.equals("2055")) {
+				if(ProductSummarySteps.counter==0) {
+				if(!(productSummaryPage.statusColumn.getText().contains(configKeyValuePair.get("ApprovalStatus_VBC")))){
+					Assert.fail("Error occured while verifying approval status");
+				
+				}
+				counter++;
+				}
+				else {
+					if(!(productSummaryPage.statusColumn.getText().equals(configKeyValuePair.get("Status4")))){
+						Assert.fail("Error occured while verifying approval status");
+					
+					}
+				}
+			}
+			else if(TestID.equals("36690")) {
+				driver.findElement(By.xpath("/html/body/app-root/app-product-summary/div/app-quote-products/div[4]/div/table/tbody/tr/td[8]/div[4]")).click();
+				String cogPlannerName = driver.findElement(By.xpath("/html/body/app-root/app-product-summary/div/app-quote-products/div[4]/div/table/tbody/tr/td[8]/popover-content/div/div[4]/div")).getText();
+				if(!cogPlannerName.contains("Sahu, Prachi"))
+					Assert.fail("Vendor Bid status does not contain the COG planner name");
+				
+			}
+			slf4jLogger.info(TestID + ":" + System.currentTimeMillis()
+			+ "Verified ROC Approval status after performing ROC Operations.......");
+			
+		} catch (Exception e) {
+			Assert.fail();
+		}
+		
+	}
+
+	@Step
+	public void clickOnRequiredPackage(String TestID, String prodNumber) throws Exception
+	{	
+		WebDriver driver = getDriver();
+		
+		List<WebElement> products = driver.findElements(By.xpath("/html/body/app-root/app-product-summary/div/app-quote-products/div[2]/div/table/tbody/tr"));
+		try{
+			Thread.sleep(20000);
+			
+			if(products.size()==1) {
+				prodNumber="1";
+			}
+			driver.findElement(By.xpath("/html/body/app-root/app-product-summary/div/app-quote-products/div[3]/div/table/tbody/tr["+prodNumber+"]/td[3]/span[2]")).click();
+			slf4jLogger.info("Clicked on required package..!");
+			
+			try {
+				productSummaryPage.productNameColumn.click();	//xpath double verify
+			}
+			catch (Exception e) {
+				slf4jLogger.info("Catch Block");
+			}
+			slf4jLogger.info("Clicked on parent product package..!");
+		}
+		catch (Exception e) {
+			Assert.fail(TestID + ": @" + System.currentTimeMillis() + "@"+ e.getMessage());
+		}
+	}
+
+	@Step
+	public void verifyAdditionalCopiesForAllProductsinDQP(String ProductList, String AddressList, String PackageType) throws Exception
+	{
+		String prdList[] = ProductList.split(";");
+		for(int i=0;i<prdList.length;i++){
+			String Product = prdList[i];
+			try {
+				WaitForPageToLoad(5000);
+				createNewProductPackage();	
+				selectAddress(AddressList);	
+
+				WaitForPageToLoad(5000);
+				String productDropDown = "//td[text()='Product:']/..//span[contains(@class,'k-dropdown-wrap')]";
+				getDriver().findElement(By.xpath(productDropDown)).click();
+				
+				WaitForPageToLoad(5000);
+				Thread.sleep(3000);
+				List<WebElement> products = getDriver().findElements(By.xpath("//li[text()='" + Product.trim() + "']"));
+				
+				products.get(products.size() - 1).click();		
+				WaitForPageToLoad(5000);
+				Thread.sleep(3000);
+				ExpectedConditions.elementToBeClickable(By.xpath("//*[text()=' New Product']"));
+				
+				getDriver().findElement(By.xpath("//*[text()=' New Product']")).click();
+				WaitForPageToLoad(5000);
+				Thread.sleep(10000);
+				productConfigPage.packageDetailsPanel.click();
+				Thread.sleep(2000);
+				if(!productConfigPage.addCopiesInput.isEnabled()){
+					
+					slf4jLogger.info("Additional Copies functionality is disabled");
+					Assert.fail("Additional Copies functionality is disabled");
+				}
+				Thread.sleep(2000);
+				productConfigPage.cancelBtn.click();
+				Thread.sleep(2000);
+				productConfigPage.exitWithoutSavingBtn.click();
+
+			} catch (Exception e) {
+				Assert.fail(e.getMessage());
+			}
+			
+		}
+		
+	}
+
+	public void verifyAdditionalCopiesForDifferentPkgTypes(String Product, String Address, String PackageTypeList) throws Exception{
+		
+		String pkgType[] = PackageTypeList.split(";");
+		for(int i=0;i<pkgType.length;i++){
+			String PackageType = pkgType[i];
+			try {
+				WaitForPageToLoad(5000);
+				createNewProductPackage();	
+				selectAddress(Address);	
+				selectProductTypeAndProduct(PackageType, Product);	
+				WaitForPageToLoad(5000);
+				
+				WaitForPageToLoad(5000);
+				Thread.sleep(10000);
+				productConfigPage.packageDetailsPanel.click();
+				Thread.sleep(2000);
+				if(productConfigPage.addCopiesInput.isEnabled()){
+					
+					slf4jLogger.info("Additional Copies functionality is enabled");
+					Assert.fail("Additional Copies functionality is enabled");
+				}
+				Thread.sleep(2000);
+				productConfigPage.cancelBtn.click();
+				Thread.sleep(2000);
+				productConfigPage.exitWithoutSavingBtn.click();
+
+			} catch (Exception e) {
+				Assert.fail(e.getMessage());
+			}
+		}
+	}
+	
+	@Step
+	public void waitForValidStatus(String TestID) throws Exception {
+		try{
+			WebDriver driver = getDriver();
+			Wait<WebDriver> wait = new WebDriverWait(driver, 1000);
+			Thread.sleep(10000);
+			if(TestID.equals("1954") || TestID.equals("1901")){
+				slf4jLogger.info(TestID + ": @" + System.currentTimeMillis() + "@"+ "Checking for Status.....");
+				WebElement PkgStatusCol = driver.findElement(By.xpath("/html/body/div[7]/div[2]/div/div[1]/div[1]/div/table/thead/tr/th[9]/a[2]"));
+				PkgStatusCol.click();
+				if(TestID.equals("1954")){
+					slf4jLogger.info(TestID + ": @" + System.currentTimeMillis() + "@" + "One of the created E-Access-OVC product status is invalid" );
+				}
+				else if(TestID.equals("1901")){
+					slf4jLogger.info(TestID + ": @" + System.currentTimeMillis() + "@" + "Scenario Status is invalid ,as the HSIP BA product cannot be standalone" );
+				}
+			}
+			else{
+				slf4jLogger.info(TestID + ": @" + System.currentTimeMillis() + "@" + "Waiting for Valid Status.....");
+				slf4jLogger.info(TestID + ": @" + System.currentTimeMillis() + "@" + "status before waiting" );
+				
+			    wait.until(ExpectedConditions.textToBePresentInElement(productSummaryPage.scenStatus, "Valid"));		
+			    slf4jLogger.info(TestID + ": @" + System.currentTimeMillis() + "@" + "Verified.. Package status.."+driver.findElement(By.id("scenario-status")).getText());
+			}	
+		} 
+		catch (Exception e) {
+			Assert.fail(TestID + ": @" + System.currentTimeMillis() + "@" + e.getMessage());
+		}
+	}
+	
+	@Step
+	public void addressAvailability(String TestID) throws InterruptedException{
+		try {	
+			slf4jLogger.info("Availability of Address..");	
+			WaitForPageToLoad(5000);
+			Thread.sleep(10000);
+			Boolean check = false;
+			
+			Thread.sleep(10000);
+			Thread.sleep(10000);
+			
+			Boolean Address1 = productSummaryPage.addressA.getText().contains("GLM");
+			Boolean Address2 = productSummaryPage.addressZ.getText().contains("GLM");
+			if(!(Address1 && Address2)) {
+				slf4jLogger.info("Address available on the SD Page..!!");	
+				check = true;
+			}
+			else {
+				slf4jLogger.info("Address contains GLM Id..!!");	
+			}
+			
+			if(TestID.equals("26929")) {
+				if(check) {
+					slf4jLogger.info("Address available on SD Page upon importing the Package with Bad GLM..!!");
+				}
+				else{
+					slf4jLogger.info("Test Fail..!!");
+				}
+			}
+			
+			
+		}
+		catch (Exception e) {
+			slf4jLogger.info("Address function catch block..");	
+			Assert.fail(e.getMessage());
+		}
+	}
+	
+	@Step
+	public void editCurrency(String Currency, String TestID) throws Exception {
+		WebDriver driver = getDriver();
+		try{
+			Thread.sleep(1000);
+			slf4jLogger.info("Edit currency method..!!");
+
+			if(Currency.equalsIgnoreCase("US Dollars - USD")) {
+				slf4jLogger.info("Currency is already US Dollars.. No Change..!!!");
+			}
+			else {
+				WaitForPageToLoad(5000);
+	            Thread.sleep(3000);
+	            productSummaryPage.editScenCurrency.click();
+				WaitForPageToLoad(5000);
+				Thread.sleep(3000);
+		        driver.findElement(By.xpath("//li[text()='"+Currency.trim()+"']")).click();
+		        WaitForPageToLoad(5000);
+			}
+			Thread.sleep(1000);
+			WaitForPageToLoad(5000);
+			productSummaryPage.saveButton.click();
+			WaitForPageToLoad(8000);
+			slf4jLogger.info("Edit scenario method ends..");
+			Thread.sleep(10000);
+			WaitForPageToLoad(5000);
+			
+			}
+			catch (Exception e) {
+				slf4jLogger.error("Error occured while editing currency");
+				Assert.fail("Error occured while editing currency");
+			}
+	}
+
+	@Step
+	public void verifyTermFunctionality(String TestID) throws Exception {
+		WebDriver driver = getDriver();
+		Wait<WebDriver> wait = new WebDriverWait(driver, 1000);
+		try{
+			slf4jLogger.info("Verifying Term functionality");
+			slf4jLogger.info("Term Column Value: " +productSummaryPage.termColumn.getText());
+			Thread.sleep(3000);	
+			int Term = 0;
+			String term_string = "";
+			
+			do {
+				productSummaryPage.firstPackageCheckbox.click();
+				wait.until(ExpectedConditions.elementToBeClickable(productSummaryPage.termBtn));
+				productSummaryPage.termBtn.click();
+			
+				Assert.assertTrue("Term Not Expanded..!!",productSummaryPage.termBtn.getAttribute("aria-expanded").equalsIgnoreCase("true"));
+				Term = Integer.parseInt(productSummaryPage.termColumn.getText())+12;
+				term_string =String.valueOf(Term); 
+				WebElement el = driver.findElement(By.xpath(".//*mat-option[@class='mat-option mat-focus-indicator ng-star-inserted']/span[text() = '" + term_string + "']"));
+				el.click();
+			
+				WaitForPageToLoad(12000);
+				Thread.sleep(5000);
+				wait.until(ExpectedConditions.textToBePresentInElement(productSummaryPage.termColumn, term_string));
+			
+				slf4jLogger.info("Term Column Value: " +productSummaryPage.termColumn.getText());
+			}
+			while(!(productSummaryPage.termColumn.getText().equalsIgnoreCase(term_string)));
+			Assert.assertTrue("Term not equal to the value set..!!",productSummaryPage.termColumn.getText().equalsIgnoreCase(term_string));
+			slf4jLogger.error("Successfully changed the Term for the package");
+		}
+			catch (Exception e) {
+				slf4jLogger.error("Error occured while verifying Term functionality");
+				Assert.fail("Error occured while verifying Term functionality");
+			}
+	}
+	
+	@Step
+	public void clickOnGearToVerifyCopyFunctionality(String TestID) throws InterruptedException{
+		
+		WebDriver driver = getDriver();
+		WaitForPageToLoad(10000);
+		try{
+			slf4jLogger.info("Verifying Copy to New/Same location functionality");
+			if(TestID.equals("2082")){
+				boolean res1=false, res2 =false;
+				int i = 2;
+				slf4jLogger.info("Verifying Copy functionality for BIA and CIA");
+				for(i=2;i<=3;i++) {
+					slf4jLogger.info("Verifying Copy functionality for CIA");
+					driver.findElement(By.xpath("/html/body/app-root/app-product-summary/div/app-quote-products/div[3]/div/table/tbody/tr["+i+"]/td[2]/app-quote-product-menu/div/button")).click();
+					slf4jLogger.info(TestID + ": @" + System.currentTimeMillis() + "@"
+							+ "clicked on menu button..");
+					
+					WebElement copyToSameLocPath = driver.findElement(By.xpath("/html/body/app-root/app-product-summary/div/app-quote-products/div[3]/div/table/tbody/tr["+i+"]/td[2]/app-quote-product-menu/div/div[3]/div/span[2]"));
+					WebElement copyToNewLocPath = driver.findElement(By.xpath("/html/body/app-root/app-product-summary/div/app-quote-products/div[3]/div/table/tbody/tr["+i+"]/td[2]/app-quote-product-menu/div/div[3]/div/span[3]"));
+					res1 = copyToSameLocPath.isDisplayed();
+					res2 = copyToNewLocPath.isDisplayed();
+					if(res1 && res2)
+						Assert.fail("Copy functionality is not disabled for CIA and BIA");
+				}
+				slf4jLogger.info("Copy to New/Same Location functionality is disabled for CIA and BIA Success!!!");
+			}
+			
+		}catch (Exception e) {
+			slf4jLogger.error("Error occured while verifying Copy to New/Same location functionality");
+			Assert.fail("Error occured while verifying Copy to New/Same location functionality");
+		}
+	}
+	
+	@Step
+	public void verifyCopiedScenarioPackageDetails(String testID, String ValidationTexts, String Address) throws Exception {
+		if(testID.equals("2051")) {
+			verifyROCApprovalStatusAfterROC(testID,ValidationTexts);
+		}
+		else if(testID.equals("1943")) {
+			if(!productSummaryPage.addressA.getText().toUpperCase().contains((Address.split(","))[0]))
+				Assert.fail("Error while verifying copied scenario Location ..");
+			verifyApprovalStatusInScenarioDetailsPage(testID,ValidationTexts);
+		}
+	}
+	
+	@Step
+	public void verifyCopiedScenarioGPID(String TestID) throws Exception {
+		try {
+			WebDriver driver = getDriver();
+			Wait<WebDriver> wait = new WebDriverWait(driver, 1000);
+			if(TestID.equals("38541")) {
+				slf4jLogger.info("GPID Verify Method..!!");
+				Thread.sleep(5000);
+				productSummaryPage.count++;
+				productSummaryPage.firstProduct.click();
+				WaitForPageToLoad(6000);
+				wait.until(ExpectedConditions.visibilityOf(productConfigPage.packageGPID));
+				
+				slf4jLogger.info("GPID ID of the Package: " +productConfigPage.packageGPID.getText());
+				slf4jLogger.info("Count: " + productSummaryPage.count);
+				if(productSummaryPage.count==1) {
+					productSummaryPage.first = productConfigPage.packageGPID.getText();
+				}
+				else if(productSummaryPage.count==2) {
+					productSummaryPage.second = productConfigPage.packageGPID.getText();
+					Thread.sleep(5000);
+					if(!(productSummaryPage.second.equalsIgnoreCase(productSummaryPage.first))) {
+						Thread.sleep(2000);
+						slf4jLogger.info("GPID Verification Success");
+					}
+					else
+						Assert.fail("GPID Verification Failure");
+				}
+				Thread.sleep(5000);
+				productConfigPage.cancelButton.click();
+				Thread.sleep(2000);
+				driver.switchTo().alert().accept();
+				WaitForPageToLoad(6000);
+				
+				slf4jLogger.info("GPID Verification method closure");
+			}
+		}
+		catch(Exception e) {
+			slf4jLogger.info(e.getMessage());
+			Assert.fail(e.getMessage());
+		}
+	}
+	
+	public  void selectCedexAddress(String Address) throws InterruptedException{
+		slf4jLogger.info("Cedex Method....!!!!!");
+		Boolean Cedex = false;
+		WebDriver driver = getDriver();
+		Wait<WebDriver> wait = new WebDriverWait(driver, 1000);
+		try {
+			WaitForPageToLoad(5000);
+			productSummaryPage.country.selectByVisibleText("France");
+			Thread.sleep(4000);
+			productSummaryPage.SiteAddressInput.sendKeys(Address);
+			Thread.sleep(4000);
+			
+			List<WebElement> suggest=driver.findElements(By.xpath("//*[@id='siteAddressInput_dropdown']/div[3]/div"));
+	        if(suggest.size()>=1) {
+	        	//slf4jLogger.info(suggest.get(0).getText());
+	        	if(suggest.get(0).getText().contains("Quoting to CEDEX address is not supported, an alternate address should be used")) {
+	        		slf4jLogger.info("CEDEX Address..!!!");
+	        		Cedex = true;
+	        	}
+	        	else {
+	        		slf4jLogger.info("Not a CEDEX Address..!!!");
+	        		Cedex = false;
+	        	}
+	        	suggest.get(0).click();
+	    		WebElement errorMessage = driver.findElement(By.xpath("//*[@id='LocationSearchGrid']/div[2]/table/tbody/tr/td"));
+	        	if(errorMessage.isDisplayed()) {
+	        		if(Cedex==true)
+	        			slf4jLogger.info("Not able to select a CEDEX Address..!!!");
+	        	}
+	        }
+	        Thread.sleep(4000);
+	        if(Cedex==true)
+	        	productSummaryPage.resetButton.click();
+	        else {
+	        	WaitForPageToLoad(5000);
+				Thread.sleep(2000);
+				Boolean isAnyOneAddressSelected = false;
+				WebElement lastCheckbox = null;
+				Thread.sleep(1000);
+				List<WebElement> checkboxerows = driver.findElements(By.cssSelector("table[role='grid']")).get(1).findElements(By.tagName("tr"));
+				Thread.sleep(6000);
+				for (WebElement checkboxerow : checkboxerows) {	
+					lastCheckbox = checkboxerow.findElement(By.tagName("input"));
+					
+					@SuppressWarnings({ "unused", "deprecation" })
+					FluentWait<WebDriver> fluentWait=new FluentWait<WebDriver>(driver)
+							.pollingEvery(50, TimeUnit.MILLISECONDS)
+							.withTimeout(5, TimeUnit.MINUTES)
+							.ignoring(NoSuchElementException.class)
+							.ignoring(StaleElementReferenceException.class)
+							.ignoring(ElementNotVisibleException.class);
+					ExpectedConditions.elementToBeClickable(lastCheckbox);
+					Boolean checkboxselect = checkboxerow.findElement(By.tagName("input")).isSelected();
+					if (checkboxselect) {
+						isAnyOneAddressSelected = true;
+						break;
+					}
+				}
+				Thread.sleep(4000);
+				if (!isAnyOneAddressSelected) {
+					Thread.sleep(4000);
+					
+				    wait.until(ExpectedConditions.elementToBeClickable(lastCheckbox));
+					@SuppressWarnings({ "deprecation", "unused" })
+					FluentWait<WebDriver> fluentWait=new FluentWait<WebDriver>(driver)
+							.pollingEvery(50, TimeUnit.MILLISECONDS)
+							.withTimeout(5, TimeUnit.MINUTES)
+							.ignoring(NoSuchElementException.class)
+							.ignoring(StaleElementReferenceException.class)
+							.ignoring(ElementNotVisibleException.class);
+					String siteAddress=productSummaryPage.locationGrid.findElement(By.xpath("//*[1]/td[3]/a")).getText().substring(0, 7);
+					String siteAddr = driver.findElement(By.xpath("//*[@id='siteAddressInput']")).getAttribute("url").replaceAll("%20"," ");
+		
+					if(siteAddr.contains(siteAddress)){
+						driver.findElement(By.xpath("/html/body/div[4]/div[2]/div[3]/div[2]/div[2]/table/tbody/tr[1]/td[1]/input")).click();
+					}
+					else{
+						ExpectedConditions.elementToBeClickable(lastCheckbox);
+						if(lastCheckbox !=null) {
+							lastCheckbox.click();
+						}
+					}
+					isAnyOneAddressSelected=true;
+					Thread.sleep(3000);
+					}
+				if(isAnyOneAddressSelected==true)
+					slf4jLogger.info("Able to select a non-CEDEX Address..!!!");
+				Thread.sleep(4000);
+				}	
+			  WaitForPageToLoad(5000);
+	        }
+		catch (Exception e) {
+			slf4jLogger.info("Cedex Address selection failed..");
+			Assert.fail(e.getMessage());
+		}
+	}
+
+	public void clickOnGearToSelectProd(String TestID) throws Exception{
+		
+		WebDriver driver = getDriver();
+		slf4jLogger.info(TestID + " : Entering into method to click on gear..");
+		
+		try{
+		Thread.sleep(5000);
+		if (productSummaryPage.products.size() == 1) {
+			productSummaryPage.menuBtn.click();
+		}
+		
+		WaitForPageToLoad(5000);
+		if(TestID.equals("18751")){
+		Thread.sleep(2000);
+		productSummaryPage.editConfigBtn.click();
+		Thread.sleep(1000);
+		for(int i=2;i<6;i++){
+			if(driver.findElement(By.xpath("/html/body/div[23]/div[2]/div[2]/ul/li["+i+"]/button")).getText().contains("Cisco")){
+					driver.findElement(By.xpath("/html/body/div[23]/div[2]/div[2]/ul/li["+i+"]/button")).click();
+					break;
+				}
+			}
+			Thread.sleep(2000);
+			slf4jLogger.info(TestID + " : Clicking on the child product - Device..");
+		}
+		else if (TestID.equals("10941")){
+			Thread.sleep(2000);
+			productSummaryPage.editConfigBtn.click();
+			Thread.sleep(1000);
+			driver.findElement(By.xpath("/html/body/div[23]/div[2]/div[2]/ul/li[2]/button")).click();
+			Thread.sleep(2000);
+			slf4jLogger.info(TestID + " : Clicking on the child product - Access..");
+		}
+		}
+		catch (Exception e) {
+			slf4jLogger.info(TestID + " : Error while Clicking on the req child product...");
+			Assert.fail(" Error while Clicking on the req child product...");
+		}
+	}
+
+	public void gobacktoOpportunity() throws Exception {
+		
+		WebDriver driver = getDriver();
+		Wait<WebDriver> wait = new WebDriverWait(driver, 1000);
+		try {
+			Thread.sleep(6000);
+			driver.switchTo().defaultContent();
+			wait.until(ExpectedConditions.elementToBeClickable(productSummaryPage.backToOppertunity));
+			productSummaryPage.backToOppertunity.click();
+			
+			slf4jLogger.info("Clicking on Go Back to Opportunity link Success");
+		}
+		catch (Exception e) {
+			slf4jLogger.error("Error occured while clicking on Go Back to Opportunity link");
+			Assert.fail(e.getMessage());
+		}
+	}
+	
+	@Step
+	public void verifyTotalCount(String Count, String TestID) throws Exception{
+		try{
+		Thread.sleep(10000);
+		slf4jLogger.info("Verifying product count");
+		int size =productSummaryPage.products.size();
+		int count = Integer.parseInt(Count);
+		if(TestID.equals("23121")){
+			if(size != count){
+				if(size != (count+1)){
+				Assert.fail(TestID + "Error while verifying packages count");
+				}
+			}
+		}
+		else if(TestID.equals("23121AC3") || TestID.equals("31950") || TestID.equals("31951")){
+			if(size != count){
+				if(size != (count+2)){
+					if(!productSummaryPage.packageCountTxt.getText().contains("14")){
+						Assert.fail(TestID + " : Error while verifying packages count");
+					}
+				}
+			}
+		}
+		else{
+			if(size != count){
+				Assert.fail("Error while verifying packages count");
+			}
+		}
+		}
+		catch (Exception e) {
+			Assert.fail(e.getMessage());
+		}
+	}
+		
+	public List<Integer> returnPackageIDsList() {
+		List<Integer> packageIDs = new ArrayList<Integer>();
+		WebDriver driver = getDriver();
+		for(int i=0;i<=productSummaryPage.products.size();i++) {
+			int j = i+1;
+			String pkgID = driver.findElement(By.xpath("/html/body/app-root/app-product-summary/div/app-quote-products/div[3]/div/table/tbody/tr["+j+"]]/td[12]")).getText();
+			packageIDs.add(Integer.parseInt(pkgID));
+			
+		}
+		return packageIDs;
+		
+	}
+
+	@Step
+	public void verifyEnabledRepriceBtn(String testid) {
+		WebDriver driver = getDriver();
+		Wait<WebDriver> wait = new WebDriverWait(driver, 1000);
+		try{
+			slf4jLogger.info("Verifying Enabled Reprice Button");
+			Thread.sleep(3000);	
+			productSummaryPage.firstPackageCheckbox.click();
+			wait.until(ExpectedConditions.elementToBeClickable(productSummaryPage.repriceBtn));
+			boolean btnEnabled= productSummaryPage.repriceBtn.isCurrentlyEnabled() && productSummaryPage.repriceBtn.isPresent();
+			if(!btnEnabled) {
+				slf4jLogger.info("Test failed : Reprice Button didn't get Enabled");
+			    Assert.fail();
+			}				
+		}
+		catch (Exception e) {
+			slf4jLogger.error(testid+" Error occured Enabled Reprice Button");
+			Assert.fail(testid+" Error occured Enabled Reprice Button"+e.getMessage());
+		}
+		
+	}
+	
+	@Step
+	public void verifyRepriceFunctionality(String TestID) {
+		WebDriver driver = getDriver();
+		Wait<WebDriver> wait = new WebDriverWait(driver, 1000);
+		try{
+			slf4jLogger.info("Verifying Reprice Functionality");
+			slf4jLogger.info("Status Column Value: " +productSummaryPage.statusColumn.getText());
+			Thread.sleep(3000);	
+			productSummaryPage.firstPackageCheckbox.click();
+			wait.until(ExpectedConditions.elementToBeClickable(productSummaryPage.repriceBtn));
+			productSummaryPage.repriceBtn.click();
+			
+			Assert.assertTrue("Package Status not changed to Pending..!!",productSummaryPage.statusColumn.getText().equalsIgnoreCase("Pending"));
+			
+			wait.until(ExpectedConditions.textToBePresentInElement(productSummaryPage.statusColumn, "Valid"));
+			WaitForPageToLoad(12000);
+			Thread.sleep(5000);
+		
+			slf4jLogger.info("Package Status Column Value: " +productSummaryPage.statusColumn.getText());		
+			Assert.assertTrue("Pricing Approval didn't get cleared..!!",productSummaryPage.statusColumn.getText().contains(" Profit Approval Pending "));
+			slf4jLogger.error("Successfully Repriced the package");
+		}
+			catch (Exception e) {
+				slf4jLogger.error(TestID+" Error occured while verifying Reprice functionality");
+				Assert.fail(TestID+" Error occured while verifying Reprice functionality");
+			}
+		
+	}
+	
+	
+	@Step
+	public void verifyImportErrorMessage(String TestID) throws Exception {
+		slf4jLogger.info("Verify the Import Error Message..!!");
+		try {
+			WebDriver driver = getDriver();
+			Wait<WebDriver> wait = new WebDriverWait(driver, 1000);
+			WaitForPageToLoad(5000);
+			wait.until(ExpectedConditions.visibilityOf(productSummaryPage.importErrorDialogBox));
+			Thread.sleep(4000);
+			int errorSize = driver.findElements(By.xpath("/html/body/div[2]/div[2]/div/mat-dialog-container/app-import-products/mat-dialog-content/div/child::div")).size();
+			slf4jLogger.info("Number of Import Errors: " +errorSize);
+			for(int i=1;i<=errorSize;i++) {
+				String errorMessageHeading = driver.findElement(By.xpath("//html/body/div[2]/div[2]/div/mat-dialog-container/app-import-products/mat-dialog-content/div/div["+i+"]/p")).getText();
+				String errorMessage = productSummaryPage.importErrorMessageBlock.findElement(By.xpath("//div["+i+"]/ul/li")).getText();
+				slf4jLogger.info("Error " +i + " : " +errorMessageHeading + " -> " +errorMessage);
+				if(TestID.equals("40861")) {
+					if(errorMessageHeading.equalsIgnoreCase("Invalid Status")||errorMessageHeading.equalsIgnoreCase("Invalid Account")) {
+						productSummaryPage.count++;
+					}
+					if(productSummaryPage.count==2) 
+						slf4jLogger.info("TC 40861 Pass!!");
+				}
+				else if(TestID.equals("40862")) {
+					if(errorMessageHeading.equalsIgnoreCase("Invalid Currency")||errorMessageHeading.equalsIgnoreCase("Invalid Location")) {
+						productSummaryPage.count++;
+					}
+					if(productSummaryPage.count==2) 
+						slf4jLogger.info("TC 40862 Pass!!");
+				}
+				else if(TestID.equals("40864")) {
+					if(errorMessageHeading.equalsIgnoreCase("Invalid Package ID")) {
+						productSummaryPage.count++;
+					}
+					if(productSummaryPage.count==1) 
+						slf4jLogger.info("TC 40864 Pass!!");
+				}
+			}
+			if(TestID.equals("40865")) {
+				if(errorSize>1) {
+					slf4jLogger.info("TC 40865 Pass!!");
+				}	
+			}
+			slf4jLogger.info("Import Error Message verified...");
+		}
+		catch (Exception e) {
+			Assert.fail("Error while verifying the Import Error Message... "+e.getMessage());
+		}
+	}
+
+	public void openProductPackage()  throws Exception{
+		try {
+			WebDriver driver = getDriver();
+			slf4jLogger.info("Opening Product Package");
+			
+			Wait<WebDriver> wait = new WebDriverWait(driver, 15000);
+			wait.until(ExpectedConditions.elementToBeClickable(productSummaryPage.productNameColumn));
+			productSummaryPage.productNameColumn.click();
+			Thread.sleep(1000);
+			WaitForPageToLoad(10000);
+		}
+		catch (Exception e) {
+			slf4jLogger.info("Open Product Package failed..");
+			Assert.fail(e.getMessage());
+		}
+		slf4jLogger.info("Verifying product count - success");
+
+	}
+
+	@Step
+	public void clickOnGearToAddNewAddressCopy(String TestID) {
+		WebDriver driver = getDriver();
+		slf4jLogger.info(TestID + "Entering into method to click on gear..");
+		WebDriverWait wait = new WebDriverWait(driver,30);
+		try{
+			Thread.sleep(5000);
+			clickOnGearToSelectProd(TestID);
+			WaitForPageToLoad(5000);
+			wait.until(ExpectedConditions.elementToBeClickable(productSummaryPage.copyToNewLocation));
+			Thread.sleep(4000);
+			productSummaryPage.copyToNewLocation.click();
+			Thread.sleep(1000);
+			slf4jLogger.info(TestID + "clicked on Copy to new location button..");
+		}
+		catch (Exception e) {
+			slf4jLogger.info(TestID + " Error while Clicking on New address copy...");
+			Assert.fail(e.getMessage());
+		}
+	}
+	
+	@Step
+	public void clickOnGearToAddSameAddressCopy(String TestID , String Copies) {
+		WebDriver driver = getDriver();
+		slf4jLogger.info(TestID + "Entering into method to click on gear..");
+		int i=0;
+		try{
+		Thread.sleep(10000);
+		if (productSummaryPage.products.size() == 1) {
+			ExpectedConditions.elementToBeClickable(productSummaryPage.menuBtn);
+			productSummaryPage.menuBtn.click();
+			 i =1;
+		}
+		else{
+			if(TestID.equals("2084")){
+				Thread.sleep(5000);
+				//selecting the menBtn of the wavelength product in the TC 2084
+				driver.findElement(By.xpath("/html/body/app-root/app-product-summary/div/app-quote-products/div[4]/div/table/tbody/tr[7]/td[2]/app-quote-product-menu/div/button")).click();
+				 i =7;
+			}
+			else if(TestID.equals("2044")){
+				ExpectedConditions.elementToBeClickable(productSummaryPage.menuBtn);
+				productSummaryPage.menuBtn.click();
+				 i =1;
+			}
+			else if(TestID.contains("2080")){
+				if(TestID.contains("colo")){
+					Thread.sleep(5000);
+					//selecting the menBtn of the colo product in the TC 2080
+					driver.findElement(By.xpath("/html/body/app-root/app-product-summary/div/app-quote-products/div[4]/div/table/tbody/tr[3]/td[2]/app-quote-product-menu/div/button")).click();
+					 i =3;
+				}
+				else if(TestID.contains("dia")){
+					Thread.sleep(5000);
+					//selecting the menBtn of the dia product in the TC 2080
+					driver.findElement(By.xpath("/html/body/app-root/app-product-summary/div/app-quote-products/div[4]/div/table/tbody/tr[6]/td[2]/app-quote-product-menu/div/button")).click();
+					 i =6;
+				}
+				
+			}
+			else if(TestID.equals("43983")) {
+				//selecting the menBtn of the UNI product in the TC 43983
+				driver.findElement(By.xpath("/html/body/app-root/app-product-summary/div/app-quote-products/div[4]/div/table/tbody/tr[2]/td[2]/app-quote-product-menu/div/button")).click();
+				i=2;
+			}
+		}
+		
+		WaitForPageToLoad(5000);
+		driver.findElement(By.xpath("/html/body/app-root/app-product-summary/div/app-quote-products/div[4]/div/table/tbody/tr["+i+"]/td[2]/app-quote-product-menu/div/div[3]/div/span[2]/span[1]")).click();
+		Thread.sleep(2000);
+		productSummaryPage.noOfCopies.clear();
+		productSummaryPage.noOfCopies.sendKeys(Copies);
+		Thread.sleep(1000);
+		productSummaryPage.noOfCopiesOKBtn.click();
+		Thread.sleep(5000);
+		
+		}
+		catch (Exception e) {
+			slf4jLogger.info(TestID + " Error while Clicking on Same address copy...");
+			Assert.fail(e.getMessage());
+		}
+	}
+	
+	@Step
+	public void clickOnManageLocations(String TestID) throws Exception {
+		try {
+			WebDriver driver = getDriver();
+			Thread.sleep(6000);
+			
+			try {
+				String ScenarioID = productSummaryPage.scenId.getText();;
+				slf4jLogger.info(TestID + " Successfully created.");
+			}
+			catch (Exception e) {
+				slf4jLogger.error(TestID + "Error occured while reading Scenario ID");
+			}
+			
+			try {
+				productSummaryPage.manageLocationBtn.click();
+			}
+			catch (Exception e) {
+				Thread.sleep(2000);
+				productSummaryPage.manageLocationBtn.click();
+			}
+			slf4jLogger.info(TestID + "Clicking on Manage Location button Success..... ");
+			driver.switchTo().defaultContent();
+			Thread.sleep(2000);
+		}
+		catch (Exception e) {
+			slf4jLogger.error(TestID + "Error occured while clicking on Manage Locations");
+			Assert.fail(TestID + "Error occured while clicking on Manage Locations");
+		}
+		
+	}
+
+	@Step
+	public void deleteProductsInSDPage(String TestID)throws Exception {
+		WebDriver driver = getDriver();
+			try{
+			Thread.sleep(1000);
+			slf4jLogger.info(TestID + ": @" + System.currentTimeMillis() + " Entering method to delete a product");
+			if(TestID.equals("2028")){
+				productSummaryPage.productNameColumnHeading.click();
+				productSummaryPage.firstPackageCheckbox.click();
+				Thread.sleep(7000);
+				
+				ExpectedConditions.elementToBeClickable(productSummaryPage.deleteBtn);
+				productSummaryPage.deleteBtn.click();
+				Thread.sleep(3000);
+				
+				Thread.sleep(10000);
+				if(productSummaryPage.products.size() > 1){
+					ExpectedConditions.elementToBeClickable(productSummaryPage.refreshBtn);
+					productSummaryPage.refreshBtn.click();
+					Thread.sleep(3000);
+					ExpectedConditions.elementToBeClickable(productSummaryPage.refreshBtn);
+					if(productSummaryPage.products.size() > 1){
+						slf4jLogger.error(TestID + "Error occured while deleting product");
+						Assert.fail(TestID + "Error occured while deleting product");
+					}
+				}
+				slf4jLogger.info(TestID + " Product Deletion successful");
+			}
+			else if(TestID.equals("2012")){
+				//deleting the fourth product in the scenario - UNI in this case
+					driver.findElement(By.xpath("/html/body/app-root/app-product-summary/div/app-quote-products/div[3]/div/table/tbody/tr[4]/td[1]/mat-checkbox/label/div/input")).click();
+					Thread.sleep(1000);
+					ExpectedConditions.elementToBeClickable(productSummaryPage.deleteBtn);
+					productSummaryPage.deleteBtn.click();
+					Thread.sleep(3000);
+					Thread.sleep(10000);	
+			}
+			else if(TestID.equals("2031")){
+				productSummaryPage.productNameColumnHeading.click();
+				//deleting the hsip product in the scenario
+				driver.findElement(By.xpath("/html/body/app-root/app-product-summary/div/app-quote-products/div[3]/div/table/tbody/tr[4]/td[1]/mat-checkbox/label/div/input")).click();
+				Thread.sleep(1000);
+				ExpectedConditions.elementToBeClickable(productSummaryPage.deleteBtn);
+				productSummaryPage.deleteBtn.click();
+				Thread.sleep(3000);
+				Thread.sleep(10000);
+				Thread.sleep(3000);
+				ExpectedConditions.elementToBeClickable(productSummaryPage.refreshBtn);
+				productSummaryPage.refreshBtn.click();
+				Thread.sleep(3000);
+				
+				//checking the status of the hsip cross connect product
+				WebElement package4status = driver.findElement(By.xpath("/html/body/app-root/app-product-summary/div/app-quote-products/div[3]/div/table/tbody/tr[3]/td[7]/div"));
+				if(!package4status.getText().contains("Invalid"))
+					Assert.fail(TestID + "Error occured while deleting product and verify invalid hsip product");
+				
+				//deleting the evc product
+				driver.findElement(By.xpath("/html/body/app-root/app-product-summary/div/app-quote-products/div[3]/div/table/tbody/tr[1]/td[1]/mat-checkbox/label/div/input")).click();
+				Thread.sleep(1000);
+				ExpectedConditions.elementToBeClickable(productSummaryPage.deleteBtn);
+				productSummaryPage.deleteBtn.click();
+				Thread.sleep(3000);
+				Thread.sleep(10000);
+				ExpectedConditions.elementToBeClickable(productSummaryPage.refreshBtn);
+				productSummaryPage.refreshBtn.click();
+				Thread.sleep(3000);
+				
+				String uni_status=driver.findElement(By.xpath("/html/body/app-root/app-product-summary/div/app-quote-products/div[3]/div/table/tbody/tr[3]/td[7]/div")).getText();
+				if(!uni_status.contains("Valid"))
+					Assert.fail(TestID + "Error occured while deleting product and verify valid uni product");
+				}
+			}
+			catch (Exception e) {
+				slf4jLogger.error(TestID + "Error occured while deleting product");
+				Assert.fail(TestID + "Error occured while deleting product");
+			}
+		
+		}
+
+	@Step
+	public void openGLMfrmAddressLinks() {
+		WebDriver driver = getDriver();
+		slf4jLogger.info("Verify Open GLM from Package Address Links..");
+		ExpectedConditions.elementToBeClickable(productSummaryPage.addressA);
+		productSummaryPage.addressA.click();
+		slf4jLogger.info("Address Link clicked");
+		ArrayList<String> tabs = new ArrayList<String> (driver.getWindowHandles());
+	    driver.switchTo().window(tabs.get(1));
+	    String glmURL = driver.getCurrentUrl();
+		if(!glmURL.contains("glm")){
+			slf4jLogger.info("Error Open GLM from Package Address Links");
+			Assert.fail();
+		} 
+	}
+
+	@Step
+	public void clickOnPencilIcon(String string) {
+		slf4jLogger.info("Click on Pencil Icon to add service location..");
+		ExpectedConditions.elementToBeClickable(productSummaryPage.pencilIcon);
+		productSummaryPage.pencilIcon.click();
+		if(!productSummaryPage.addSLdialogbox.isVisible() && !productSummaryPage.addSLdialogboxHeader.getText().contains("Select or Add Service Location")) {
+			Assert.fail("Pencil Icon not clicked");
+		}
+		slf4jLogger.info("Clicked on Pencil Icon");
+		
+	}
+	
+	@Step
+	public void addExistingServiceLocation() throws InterruptedException {
+		slf4jLogger.info("Select floor and room value to add existing service location..");
+		ExpectedConditions.elementToBeClickable(productSummaryPage.addSLdrpdwn);
+		productSummaryPage.addSLdrpdwn.click();
+		Thread.sleep(5000);
+		ExpectedConditions.elementToBeClickable(productSummaryPage.addexistingSLoption);
+		String floor_room_value = productSummaryPage.addexistingSLoption.getText().trim();
+		productSummaryPage.addexistingSLoption.click();
+		WaitForPageToLoad(10000);
+		if(!productSummaryPage.addressA.getText().contains(floor_room_value))
+			Assert.fail("Add existing Service Location failed...");
+		
+	}
+	
+	@Step
+	public void addNewServiceLocation(String serviceLocation) throws Exception {
+		WebDriverWait wait = new WebDriverWait(getDriver(), 1000);
+		Map<String, String> configKeyValuePair = new HashMap<String, String>();
+		configKeyValuePair = createConfigKeyValuePair(serviceLocation);
+		slf4jLogger.info("Select floor and room value to add new service location..");
+		ExpectedConditions.elementToBeClickable(productSummaryPage.addSLdrpdwn);
+		productSummaryPage.addSLdrpdwn.click();
+		Thread.sleep(5000);
+		ExpectedConditions.elementToBeClickable(productSummaryPage.addnewSLoption);
+		productSummaryPage.addnewSLoption.click();
+		WaitForPageToLoad(3000);
+		
+		if(configKeyValuePair.get("floor")!=null) {
+			slf4jLogger.info("Enter floor value");
+			wait.until(ExpectedConditions.elementToBeClickable(productSummaryPage.floorOption));
+			productSummaryPage.floorOption.click();
+			WaitForPageToLoad(5000);
+			List<WebElement> options = productSummaryPage.floorOption.findElements(By.xpath("//*[text()=' Floor (FL) ']"));
+			Thread.sleep(2000);
+			options.get(options.size() - 1).click();
+			WaitForPageToLoad(5000);
+			wait.until(ExpectedConditions.elementToBeClickable(productSummaryPage.floorValue));
+			productSummaryPage.floorValue.sendKeys(configKeyValuePair.get("floor"));
+			Thread.sleep(6000);
+			slf4jLogger.info("Entered floor value");
+		}
+		if(configKeyValuePair.get("basement")!=null) {
+			slf4jLogger.info("Enter basement value");
+			wait.until(ExpectedConditions.elementToBeClickable(productSummaryPage.floorOption));
+			productSummaryPage.floorOption.click();
+			WaitForPageToLoad(5000);
+			List<WebElement> options = productSummaryPage.floorOption.findElements(By.xpath("//*[text()=' Basement (BSMT) ']"));
+			Thread.sleep(2000);
+			options.get(options.size() - 1).click();
+			WaitForPageToLoad(5000);
+			wait.until(ExpectedConditions.elementToBeClickable(productSummaryPage.floorValue));
+			productSummaryPage.floorValue.sendKeys(configKeyValuePair.get("basement"));
+			Thread.sleep(6000);
+			slf4jLogger.info("Entered basement Value");
+		}
+		
+        if(configKeyValuePair.get("room")!=null) {
+        	slf4jLogger.info("Enter room value");
+			wait.until(ExpectedConditions.elementToBeClickable(productSummaryPage.roomOption));
+			productSummaryPage.roomOption.click();
+			WaitForPageToLoad(5000);
+			List<WebElement> options = productSummaryPage.roomOption.findElements(By.xpath("//*[text()=' Room (RM) ']"));
+			Thread.sleep(2000);
+			options.get(options.size() - 1).click();
+			WaitForPageToLoad(5000);
+			wait.until(ExpectedConditions.elementToBeClickable(productSummaryPage.roomValue));
+			productSummaryPage.roomValue.sendKeys(configKeyValuePair.get("room"));
+			Thread.sleep(6000);
+			slf4jLogger.info("Entered room Value");
+			
+		}
+        if(configKeyValuePair.get("suite")!=null) {
+        	slf4jLogger.info("Enter suite value");
+			wait.until(ExpectedConditions.elementToBeClickable(productSummaryPage.roomOption));
+			productSummaryPage.roomOption.click();
+			WaitForPageToLoad(5000);
+			List<WebElement> options = productSummaryPage.roomOption.findElements(By.xpath("//*[text()=' Suite (STE) ']"));
+			Thread.sleep(2000);
+			options.get(options.size() - 1).click();
+			WaitForPageToLoad(5000);
+			wait.until(ExpectedConditions.elementToBeClickable(productSummaryPage.roomValue));
+			productSummaryPage.roomValue.sendKeys(configKeyValuePair.get("suite"));
+			Thread.sleep(6000);
+			slf4jLogger.info("Entered suite Value");
+			
+		}
+        if(configKeyValuePair.containsKey("Apartment") || configKeyValuePair.containsKey("Department") || configKeyValuePair.containsKey("Key")
+        		|| configKeyValuePair.containsKey("Lobby") || configKeyValuePair.containsKey("Office") ||configKeyValuePair.containsKey("Room")
+        		|| configKeyValuePair.containsKey("Space") || configKeyValuePair.containsKey("Stop") || configKeyValuePair.containsKey("Suite")
+        		|| configKeyValuePair.containsKey("Unit")) {
+        	slf4jLogger.info("Enter Additional Building value");
+			wait.until(ExpectedConditions.elementToBeClickable(productSummaryPage.additionalLocationInfoOption));
+			productSummaryPage.additionalLocationInfoOption.click();
+			WaitForPageToLoad(5000);
+			String additionalBuildingValue = configKeyValuePair.keySet().toArray()[2].toString().trim();
+			List<WebElement> options = productSummaryPage.additionalLocationInfoOption.findElements(By.xpath("//*[text()=' "+additionalBuildingValue+" ']"));
+			Thread.sleep(2000);
+			options.get(options.size() - 1).click();
+			WaitForPageToLoad(5000);
+			wait.until(ExpectedConditions.elementToBeClickable(productSummaryPage.locationInfoValue));
+			productSummaryPage.locationInfoValue.sendKeys(configKeyValuePair.get(additionalBuildingValue));
+			Thread.sleep(6000);
+			slf4jLogger.info("Entered Additional Building Value");
+			
+		}
+        
+        
+        wait.until(ExpectedConditions.elementToBeClickable(productSummaryPage.saveLocation));
+        productSummaryPage.saveLocation.click();
+		WaitForPageToLoad(10000);
+		Thread.sleep(10000);
+		if(!productSummaryPage.addressA.getText().contains(configKeyValuePair.get("floor"))
+			|| !productSummaryPage.addressA.getText().contains(configKeyValuePair.get("basement"))
+			|| !productSummaryPage.addressA.getText().contains(configKeyValuePair.get("room"))
+			|| !productSummaryPage.addressA.getText().contains(configKeyValuePair.get("suite")))
+			Assert.fail("Add New Service Location failed...");
+		
+	}
+	
+	@Step
+	public void verifyAddNewServiceLocationAtrributes() throws InterruptedException {
+		slf4jLogger.info("Verify Attributes of Add New Service Location ..");
+		ExpectedConditions.elementToBeClickable(productSummaryPage.addSLdrpdwn);
+		productSummaryPage.addSLdrpdwn.click();
+		Thread.sleep(5000);
+		ExpectedConditions.elementToBeClickable(productSummaryPage.addnewSLoption);
+		assertTrue("Add new option is not present", productSummaryPage.addnewSLoption.isPresent());
+		productSummaryPage.addnewSLoption.click();
+		WaitForPageToLoad(3000);
+		assertTrue("Floor Option is not available", productSummaryPage.floorOption.containsSelectOption(" Floor (FL) "));
+		assertTrue("Basement Option is not available", productSummaryPage.floorOption.containsSelectOption(" Basement (BSMT) "));
+		assertTrue("Room Option is not available", productSummaryPage.roomOption.containsSelectOption(" Room (RM) "));
+		assertTrue("Suite Option is not available",productSummaryPage.roomOption.containsSelectOption(" Suite (STE) "));
+			
+	}
+
+	public void verifyExistingServiceLocationAtrributes() throws InterruptedException {
+		slf4jLogger.info("Verify Attributes of Add Existing Service Location ..");
+		ExpectedConditions.elementToBeClickable(productSummaryPage.addSLdrpdwn);
+		productSummaryPage.addSLdrpdwn.click();
+		Thread.sleep(5000);
+		ExpectedConditions.elementToBeClickable(productSummaryPage.addnewSLoption);
+		assertTrue("Add existing Service Location attribute not enabled", productSummaryPage.addexistingSLoption.isVisible());
+	}
+
+
+	public void verifyPackageIDsAfterSameAddressCopy(String TestID, String noOfCopies)throws Exception{
+		try {
+			WebDriver driver = getDriver();
+			Wait<WebDriver> wait = new WebDriverWait(driver, 1000);
+			slf4jLogger.info("Verify PackageIds after Same Address Copy in PS Page..");
+
+			ExpectedConditions.visibilityOf(productSummaryPage.packageTable);
+			WaitForPageToLoad(4000);
+			Thread.sleep(6000);
+				
+			JavascriptExecutor js = (JavascriptExecutor) driver;
+			js.executeScript("arguments[0].scrollIntoView();", productSummaryPage.packageIDColumn);
+						
+			Thread.sleep(6000);
+			String firstPackageID = productSummaryPage.packageIDColumn.getText().toString().trim();
+			Thread.sleep(6000);
+			js.executeScript("arguments[0].scrollIntoView();", productSummaryPage.menuBtn);
+			Thread.sleep(6000);
+			clickOnGearToAddSameAddressCopy(TestID,noOfCopies);
+			WaitForPageToLoad(4000);
+			Thread.sleep(6000);
+			
+			String newPackageID = null;
+			for(int i=2;i<=productSummaryPage.products.size();i++) {
+				newPackageID = driver.findElement(By.xpath("/html/body/app-root/app-product-summary/div/app-quote-products/div[3]/div/table/tbody/tr["+i+"]/td[12]")).getText().toString().trim();
+				if(newPackageID.equals(firstPackageID)) {
+					slf4jLogger.info(TestID + " Same Package ID found after Same Address Copy");
+					Assert.fail("Test Fail");
+				}
+			}
+			if(TestID.equals("37675")) {
+				slf4jLogger.info("Test Pass");
+			}
+		}
+		catch(Exception e) {
+			slf4jLogger.info(TestID + " Error while verifying the package IDs on Same address copy...");
+			Assert.fail(e.getMessage());
+		}
+	}
+
+
+	
+	public void verifyPencilIcon(String TestID)throws Exception{
+		try {
+			WebDriver driver = getDriver();
+			Wait<WebDriver> wait = new WebDriverWait(driver, 1000);
+			slf4jLogger.info("Verify Room/Floor Column to Display a 2nd Pencil Icon For 2 Addresses in PS Page..");
+
+			ExpectedConditions.visibilityOf(productSummaryPage.packageTable);
+			WaitForPageToLoad(4000);
+			Thread.sleep(6000);
+				
+			int noOfAddress = productSummaryPage.addressColumnTextWhole.size();
+			int noOfPencilIcons = productSummaryPage.roomColPencilIcons.size();
+			slf4jLogger.info("noOfAddress" +noOfAddress);
+			slf4jLogger.info("noOfPencilIcons" +noOfPencilIcons);
+			if(TestID.equals("37339")){
+				if(noOfAddress==noOfPencilIcons)
+					slf4jLogger.info("Test Pass!!");
+				else
+					slf4jLogger.info("Test Fail!!");
+			}
+			
+		}
+		catch(Exception e) {
+			slf4jLogger.info(TestID + " Error while verifying the Room/Floor Column to Display a 2nd Pencil Icon For 2 Addresses...");
+			Assert.fail(e.getMessage());
+		}
+	}
+
+
+	public void dqSMexperience(String TestID)throws Exception{
+		try {
+			WebDriver driver = getDriver();
+			Wait<WebDriver> wait = new WebDriverWait(driver, 1000);
+			slf4jLogger.info("Verify the user experience..");
+			
+			if(TestID.equals("37514")) {
+				WebElement heading = driver.findElement(By.xpath("//*[@id='packagepnl']/app-panel[2]/div/div[1]/div[1]/h5"));
+				slf4jLogger.info(heading.getText());
+				Thread.sleep(10000);
+				if(heading.findElement(By.xpath("i")).getAttribute("class").contains("down")){
+					slf4jLogger.info("Test Pass");
+				}
+				else {
+					slf4jLogger.info("Test Fail");
+				}
+			}
+			else if(TestID.equals("37515")) {
+				WebElement heading = driver.findElement(By.xpath("//*[@id='package-configuration']/div[2]/div[1]/h3"));
+				slf4jLogger.info(heading.getText());
+				Thread.sleep(10000);
+				if(heading.getText().contains("Package Details")){
+					slf4jLogger.info("Test Pass");
+				}
+				else {
+					slf4jLogger.info("Test Fail");
+				}
+			}
+			
+			WaitForPageToLoad(4000);
+			Thread.sleep(6000);
+			
+			
+		}
+		catch(Exception e) {
+			slf4jLogger.info(TestID + " Error while verifying the Room/Floor Column to Display a 2nd Pencil Icon For 2 Addresses...");
+			Assert.fail(e.getMessage());
+		}
+	}
+
+
+	public void summaryHeaderInfo(String TestID)throws Exception{
+		try {
+			WebDriver driver = getDriver();
+			Wait<WebDriver> wait = new WebDriverWait(driver, 1000);
+			slf4jLogger.info("Verify the Summary Header Info Details..");
+			Thread.sleep(6000);
+			int proSize = productSummaryPage.products.size();
+			if(TestID.equals("41121")) {
+				slf4jLogger.info("Verifying the Expiration Date and Last Modified Date in the Summary Header:");
+				SimpleDateFormat sdformat = new SimpleDateFormat("MM/dd/yyyy");
+				Date expDate, modDate, min=null, max=null;
+				JavascriptExecutor js = (JavascriptExecutor) driver;
+				js.executeScript("arguments[0].scrollIntoView();", productSummaryPage.modifiedDateColumn);
+				for(int i=1;i<=proSize;i++) {
+					expDate = sdformat.parse(driver.findElement(By.xpath("/html/body/app-root/app-product-summary/div/app-quote-products/div[3]/div/table/tbody/tr["+i+"]/td[11]")).getText());
+					modDate = sdformat.parse(driver.findElement(By.xpath("/html/body/app-root/app-product-summary/div/app-quote-products/div[3]/div/table/tbody/tr["+i+"]/td[17]")).getText());
+					if(i==1) {
+				    	min = expDate;
+				    	max = modDate;
+					}
+				    else {
+				    	if(min.compareTo(expDate) > 0) {
+				    		slf4jLogger.info("Date 1 occurs after Date 2");
+						    min = expDate;
+						}
+				    	if(max.compareTo(modDate) < 0) {
+				    		slf4jLogger.info("Date 1 occurs before Date 2");
+						    max = modDate;
+						}
+				    }
+				}
+				slf4jLogger.info("The minimum of the expiration Dates is: " + sdformat.format(min));
+				slf4jLogger.info("The maximum of the modified Dates is: " + sdformat.format(max));
+				
+				ExpectedConditions.elementToBeClickable(productSummaryPage.showBtn);
+				productSummaryPage.showBtn.click();
+				
+			    Date summaryExpDate = sdformat.parse(productSummaryPage.expirationDate.getText());
+			    
+			    if(min.compareTo(summaryExpDate) == 0 && productSummaryPage.lastModified.getText().contains(sdformat.format(max))) {
+		    		slf4jLogger.info("The Summary Expiration Date is the minimum Expiration Date across all packages..");
+		    		slf4jLogger.info("The Last Modified Date is the maximum last modified date of all packages..");
+		    		slf4jLogger.info("Test Pass..!!");
+				}
+			    else {
+			    	slf4jLogger.info("Test Fail..!!");
+			    	Assert.fail();
+			    }
+			}
+			else if(TestID.equals("41122")) {
+				slf4jLogger.info("Verifying whether the Scenario Status is populated correctly in the Summary Header:");
+				JavascriptExecutor js = (JavascriptExecutor) driver;
+				js.executeScript("arguments[0].scrollIntoView();", productSummaryPage.statusColumn);
+				ArrayList<String> arrData = new ArrayList<String>();
+				String pkgStatus="", scenStatus="";
+				Boolean pending= false, invalid=false,failed=false,valid=false;
+				for(int i=1;i<=proSize;i++) {
+					pkgStatus = driver.findElement(By.xpath("/html/body/app-root/app-product-summary/div/app-quote-products/div[3]/div/table/tbody/tr["+i+"]/td[7]")).getText();
+					arrData.add(pkgStatus);
+				}
+				ExpectedConditions.elementToBeClickable(productSummaryPage.showBtn);
+				productSummaryPage.showBtn.click();
+				scenStatus = productSummaryPage.scenStatus.getText();
+				Thread.sleep(5000);
+				
+				for (@SuppressWarnings("unused") String strTemp : arrData){
+					if(strTemp.contains("Pending")) {
+						pending=true;
+						invalid=failed=valid=false;
+					}
+					else if(strTemp.contains("Invalid")) {
+						invalid=true;
+						failed=valid=false;
+					}
+					else if(strTemp.contains("Failed")) {
+						failed=true;
+						valid=false;
+					}
+					else if(strTemp.contains("Valid")) {
+						valid=true;
+					}
+				}
+				if(pending==true) {
+				    Assert.assertTrue("The Scenario Status is not Pending..!!", scenStatus.contains("Pending"));
+				    slf4jLogger.info("Test Pass..!! The Scenario Status is Pending..!!");
+				}
+				else if(invalid==true){
+					Assert.assertTrue("The Scenario Status is not Invalid..!!", scenStatus.contains("Invalid"));
+				    slf4jLogger.info("Test Pass..!! The Scenario Status is Invalid..!!");
+				}
+				else if(failed==true){
+					Assert.assertTrue("The Scenario Status is not Failed..!!", scenStatus.contains("Failed"));
+				    slf4jLogger.info("Test Pass..!! The Scenario Status is Failed..!!");
+				}
+				else {
+					Assert.assertTrue("The Scenario Status is not Valid..!!", scenStatus.contains("Valid"));
+				    slf4jLogger.info("Test Pass..!! The Scenario Status is Valid..!!");
+				}
+			}
+			else if(TestID.equals("41120")) {
+				slf4jLogger.info("Verifying whether the Total MRC, NRC and Net MRC Values are populated correctly in the Summary Header:");
+				JavascriptExecutor js = (JavascriptExecutor) driver;
+				js.executeScript("arguments[0].scrollIntoView();", productSummaryPage.statusColumn);
+				double totalMRC=0,totalNRC=0,netMRC=0,mrc=0,nrc=0;
+				String mrcString="",nrcString="";
+				for(int i=1;i<=proSize;i++) {
+					mrcString = driver.findElement(By.xpath("/html/body/app-root/app-product-summary/div/app-quote-products/div[4]/div/table/tbody/tr["+i+"]/td[9]/div")).getText();
+					slf4jLogger.info(mrcString);
+					/*for(int j=0;j<mrcString.length();j++){
+						String newStr="";
+					    char ch=mrcString.charAt(j);
+					    if(Character.isDigit(ch) || ch=='.' || ch==',' )
+					    	newStr+=ch;    
+					    else
+					    	newStr+="";
+					    slf4jLogger.info("newStr: " +newStr);
+					    totalMRC = totalMRC+Double.parseDouble(newStr); 
+					}*/
+					NumberFormat format = NumberFormat.getCurrencyInstance();
+					Number number = format.parse(mrcString);
+					System.out.println(number.toString());
+					totalMRC = totalMRC+Double.parseDouble(number.toString()); 
+				}
+				
+				slf4jLogger.info("Total MRC: "+totalMRC);
+				
+				Thread.sleep(5000);
+			}
+			WaitForPageToLoad(4000);
+			Thread.sleep(6000);
+		}
+		catch(Exception e) {
+			slf4jLogger.info(TestID + " Error while verifying the Summary Header Info Details...");
+			Assert.fail(e.getMessage());
+		}
+	}
+
+	@Step
+	public void editScenarioCurrency(String newCurrency, String testid) {
+		WebDriver driver = getDriver();
+		Wait<WebDriver> wait = new WebDriverWait(driver, 1000);
+		slf4jLogger.info("Change the Scenario Currency method..");
+		try {
+			wait.until(ExpectedConditions.elementToBeClickable(productSummaryPage.showBtn));
+			productSummaryPage.showBtn.click();
+			WaitForPageToLoad(2000);
+			wait.until(ExpectedConditions.elementToBeClickable(productSummaryPage.editCurrencyPencilIcon));
+			productSummaryPage.editCurrencyPencilIcon.click();
+			WaitForPageToLoad(10000);
+			waitABit(10000);
+			wait.until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//div/span[text()='Edit Scenario']"))));
+			if(testid.equals("44108"))
+			{
+				if(!driver.findElement(By.xpath("//div/span[text()='Edit Scenario']")).isDisplayed())
+					Assert.fail("Test 44108 Failed...Edit Scenario Pop-up not displayed");
+			}
+			wait.until(ExpectedConditions.elementToBeClickable(productSummaryPage.editScenarioCurrency));
+			productSummaryPage.editScenarioCurrency.click();
+			WaitForPageToLoad(5000);
+			Thread.sleep(3000);
+			ExpectedConditions.visibilityOf(productSummaryPage.currencyList);
+			int numCurrency = productSummaryPage.scenarioCurrencyOptions.size();
+			for(int i=1;i<=numCurrency;i++) {
+				if(driver.findElement(By.xpath("/html/body/div[2]/div[4]/div/div/div/mat-option[" + i + "]/span")).getText().equalsIgnoreCase(newCurrency)){
+					driver.findElement(By.xpath("/html/body/div[2]/div[4]/div/div/div/mat-option[" + i + "]")).click();
+					break;
+				}
+			}
+	        WaitForPageToLoad(5000); 
+	        if(testid.equals("44593"))
+			{
+				if(!driver.findElement(By.xpath("//*[@class='mat-dialog-content']/div[5]")).getText().contains("Warning - Approved Prices and CSG Approvals will be cleared with a change in currency"))
+					Assert.fail("Test 44593 Failed... Warning Message for Currency Conversion on CSG and Approved Pricing is not present");
+			}
+	        wait.until(ExpectedConditions.elementToBeClickable(productSummaryPage.saveScenarioChangesButton));
+	        productSummaryPage.saveScenarioChangesButton.click();
+			WaitForPageToLoad(8000);
+			Thread.sleep(5000);
+			slf4jLogger.info("Scenario Currency Updated succesfully");
+        
+		} catch (Exception e) {
+			slf4jLogger.info(testid+" Error while Editing Scenario Currency...");
+			Assert.fail(e.getMessage());
+		}
+		
+	}
+
+   @Step
+   public void editScenarioName(String newName, String testid) {
+	   WebDriver driver = getDriver();
+		Wait<WebDriver> wait = new WebDriverWait(driver, 1000);
+		slf4jLogger.info("Change the Scenario Name method..");
+		try {
+			wait.until(ExpectedConditions.elementToBeClickable(productSummaryPage.showBtn));
+			productSummaryPage.showBtn.click();
+			WaitForPageToLoad(2000);
+			
+			wait.until(ExpectedConditions.elementToBeClickable(productSummaryPage.editScenarioNamePencilIcon));
+			productSummaryPage.editScenarioNamePencilIcon.click();
+			WaitForPageToLoad(10000);
+			waitABit(5000);
+			wait.until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//div/span[text()='Edit Scenario']"))));
+			if(testid.equals("44107"))
+			{
+				if(!driver.findElement(By.xpath("//div/span[text()='Edit Scenario']")).isDisplayed())
+					Assert.fail("Test 44107 Failed...Edit Scenario Pop-up not displayed");
+			}
+			wait.until(ExpectedConditions.elementToBeClickable(productSummaryPage.editScenarioName));
+			productSummaryPage.editScenarioName.click();
+			WaitForPageToLoad(5000);
+			productSummaryPage.editScenarioName.sendKeys(newName);
+	        WaitForPageToLoad(5000); 
+	        
+	        wait.until(ExpectedConditions.elementToBeClickable(productSummaryPage.saveScenarioChangesButton));
+	        productSummaryPage.saveScenarioChangesButton.click();
+			WaitForPageToLoad(8000);
+			Thread.sleep(5000);
+			slf4jLogger.info("Scenario Name Updated succesfully");
+       
+		} catch (Exception e) {
+			slf4jLogger.info(" Error while editing Scenario Name...");
+			Assert.fail(e.getMessage());
+		}
+	
+   }
+   
+   @Step
+   public void editScenarioDescription(String newDesc, String testid) {
+	   WebDriver driver = getDriver();
+		Wait<WebDriver> wait = new WebDriverWait(driver, 1000);
+		slf4jLogger.info("Change the Scenario Description method..");
+		try {
+			wait.until(ExpectedConditions.elementToBeClickable(productSummaryPage.showBtn));
+			productSummaryPage.showBtn.click();
+			WaitForPageToLoad(2000);
+			
+			wait.until(ExpectedConditions.elementToBeClickable(productSummaryPage.editScenarioDescPencilIcon));
+			productSummaryPage.editScenarioDescPencilIcon.click();
+			WaitForPageToLoad(10000);
+			waitABit(5000);
+			wait.until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//div/span[text()='Edit Scenario']"))));
+			if(testid.equals("44109"))
+			{
+				if(!driver.findElement(By.xpath("//div/span[text()='Edit Scenario']")).isDisplayed())
+					Assert.fail("Test 44109 Failed...Edit Scenario Pop-up not displayed");
+			}
+			wait.until(ExpectedConditions.elementToBeClickable(productSummaryPage.editScenarioDesc));
+			productSummaryPage.editScenarioDesc.click();
+			WaitForPageToLoad(5000);
+			productSummaryPage.editScenarioDesc.sendKeys(newDesc);
+	        WaitForPageToLoad(5000); 
+	        
+	        wait.until(ExpectedConditions.elementToBeClickable(productSummaryPage.saveScenarioChangesButton));
+	        productSummaryPage.saveScenarioChangesButton.click();
+			WaitForPageToLoad(8000);
+			Thread.sleep(5000);
+			slf4jLogger.info("Scenario Name Updated succesfully");
+       
+		} catch (Exception e) {
+			slf4jLogger.info(" Error while editing Scenario Name...");
+			Assert.fail(e.getMessage());
+		}
+	
+   }
+   
+   
+   @Step
+   public void verifySPCR_RequiredInfoMsg(String spcrMsg, String testid) {
+	   WebDriver driver = getDriver();
+	   Wait<WebDriver> wait = new WebDriverWait(driver, 1000);
+	   slf4jLogger.info("verify the SPCR Required Message..");
+	   try {
+		   wait.until(ExpectedConditions.elementToBeClickable(productSummaryPage.spcrInfoToolTip));
+		   productSummaryPage.spcrInfoToolTip.click();
+		   WaitForPageToLoad(5000);
+		   wait.until(ExpectedConditions.visibilityOf(productSummaryPage.spcrInfoMsg));
+		   if(!productSummaryPage.spcrInfoMsg.getText().contains(spcrMsg)) {
+			   Assert.fail(testid + "Test failed... SPCR required info message is not present");
+		   }
+		   slf4jLogger.info("Successfully verified the SPCR Required Message..");
+	   } catch (Exception e) {
+		slf4jLogger.info(" Error while verifying the SPCR Required Message...");
+		Assert.fail(e.getMessage());
+	}
+	   
+   }
+   
+   @Step
+   public void verifyCopiedUNIstatus(String TestID) {
+	   WebDriver driver = getDriver();
+	   Wait<WebDriver> wait = new WebDriverWait(driver, 1000);
+	   WaitForPageToLoad(5000);
+	   slf4jLogger.info("verify Invalid Copied UNI..");
+	   try {
+		   wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("/html/body/app-root/app-product-summary/div/app-quote-products/div[4]/div/table/tbody/tr[4]/td[8]/div")));
+	       if(!driver.findElement(By.xpath("/html/body/app-root/app-product-summary/div/app-quote-products/div[4]/div/table/tbody/tr[4]/td[8]/div")).getText().contains("Invalid"))
+	    	   Assert.fail(TestID + "Test failed... Copied UNI of ELine-EVC package is not invalid");
+	   } 
+	   catch (Exception e) {
+			slf4jLogger.info(" Error while verifying Invalid Copied UNI...");
+			Assert.fail(e.getMessage());
+	   }
+   }
+   
+   public  void verifyuser(String usertype) throws InterruptedException{
+		WebDriver driver = getDriver();
+		productSummaryPage.discountingProfitabilityBtn.click();
+		WaitForPageToLoad(1000);
+		waitABit(2000);
+		try {
+			try {
+			try {
+				Thread.sleep(1000);
+				productSummaryPage.debugarrow.click();
+			}
+			catch(Exception e)
+			{
+				Thread.sleep(1000);	
+				productSummaryPage.debug.click();
+			}
+			}
+			catch(Exception e) {
+				productSummaryPage.updatedrole.click();
+			}
+			if(usertype.equals("CSG")) {
+				productSummaryPage.updatedrole.sendKeys(
+					"ApproveScenarioDiscounts, CreateProductPackage, CreateScenario, DiscountScenario, EditAdminAttributes, EditApprovedPricing, EditLocationAssociations, EditProductPackage, EditRestrictedAttributes, EditScenario, EditVendorBidInformation, MoveProductPackage, OverrideRevenueCity, ProductConfigUx, UndeleteProductPackage, UpdateCostsPopup, ValidateProductPackage, ViewLocationAssociations, ViewScenarioMetricsAndCosts");
+			}else{
+				productSummaryPage.updatedrole.sendKeys(
+							"CreateProductPackage, CreateScenario, DiscountScenario, EditLocationAssociations, EditProductPackage, EditScenario, MoveProductPackage, ViewLocationAssociations");
+			}
+			try {
+				productSummaryPage.updateCurrentAccessPointButton.click();}
+			catch (Exception e){
+				driver.findElement(By.xpath("//*[@id=\"DebugSection\"]/div[5]/button")).click();
+			}
+			
+			slf4jLogger.info("user is now "+usertype+" user");
+			productSummaryPage.returnToScenarioDetailbutton.click();
+			WaitForPageToLoad(1000);
+		}
+		catch (Exception e) {
+			slf4jLogger.info(e.getMessage());
+			Assert.fail(e.getMessage());
+		}
+		
+	}
+
+    @Step
+    public void verifyVersionInfoOnSummaryPage(String testid) {
+    	slf4jLogger.info("Verify SM Version Information on Summary Page..");
+    	WaitForPageToLoad(10000);
+    	WebDriver driver = getDriver();
+    	Wait<WebDriver> wait = new WebDriverWait(driver, 1000);
+    	wait.until(ExpectedConditions.visibilityOf(productSummaryPage.smVersionInfo));
+    	if(!productSummaryPage.smVersionInfo.getText().contains("v : PRODUCT_SUMMARY_UI_SM_MASTER"))
+    		Assert.fail(testid + " Verification of SM Version Information on Summary Page Failed...");
+	
+    }
+
+    public void verifyReadOnlyPackage(String TestID) throws InterruptedException{
+    	try {
+    		WebDriver driver = getDriver();
+    		Wait<WebDriver> wait = new WebDriverWait(driver, 1000);
+    		boolean res1=false,res2=false,res3=false,res4=false;
+    		Thread.sleep(2000);	
+    		driver.switchTo().defaultContent();
+    		ExpectedConditions.frameToBeAvailableAndSwitchToIt("quote-iframe");
+    		Thread.sleep(2000);	
+    		driver.switchTo().frame(0);
+    		
+    		slf4jLogger.info(TestID + System.currentTimeMillis() + "reading  RO...");
+    		String readOnly = driver.findElement(By.xpath("//*[@class='readOnly ng-star-inserted']")).getText();
+    		System.out.println(readOnly);
+    		slf4jLogger.info(TestID+" Read only: " + readOnly);
+    		
+    		if (!readOnly.contains("Read Only")) {
+    			Assert.fail(TestID + ": @" + System.currentTimeMillis() + "@"
+    					+ "Error occured while verifying ReadOnly UNI status");
+    		}
+    		slf4jLogger.info(
+    				TestID + ":" +System.currentTimeMillis() + "successfully verified ReadOnly status");
+    		/*try {
+    			List<WebElement> gear = driver.findElements(By.xpath("//i[@class='fa fa-gear']"));
+    		} catch (Exception e) {
+    			slf4jLogger.info(TestID + ":" + System.currentTimeMillis()
+    					+ "verified gear icon is not present for read only packages");
+    		}*/
+    		slf4jLogger.info(TestID + ":" +System.currentTimeMillis()
+    				+ "verified gear icon is not present for read only packages");
+    		if(TestID.equals("43746") || TestID.equals("46852")) {
+    			res1 = productSummaryPage.manageLocationBtn.isCurrentlyVisible();
+    			res2 = productSummaryPage.createNewProductPakage.isCurrentlyVisible();
+    			clickOnGearToSelectProd(TestID);
+    			WebElement copyToSameNewLoc = driver.findElement(By.xpath("/html/body/app-root/app-product-summary/div/app-quote-products/div[4]/div/table/tbody/tr[1]/td[1]/app-quote-product-menu/div/div[3]/div/span[2]"));
+    			res3 = copyToSameNewLoc.getClass().toString().contains("disable");
+    			wait.until(ExpectedConditions.elementToBeClickable(productSummaryPage.moreOptionsBtn));
+    			productSummaryPage.moreOptionsBtn.click();
+    			WaitForPageToLoad(5000);
+    			Thread.sleep(3000);
+    			res4 = productSummaryPage.importProductBtn.isCurrentlyVisible();
+    			if(res1 || res2 || !res3 || res4) {
+    				Assert.fail("Test "+TestID+ " failed... Attributes are not read only");
+    			}
+    		}
+    		if(TestID.equals("43749") || TestID.equals("46878")) {
+    			res1 = productSummaryPage.pencilIcon.getAttribute("aria-hidden").toString().equals("true");
+    			if(!res1)
+    				Assert.fail("Test "+TestID+ " failed... Attributes are not read only");
+    		}	
+    	}
+    	catch (Exception e) {
+    		slf4jLogger.info("Read Only check function catch block..");	
+    		Assert.fail(e.getMessage());
+    	}
+ }
+    
+    public void verifyBulkPredeployFunctionality(String TestID) {
+    	WebDriver driver = getDriver();
+		Wait<WebDriver> wait = new WebDriverWait(driver, 1000);
+		boolean res1=false, res2=false;
+		try {
+			wait.until(ExpectedConditions.elementToBeClickable(productSummaryPage.bulkPredeployBtn));
+			if(TestID.equals("43291") || TestID.equals("47647")) {
+				res1 = productSummaryPage.bulkPredeployBtn.getText().contains("Bulk Pre-deploy");
+				if(!res1)
+					Assert.fail("Test "+TestID+ " failed... Pre-deploy header is not changed to Bulk Pre-deploy");
+			}
+			else if(TestID.equals("43292") || TestID.equals("47887")) {
+				productSummaryPage.bulkPredeployBtn.click();
+				WaitForPageToLoad(2000);
+				res1 = productSummaryPage.bulkPredeployON.isCurrentlyVisible();
+				res2 = productSummaryPage.bulkPredeployOFF.isCurrentlyVisible();
+				if(!res1 || !res2)
+					Assert.fail("Test "+TestID+ " failed... Bulk Pre-deploy ON/OFF are not present");
+				
+				productSummaryPage.bulkPredeployON.click();
+				WaitForPageToLoad(5000);
+				predeployFunctionality(TestID);
+			}
+			else if(TestID.equals("43292AC2") || TestID.equals("47887AC2")) {
+				productSummaryPage.bulkPredeployBtn.click();
+				WaitForPageToLoad(2000);
+				res1 = productSummaryPage.bulkPredeployON.isCurrentlyVisible();
+				res2 = productSummaryPage.bulkPredeployOFF.isCurrentlyVisible();
+				if(!res1 || !res2)
+					Assert.fail("Test "+TestID+ " failed... Bulk Pre-deploy ON/OFF are not present");
+				
+				productSummaryPage.bulkPredeployOFF.click();
+				WaitForPageToLoad(5000);
+				predeployFunctionality(TestID);
+			}
+			else if(TestID.equals("43293") || TestID.equals("47888")) {
+				productSummaryPage.bulkPredeployBtn.click();
+				WaitForPageToLoad(2000);
+				res1 = productSummaryPage.bulkPredeployON.getAttribute("style").contains("gray");
+				res2 = productSummaryPage.bulkPredeployOFF.getAttribute("style").contains("gray");
+				if(!res1 || !res2)
+					Assert.fail("Test "+TestID+ " failed... Bulk Pre-deploy ON/OFF are enabled for non-predeployable products");
+			}
+			
+		} catch (Exception e) {
+			slf4jLogger.info("Test Case Failed" +TestID + "Predeploy Functionality Not Defined");
+			e.printStackTrace();
+		}
+		slf4jLogger.info(TestID+" Test Passed...");
+    }
+
+	public void verifyCMMCValidationAttributesInSummaryPage(String testID, String oppAccname, String oppName) {
+		
+		slf4jLogger.info("verify CMMC Validation Attributes In Summary Page");
+		WaitForPageToLoad(10000);
+		WebDriver driver = getDriver();
+		Wait<WebDriver> wait = new WebDriverWait(driver, 1000);
+		wait.until(ExpectedConditions.elementToBeClickable(productSummaryPage.showBtn));
+		productSummaryPage.showBtn.click();
+		WaitForPageToLoad(5000);
+		try {
+			switch(SalesforceLoginSteps.federalUserType) {
+			case "Authorized" :
+			{
+				assertTrue("Opportunity Account Name is not in plain text", productSummaryPage.accName.getText().equals(oppAccname));
+				assertTrue("Opportunity Name is not in plain text", productSummaryPage.opptName.getText().equals(oppName));
+			}
+			case "UnAuthorized":
+			{
+				//assertFalse("Opportunity Account Name is not in encrypted format", productSummaryPage.accName.getText().equals(oppAccname));
+				//assertFalse("Opportunity Name is not in encrypted format", productSummaryPage.opptName.getText().equals(oppName));
+			}
+		}
+		}catch (Exception e) {
+			slf4jLogger.info("verification of CMMC Validation Attributes In Summary Page Failed for ..."+SalesforceLoginSteps.federalUserType+" User");
+			Assert.fail(e.getMessage());
+		}
+		slf4jLogger.info("verification of CMMC Validation Attributes In Summary Page Passed...");
+		
+	}
+}
+

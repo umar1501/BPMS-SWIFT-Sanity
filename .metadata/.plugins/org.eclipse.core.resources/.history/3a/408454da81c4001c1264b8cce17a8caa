@@ -1,0 +1,848 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<container name="root">
+
+	<container name="Environments">	
+		<container name="TEST1">
+			<field name="BPMS-url" value="bpmportalenv1/"></field>
+			<container name="Rajneesh">
+				<field name="tbx_username" value="AC67376" type="mandatory"></field>
+				<field name="tbx_password" value="Mumtaz@123456789"
+					type="mandatory"></field>
+			</container>
+			<container name="Sowmiya">
+				<field name="tbx_username" value="ac65147" type="mandatory"></field>
+				<field name="tbx_password" value="VLakshmi777"
+					type="mandatory"></field>
+			</container>
+			<container name="Umar">
+				<field name="tbx_username" value="ac91162" type="mandatory"></field>
+				<field name="tbx_password" value="Junnu@1501"
+					type="mandatory"></field>
+			</container>
+			<container name="Database Connection">
+				<field name="url"
+					value="jdbc:oracle:thin:@ii58-03.idc1.level3.com:1521:bpomenv1"
+					type="mandatory"></field>
+				<field name="userName" value="wrkfl_user_prd1"
+					type="mandatory"></field>
+				<field name="password" value="wrkfl_user_env1_d"
+					type="mandatory"></field>
+			</container>
+			<field name="url" value="http://lumn--itv1.my.salesforce.com/"></field>
+			<field name="Kenan_url" value="http://revenueservicetest/webui/env1/"></field>
+			<field name="PS_url" value="https://product-summary-ui-env1.kubeodc-test.corp.intranet/debug"></field>
+			<field name="sfa-url" value="http://test.salesforce.com"></field>
+			<field name="swift-url" value="http://ab84755:weloveall@123@swiftenv1"></field>
+			<field name="swiftDB-url" value="jdbc:oracle:thin:@x20-27b3.idc1.level3.com:1521:SWFT01E"></field>
+			<field name="swiftDB-username" value="pm_admin"></field>
+			<field name="swiftDB-psw" value="pm_admin"></field>
+			
+			<container name= "SwIFT">
+				<field name="ITV4" value="http://swiftenv4/" type="mandatory"></field>
+				<field name="ITV1" value="http://swiftenv1/" type="mandatory"></field>
+				<field name="ITV2" value="http://swiftenv2/" type="mandatory"></field>
+			</container>
+			<container name= "MetaStorm">
+				<field name="ITV4" value="http://mbpm-env4.level3.com/metastormsso/Default.aspx" type="mandatory"></field>
+				<field name="ITV2" value="http://mbpm-env2.level3.com/metastormsso/Default.aspx" type="mandatory"></field>
+				<field name="ITV1" value="http://mbpm-env1.level3.com/metastormsso/Default.aspx" type="mandatory"></field>
+			</container>
+		
+		 <container name="DIA_Normal_Install">
+           <field name="lbl_Circuit_Type" value="btn_save#WaitUntilEnable-120:Fast E" type="mandatory"></field>
+           <field name="lbl_Port_Type" value="btn_save#WaitUntilEnable-120:Flat Rate" type="mandatory"></field>
+           </container>
+			<container name="SalesforceHomePage">
+				<container name="Valid">
+					<field name="auth_username" value="SFATST40@centurylink.com" type="mandatory"/>
+					<field name="auth_password" value="Link1234" type="mandatory"/>
+					<field name="unauth_username" value="SFATST40@centurylink.com" type="mandatory"/>
+					<field name="unauth_password" value="Link1234" type="mandatory"/>
+				</container>
+				</container>
+				</container>
+         <container name="TEST2">
+         	<field name="BPMS-url" value="bpmportalenv2/"></field>
+			<container name="Rajneesh">
+				<field name="tbx_username" value="AC67376" type="mandatory"></field>
+				<field name="tbx_password" value="Mumtaz@123456789"
+					type="mandatory"></field>
+			</container>
+			<container name="Sowmiya">
+				<field name="tbx_username" value="ac65147" type="mandatory"></field>
+				<field name="tbx_password" value="VLakshmi777"
+					type="mandatory"></field>
+			</container>
+			<container name="Umar">
+				<field name="tbx_username" value="ac91162" type="mandatory"></field>
+				<field name="tbx_password" value="Junnu@1501"
+					type="mandatory"></field>
+			</container>
+			<container name="Database Connection">
+				<field name="url"
+					value="jdbc:oracle:thin:@ii58-03.idc1.level3.com:1521:bpomenv2"
+					type="mandatory"></field>
+				<field name="userName" value="wrkfl_user_prd1"
+					type="mandatory"></field>
+				<field name="password" value="wrkfl_user_env2_d"
+					type="mandatory"></field>
+			</container>
+			<field name="url" value="http://lumn--e2e.my.salesforce.com/"></field>
+			<field name="Kenan_url" value="http://revenueservicetest/webui/env4/"></field>
+			<field name="PS_url" value="https://product-summary-ui-env4.kubeodc-test.corp.intranet/debug"></field>
+			<field name="SM_url" value="https://scenariomanager-env4.level3.com/"></field>
+			<field name="sfa-url" value="http://test.salesforce.com"></field>
+			<field name="swift-url" value="http://ab84755:weloveall@123@swiftenv4"></field>
+			<field name="sso-console" value="https://ctl--itv2.cs7.my.salesforce.com/"></field>
+			<field name="swiftDB-url" value="jdbc:oracle:thin:@g20-24b1.idc1.level3.com:1521:SWFT04E"></field>
+			<field name="swiftDB-username" value="pm_swift"></field>
+			<field name="swiftDB-psw" value="pm_swift"></field>
+			<field name="sso-console" value="https://ctl--e2e.cs28.my.salesforce.com/"></field>
+			
+			<container name= "SwIFT">
+				<field name="ITV4" value="http://swiftenv4/" type="mandatory"></field>
+				<field name="ITV1" value="http://swiftenv1/" type="mandatory"></field>
+				<field name="ITV2" value="http://swiftenv2/" type="mandatory"></field>
+			</container>
+		
+		<container name= "MetaStorm">
+				<field name="ITV4" value="http://mbpm-env4.level3.com/metastormsso/Default.aspx" type="mandatory"></field>
+				<field name="ITV2" value="http://mbpm-env2.level3.com/metastormsso/Default.aspx" type="mandatory"></field>
+				<field name="ITV1" value="http://mbpm-env1.level3.com/metastormsso/Default.aspx" type="mandatory"></field>
+			</container>
+				
+			<container name="SalesforceHomePage">
+				<container name="Valid">
+					<field name="auth_username" value="SFATST40@centurylink.com" type="mandatory"/>
+					<field name="auth_password" value="Link1234" type="mandatory"/>
+					<field name="unauth_username" value="SFATST40@centurylink.com" type="mandatory"/>
+					<field name="unauth_password" value="Link1234" type="mandatory"/>
+				</container>
+         		</container>
+          </container>
+           <container name="TEST4">
+           	<field name="BPMS-url" value="bpmportalenv4/"></field>
+			<container name="Rajneesh">
+				<field name="tbx_username" value="AC67376" type="mandatory"></field>
+				<field name="tbx_password" value="Mumtaz@123456789"
+					type="mandatory"></field>
+			</container>
+			<container name="Sowmiya">
+				<field name="tbx_username" value="ac65147" type="mandatory"></field>
+				<field name="tbx_password" value="VLakshmi777"
+					type="mandatory"></field>
+			</container>
+			<container name="Umar">
+				<field name="tbx_username" value="ac91162" type="mandatory"></field>
+				<field name="tbx_password" value="Junnu@1501"
+					type="mandatory"></field>
+			</container>
+			<container name="Database Connection">
+				<field name="url"
+					value="jdbc:oracle:thin:@ii58-03.idc1.level3.com:1521:bpomenv4"
+					type="mandatory"></field>
+				<field name="userName" value="wrkfl_user_prd1"
+					type="mandatory"></field>
+				<field name="password" value="wrkfl_user_env4_d"
+					type="mandatory"></field>
+			</container>
+			<field name="url" value="http://lumn--e2e.my.salesforce.com/"></field>
+			<field name="Kenan_url" value="http://revenueservicetest/webui/env4/"></field>
+			<field name="PS_url" value="https://product-summary-ui-env4.kubeodc-test.corp.intranet/debug"></field>
+			<field name="SM_url" value="https://scenariomanager-env4.level3.com/"></field>
+			<field name="sfa-url" value="http://test.salesforce.com"></field>
+			<field name="swift-url" value="http://ab84755:weloveall@123@swiftenv4"></field>
+			<field name="sso-console" value="https://ctl--itv2.cs7.my.salesforce.com/"></field>
+			<field name="swiftDB-url" value="jdbc:oracle:thin:@g20-24b1.idc1.level3.com:1521:SWFT04E"></field>
+			<field name="swiftDB-username" value="pm_swift"></field>
+			<field name="swiftDB-psw" value="pm_swift"></field>
+			<field name="sso-console" value="https://ctl--e2e.cs28.my.salesforce.com/"></field>
+			
+			<container name= "SwIFT">
+				<field name="ITV4" value="http://swiftenv4/" type="mandatory"></field>
+				<field name="ITV1" value="http://swiftenv1/" type="mandatory"></field>
+				<field name="ITV2" value="http://swiftenv2/" type="mandatory"></field>
+			</container>
+		
+		<container name= "MetaStorm">
+				<field name="ITV4" value="http://mbpm-env4.level3.com/metastormsso/Default.aspx" type="mandatory"></field>
+				<field name="ITV2" value="http://mbpm-env2.level3.com/metastormsso/Default.aspx" type="mandatory"></field>
+				<field name="ITV1" value="http://mbpm-env1.level3.com/metastormsso/Default.aspx" type="mandatory"></field>
+			</container>
+			<container name="SalesforceHomePage">
+				<container name="Valid">
+					<field name="auth_username" value="SFATST40@centurylink.com" type="mandatory"/>
+					<field name="auth_password" value="Link1234" type="mandatory"/>
+					<field name="unauth_username" value="SFATST40@centurylink.com" type="mandatory"/>
+					<field name="unauth_password" value="Link1234" type="mandatory"/>
+				</container>
+         		</container>
+	  </container>
+	  
+	  
+	  	  
+</container>
+
+	<container name="CommonData">
+		<container name="Controller">
+			<field name="enableValidation" value="true" type="mandatory"></field>
+		</container>
+		<container name="Manage Task">
+			<container name="Port Assignment">
+				<field name="sel_ClosureCode" value="Port Assigned"
+					type="mandatory"></field>
+				<field name="tbx_PortAssignment" value="4567" type="mandatory"></field>
+				<field name="lbl_Performer" value="IP_Port_Reservation"
+					type="mandatory"></field>
+				<field name="lbl_Performer_LA" value="LATAM_IPSA_HEAD"
+					type="true" />
+			</container>
+			<container name="Assign Design Request">
+				<field name="sel_LA_Group" value="LATAM_TXSA_HEAD"
+					type="mandatory" />
+				<field name="sel_LA_User"
+					value="praveenya dontula (dontula.praveenya)" type="mandatory" />
+				<field name="sel_Users"
+					value="anderson, brian (anderson.brian)" type="mandatory"></field>
+				<field name="lbl_Performer" value="Design Team Admin"
+					type="mandatory" />
+				<field name="lbl_Performer_LA" value="LATAM_TXSA_HEAD"
+					type="true" />
+			</container>
+			<container name="Assign IP Request">
+				<field name="sel_LA_Group" value="LATAM_IPSA_HEAD"
+					type="mandatory" />
+				<field name="sel_LA_User"
+					value="justin mccarter (mccarter.justin)" type="mandatory" />
+				<!-- <field name="sel_Users" value="dontula, praveenya (dontula.praveenya)" 
+					type="mandatory"></field> -->
+				<field name="sel_Users"
+					value="anderson, brian (anderson.brian)" type="mandatory"></field>
+				<field name="lbl_Performer_LA" value="LATAM_IPSA_HEAD"
+					type="true" />
+			</container>
+			<container name="Gather Order Details TDE">
+				<field name="lbl_Performer" value="TDE" type="mandatory"></field>
+			</container>
+
+			<container name="Complete Design">
+				<field name="sel_accessType" value="OnNet" type="mandatory"></field>
+			</container>
+
+			<container name="ManageTDG">
+				<field name="tbx_internalTDGReq" value="Yes" type="mandatory"></field>
+			</container>
+
+			<container name="High Level Design Task">
+				<field name="sel_networkType" value="Level3" type="mandatory"></field>
+				<field name="sel_carrierName" value="Hybrid" type="mandatory" />
+				<field name="sel_vendorName" value="Hybrid" type="mandatory" />
+				<field name="invDesignId" value="12345" type="mandatory" />
+				<field name="sel_invDesignSource" value="Other"
+					type="mandatory" />
+				<field name="aCLLI" value="DNVTCO56" type="mandatory" />
+				<field name="zCLLI" value="DNVTCO56" type="mandatory" />
+			</container>
+
+			<container name="Define Physical Installation">
+				<field name="tbx_Location" value="DNVTCO56" type="mandatory"></field>
+				<field name="tbx_Note" value="Testing" type="mandatory"></field>
+			</container>
+			<container name="Assign Installation Request">
+				<field name="lbl_Performer" value="Transport Activation Admin"
+					type="mandatory" />
+				<field name="sel_LA_Group" value="LATAM_SDM_HEAD"
+					type="mandatory" />
+				<field name="sel_LA_User"
+					value="justin mccarter (mccarter.justin)" type="mandatory" />
+				<field name="sel_Users"
+					value="anderson, brian (anderson.brian)" type="mandatory"></field>
+				<field name="lbl_Performer_LA" value="LATAM_SDM_HEAD"
+					type="true" />
+			</container>
+			<container name="InitiateBuildingExtension">
+				<field name="tbx_RelatedNetBuildID" value="1234"
+					type="mandatory"></field>
+			</container>
+			<container name="CompleteBuildingExtension">
+				<field name="tbx_noStatus" value="COMPLETE" type="mandatory"></field>
+			</container>
+			<container name="Logical Test With Customer">
+				<field name="sel_TypeOfTest" value="Test Set" type="mandatory"></field>
+				<field name="lbl_Performer_LA" value="LATAM_ACTIVATIONS_HEAD"
+					type="true" />
+			</container>
+			<container name="Install Cross Connect">
+				<field name="sel_ClosureCode_ICC"
+					value="Completed Successfully" type="mandatory"></field>
+				<field name="tbx_LightLevelReading_Protect" value="TEST"
+					type="mandatory"></field>
+				<field name="sel_RemoveHardLoop" value="Yes" type="mandatory"></field>
+				<field name="tbx_Demarc" value="k8789" type="mandatory"></field>
+				<field name="sel_HardLoopLeft" value="No" type="mandatory"></field>
+				<field name="tbx_LightLevelReading_Work" value="UYOIU"
+					type="mandatory"></field>
+				<field name="sel_RedlinesNecessary" value="No"
+					type="mandatory"></field>
+				<field name="lbl_Performer_LA" value="Field Services"
+					type="true" />
+			</container>
+			<container name="Submit CPE Request">
+				<field name="sel_cpeType" value="CPE NID" type="mandatory" />
+				<field name="sel_handOffTypeCust" value="100 MM"
+					type="mandatory" />
+				<field name="sel_nidType" value="Accedian" type="mandatory" />
+				<field name="sel_handOffTypeLec" value="100 MM"
+					type="mandatory" />
+				<field name="tbx_deviceName" value="LTE" type="mandatory" />
+				<field name="tbx_lconPhone" value="8896323211"
+					type="mandatory" />
+				<field name="tbx_cpeKitNum" value="123" type="mandatory" />
+				<field name="tbx_customerAddress" value="LA" type="mandatory" />
+				<field name="tbx_customerName" value="John Smith"
+					type="mandatory" />
+				<field name="tbx_lcon" value="456" type="mandatory" />
+				<field name="sel_dispatchAction" value="ReviewCPERequest"
+					type="mandatory" />
+				<field name="sel_dispatchAction1" value="Hotcut"
+					type="mandatory" />
+				<field name="sel_dispatchRequired" value="No" type="mandatory" />
+				<field name="lbl_Performer_LA" value="LATAM_SDM_HEAD"
+					type="mandatory" />
+			</container>
+
+			<container name="Create PR Dispatch">
+				<field name="tbx_cpeCourierTrackingNum" value="9999"
+					type="mandatory" />
+				<field name="tbx_manufacturedPartNum" value="70"
+					type="mandatory" />
+
+				<field name="tbx_pr_Num" value="50" type="mandatory" />
+
+				<field name="tbx_serialNum" value="9999" type="mandatory" />
+
+				<field name="tbx_upsTrackingNumber" value="1234"
+					type="mandatory" />
+					<field name="tbx_lconPhone" value="9876545678" type="mandatory" />
+			</container>
+
+			<container name="Activate Service">
+
+				<field name="tbx_activationResult" value="Success"
+					type="mandatory" />
+
+				<field name="tbx_activationResultDIA" value="Complete"
+					type="mandatory" />
+
+				<field name="tbx_versaManagementIP" value="11.11.11.11/32"
+					type="mandatory" />
+					
+				<field name="tbx_fcdTime" value="05:30"
+					type="mandatory" />
+
+			</container>
+			<container name="Create SubAccount">
+				<field name="tbx_pon_SubAccount" value="546" type="mandatory" />
+			</container>
+
+			<container name="Request Serviceability">
+				<field name="tbx_serviceability" value="Green"
+					type="mandatory" />
+			</container>
+
+			<container name="Order Cellular Access">
+				<field name="maintenanceProvider2" value="NA Field Ops"
+					type="mandatory" />
+				<field name="prDispatchRequired" value="Yes" type="mandatory" />
+				<field name="equipmentProvider2" value="Tata" type="mandatory" />
+				<field name="cellularVendor2"
+					value="SAS Global Communications" type="mandatory" />
+			</container>
+
+			<container name="Review Survey Information">
+				<field name="sel_assignCrticalInfrastructure" value="Yes"
+					type="mandatory" />
+				<field name="sel_requestSiteSurveyWithEAIM" value="Yes"
+					type="mandatory" />
+				<field name="sel_requireFrequencyGovernmentPermission"
+					value="Yes" type="mandatory" />
+			</container>
+
+			<container name="Submit EAIM Request">
+				<field name="contactName" value="Wyatt" type="mandatory" />
+				<field name="contactPhone" value="555-555-5555"
+					type="mandatory" />
+				<field name="contactMobilePhone" value="555-555-5555"
+					type="mandatory" />
+				<field name="streetNumber" value="128 CALLE COPACABANA"
+					type="mandatory" />
+				<field name="city" value="CORDOBA" type="mandatory" />
+				<field name="state" value="x" type="mandatory" />
+				<field name="centurylinkRequestorEmail"
+					value="Criss.Lee-Storrs@CenturyLink.com" type="mandatory" />
+				<field name="centurylinkAssignedEngineer"
+					value="Criss Lee-Storrs" type="mandatory" />
+				<field name="suggesstedEAIM" value="test" type="mandatory" />
+				<field name="comments" value="EAIM request" type="mandatory" />
+
+				<field name="activity" value="Customer" type="mandatory" />
+				<field name="requesterArea" value="SERVICE DELIVERY"
+					type="mandatory" />
+				<field name="intervention" value="INSTALLATION"
+					type="mandatory" />
+				<field name="solution_EquipmentTechnology"
+					value="RADIO Point-To-MultiPoint (Include CPE)" type="mandatory" />
+				<field name="requireAdditionalWork" value="No"
+					type="mandatory" />
+				<field name="suggesstedEAIM" value="Test" type="mandatory" />
+				<field name="eaim" value="Cosmys" type="mandatory" />
+			</container>
+
+			<container name="Approve EAIM Intervention">
+				<field name="eaimApproved" value="Yes" type="mandatory" />
+			</container>
+
+			<container name="Government Permission Approval">
+				<field name="frequencyAppproved" value="Yes" type="mandatory" />
+			</container>
+
+			<container name="Create_SAP_PR">
+				<field name="auto_LATAM_SAP_Success" value="Yes"
+					type="mandatory" />
+			</container>
+
+			<container name="Update PR">
+				<field name="prNumber" value="50" type="mandatory" />
+			</container>
+
+			<container name="Assign Hybrid Design Request">
+				<field name="sel_Users"
+					value="anderson, brian (anderson.brian)" type="mandatory" />
+			</container>
+
+			<container name="Assign Hybrid Installation Request">
+				<field name="sel_Users"
+					value="anderson, brian (anderson.brian)" type="mandatory" />
+			</container>
+
+			<container name="Meraki_Logistics">
+				<field name="tbx_deviceName" value="LTE" type="mandatory" />
+				<field name="tbx_serialNum" value="123456789" type="mandatory" />
+				<field name="tbx_staticIp" value="1.2.3.4/22" type="mandatory" />
+				<field name="tbx_wirelessIMEI" value="123" type="mandatory" />
+			</container>
+
+			<container name="AUTO_Ethernet_Order_Creation">
+				<field name="lbl_Performer"
+					value="ext_automation_oc_autopilot_agent" type="mandatory" />
+				<field name="lbl_Performer_LA"
+					value="ext_automation_oc_autopilot_agent" type="mandatory" />
+			</container>
+
+			<!-- Hot Cut tasks -->
+			<container name="Assign Hot Cut Request">
+				<field name="sel_LA_Group" value="LATAM_SDM_HEAD"
+					type="mandatory" />
+				<field name="sel_LA_User"
+					value="praveenya dontula (dontula.praveenya)" type="mandatory" />
+				<field name="lbl_Performer"
+					value="ext_automation_oc_autopilot_agent" type="mandatory" />
+				<field name="lbl_Performer_LA" value="LATAM_SDM_HEAD"
+					type="mandatory" />
+			</container>
+
+			<container name="Perform Hot Cut">
+				<field name="lbl_Performer" value=" " type="mandatory" />
+				<field name="lbl_Performer_LA" value="Field Services"
+					type="mandatory" />
+				<field name="sel_ClosureCode" value="Completed Successfully"
+					type="mandatory" />
+			</container>
+
+			<container name="Waiting for Static IPs">
+				<field name="sel_skipStaticIPWait" value="Yes"
+					type="mandatory" />
+				<field name="lbl_Performer" value="TDE" type="mandatory" />
+			</container>
+
+			<container name="Request Internal Support Evaluation">
+				<field name="tbx_lcon" value="456" type="mandatory" />
+				<field name="sel_handOffTypeLEC" value="CAT5" type="mandatory" />
+				<field name="sel_handOffTypeCust" value="100 MM"
+					type="mandatory" />
+				<field name="tbx_customerAddress2" value="Denver"
+					type="mandatory" />
+				<field name="tbx_customerName2" value="John Smith"
+					type="mandatory" />
+				<field name="tbx_lconPhone2" value="8898987654"
+					type="mandatory" />
+				<field name="sel_DispatchAction" value="ReviewCPERequest"
+					type="mandatory" />
+				<field name="sel_dispatchRequired" value="No" type="mandatory" />
+			</container>
+
+			<container name="Pre-Activate Service">
+				<field name="sel_maintenanceProvider" value="Field Ops"
+					type="mandatory" />
+				<field name="sel_eqipmentProvider" value="NA-Insourcing"
+					type="mandatory" />
+			</container>
+
+			<container name="Perform Logical Validation">
+				<field name="lbl_Performer_LA"
+					value="Justin Mccarter (mccarter.justin)" type="mandatory" />
+			</container>
+
+			<container name="LATAM_SAP">
+				<field name="tbx_pr_Num" value="50" type="mandatory" />
+				<field name="tbx_serialNum" value="9999" type="mandatory" />
+				<field name="tbx_upsTrackingNumber" value="1234"
+					type="mandatory" />
+				<field name="tbx_autoLatamSapSuccess" value="Yes"
+					type="mandatory" />
+			</container>
+
+			<!-- For SDWAN only -->
+
+			<container name="Develop And Deploy Config">
+				<field name="tbx_deviceName" value="LTE" type="mandatory" />
+				<field name="selPrimaryDirector" value="BST-DIRECTOR-01"
+					type="mandatory" />
+				<field name="tbx_tenantName" value="John Smith"
+					type="mandatory" />
+				<field name="lbl_Performer_LA"
+					value="Justin Mccarter (mccarter.justin)" type="mandatory" />
+			</container>
+
+			<container name="Schedule Pre-Activation">
+				<field name="preActivationOpsConsoleTicket1" value="123"
+					type="mandatory" />
+				<field name="onsiteInstallationResource" value="NA Field Ops"
+					type="mandatory" />
+			</container>
+
+			<container name="Coordinate Activation">
+				<field name="tbx1_finalActivationOpsConsoleticket" value="123"
+					type="mandatory" />
+			</container>
+
+			<container name="Design Offnet Segment">
+				<field name="sel_Users"
+					value="praveenya dontula (dontula.praveenya)" type="mandatory" />
+				<field name="lbl_Performer" value="TDE" type="true" />
+				<field name="lbl_Performer_LA" value="LATAM_OFFNET_HEAD"
+					type="mandatory" />
+				<field name="sel_LA_User"
+					value="justin mccarter (mccarter.justin)" type="mandatory" />
+			</container>
+
+			<container name="Assign Provisioning Request">
+				<field name="sel_Users"
+					value="anderson, brian (anderson.brian)" type="mandatory" />
+				<!-- <field name="lbl_Performer" value="Design Team Admin" type="mandatory" 
+					/> -->
+				-->
+				<field name="lbl_Performer" value="Offnet Provisioning Admin"
+					type="mandatory" />
+				<field name="lbl_Performer_LA" value="LATAM_OFFNET_HEAD"
+					type="mandatory" />
+				<field name="sel_LA_User"
+					value="justin mccarter (mccarter.justin)" type="mandatory" />
+			</container>
+
+			<container name="Initiate ASR Manual">
+				<field name="pon_subAccount" value="456" type="mandatory" />
+				<field name="lbl_Performer_LA"
+					value="Rajneesh Gautam (u1282496)" type="true" />
+			</container>
+
+			<container name="Receive Cellular Site Survey">
+				<field name="sel_equipmentProvider" value="Tata"
+					type="mandatory" />
+				<field name="sel_cellularVendor"
+					value="SAS Global Communications" type="mandatory" />
+				<field name="sel_cellularSiteSurveyResultsAttachedBPMPortal"
+					value="No" type="mandatory" />
+				<field name="sel_maintenanceProvider" value="Field Ops"
+					type="mandatory" />
+			</container>
+
+			<container name="Enter Cellular IP">
+				<field name="cellularAccessSerialNum" value="789"
+					type="mandatory" />
+				<field name="macAddress" value="D8-BB-3C-69-80-70"
+					type="mandatory" />
+				<field name="cellularSimId" value="987654321" type="mandatory" />
+				<field name="staticIP" value="11.11.11.11/30" type="mandatory" />
+			</container>
+
+			<container name="Receive Completion Notification">
+				<field name="tbx_accountNo" value="456" type="mandatory" />
+				<field name="tbx_staticIP" value="11.11.11.11/32"
+					type="mandatory" />
+				<field name="tbx_gatewayIP" value="70.91.147.105/30"
+					type="mandatory" />
+			</container>
+
+			<container name="Remove Hard Loop">
+				<field name="tbx_closureCode" value="Completed Successfully"
+					type="mandatory" />
+			</container>
+
+			<container name="Review SOW">
+				<field name="tbx_maintenanceProvider" value="Field Ops"
+					type="mandatory" />
+				<field name="tbx_equipmentProvider" value="NA-Insourcing"
+					type="mandatory" />
+			</container>
+
+			<container name="Create Boot Config">
+				<field name="tbx_bootConfig" value="60" type="mandatory" />
+				<field name="tbx_largeKitType" value="10 GIG LR"
+					type="mandatory" />
+			</container>
+
+			<container name="Related Access completed">
+				<field name="lbl_Performer_LA" value=" " type="mandatory" />
+			</container>
+
+			<container name="NaaS_Create_Port">
+				<field name="tbx_edgeDevicePort" value="8090" type="mandatory" />
+				<field name="tbx_serviceNamePort" value="1234"
+					type="mandatory" />
+				<field name="tbx_vendorVLAN" value="Test1234" type="mandatory" />
+			</container>
+
+			<container name="NaaS_Create_Path">
+				<field name="tbx_serviceNamePath" value="1234"
+					type="mandatory" />
+			</container>
+
+			<container name="NaaS_Add_ILC">
+
+			</container>
+			<container name="NaaS_Create_Entity">
+
+			</container>
+
+			<container name="NaaS_Create_Internet">
+				<field name="tbx_serviceNameInternet" value="Test60"
+					type="mandatory" />
+
+			</container>
+			<container name="NaaS_Test_Internet">
+
+			</container>
+			<container name="Default Config Validation">
+				<field name="sel_exitToBAU" value="No" type="mandatory" />
+			</container>
+			'
+			<container name="AUTO_NaaS_Create_Port_Offnet">
+				<field name="tbx_edgeDevicePort" value="8090" type="mandatory" />
+				<field name="tbx_serviceNamePort" value="1234"
+					type="mandatory" />
+				<field name="tbx_vendorVLAN" value="Test1234" type="mandatory" />
+				<field name="tbx_createPortOffnetCorrelationId" value="123884"
+					type="mandatory" />
+
+
+			</container>
+
+			<container name="NaaS_Create_Path_Offnet">
+				<field name="tbx_serviceNamePath" value="1234"
+					type="mandatory" />
+
+			</container>
+
+			<container name="AUTO_NaaS_Select_POM_CFA">
+				<field name="tbx_nni" value="Yes" type="mandatory" />
+				<field name="tbx_pomQualified" value="Yes" type="mandatory" />
+				<field name="tbx_pomCorrelationId" value="98765"
+					type="mandatory" />
+				<field name="tbx_vlan" value="12347" type="mandatory" />
+
+			</container>
+
+			<container name="Stage Equipment">
+				<field name="tbx_bootConfig" value="60" type="mandatory" />
+				<field name="tbx_manufacturedPartNum" value="70"
+					type="mandatory" />
+				<field name="tbx_serialNum" value="99" type="mandatory" />
+			</container>
+
+			<container name="Ship Equipment">
+				<field name="tbx_cpeCourierTrackingNum" value="9999"
+					type="mandatory" />
+			</container>
+			
+			<container name="Obtain Project Code">
+				<field name="tbx_projectCode" value="90"
+					type="mandatory" />
+					<field name="lbl_Performer" value="Financial Procurement"
+					type="mandatory" />
+			</container>
+			
+			<container name="Perform Site Survey">
+				<field name="sel_closureCode" value="Completed Successfully"
+					type="mandatory" />
+					<field name="lbl_Performer" value="Field Services"
+					type="mandatory" />
+			</container>
+			
+			<container name="Perform Electronics Engineering">
+					<field name="lbl_Performer" value="Deployment_DPI"
+					type="mandatory" />
+			</container>
+			
+			<container name="Materials Procurement">
+					<field name="lbl_Performer" value="Procurement"
+					type="mandatory" />
+			</container>
+			<container name="Test Assist">
+					<field name="lbl_Performer" value="GNS Testing"
+					type="mandatory" />
+			</container>
+			
+			<container name="Project Scope">
+				<field name="sel_closureCode" value="Completed Successfully"
+					type="mandatory" />
+					<field name="lbl_Performer" value="Field Services"
+					type="mandatory" />
+			</container>
+			
+			<container name="Perform Implementation">
+				<field name="sel_closureCode" value="Completed Successfully"
+					type="mandatory" />
+					<field name="lbl_Performer" value="Field Services"
+					type="mandatory" />
+					<field name="sel_updateCADReq" value="No"
+					type="mandatory" />		
+			</container>
+			<container name="TNOC Acceptance">
+			<field name="lbl_Performer" value="TNOC"
+					type="mandatory" />
+				<field name="sel_tnoc" value="Accepted"
+					type="mandatory" />		
+			</container>
+			
+			<container name="Submit EAIM Request">
+				<field name="sel_nearnetCountryCode" value="ARG"
+					type="mandatory" />	
+						<field name="sel_nearnetCountryCode" value="ARG"
+					type="mandatory" />
+					<field name="tbx_orderPackageId" value="552056279"
+					type="mandatory" />
+					<field name="sel_activity" value="CLIENTE"
+					type="mandatory" />
+					<field name="sel_requesterArea" value="FSO OUTSIDE PLANT"
+					type="mandatory" />
+					<field name="sel_solution" value="FIBRA"
+					type="mandatory" />
+					<field name="sel_eaim" value="COMSYS"
+					type="mandatory" />
+					<field name="tbx_serviceId" value="330593094"
+					type="mandatory" />
+					<field name="sel_clientSideOrAlternateSite" value="CLIENT SITE"
+					type="mandatory" />
+					<field name="tbx_customerName" value="James H"
+					type="mandatory" />
+					<field name="sel_intervention_TypeOfService" value="INSTALACION (INSTALAÇÃO)"
+					type="mandatory" />
+					<field name="sel_reqAdditionalwork" value="No"
+					type="mandatory" />
+					<field name="tbx_estimatedUSDValue" value="10"
+					type="mandatory" />
+					<field name="tbx_reqComments" value="Testing12345"
+					type="mandatory" />
+					
+			</container>
+			
+			<container name="GetLocationContactInfo_EAIM">
+				<field name="tbx_autoEaimLatamSuccess" value="Yes"
+					type="mandatory" />		
+			</container>
+			
+			<container name="EAIM_OT_BPMS_Integration">
+				<field name="tbx_autoLatamOTIntegrationSuccess" value="Yes"
+					type="mandatory" />		
+			</container>
+           <container name="EAIM_OT_OrderAccepted">
+				<field name="tbx_autoLatamOTOrderAccepted" value="Yes"
+					type="mandatory" />		
+			</container>
+				
+			<container name="Approve EAIM Intervention">
+				<field name="sel_eaimApproved" value="Yes"
+					type="mandatory" />				
+					<field name="tbx_interventionComments" value="Testing8888"
+					type="mandatory" />
+					<field name="tbx_officeTrackFtpLink" value="Testing888998"
+					type="mandatory" />
+					<field name="sel_noShow" value="No"
+					type="mandatory" />
+					<field name="sel_technicalReport" value="1. VERY GOOD"
+					type="mandatory" />
+					<field name="sel_tools" value="1. VERY GOOD"
+					type="mandatory" />
+					<field name="sel_punctuality" value="1. VERY GOOD"
+					type="mandatory" />
+					<field name="sel_procedures" value="1. VERY GOOD"
+					type="mandatory" />
+					<field name="sel_technicalKnowledge" value="1. VERY GOOD"
+					type="mandatory" />
+					<field name="tbx_costOfIntervention" value="10"
+					type="mandatory" />
+					
+			</container>
+			
+			<container name="Manual Approve EAIM Intervention">
+				<field name="sel_eaimApproved" value="Yes"
+					type="mandatory" />				
+					<field name="tbx_interventionComments" value="Testing8888"
+					type="mandatory" />
+					<field name="tbx_officeTrackFtpLink" value="Testing888998"
+					type="mandatory" />
+					<field name="sel_noShow" value="No"
+					type="mandatory" />
+					<field name="sel_technicalReport" value="1. VERY GOOD"
+					type="mandatory" />
+					<field name="sel_tools" value="1. VERY GOOD"
+					type="mandatory" />
+					<field name="sel_punctuality" value="1. VERY GOOD"
+					type="mandatory" />
+					<field name="sel_procedures" value="1. VERY GOOD"
+					type="mandatory" />
+					<field name="sel_technicalKnowledge" value="1. VERY GOOD"
+					type="mandatory" />
+					<field name="tbx_costOfIntervention" value="10"
+					type="mandatory" />
+					
+			</container>
+<container name="UCPE_Logistics">
+				<field name="tbx_deviceName" value="Testing LTE"
+					type="mandatory" />	
+					<field name="tbx_serialNumber" value="123456789"
+					type="mandatory" />	
+					<field name="tbx_wirelessDeviceSerialNumber" value="987654321"
+					type="optional" />	
+					<field name="tbx_portalId" value="56789"
+					type="optional" />			
+			</container>
+			<container name="Offnet_Design_CFA">
+				<field name="tbxAutopilotManagedOffnet" value="Yes"
+					type="mandatory" />		
+			</container>	
+			
+			<container name="Autopilot Offnet Processing is Active">
+				<field name="lbl_Performer"
+					value="CO_AdminTasks" type="mandatory" />	
+			</container>	
+			<container name="Asri_Fulfilment_Qualify">
+				<field name="tbx_asriFulfilment"
+					value="No" type="mandatory" />	
+			</container>	
+
+		</container>
+	</container>
+
+</container>

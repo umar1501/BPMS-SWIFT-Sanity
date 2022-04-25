@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?><testrun name="CukesTest" project="BPM-PORTALTESTS" tests="1" started="1" failures="0" errors="1" ignored="0">
+  <testsuite name="com.ctl.it.qa.bpms.tests.CukesTest" time="1.137">
+    <testsuite name="Feature: BPMS sanity testing" time="1.137">
+      <testcase name="End to end Validation from Swift to BPMS - DIA Sanity" classname="BPMS sanity testing" time="1.137">
+        <error>java.lang.IllegalStateException: failure 'java.lang.NullPointerException'&#13;
+	at com.ibm.icu.impl.Assert.fail(Assert.java:17)&#13;
+	at com.ibm.icu.impl.Assert.fail(Assert.java:14)&#13;
+	at com.ctl.it.qa.bpms.steps.RegressionSteps.user_logged_in_Swift_in_specified_environment_with_Account_ID(RegressionSteps.java:110)&#13;
+	at com.ctl.it.qa.bpms.steps.RegressionSteps$$EnhancerByCGLIB$$afcfbb84.CGLIB$user_logged_in_Swift_in_specified_environment_with_Account_ID$1(&lt;generated&gt;)&#13;
+	at com.ctl.it.qa.bpms.steps.RegressionSteps$$EnhancerByCGLIB$$afcfbb84$$FastClassByCGLIB$$7c0632ea.invoke(&lt;generated&gt;)&#13;
+	at net.sf.cglib.proxy.MethodProxy.invokeSuper(MethodProxy.java:228)&#13;
+	at net.thucydides.core.steps.StepInterceptor.invokeMethod(StepInterceptor.java:478)&#13;
+	at net.thucydides.core.steps.StepInterceptor.executeTestStepMethod(StepInterceptor.java:463)&#13;
+	at net.thucydides.core.steps.StepInterceptor.runTestStep(StepInterceptor.java:438)&#13;
+	at net.thucydides.core.steps.StepInterceptor.runOrSkipMethod(StepInterceptor.java:179)&#13;
+	at net.thucydides.core.steps.StepInterceptor.testStepResult(StepInterceptor.java:166)&#13;
+	at net.thucydides.core.steps.StepInterceptor.intercept(StepInterceptor.java:72)&#13;
+	at com.ctl.it.qa.bpms.steps.RegressionSteps$$EnhancerByCGLIB$$afcfbb84.user_logged_in_Swift_in_specified_environment_with_Account_ID(&lt;generated&gt;)&#13;
+	at com.ctl.it.qa.bpms.tests.stepdefinitions.RegressionUserStepDefinition.user_logged_in_Swift_in_specified_environment_with_Account_ID(RegressionUserStepDefinition.java:26)&#13;
+	at ✽.User logged in Swift in specified environment "1" with Account ID "5176906"(src/test/resources/Features/E2E.feature:7)&#13;
+&#13;
+</error>
+      </testcase>
+    </testsuite>
+  </testsuite>
+</testrun>

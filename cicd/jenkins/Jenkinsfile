@@ -1,0 +1,181 @@
+/*
+ Library declaration.
+  Notes:
+  identifier includes the version of the library (git tag / branch)
+  remote includes the repository git url
+  credentialsId needs to be of the type SSH key in Jenkins
+  _ at the end of the declaration loads the whole library
+  This section always runs in the master jenkins.
+*/
+library(
+      identifier: 'jsl-jenkins-shared-library@master',
+      retriever: modernSCM(
+        [
+          $class: 'GitSCMSource',
+          remote: "https://github.com/CenturyLink/jsl-jenkins-shared-library.git",
+	  extensions: [[$class: 'WipeWorkspace']],
+          credentialsId: 'GITHUB_APP_CREDENTIALS'
+        ]
+      )
+    ) _
+
+pipeline {
+
+    environment {
+
+      /*
+        Credentials:
+        GITHUB_TOKEN_CREDENTIALS github token, jenkins user password credential
+        GITHUB_SSH_CREDENTIALS github ssh private key, jenkins private key credential.
+        DOCKER_CREDENTIALS Docker access info, jenkins secret file credential with environment variables to export
+        KUBE_CREDENTIALS Kubernetes access info, jenkins secret file credential with environment variables to export. For PRs.
+        KUBE_CREDENTIALS_TEST Kubernetes access info, jenkins secret file credential with environment variables to export. For branches.
+        AMAZON_CREDENTIALS AWS access info, jenkins secret file credential with environment variables to export
+        SONARQUBE_CREDENTIALS Sonarqube access info, jenkins secret text
+        GCP_CREDENTIALS GCP access info, jenkins secret file credential with environment variables to export
+        JIRA_CREDENTIALS Jira access info, jenkins secret file credential with environment variables to export
+        MSTEAMS_CREADENTIALS MS Teams access info, jenkins secret text
+      */
+      GITHUB_TOKEN_CREDENTIALS = 'SCMAUTO_GITHUB'
+      GITHUB_SSH_CREDENTIALS = 'SCMAUTO_GITHUB'
+      DOCKER_CREDENTIALS = 'nexus-secrets-autotest'
+      KUBE_CREDENTIALS = 'kube-secret-dev'
+      // KUBE_CREDENTIALS_DEV = 'kube-secret-dev'
+      KUBE_CREDENTIALS_TEST = 'kube-secret-test'
+      // KUBE_CREDENTIALS_PROD = 'kube-secret-test' /*'kube-secret-prod'*/
+      //SONARQUBE_CREDENTIALS = 'sonar-secrets'
+      SONARQUBE_CREDENTIALS = 'sonarscnprod'
+      QUALITY_GATE_CREDENTIALS = 'qualitygate-secret'
+      JIRA_CREDENTIALS = 'jira-credentials'
+      XRAY_CREDENTIALS = 'xray-credentials'    
+      JIRA_SERVER_INSTANCE_ID = 'CLOUD-482e318d-9fc6-4be6-9089-2646e78fcac3' //'CLOUD-66c37195-7903-495a-94c3-259f15e1e3a8'//'jira-server-instance-id'
+      AMAZON_CREDENTIALS = ''
+      GCP_CREDENTIALS = ''
+      //JIRA_AUTO_CREDENTIALS = 'Jira-Xray-Key'
+      //MSTEAMS_CREDENTIALS = 'teams-secret'
+      TAG = '${env.NODE_NAME}'
+	  
+	  //Deployment control credentialsId
+      AUTHORIZED_USERS = 'authorized_users'
+      DEPLOY_AUTH_TOKEN = 'deploy_auth_token'
+
+	    
+
+      // Custom project variables
+      
+      
+      // Custom project variables
+      BRANCH_NAME = GIT_BRANCH.split('/')[-1].trim().toLowerCase()
+      COMMIT_ID = GIT_COMMIT.substring(0,7).trim().toLowerCase()
+      PULL_REQUEST="pr-${env.CHANGE_ID}"
+      PROJECT_NAME = 'PROJECT'
+      PROJECT_MAL  = "BPM-PORTAL"
+      DOCKER_REPO ='PROJECT_REPO'
+      IMAGE_NAME = "${env.PROJECT_NAME}"
+      IMAGE_TAG =  "${env.PULL_REQUEST}"
+      KUBE_DOCKER_SECRET_NAME = "${env.PROJECT_NAME}-${env.PULL_REQUEST}"
+      KUBE_DOCKER_SECRET_NAME_TEST = "${env.PROJECT_NAME}-${env.BRANCH_NAME}"
+    }
+
+    parameters {
+      //      https://www.jenkins.io/doc/book/pipeline/syntax/#parameters
+      choice(name: 'Environment', choices: ['Test1', 'Test2', 'Test4'], description: '')
+      choice(name: 'TestType', choices: ['Sanity','Regression'], description: '')
+      choice(name: 'MAL', choices: ['BPM-PORTAL'], description: '')
+      choice(name: 'TestTool', choices: ['STAF'], description: '')
+      string(name: 'ProjectKey', defaultValue: 'GETTNF', description: '')
+
+    }
+
+    /*
+    https://www.jenkins.io/doc/book/pipeline/syntax/#agent
+    Add agent sections in stages/stage if needed.
+    */
+    agent {
+      label 'Docker-enabled'
+    }
+
+    options {
+      /*
+      https://www.jenkins.io/doc/book/pipeline/syntax/#options
+      */
+      timestamps ()
+      timeout(time: 1, unit: 'HOURS')
+      buildDiscarder(logRotator(numToKeepStr:'3', daysToKeepStr: '5'))
+      disableConcurrentBuilds()
+    }
+
+    /*
+    https://www.jenkins.io/doc/book/pipeline/syntax/#triggers
+    */
+    triggers {
+     // pollSCM('*/5 * * * *')
+      issueCommentTrigger('.*test this please.*')
+    }
+
+    stages {
+
+      stage('DevSecOps'){
+        steps {
+          script {
+            /* Contract Validation Gate */
+            jslGitHubSecurityAlert()
+          }
+        }
+      }
+
+
+      stage('Sanity Test') {
+        agent {
+          dockerfile {
+              filename 'Dockerfile'
+              dir 'cicd/docker/selenium'
+              label 'Docker-enabled'
+          }
+        }
+	      
+        steps {
+		configFileProvider([configFile(fileId: 'NEXUS2-MAVEN-SETTINGS', variable: 'MAVEN_SETTINGS')]) {
+          script {
+            sh 'cd BPMSUITools && mvn -s ${MAVEN_SETTINGS} clean install'
+            try {
+			sh 'cd BPMSUITest && mvn -s ${MAVEN_SETTINGS} clean verify serenity:aggregate -Dcucumber.options=\'src/test/resources/features --tags @Sanity --plugin json:target/TestResult.json --plugin junit:target/cucumber-reports/Cucumber.xml\' -Dstaf.mal.key=BPM-PORTAL -Dstaf.testtype.key=Sanity -Dstaf.environment.key=TEST2 -Dwebdriver.driver=chrome -Dwebdriver.timeouts.implicitlywait=40000'
+		        stash name: 'result' , includes: 'BPMSUITest/target/cucumber-reports/Cucumber.xml'
+            }
+            catch (Exception e) {
+              println "Tests executed but failed. Check the logs, login is working." 
+            }
+            // As tests are failing the index is not generated
+            jslPublishHTMLTestResults('Report.html','BPMSUITest/target/report', 'STAF HTML Report')
+			jslPublishCucumberReport('TestResult.json','Sanity Report')
+		    
+		jslJiraXrayResultImport('cucumber','BPMSUITest/target/TestResult.json', "Pipeline Test for Jira", "STAF", "GETTNF", null, null,env.XRAY_CREDENTIALS,'BPM-PORTAL',env.JIRA_SERVER_INSTANCE_ID)
+		jslEmailNotification('rajneesh.k.gautam@centurylink.com','Job Name:${JOB_NAME} BuildNo:${BUILD_NUMBER}','BPMSUITest/target/report/Report.html,BPMSUITest/target/report/*.png','''${FILE,path="BPMSUITest/target/report/Report.html"}
+       Build Url : ${BUILD_URL}''','text/html')
+          }
+          } 
+      }
+    }
+	stage('Quality Gate'){
+	 agent{
+	   dockerfile {
+              filename 'Dockerfile'
+              dir 'cicd/docker/qualitygate'
+              label 'Docker-enabled'
+       }  
+	 }
+       steps {
+	      script {
+	        unstash 'result'
+	        jslCheckQualityGates("BPMSUITest/target/cucumber-reports/Cucumber.xml","qualitygate2")
+			}
+	 }  
+	}
+	}
+    post {
+     always{       
+       cleanWs()
+
+     }
+    }
+}

@@ -1,0 +1,192 @@
+package com.ctl.it.qa.bpms.steps;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import org.apache.http.util.TextUtils;
+import org.junit.Assert;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Wait;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import com.ctl.it.qa.bpms.pages.DiscountingProfitabilityPage;
+import com.ctl.it.qa.bpms.pages.ScenarioDetailPage;
+import com.ctl.it.qa.staf.Steps;
+
+import net.thucydides.core.annotations.Step;
+
+
+
+@SuppressWarnings("serial")
+public class DiscountingProfitabilitySteps extends Steps{
+
+	private transient Logger slf4jLogger = LoggerFactory.getLogger(DiscountingProfitabilitySteps.class);
+	transient DiscountingProfitabilityPage discountingProfitabilityPage;
+	transient ScenarioDetailPage scenarioDetailPage;
+	ProductSummarySteps productSummarySteps;
+	
+	public  void tranferDrivertoAnotherWindow(WebDriver driver) {
+		try {
+
+			for (String winHandle : driver.getWindowHandles()) {
+				driver.switchTo().window(winHandle);
+				Thread.sleep(5000);
+			}
+
+		} catch (Exception ex) {
+			slf4jLogger.info(ex.getMessage());
+		}
+
+	}
+	
+	private String getHexValueOfColor(String color) {
+		String[] hexValue = color.replace("rgba(", "").replace(")", "").split(",");
+		hexValue[0] = hexValue[0].trim();
+		int hexValue1 = Integer.parseInt(hexValue[0]);
+		hexValue[1] = hexValue[1].trim();
+		int hexValue2 = Integer.parseInt(hexValue[1]);
+		hexValue[2] = hexValue[2].trim();
+		int hexValue3 = Integer.parseInt(hexValue[2]);
+		String hexadecimalValue = String.format("#%02x%02x%02x", hexValue1, hexValue2, hexValue3);
+
+		return hexadecimalValue;
+	
+	}
+	
+	@Step
+	public void clickOnPopulatePricingAndSaveChanges(String testID)throws InterruptedException {
+	try {
+			WaitForPageToLoad(3000);
+			Thread.sleep(10000);
+
+		WebDriver driver = getDriver();
+		Thread.sleep(8000);
+		WaitForPageToLoad(1000);
+		try{
+			ExpectedConditions.elementToBeClickable(discountingProfitabilityPage.populatepricing);
+			discountingProfitabilityPage.populatepricing.click();
+			driver.switchTo().alert().accept();
+		}catch (Exception e) {
+			slf4jLogger.info("Catch block!!");
+		}
+
+		Thread.sleep(5000);
+		discountingProfitabilityPage.pricingSavebutton.click();
+		WaitForPageToLoad(3000);
+		Thread.sleep(5000);
+		
+		slf4jLogger.info("Applying discount success");
+	}
+		catch(Exception e){
+			slf4jLogger.info("error while populating pricing in Discounting page");
+			Assert.fail(e.getMessage());
+		}
+}
+	
+   public Map<String, String> createConfigKeyValuePair(String entries) throws Exception {
+		
+		String[] attributes =  entries.split(";");
+		Map<String, String> map = new HashMap<String, String>();
+		for (String entry : attributes) {
+	        if (!TextUtils.isEmpty(entry) && entry.contains(":")) {
+	            String[] keyValue = entry.split(":");
+	            map.put(keyValue[0], keyValue[1]);
+	        }
+	    }
+		
+		return map;
+	}
+
+	@Step
+	public void clickOnAndSaveChanges(String testID)throws InterruptedException {
+		try {
+			 
+			WaitForPageToLoad(3000);
+			Thread.sleep(10000);
+
+		productSummarySteps.clickOnDiscountingandProfitabilityButton();
+		WebDriver driver = getDriver();
+		Thread.sleep(5000);
+		WaitForPageToLoad(1000);
+		try {
+		ExpectedConditions.elementToBeClickable(discountingProfitabilityPage.populatepricing);
+		discountingProfitabilityPage.populatepricing.click();
+		driver.switchTo().alert().accept();
+		Thread.sleep(5000);
+		}
+		catch (Exception e) {
+			Thread.sleep(5000);
+		}
+		finally {
+		discountingProfitabilityPage.pricingSavebutton.click();
+		WaitForPageToLoad(3000);
+		Thread.sleep(5000);
+		}
+		slf4jLogger.info("Applying discount success");
+	}
+		catch(Exception e){
+			slf4jLogger.info("error while populating pricing in Discounting page");
+			Assert.fail(e.getMessage());
+		}
+}
+	
+@Step	
+public void clickOnRefreshPricingAndSaveChanges(String testID) throws InterruptedException {
+		
+		try {
+			WaitForPageToLoad(3000);
+			Thread.sleep(10000);
+			
+			ExpectedConditions.elementToBeClickable(discountingProfitabilityPage.refreshPricingBtn);
+			if(discountingProfitabilityPage.refreshPricingBtn.isCurrentlyEnabled()){
+			discountingProfitabilityPage.refreshPricingBtn.click();
+			Thread.sleep(5000);
+			slf4jLogger.info("Clicked on Refresh pricing button");
+			}
+			ExpectedConditions.elementToBeClickable(discountingProfitabilityPage.pricingSavebutton);
+			discountingProfitabilityPage.pricingSavebutton.click();
+			
+			Thread.sleep(5000);
+			slf4jLogger.info("Clicked on save button");
+
+		}
+		catch(Exception e){
+			slf4jLogger.info("error while refresh pricing in Discounting page");
+			Assert.fail(e.getMessage());
+		}
+	}
+
+
+@Step
+public void verifyProfit(String testID) throws Exception {
+	try{
+		slf4jLogger.info("Verify Profit Pass or Fail in D/P Page..!!");
+		WebDriver driver = getDriver();
+		Wait<WebDriver> wait = new WebDriverWait(driver, 1000);
+		WaitForPageToLoad(3000);
+		Thread.sleep(10000);
+
+		WaitForPageToLoad(3000);
+		Thread.sleep(10000);
+		if(testID.equals("25046")) {
+			Assert.assertTrue("The Scenario Total displays NA:NA",discountingProfitabilityPage.scenarioTotal.getText().equalsIgnoreCase("Profit Pass"));
+			slf4jLogger.info("Scenario Total is Profit Pass for the TC25046.. Test Pass!!");
+		}
+		else {
+			Assert.assertTrue("The Product Package Total displays NA:NA", (!(discountingProfitabilityPage.productPackageTotal.getText().equalsIgnoreCase("NA:NA"))));
+			Assert.assertTrue("The Scenario Total displays NA:NA", (!(discountingProfitabilityPage.scenarioTotal.getText().equalsIgnoreCase("NA:NA"))));
+			slf4jLogger.info("Product Package Total and Scenario Total are not NA:NA");
+		}
+		
+	}
+		catch (Exception e) {
+			slf4jLogger.error("Error occured while verifying Term functionality");
+			Assert.fail("Error occured while verifying Term functionality");
+		}
+}
+
+
+}

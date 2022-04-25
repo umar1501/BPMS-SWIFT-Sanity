@@ -1,0 +1,44 @@
+package com.ctl.it.qa.bpms.pages;
+
+import com.ctl.it.qa.staf.Page;
+
+import net.serenitybdd.core.annotations.findby.FindBy;
+import net.serenitybdd.core.pages.WebElementFacade;
+
+public class SalesforceLoginPage extends Page {
+	
+	@FindBy(xpath=".//*[@id='idp_section_buttons']/button")
+	public WebElementFacade CtliOAMSSO_btn;
+	//*[@id="idp_section_buttons"]/button
+	@FindBy(xpath=".//span[text()='Lumen Azure SSO']")
+	public WebElementFacade LumenOAM_SSO;
+	
+	@FindBy(xpath=".//span[text()='DSG Azure SSO']")
+	public WebElementFacade DSGAzure_SSO;
+	
+	@FindBy(xpath = ".//html/body/div/div/form/input[1]")
+	public WebElementFacade UserID;
+	
+	@FindBy(xpath=".//*[@id='password']")
+	public WebElementFacade password;
+	
+	@FindBy(xpath = "//*[@id='i0116']")
+	public WebElementFacade Azure_UserID;
+	//*[@id="i0118"]
+	@FindBy(id="i0118")
+	public WebElementFacade Azure_password;
+	
+	@FindBy(xpath=".//*[@id='idSIButton9']")
+	public WebElementFacade Azure_Btn;
+	
+	@FindBy(xpath = ".//input[@class='login']")
+	public WebElementFacade Login_btn;
+	
+	
+	@Override
+	public WebElementFacade getUniqueElementInPage() {
+		
+		return Login_btn;
+	}
+
+}

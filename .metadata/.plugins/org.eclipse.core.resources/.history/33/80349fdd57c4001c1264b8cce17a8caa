@@ -1,0 +1,535 @@
+package com.ctl.it.qa.bpms.tests.stepdefinitions;
+
+import org.openqa.selenium.WebDriver;
+
+import com.ctl.it.qa.bpms.pages.SMAttachNewDocumentFormPage;
+import com.ctl.it.qa.bpms.pages.ScenarioDetailPage;
+import com.ctl.it.qa.bpms.steps.DiscountingProfitabilitySteps;
+import com.ctl.it.qa.bpms.steps.KenanSteps;
+import com.ctl.it.qa.bpms.steps.OpportunityDetailLightningSteps;
+import com.ctl.it.qa.bpms.steps.OpportunityDetailSteps;
+import com.ctl.it.qa.bpms.steps.ProductConfigSteps;
+import com.ctl.it.qa.bpms.steps.ProductSummarySteps;
+import com.ctl.it.qa.bpms.steps.QuoteDetailLightningSteps;
+import com.ctl.it.qa.bpms.steps.QuoteDetailSteps;
+import com.ctl.it.qa.bpms.steps.ROCDetailsSteps;
+import com.ctl.it.qa.bpms.steps.ROCHomeSteps;
+import com.ctl.it.qa.bpms.steps.SMAttachNewDocumentFormSteps;
+import com.ctl.it.qa.bpms.steps.SalesforceHomeLightningSteps;
+import com.ctl.it.qa.bpms.steps.SalesforceHomeSteps;
+import com.ctl.it.qa.bpms.steps.SalesforceLoginSteps;
+import com.ctl.it.qa.bpms.steps.VendorBidManagementSteps;
+
+import cucumber.api.java.en.Given;
+import cucumber.api.java.en.Then;
+import cucumber.api.java.en.When;
+import net.thucydides.core.annotations.Steps;
+
+public class DQPStepDefinition {
+	
+	@Steps
+	SalesforceLoginSteps salesforceLoginSteps;
+	@Steps
+	OpportunityDetailSteps opportunityDetailSteps;
+	@Steps
+	SalesforceHomeSteps salesforceHomeSteps;
+	@Steps
+	ProductConfigSteps productConfigSteps;
+	@Steps
+	DiscountingProfitabilitySteps discountingprofitabilitySteps;
+	@Steps
+	VendorBidManagementSteps vendorBidManagementSteps;
+	@Steps
+	QuoteDetailSteps quoteDetailSteps;
+	@Steps
+	SMAttachNewDocumentFormSteps smAttachNewDocumentFormSteps;
+	@Steps
+	SMAttachNewDocumentFormPage smAttachNewDocumentFormPage;
+	@Steps
+	ROCHomeSteps rocHomeSteps;
+	@Steps
+	ROCDetailsSteps rocDetailsSteps;
+	@Steps
+	ProductSummarySteps productSummarySteps;
+	@Steps
+	ScenarioDetailPage scenarioDetailPage;
+	@Steps
+	SalesforceHomeLightningSteps salesforceHomeLightningSteps;
+	@Steps
+	OpportunityDetailLightningSteps opportunityDetailLightningSteps;
+	@Steps
+	QuoteDetailLightningSteps quoteDetailLightningSteps;
+	@Steps
+	KenanSteps kenanSteps;
+	
+	@Given("login to salesforce {string}")
+	public void login_to_salesforce(String federalUserType) throws InterruptedException {
+		SalesforceLoginSteps.setFederalUserType(federalUserType);
+		salesforceLoginSteps.loginIntoSalesforce();
+	}
+	@Given("login to SES")
+	public void login_to_SES() throws InterruptedException {
+		kenanSteps.loginIntoKenan();
+	}
+	
+	@Then("verify CMMC Validation for the Order ID {string}")
+	public void verify_CMMC_Validation_for_the_Order_ID(String string) throws InterruptedException {
+		kenanSteps.VerifyCustOrderIdInfo(string);
+	}
+	@When("switch to classic version from lightening")
+	public void switch_to_classic_version_from_lightening() throws Exception {
+	    salesforceHomeSteps.switchToClassicSalesforce();
+	}
+	
+	@When("^verify the product package created \"([^\"]*)\"$")
+	public void verify_the_product_packages_created(String arg1) throws InterruptedException {
+		productSummarySteps.verifyProductPackage(arg1);
+	}
+	
+	@When("^Go to Scenario Manager quote tab and create a scenario as scenarioName \"([^\"]*)\" , Currency \"([^\"]*)\" , TestID \"([^\"]*)\"$")
+	public void go_to_Scenario_Manager_quote_tab_and_create_a_scenario_as_scenarioName_Currency(String arg1, String arg2, String arg3) throws Exception {
+		salesforceHomeSteps.clickOnSMQuote(arg1,arg2,arg3);
+	}
+	
+	@When("^go to Scenario Detail page and create a new product package$")
+	public void go_to_Scenario_Detail_page_and_create_a_new_product_package() throws InterruptedException {
+		productSummarySteps.createNewProductPackage();
+	}
+	
+	@When("^Go to opportunity tab and create a opportunity with OppurtunityAccName \"([^\"]*)\" and OppurtunityName  \"([^\"]*)\" and OppurtunityDt \"([^\"]*)\" and OppurtunityStage \"([^\"]*)\"$")
+	public void go_to_opportunity_tab_and_create_a_opportunity_with_OppurtunityAccName_and_OppurtunityName_and_OppurtunityDt_and_OppurtunityStage(String arg1, String arg2, String arg3, String arg4) throws Exception {
+		salesforceHomeSteps.createOppurtunity(arg1, arg2, arg3, arg4);
+	}
+	
+	@When("^Go to manage location and search for address \"([^\"]*)\"$")
+	public void go_to_manage_location_and_search_for_address(String arg1) throws InterruptedException {
+		productSummarySteps.selectAddress(arg1);
+	}
+	
+	@When("^Go to configure package and select PackageType \"([^\"]*)\" and product \"([^\"]*)\"$")
+	public void go_to_configure_package_and_select_PackageType_and_product(String arg1, String arg2) throws InterruptedException {
+		productSummarySteps.selectProductTypeAndProduct(arg1, arg2);    
+	}
+	
+	@When("^Go to Product configuration page and select attributes \"([^\"]*)\" , \"([^\\\"]*)\"$")
+	public void go_to_Product_configuration_page_and_select_attributes(String arg1, String arg2) throws Exception {
+		productConfigSteps.selectAttributesDIA(arg1,arg2);
+	}
+	
+	@When("^Go to Product configuration page and select attributes of IPVPN \"([^\"]*)\"$")
+	public void go_to_Product_configuration_page_and_select_attributes_of_IPVPN(String arg1) throws Exception {
+		productConfigSteps.selectAttributesIPVPN(arg1);
+	}
+	
+	@When("^Go to configure package and select address \"([^\"]*)\"$")
+	public void go_to_Product_configuration_page_and_select_Address_from_dropdown(String arg1) throws InterruptedException {
+		productConfigSteps.selectAddressDQP(arg1);
+	}
+	
+	@Then("^verify the product package created product \"([^\"]*)\"$")
+	public void verify_the_product_package_created_product(String arg1) throws InterruptedException {
+		productSummarySteps.verifyProductPackage(arg1);
+	}
+	
+	@Then("^verify the product package created product \"([^\"]*)\" have portBandwidth \"([^\"]*)\"$")
+	public void verify_the_product_package_created_product_have_portBandwidth(String arg1, String arg2) throws InterruptedException {
+		String arg = arg1 + " - " + arg2;
+		productSummarySteps.verifyProductPackage(arg);
+	}
+	
+	@When("^Go to Scenario Details Page and check Approvals \"([^\"]*)\"$")
+	public void go_to_Scenario_Details_Page_and_check_Approvals(String arg1) throws InterruptedException {
+		productSummarySteps.verifyApprovalStatusInScenarioDetailsPage(arg1);
+	}
+	
+	@When("^Go to Vendor Bid Management Page and submit Roc Requests$")
+	public void go_to_Vendor_Bid_Management_Page_and_submit_Roc_Requests() throws InterruptedException {
+		productSummarySteps.clickOnVendorBidManagementButton();
+		vendorBidManagementSteps.submitROCRequest();
+	}
+
+	@Then("^Go to VBM page and verify ROC IDs$")
+	public void go_to_VBM_page_and_verify_ROC_IDs() throws Exception {
+	 vendorBidManagementSteps.verifyROCIDs();
+	}
+
+	@Then("^Go to discounting page and save changes$")
+	public void go_to_discounting_page_and_save_changes() throws Exception {
+		productSummarySteps.clickOnDiscountingandProfitabilityButton();
+		productSummarySteps.clickOnsaveChanges();
+		
+	}
+
+	@When("^Go to Scenario Details Page and Verify Products Details page \"([^\"]*)\"$")
+	public void go_to_Scenario_Details_Page_and_Verify_Products_Details_page(String arg1) throws Exception {
+		productSummarySteps.verifyProductsCreated(arg1);
+	}
+	
+	@When("^Click on Continue button in Product configuration page$")
+	public void click_on_Continue_button_in_Product_configuration_page() throws Exception {
+		productConfigSteps.clickOnContinue();
+	}
+	
+	@When("^Click on Finish and save the changes \"([^\"]*)\"$")
+	public void click_on_Finish_and_save_the_changes(String arg1) throws Exception {
+		productConfigSteps.clickOnFinishButton(arg1);
+	}
+	
+	@When("^Verify the package status as Valid \"([^\"]*)\"$")
+	public void verify_the_package_status_as_Valid(String arg1) throws Exception {
+		productSummarySteps.waitForValidStatus(arg1);
+	}
+	
+	@When("^Go to Discounting page and Populate pricing and Save changes \"([^\"]*)\"$")
+	public void go_to_Discounting_page_and_Populate_pricing_and_Save_changes(String arg1) throws InterruptedException {
+		productSummarySteps.clickOnDiscountingandProfitabilityButton();
+		discountingprofitabilitySteps.clickOnPopulatePricingAndSaveChanges(arg1);
+	}
+	
+	@When("^Open Created Product Package$")
+	public void open_Created_Product_Package() throws Exception {
+	    productSummarySteps.openProductPackage();
+	}
+
+	@When("Go to Product configuration page and select attributes of Wavelength {string}")
+	public void go_to_Product_configuration_page_and_select_attributes_of_Wavelength(String string) throws Exception {
+		productConfigSteps.selectAttributesWavelength(string);
+	}
+	
+	@When("Go to Discounting page and Populate pricing and Save changes  {string}")
+	public void go_to_Discounting_page_and_Populate_pricing_and_Save_the_changes(String string) throws InterruptedException {
+		discountingprofitabilitySteps.clickOnPopulatePricingAndSaveChanges(string);
+	}
+	
+	@When("Go back to Opportunity page")
+	public void go_back_to_Opportunity_page() throws Exception {
+	   productSummarySteps.gobacktoOpportunity();
+	}
+	
+	@Then("Go to Vendor Bid Management Page and verify Roc Requests before submit {string}")
+	public void go_to_Vendor_Bid_Management_Page_and_verify_Roc_Requests_before_submit(String string) throws Exception {
+	   productSummarySteps.clickOnVendorBidManagementButton();
+	   vendorBidManagementSteps.verifyROCRequestsBeforeSubmit(string);
+	}
+	
+	@Then("verify products created {string}")
+	public void verify_products_created(String string) throws Exception {
+		productSummarySteps.validateProductsCreated(string);
+	}
+	
+	@When("Click on Quick save {string}")
+	public void click_on_quick_save(String string)throws Exception{
+		productConfigSteps.clickOnQuickSave(string);
+	}
+	
+	@Then("^Verify the product package created is valid and pricing is present for the product \"([^\"]*)\"$")
+	public void verify_the_product_package_created_is_valid_and_pricing_is_present_for_the_product(String arg1) throws InterruptedException {
+		productSummarySteps.verifyProductPackageStatus(arg1);
+	}
+	
+	@When("Go to Product configuration page and select attributes of UNI {string}, {string}")
+	public void go_to_Product_configuration_page_and_select_attributes_of_UNI(String string, String string2) throws Exception {
+	    productConfigSteps.selectAttributesUNI(string, string2);
+	}
+
+	@Then("Go to Opportunity Details page and Submit the order to Swift {string} , {string}")
+	public void go_to_Opportunity_Details_page_and_Submit_the_order_to_Swift(String string , String date) throws Exception {
+		productSummarySteps.gobacktoOpportunity();
+		opportunityDetailSteps.changeOpportunityStageLevel("Agreement",string,date);
+		opportunityDetailSteps.clickOnQuoteNumber(string);
+		quoteDetailSteps.provideNAE_MSA_CCM_VAE_HAULAndSave(string, scenarioDetailPage.NAEContact,
+									  scenarioDetailPage.CCM_Contact, scenarioDetailPage.VAEContact,
+									  scenarioDetailPage.HaulApplicability,
+									  scenarioDetailPage.SubmitToSwiftApplicability,
+									  scenarioDetailPage.MSAPricingApplicability);
+		quoteDetailSteps.clickBillingAccountButton( string);
+		quoteDetailSteps.selectBillingAccount(string);
+		quoteDetailSteps.clickOnEnterRequiredContacts( string);
+		quoteDetailSteps.addNecessaryContacts(string, scenarioDetailPage.ContacttoAddinSMDetail);
+		quoteDetailSteps.clickOnAddGlobalAttachment(string);
+		smAttachNewDocumentFormSteps.enterValuesForAttachNewDocument(string,
+						smAttachNewDocumentFormPage.AttachedDocumentName,
+						smAttachNewDocumentFormPage.AttachedDocumentType,
+						smAttachNewDocumentFormPage.AttachedDocumentTerm,
+						smAttachNewDocumentFormPage.NonStandard_SelectElement,
+						smAttachNewDocumentFormPage.AttachedDocumentFinalFlag);
+	    quoteDetailSteps.ClickSubmitToSwift(string);
+		
+	}
+	
+	@When("Go to Product configuration page and select attributes of E-Access-ovc {string} , {string}")
+	public void go_to_Product_configuration_page_and_select_attributes_of_E_Access_OVC(String string, String string2) throws Exception {
+		productConfigSteps.selectAttributesEAccessOVC(string,string2);
+		Thread.sleep(5000);
+		
+	}
+	
+	@When("^Click on next button in Product configuration page$")
+	public void click_on_next_button_in_Product_configuration_page() throws Exception {
+		productConfigSteps.clickOnNext();
+	}
+	
+	@When("Enter TotalMRR in SM core {string}")
+	public void enter_totalmrr_in_sm_core(String string)throws Exception{
+		productConfigSteps.enterTotalMRR(string);
+	}
+	
+	@When("Click on save product button {string}")
+	public void click_on_save_product_button(String string)throws Exception{
+		productConfigSteps.clickOnSaveProduct(string);
+	}
+	
+	@When("Go to Product configuration page and select attributes of E-Line_EVC {string} , {string}")
+	public void go_to_Product_configuration_page_and_select_attributes_of_E_line_EVC(String string, String string2) throws Exception {
+		productConfigSteps.selectAttributesElineEVC(string,string2);
+	}
+
+	@Then("verify status of scenario created {string}")
+	public void verify_status_of_scenario_created(String string) throws Exception{
+		productSummarySteps.verifyProductPackageStatus(string);
+	}
+
+	@When("Go to configure package and select address from Dropdown {string} , product {string}")
+	public void go_to_configure_package_and_select_address_from_Dropdown_product(String string, String string2) throws InterruptedException {
+	    productConfigSteps.chooseLocationFromDropdown(string, string2);
+	}
+	
+	@When("Go to Product configuration page and select attributes of ENNI {string} , {string}")
+	public void go_to_Product_configuration_page_and_select_attributes_of_ENNI(String string, String string2) throws InterruptedException {
+		productConfigSteps.selectAttributesENNI(string, string2);
+	}
+	
+	
+	@When("Click on Quote Number {string}")
+	public void click_on_quote_number(String string) throws Exception {
+		opportunityDetailSteps.clickOnQuoteNumber(string);
+	}
+	
+	
+	@When("Login to ROC Portal {string}")
+	public void login_to_ROC_Portal(String string) throws Exception {
+	    WebDriver driver = productSummarySteps.openNewTabForROCPortal();
+	    rocDetailsSteps.setWebDriverForROCPage(driver);
+	    rocHomeSteps.logintoROC(string);  
+	}
+	
+	@When("Go to ROC Portal and search for ROC details {string}")
+	public void go_to_ROC_Portal_and_search_for_ROC_details(String string) throws Exception {
+	    rocHomeSteps.searchRocDetails("", string);
+	}
+	
+	@When("Go to ROC Portal and assign ROC request to user {string}")
+	public void go_to_ROC_Portal_and_assign_ROC_request_to_user(String string) throws Exception {
+	    rocDetailsSteps.assignRocRequestToUser(string);
+	}
+	
+	@When("Go to ROC Portal and create New Bid {string}")
+	public void go_to_ROC_Portal_and_create_New_Bid(String string) throws Exception {
+	    rocDetailsSteps.createnewBid(string);
+	}
+	
+	@When("Go to ROC Portal and enter pricing details for bid {string}")
+	public void go_to_ROC_Portal_and_enter_pricing_details_for_bid(String string) throws Exception {
+	    rocDetailsSteps.enterPricingDetailstoRocApplication(string);
+	}
+	
+	@When("Go to ROC Portal and save and recommend ROC request {string}")
+	public void go_to_ROC_Portal_and_save_recommend_and_close_ROC_request(String string) throws Exception {
+	    rocDetailsSteps.clickOnSaveRequest(string);
+	    rocDetailsSteps.clickOnRecommended(string);
+	    rocDetailsSteps.clickOnCloseRequest(string);
+	}
+	
+	@When("Go to Product configuration page and select attributes of E-Line_EVC and go to next without quick save {string} , {string}")
+	public void go_to_Product_configuration_page_and_select_attributes_of_E_Line_EVC_and_go_to_next_without_quick_save(String string, String string2)throws Exception {
+		productConfigSteps.selectAttributesElineEVC(string,string2);
+	}
+	
+	@When("^Go to Discounting page and Refresh pricing and Save changes \"([^\"]*)\"$")
+	public void go_to_Discounting_page_and_Refresh_pricing_and_Save_changes(String arg1) throws InterruptedException {
+		discountingprofitabilitySteps.clickOnRefreshPricingAndSaveChanges(arg1);
+	}
+	
+	@When("Go to Product configuration page and select attributes of eLynk_EVC {string} , {string}")
+	public void go_to_Product_configuration_page_and_select_attributes_of_eLynk_EVC(String string, String string2) throws Exception {
+	    productConfigSteps.selectAttributeseLynkEVC(string, string2);
+	}
+	
+	@When("Go to Vendor Bid Management Page and submit Roc Requests {string}")
+	public void go_to_Vendor_Bid_Management_Page_and_submit_Roc_Requests(String string) throws InterruptedException {
+		productSummarySteps.clickOnVendorBidManagementButton();
+		vendorBidManagementSteps.submitROCRequest(string);
+	}
+	
+	@Then("Go to Scenario Details page and verify ROC status after ROC operations {string}, {string}")
+	public void go_to_Scenario_Details_page_and_verify_ROC_status_after_ROC_operaions(String string, String string2) throws Exception {
+		productSummarySteps.verifyROCApprovalStatusAfterROC(string,string2);
+	}
+	
+	@When("Go to Vendor Bid Management Page and verify ROC Attributes {string} , {string}")
+	public void go_to_Vendor_Bid_Management_Page_and_verify_ROC_Attributes(String string, String string2) throws InterruptedException {
+	    vendorBidManagementSteps.verifyROCAttributes(string, string2);
+	}
+	
+	@SuppressWarnings("static-access")
+	@When("Go to ROC Portal and perform ROC Operations {string}")
+	public void go_to_ROC_Portal_and_perform_ROC_Operations(String string) throws Exception {
+		Thread.sleep(2000);
+		for(int i=0;i<vendorBidManagementSteps.rocList.size();i++) {
+			 rocHomeSteps.searchRocDetails(vendorBidManagementSteps.rocIds.get(i), string);
+			if(VendorBidManagementSteps.rocList.get(vendorBidManagementSteps.rocIds.get(i)).equals("Assign")) {
+				 rocDetailsSteps.assignRocRequestToUser(string);
+			}
+			else if(vendorBidManagementSteps.rocList.get(vendorBidManagementSteps.rocIds.get(i)).equals("default")) {
+				 rocDetailsSteps.assignRocRequestToUser(string);
+				 rocDetailsSteps.createnewBid(string);
+				 rocDetailsSteps.enterPricingDetailstoRocApplication(string);
+				 go_to_ROC_Portal_and_save_recommend_and_close_ROC_request(string);
+			}
+			else if(vendorBidManagementSteps.rocList.get(vendorBidManagementSteps.rocIds.get(i)).equals("No Bid")) {
+				 rocDetailsSteps.assignRocRequestToUser(string);
+				 rocDetailsSteps.clickNoBid(string);
+				 rocDetailsSteps.clickOnCloseRequest(string);
+				 
+			}
+		}
+	}
+	
+	@When("^Go to Product configuration page and select attributes of IPVPN Billing Arrangement \"([^\"]*)\"$")
+	public void go_to_Product_configuration_page_and_select_attributes_of_IPVPN_Billing_Arrangement(String arg1) throws InterruptedException {
+		productConfigSteps.selectAttributesIPVPNBA(arg1);
+	}
+	
+	@Then("verify the profit metric is not NA:NA {string}")
+	public void verify_the_profit_metric_is_not_NANA (String arg1) throws Exception {
+		productSummarySteps.clickOnDiscountingandProfitabilityButton();
+		discountingprofitabilitySteps.verifyProfit(arg1);
+	}
+	
+	@When("Click on next again and save {string}")
+	public void click_on_next_and_save_product_button(String string)throws Exception{
+		productConfigSteps.clickOnSecondNextButton();
+		productConfigSteps.clickOnSaveProduct(string);
+	}
+	
+	@When("Change Opportunity Stage {string},{string}")
+	public void change_opportunity_stage(String arg1, String arg2) throws Exception {
+		opportunityDetailSteps.changeOpportunityStageLevel(arg1,arg2, arg2);
+	}
+	
+	@When("Add Service Location and Submit the order to Swift {string}")
+	public void click_add_service_location_button_and_add_select_floor_and_room(String string) throws Exception {
+		quoteDetailSteps.addServiceLocation(string);
+		quoteDetailSteps.ClickSubmitToSwift(string);
+	}
+	
+	@When("Go to Product configuration page and select attributes of Managed Server {string} , {string}")
+	public void go_to_Product_configuration_page_and_select_attributes_of_Managed_Server(String string, String string2) throws Exception {
+	    productConfigSteps.selectAttributes_ManagedServer(string, string2);
+	}
+	
+	@When("Go to Product configuration page and select attributes of DIA Billing Arrangement {string} , {string}")
+	public void go_to_Product_configuration_page_and_select_attributes_of_DIA_Billing_Arrangement(String string, String string2) throws Exception {
+	    productConfigSteps.selectAttributes_DIA_BA(string, string2);
+	}
+	
+	@When("Open SM Quote")
+	public void open_SM_Quote() throws Exception {
+		salesforceHomeSteps.clickOnQuoteLink();
+	}
+	
+	@Then("Verify for the CMMC validation attributes in Summary Page {string} , {string} , {string}")
+	public void verify_for_the_CMMC_validation_attributes_in_Summary_Page(String testid,String oppAccname,String oppName) {
+	    productSummarySteps.verifyCMMCValidationAttributesInSummaryPage(testid,oppAccname,oppName);
+	}
+
+	@Then("Verify for the CMMC validation attributes in SFDC Page {string} , {string} , {string}")
+	public void verify_for_the_CMMC_validation_attributes_in_SFDC_Page(String testid,String oppAccname,String oppName) {
+		opportunityDetailSteps.verifyCMMCValidationAttributesInSFDCPage(testid,oppAccname,oppName);
+	}
+	
+	/*----------------------------------------------------------------------------------------------------------------------------------------*/
+	/*-----------------------------------------<  Start-Lightning Version Methods   >---------------------------------------------------------*/
+	
+	@When("Lightning - Go to opportunity tab and create a opportunity with OppurtunityAccName {string} and OppurtunityName {string}")
+	public void go_to_opportunity_tab_and_create_a_opportunity_with_OppurtunityAccName_and_OppurtunityName(String arg1, String arg2) throws Exception {
+		salesforceHomeLightningSteps.createOppurtunity(arg1, arg2);
+	}
+	
+	@When("Lightning - Go to Scenario Manager quote tab and create a scenario as scenarioName {string} , Currency {string} , TestID {string}")
+	public void lightning_go_to_Scenario_Manager_quote_tab_and_create_a_scenario_as_scenarioName_Currency(String arg1, String arg2, String arg3) throws Exception {
+		salesforceHomeLightningSteps.clickOnSMQuote(arg1,arg2,arg3);
+	}
+	
+	@When("Lightning - Click on Quote Number {string}")
+	public void lightning_click_on_quote_number(String string) throws Exception {
+		opportunityDetailLightningSteps.clickOnQuoteNumber(string);
+	}
+	
+	@Then("Lightning - Go to Opportunity Details page and Submit the order to Swift {string}")
+	public void lightning_go_to_Opportunity_Details_page_and_Submit_the_order_to_Swift(String string) throws Exception {
+		productSummarySteps.gobacktoOpportunity();
+		opportunityDetailLightningSteps.changeOpportunityStageLevel("Agreement",string);
+		opportunityDetailLightningSteps.clickOnQuoteNumber(string);
+		quoteDetailLightningSteps.provideNAE_MSA_CCM_VAE_HAULAndSave(string, scenarioDetailPage.NAEContact,
+									  scenarioDetailPage.CCM_Contact, scenarioDetailPage.VAEContact,
+									  scenarioDetailPage.HaulApplicability,
+									  scenarioDetailPage.SubmitToSwiftApplicability,
+									  scenarioDetailPage.MSAPricingApplicability);
+		quoteDetailLightningSteps.clickBillingAccountButton( string);
+		quoteDetailLightningSteps.selectBillingAccount(string);
+		quoteDetailLightningSteps.clickOnEnterRequiredContacts( string);
+		quoteDetailLightningSteps.addNecessaryContacts(string, scenarioDetailPage.ContacttoAddinSMDetail);
+		quoteDetailLightningSteps.clickOnAddGlobalAttachment(string);
+		smAttachNewDocumentFormSteps.enterValuesForAttachNewDocument(string,
+						smAttachNewDocumentFormPage.AttachedDocumentName,
+						smAttachNewDocumentFormPage.AttachedDocumentType,
+						smAttachNewDocumentFormPage.AttachedDocumentTerm,
+						smAttachNewDocumentFormPage.NonStandard_SelectElement,
+						smAttachNewDocumentFormPage.AttachedDocumentFinalFlag);
+		quoteDetailLightningSteps.ClickSubmitToSwift(string);
+		
+	}
+	
+	@When("Lightning - Add Service Location and Submit the order to Swift {string}")
+	public void lightning_click_add_service_location_button_and_add_select_floor_and_room(String string) throws Exception {
+		quoteDetailLightningSteps.addServiceLocation(string);
+		quoteDetailLightningSteps.ClickSubmitToSwift(string);
+	}
+	
+	@When("Lightning - Switch to Quotes Tab")
+	public void lightning_Switch_to_Quotes_Tab() throws Exception {
+		salesforceHomeLightningSteps.switchToQuotesTab();
+	}
+	
+	
+	
+	/*------------------------------------------<  End-Lightning Version Methods  >-----------------------------------------------------------*/
+	/*----------------------------------------------------------------------------------------------------------------------------------------*/
+
+	@Then("Go to Opportunity Details page and Submit the order to Vantive {string}")
+	public void go_to_Opportunity_Details_page_and_Submit_the_order_to_Vantive(String string) throws Exception {
+		productSummarySteps.gobacktoOpportunity();
+		opportunityDetailSteps.changeOpportunityStageLevel("Solution Defined",string, string);
+		opportunityDetailSteps.clickOnPrepareOrder();
+		quoteDetailSteps.provideNAE_MSA_CCM_VAE_HAULAndSave(string, scenarioDetailPage.NAEContact,
+									  scenarioDetailPage.CCM_Contact, scenarioDetailPage.VAEContact,
+									  scenarioDetailPage.HaulApplicability,
+									  scenarioDetailPage.SubmitToSwiftApplicability,
+									  scenarioDetailPage.MSAPricingApplicability);
+		quoteDetailSteps.clickBillingAccountButton( string);
+		quoteDetailSteps.selectBillingAccount(string);
+		quoteDetailSteps.clickOnEnterRequiredContacts( string);
+		quoteDetailSteps.addNecessaryContacts(string, scenarioDetailPage.ContacttoAddinSMDetail);
+		quoteDetailSteps.clickOnAddGlobalAttachment(string);
+		smAttachNewDocumentFormSteps.enterValuesForAttachNewDocument(string,
+						smAttachNewDocumentFormPage.AttachedDocumentName,
+						smAttachNewDocumentFormPage.AttachedDocumentType,
+						smAttachNewDocumentFormPage.AttachedDocumentTerm,
+						smAttachNewDocumentFormPage.NonStandard_SelectElement,
+						smAttachNewDocumentFormPage.AttachedDocumentFinalFlag);
+	    quoteDetailSteps.ClickSubmitToSwift(string);
+		
+	}
+}
+	

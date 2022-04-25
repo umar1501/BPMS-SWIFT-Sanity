@@ -1,0 +1,295 @@
+package com.ctl.it.qa.bpms.pages;
+
+import java.util.List;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
+
+import com.ctl.it.qa.staf.Page;
+
+import net.serenitybdd.core.annotations.findby.FindBy;
+import net.serenitybdd.core.pages.WebElementFacade;
+
+public class OpportunityDetailPage extends Page{
+	
+	@FindBy(xpath = "//*[@id='topButtonRow']/input[7]")
+	public WebElementFacade addServiceLocation;
+
+	@FindBy(xpath=".//*[@id='opp11_ilecell']")
+	public WebElementFacade opp11ilecell;
+	
+	@FindBy(xpath=".//*[@id='opp12_ileinner']")
+	public WebElementFacade opp12ileinner;
+	
+	@FindBy(xpath=".//*[@id='inlineEditCompoundDiv']")
+	public WebElementFacade reasonWinLostDescription;
+	
+	@FindBy(id = "opp3")
+	public WebElementFacade opportunityNameText;
+
+	@FindBy(id = "opp4")
+	public WebElementFacade opportunityAccountNameText;
+
+	@FindBy(id = "opp7")
+	public WebElementFacade opportunityAmmount;
+
+	@FindBy(id = "opp9")
+	public WebElementFacade opportunityClosedDate;
+	
+	@FindBy(id = "opp12")
+	public WebElementFacade opportunityProbability;
+	
+	@FindBy(id = "opp12j_id0_j_id3")
+	public WebElementFacade opportunityProbabilityPredeploy;
+
+	@FindBy(xpath = "//*[@id='quoteGrid']/div[4]/div[3]/div/div/div[2]/a[2]")
+	public WebElementFacade prepareScenarioOrderButton;
+
+	@FindBy(xpath = "//*[@id='quoteGrid']/div[4]/div[3]/div/div/div[5]/a")
+	public WebElementFacade scenarioManagerLink;
+	
+	@FindBy(xpath = "//*[@id='quoteGrid']/div[4]/div[3]/div/div[2]/div[5]/a")
+	public WebElementFacade copiedScenarioLink;
+	
+	@FindBy(xpath = "//input[@value='Save']")
+	public WebElementFacade saveBtn;
+
+	@FindBy(xpath = "//input[@value='Save']")
+	public WebElementFacade saveButton;
+
+	@FindBy(xpath = "//*[@id='quoteGrid']/div[4]/div[3]/div/div/div[2]/a[2]")
+	public WebElementFacade summaryOfferLink;
+
+	@FindBy(xpath = "//*[@id=\"quoteGrid\"]/div[4]/div[3]/div/div/div[4]/a")
+	public WebElementFacade quoteNumber;
+
+	@FindBy(xpath = "/html/body/form/div[1]/div/div/div/div[2]/table/tbody/tr/td[2]/a[1]")
+	public WebElementFacade summaryOfferLinkPredeploy;
+	
+	@FindBy(name = "InlineEditDialogTitle")
+	public WebElementFacade inlineEditDialogTitle;
+	
+	@FindBy(name = "inlineEditSave")
+	public WebElementFacade inlineEditSave;
+	
+	@FindBy(xpath = "//*[@id=\"quoteGrid\"]/div[4]/div[3]/div/div/div[2]/a[1]")
+	public WebElementFacade copyScenario;
+	
+	@FindBy(xpath = "//*[@id=\"opp11\"]/option")
+	public List<WebElementFacade> stageElements;
+	
+	@FindBy(xpath = "//*[@id=\"opp11\"]")
+	public WebElementFacade stage;
+	
+	@FindBy(xpath = "//input[@class='zen-btn']")
+	public List<WebElementFacade> zenButtons;
+	
+	@FindBy(xpath = "//*[@id='00NF000000CeunI_ileinner']")
+	public WebElement salesRegionLabel;
+	
+	@FindBy(xpath = "//*[@id='ep']/div[2]/div[4]/table/tbody/tr[4]/td[3]")
+	public WebElement salesRegionTag;
+	
+	@FindBy(xpath = "//*[@id=\"opp11_ileinner\"]")
+	public WebElement stageLabel;
+	
+	@FindBy(id = "InlineEditDialogContent")
+	public WebElement stageEdit;
+	
+	@FindBy(xpath = "//*[@id='quoteGrid']/div[4]/div[3]/div/div/div[11]")
+	public WebElement pendingApprovals;
+
+	@FindBy(xpath = "//div[@class='slick-cell l3 r3']")
+	public WebElement quoteName;
+	
+	@FindBy(xpath = "//h2[@class='mainTitle']")
+	public WebElement mainTitle;
+	
+	@FindBy(xpath="//*[@id='quoteGrid']/div[4]/div[3]/div/div[1]/div[7]")
+	public WebElement cpqStatus;
+	
+	@FindBy(xpath="//*[@id='InlineEditDialogContent']/div[1]/div/table/tbody/tr[4]/td[1]")
+	public WebElement winLossReasonLabel;
+	
+	@FindBy(xpath="//*[@id='page:myForm:pb:infoPBS:j_id59:j_id61']/div/select")
+	public WebElement docType;
+	
+	@FindBy(xpath="//*[@id='page:myForm:pb:infoPBS:j_id98:j_id100']/div/input")
+	public WebElement docName;
+	
+	@FindBy(xpath="/html/body/div[1]/div[3]/table/tbody/tr/td[2]/form/div[2]/div/div/div/div/div[2]/div[1]/div[2]/table/tbody/tr[6]/td/span/div/select")
+	public WebElement defaultoppQuote;
+	
+	@FindBy(xpath="/html/body/div[1]/div[3]/table/tbody/tr/td[2]/form/div[2]/div/div/div/div/div[2]/div[1]/div[2]/table/tbody/tr[6]/td/span/div/select/option[2]")
+	public WebElement actualoppQuote;
+	
+	@FindBy(xpath="/html/body/div/div[3]/table/tbody/tr/td[2]/form/div[2]/div/div/div/div/div[3]/table/tbody/tr/td[2]/input[1]")
+	public WebElement generateDocumentnextButton;
+	
+	@FindBy(xpath="/html/body/form/div[1]/div/div/div/div[2]/span[5]/div/div/div[4]/div[3]/div/div[1]/div[1]/input")
+	public WebElement quoteCheckbox;
+	
+	@FindBy(xpath="//*[@id='page:myForm:j_id439']/div[1]/div/span[2]")
+	public WebElement infomessage;
+	
+	@FindBy(xpath="/html/body/div/div[3]/table/tbody/tr/td[2]/form/div[2]/div/div/div/div/div[2]/div[2]/div[2]/table/tbody/tr[1]/td/span/div/select")
+	public WebElement replacementContractualForm;
+	
+	@FindBy(xpath="/html/body/div/div[3]/table/tbody/tr/td[2]/form/div[2]/div/div/div/div/div[3]/table/tbody/tr/td[2]/input[2]")
+	public WebElement generateDocumentInsertSubmit;
+	
+	@FindBy(id="page:myForm:pb:includeDocumentSection:j_id230:j_id238")
+	public WebElement overlappingServices;
+	
+	@FindBy(xpath="/html/body/div/div[3]/table/tbody/tr/td[2]/form/div[2]/div/div/div/div/div[2]/div[6]/div[2]/table/tbody/tr[3]/td/span/select")
+	public WebElement customerSigner;
+	
+	@FindBy(xpath="/html/body/div[1]/div[3]/table/tbody/tr/td[2]/div[4]/div[2]/div[2]/table/tbody/tr[2]/td[2]/a")
+	public WebElement documentID;
+	
+	@FindBy(name="create_a_document")
+	public WebElement generateDocumentButton;
+	
+	@FindBy(xpath="/html/body/div[1]/div[3]/table/tbody/tr/td[2]/div[4]/div[2]/div[4]/table/tbody/tr[3]/td[2]/a")
+	public WebElement moveToOppDetailPageLink;
+	
+	@FindBy(id="j_id0:j_id2:relatedQuotesId:j_id45:j_id48")
+	public WebElement moveSMQuote;
+	
+	@FindBy(id = "Opportunity_Tab")
+	public WebElementFacade opportunityTab;
+	
+	@FindBy(id = "j_id0:j_id2:relatedQuotesId:j_id39:j_id41")
+	public WebElement newSMQuoteBtnITV1;
+	
+	@FindBy(id = "j_id0:j_id2:relatedQuotesId:j_id45:j_id47")
+	public WebElement newSMQuoteBtnITV2;
+	
+	@FindBy(xpath = ".//*[@id='ScenarioName']")
+	public WebElement scenarioName;
+	
+	@FindBy(xpath = ".//*[@aria-owns='ScenarioCurrency_listbox']")
+	public WebElement currency;
+	
+	@FindBy(xpath = ".//*[@id='SaveButton']")
+	public WebElement sd_saveButton;
+
+	@FindBy(xpath = "//*[@value='OK']")
+	public WebElementFacade okButton;
+	
+	@FindBy(xpath = "//*[@id='00NA0000005BwOk']/option[1]")
+	public WebElementFacade reasonNone;
+	
+	@FindBy(xpath = "//*[@id='00NA0000005BwOk']/option[2]")
+	public WebElementFacade reasonWonCustRelnship;
+	
+	@FindBy(css = "iframe[title='OpportunityQuotes']")
+	public WebElementFacade oppQuotesFrame;
+	
+	@FindBy(xpath = "//*[@id='quoteGrid']/div[4]/div[3]/div/div/div[8]")
+	public WebElementFacade mrcXpath;
+	
+	@FindBy(xpath = "//*[@id='quoteGrid']/div[4]/div[3]/div/div/div[9]")
+	public WebElementFacade nrcXpath;
+	
+	@FindBy(xpath = "/html/body/form/span[1]/div[2]/div/div/div/div/div[2]/div/table/tbody/tr[1]/td[1]/input")
+	public WebElementFacade selectButton1;
+	
+	@FindBy(id = "j_id0:j_id2:j_id72:j_id101:0:j_id106")
+	public WebElementFacade selectButton2;
+	
+	@FindBy(xpath = "//*[@id='j_id0:j_id2:j_id140:j_id167']")
+	public WebElementFacade okButton1;
+	
+	@FindBy(xpath = "//input[@id='j_id0:j_id1:j_id153:j_id180']")
+	public WebElementFacade okButton2;
+	
+	@FindBy(xpath = "//input[@id='j_id0:j_id2:j_id155:j_id182']")
+	public WebElementFacade okButton3;
+	
+	@FindBy(xpath = "//input[@class='btn' and @value='OK']")
+	public List<WebElement> okButtons;
+	
+	@FindBy(xpath = "//*[@id='quoteGrid']/div[4]/div[3]/div/div")
+	public List<WebElement> scenarios;
+	
+	@FindBy(xpath = ".//*[@id='j_id0:j_id2:relatedQuotesId:j_id56']/div/div/div[4]/div[3]/div/div[1]/div[8]")
+	public WebElementFacade totalQuoteMRCXpath;
+	
+	@FindBy(xpath = ".//*[@id='j_id0:j_id2:relatedQuotesId:j_id56']/div/div/div[4]/div[3]/div/div[2]/div[8]/span")
+	public WebElementFacade copyTotalQuoteMRCXpath;
+	
+	@FindBy(name = "generate_a_document")
+	public WebElementFacade generateDocument;
+	
+	@FindBy(xpath="//*[@id='page:myForm:messages:j_id15:j_id16:0:j_id17:j_id18:j_id30']/ul/li[2]")
+	public WebElementFacade errorXpath;
+	
+	@FindBy(xpath="//input[@class='btn']")
+	public WebElementFacade cancel;
+	
+	@FindBy(xpath="/html/body/div/div[3]/table/tbody/tr/td[2]/div[11]/div[1]/div/div[2]/table/tbody/tr[3]/td[9]")
+	public WebElementFacade error1;
+	
+	@FindBy(xpath="//*[@id='aSG0R000000Ch0D_00N2A00000DoTKC_body']/table/tbody/tr[3]/td[9]")
+	public WebElementFacade error2;
+	
+	@FindBy(xpath="/html/body/div[1]/div[3]/table/tbody/tr/td[2]/div[4]/div[2]/div[2]/table/tbody/tr/td[2]/div/a")
+	public WebElementFacade pspError;
+	
+	@FindBy(xpath="//*[@id='page:myForm:pb:ProposalAddlInfo:j_id124:j_id126']/div/select/option[2]")
+	public WebElementFacade proposalAddlInfo;
+	
+	@FindBy(xpath="//*[@id='ep']/div[2]/div[2]/table/tbody/tr[2]/td[2]/a")
+	public WebElement documentIDXpath;
+	
+	@FindBy(id = "opp3_ileinner")
+	public WebElementFacade opportunityName;
+
+	@FindBy(xpath = "//*[@id='opp4_ileinner']/a")
+	public WebElementFacade opportunityAccountName;
+
+	@FindBy(xpath = "//*[@id=00NA0000005BwN0_ileinner']")
+	public WebElement creditStatusLabel;
+
+	@FindBy(xpath = ".//*[@id='00NA0000005BwN0_ilecell']")
+	public WebElement creditStatusDrpdwn;
+
+	@FindBy(xpath = "//*[@id='00NA0000005BwN0']")
+	public WebElement creditCheck;
+
+	@FindBy(xpath = "//*[@id='00NA0000005BwN0']/option")
+	public List<WebElementFacade> creditCheckElements;
+
+	@FindBy(xpath = "//*[@id='00NA0000006KFbM_chkbox']")
+	public WebElement creditCheckRequired;
+	
+	@FindBy(xpath=".//*[@id='00N8G000000GeH4_ilecell']")
+	public WebElementFacade fullyExecutedContractAttached;
+	
+	@FindBy(xpath=".//*[@id='00N8G000000GeH4']")
+	public WebElementFacade fullyExecutedContractAttachedChkbox;
+
+	@FindBy(id = "00N8G000000GeH3_ilecell")
+	public WebElementFacade custSignDate;
+	
+	@FindBy(id = "00N8G000000GeH3")
+	public WebElementFacade custSignDateBox;
+	
+	
+	@FindBy(xpath="//*[@id='ep']/div[2]/div[4]/table/tbody/tr[14]/td[3]")
+	public WebElementFacade iCommitSalesResultLabel;
+	
+	@FindBy(xpath=".//*[@id='00N8G000000GeH2_ilecell']")
+	public WebElementFacade iCommitSalesResult;
+	
+	@FindBy(xpath=".//*[@id='00N8G000000GeH2']")
+	public WebElementFacade iCommitSalesResultChkbox;
+	
+	@Override
+	public WebElementFacade getUniqueElementInPage() {
+		
+		return opp11ilecell;
+	}
+
+}

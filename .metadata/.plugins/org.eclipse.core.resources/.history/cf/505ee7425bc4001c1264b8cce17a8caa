@@ -1,0 +1,91 @@
+package com.ctl.it.qa.bpms.steps;
+
+import java.util.concurrent.TimeUnit;
+
+import org.junit.Assert;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Wait;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import com.ctl.it.qa.bpms.pages.SalesforceLoginPage;
+import com.ctl.it.qa.staf.Steps;
+import com.ctl.it.qa.staf.xml.reader.IntDataContainer;
+
+import net.thucydides.core.annotations.Step;
+
+@SuppressWarnings("serial")
+public class SalesforceLoginSteps extends Steps{
+
+	private final Logger slf4jLogger = LoggerFactory.getLogger(SalesforceLoginSteps.class);
+	SalesforceLoginPage salesforceLoginPage;
+	public static String federalUserType="";
+	
+	@Step
+	public  void loginIntoSalesforce() throws InterruptedException{
+		try {
+			WebDriver driver = getDriver();
+			slf4jLogger.info("Loggin into Salesforce");
+			IntDataContainer dataContainer = envData.getContainer("SalesforceHomePage").getContainer("Valid");
+			Wait<WebDriver> wait = new WebDriverWait(driver, 10000);
+			String username = "" , password="";
+			
+			salesforceLoginPage.openAt(envData.getFieldValue("url"));
+			salesforceLoginPage.maximize();
+			Thread.sleep(5000);	
+			try {
+				if(SalesforceLoginSteps.federalUserType.equals("Authorized")) {
+					username = dataContainer.getFieldValue("auth_username");
+					password = dataContainer.getFieldValue("auth_password");
+					salesforceLoginPage.DSGAzure_SSO.click();
+				}
+				else {
+					username = dataContainer.getFieldValue("unauth_username");
+					password = dataContainer.getFieldValue("unauth_password");
+					salesforceLoginPage.LumenOAM_SSO.click();
+				}
+			} catch (Exception e) {
+				if(SalesforceLoginSteps.federalUserType.equals("Authorized"))
+					salesforceLoginPage.DSGAzure_SSO.click();
+				else
+					salesforceLoginPage.LumenOAM_SSO.click();
+			}
+			Thread.sleep(5000);
+			salesforceLoginPage.Azure_UserID.sendKeys(username);
+			driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
+			wait.until(ExpectedConditions.elementToBeClickable(salesforceLoginPage.Azure_Btn));
+			salesforceLoginPage.Azure_Btn.click();
+			driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+			WaitForPageToLoad(5000);
+			WaitForPageToLoad(5000);
+			driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+			waitABit(2000);
+			driver.findElement(By.id("i0118")).sendKeys(password);			
+			driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);	
+				
+			wait.until(ExpectedConditions.elementToBeClickable(salesforceLoginPage.Azure_Btn));
+			salesforceLoginPage.Azure_Btn.click();
+			driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
+			WaitForPageToLoad(5000);
+			
+			wait.until(ExpectedConditions.elementToBeClickable(salesforceLoginPage.Azure_Btn));
+			salesforceLoginPage.Azure_Btn.click();
+			driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
+			
+			WaitForPageToLoad(5000);
+			
+			slf4jLogger.info("Successfully Logged into Salesforce");
+		}
+		catch(Exception e) {
+			slf4jLogger.info(e.getMessage());
+			Assert.fail(e.getMessage());
+		}
+	}
+	public static void setFederalUserType(String federalUserType) {
+		SalesforceLoginSteps.federalUserType = federalUserType;
+	}
+
+}

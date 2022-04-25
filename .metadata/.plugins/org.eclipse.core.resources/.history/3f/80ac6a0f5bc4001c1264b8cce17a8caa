@@ -1,0 +1,66 @@
+package com.ctl.it.qa.bpms.pages;
+
+import java.util.List;
+
+import org.openqa.selenium.WebDriver;
+
+import com.ctl.it.qa.staf.Page;
+
+import net.serenitybdd.core.annotations.findby.FindBy;
+import net.serenitybdd.core.pages.WebElementFacade;
+
+public class ROCHomePage extends Page {
+	
+	@FindBy(xpath = "//*[@id=\"requestsListPanel\"]/div[2]/l3-request-table/div/table/tbody[2]")
+	public  WebElementFacade resultTable;
+
+	@FindBy(xpath = "//*[@id='requestTable']/tbody[2]/tr[1]/td[14]/a")
+	public  WebElementFacade rocdetaillinkElement;
+
+	@FindBy(xpath = "//div[@id='advancedRequestsSearchDropdown']/button[@class='btn btn-default']")
+	public  WebElementFacade filterButtonElement;
+
+	@FindBy(xpath = "//*[@id='filterByDropdown']/button")
+	public  WebElementFacade filterByButton;
+
+	@FindBy(xpath = "//*[@id='filterByDropdown']/ul/li[15]")
+	public  WebElementFacade filterByRocIDMenuOption;
+
+	@FindBy(xpath = "//*[@id='selectedAdvancedFilterTypeValueInput']")
+	public  WebElementFacade rocIDTextElement;
+
+	@FindBy(name = "advancedFilterListViewModelRocId")
+	public  WebElementFacade rocIDTextArea;
+
+	@FindBy(xpath = "//i[@class='fa fa-search']")
+	public  WebElementFacade searchButton;
+
+	@FindBy(xpath = "//*[@id='selectedAdvancedFilterValueStringContainer']/div/div/button")
+	public  WebElementFacade plusFilterButtonElement;
+
+	@FindBy(className = "btn-success")
+	public  WebElementFacade saveFilterButtonElement;
+
+	@FindBy(xpath = "//*[@id='newAdvancedFilterNameInput']")
+	public  WebElementFacade newAdvancedFilterNameInput;
+
+	@FindBy(xpath = "//input[@name='username']")
+	public  WebElementFacade userNameField;
+
+	@FindBy(xpath = "//input[@name='password']")
+	public  WebElementFacade passwordField;
+
+	@FindBy(xpath = "//button[@type='button']")
+	public  List<WebElementFacade> submitBtn;
+	
+	public WebDriver driver = null;
+
+	public  String winHandleBefore;
+	
+	@Override
+	public WebElementFacade getUniqueElementInPage() {
+		
+		return userNameField;
+	}
+
+}

@@ -1,0 +1,9 @@
+{
+"qualitygate1" :{
+"passPercentage": 30.00
+},
+
+"qualitygate2":{
+"passPercentage": 100.00
+}
+}

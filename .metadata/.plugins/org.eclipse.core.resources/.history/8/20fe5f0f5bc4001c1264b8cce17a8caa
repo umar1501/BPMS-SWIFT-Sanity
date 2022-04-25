@@ -1,0 +1,88 @@
+package com.ctl.it.qa.bpms.pages;
+
+import java.util.List;
+
+import net.serenitybdd.core.annotations.findby.FindBy;
+import net.serenitybdd.core.pages.WebElementFacade;
+
+public class QuoteDetailLightningPage {
+	
+	
+	@FindBy(xpath = "//button[@title='Edit CCM']")
+	public WebElementFacade ccmElement;
+	
+	@FindBy(xpath = "//button[@title='Edit Sales Engineer']")
+	public WebElementFacade seElement;
+	
+	@FindBy(xpath = "//input[@title='Search People']")
+	public WebElementFacade seInputElement;
+	
+	@FindBy(xpath = "//input[@title='Search Contacts']")
+	public WebElementFacade ccmInputElement;
+	
+	@FindBy(xpath = "//*[@id='1:1841;a']")
+	public WebElementFacade seAutoSelectElement;
+	
+	@FindBy(xpath = "//*[@id='1:2217;a']")
+	public WebElementFacade ccmAutoSelectElement;
+	
+	@FindBy(xpath = "//a[text()='Order Contacts']")
+	public WebElementFacade orderContactsTab;
+	
+	@FindBy(xpath = "//a[text()='Details']")
+	public WebElementFacade detailsTab;
+	
+	@FindBy(xpath = "//a[text()='Line Items']")
+	public WebElementFacade lineItemsTab;
+	
+	@FindBy(xpath = "button[text()='Add Existing Contacts']")
+	public WebElementFacade addExistingContactButton;
+
+	@FindBy(xpath = "button[text()='Select Billing Account']")
+	public WebElementFacade billingAccountButton;
+	
+	@FindBy(xpath = "//button[text()='Add Global Attachment']")
+	public WebElementFacade addGlobalAttachmentBtn;
+
+	@FindBy(xpath = "//button[text()='Add Service Locations']")
+	public WebElementFacade addServiceLocationsButton;
+
+	@FindBy(xpath = "//button[text()='Submit to SwIFT']")
+	public WebElementFacade submitToSwiftButton;
+	
+	@FindBy(xpath = "//button[text()='Submit Pre Deploy']")
+	public WebElementFacade preDeployToSwiftButton;
+	
+	@FindBy(xpath = "/html/body/div[4]/div[2]/div[2]/div[2]/div/div[2]/div/div/div")
+	public WebElementFacade successButton;
+
+	@FindBy(xpath = "//button[@title='Save']")
+	public WebElementFacade saveButton;
+	
+	@FindBy(xpath = "//button[@title='Edit Hot Cut/Replacement?']")
+	public WebElementFacade haulElement;
+	
+	@FindBy(xpath = "//button[@title='Edit Is MSA pricing applicable?']")
+	public WebElementFacade msaPricingElement;
+	
+	@FindBy(xpath = "//span[text()='Hot Cut/Replacement?']/parent::span/following-sibling::div/div/div/div/a")
+	public WebElementFacade haulInputElement;
+	
+	@FindBy(xpath = "//span[text()='Is MSA pricing applicable?']/parent::span/following-sibling::div/div/div/div/a")
+	public WebElementFacade msaPricingInputElement;
+	
+	@FindBy(xpath = "//button[@title='Edit Are you porting numbers?']")
+	public WebElementFacade portingNumberElement;
+	
+	@FindBy(xpath = "//span[text()='Are you porting numbers?']/parent::span/following-sibling::div/div/div/div/a")
+	public WebElementFacade portingNumberInputElement;
+	
+	@FindBy(xpath = "/html/body/div[4]/div[2]/div[@class='DESKTOP uiModal forceModal open active']/div/div/div[2]/div/div/div")
+	public  WebElementFacade swiftSubmitErrorMessagePopup;
+	
+	@FindBy(id = "00N2A00000DoTFa_chkbox")
+	public WebElementFacade preDeployCheck;
+	
+	
+	
+}

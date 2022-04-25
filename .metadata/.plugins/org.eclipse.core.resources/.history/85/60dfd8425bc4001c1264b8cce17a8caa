@@ -1,0 +1,628 @@
+package com.ctl.it.qa.bpms.steps;
+
+import java.util.List;
+import java.util.concurrent.TimeUnit;
+
+import org.junit.Assert;
+import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.Keys;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import com.ctl.it.qa.bpms.pages.DiscountingProfitabilityPage;
+import com.ctl.it.qa.bpms.pages.OpportunityDetailLightningPage;
+import com.ctl.it.qa.bpms.pages.ProductConfigPage;
+import com.ctl.it.qa.bpms.pages.ProductSummaryPage;
+import com.ctl.it.qa.bpms.pages.QuoteDetailLightningPage;
+import com.ctl.it.qa.bpms.pages.QuoteDetailPage;
+import com.ctl.it.qa.bpms.pages.ScenarioDetailPage;
+import com.ctl.it.qa.staf.Steps;
+
+import net.thucydides.core.annotations.Step;
+
+public class QuoteDetailLightningSteps extends Steps{
+	
+private final Logger slf4jLogger = LoggerFactory.getLogger(QuoteDetailSteps.class);
+	
+	ProductSummaryPage productSummaryPage;
+	
+	DiscountingProfitabilityPage discountingProfitabilityPage;
+	
+	ProductConfigPage productConfigPage;
+	
+	OpportunityDetailLightningPage opportunityDetailLightningPage;
+	
+	QuoteDetailLightningPage quoteDetailLightningPage;
+	
+	@SuppressWarnings("deprecation")
+	public QuoteDetailLightningSteps provideCCM_SE_PreDeploy(String TestID, String CCMContact, String SEContact) throws Exception {
+		try {
+			provideCCM(TestID, CCMContact);
+			slf4jLogger.info(TestID + ":" + System.currentTimeMillis() + "Select of CCM contact: " + CCMContact
+					+ "..... Success");
+			Thread.sleep(100);
+			provideSE(TestID, SEContact);
+			slf4jLogger.info(TestID + ":" +System.currentTimeMillis() + "Select of CCM contact: " + SEContact
+					
+					+ "..... Success");
+			Thread.sleep(100);
+			quoteDetailLightningPage.saveButton.click();
+			slf4jLogger.info(
+					TestID + ":" +System.currentTimeMillis() + "Clicking on Save button.... Success");
+			Thread.sleep(1000);
+			slf4jLogger.info(TestID + ":" +System.currentTimeMillis()
+					+ "Provide CCM and SE value and Save....Success");
+			
+
+		} catch (Exception e) {
+			slf4jLogger.error(TestID + ":" +System.currentTimeMillis() + e);
+			Assert.fail(TestID + ": @" +System.currentTimeMillis() + "@"
+					+ "Error occured while providing CCM and SE value and Save");
+		}
+		return this;
+	}
+	
+	@SuppressWarnings("deprecation")
+	public QuoteDetailSteps provideCCM(String TestID, String CCMContact) throws Exception {
+		WebDriver driver = getDriver();
+		Actions action = new Actions(driver);
+		try {
+		action.click(quoteDetailLightningPage.ccmElement).build().perform();
+		quoteDetailLightningPage.ccmInputElement.sendKeys(CCMContact);
+		waitABit(2000);
+		quoteDetailLightningPage.ccmAutoSelectElement.click();
+		slf4jLogger.info(
+				TestID + ":" +System.currentTimeMillis() + "Selecting CCM.... Success");
+		
+		} catch (Exception e) {
+			Assert.fail(TestID + ": @" +System.currentTimeMillis() + "@" + "Error while adding CCM");
+		}
+		return new QuoteDetailSteps();
+	}
+	public QuoteDetailSteps provideSE(String TestID, String SEContact) throws Exception {
+		WebDriver driver = getDriver();
+		JavascriptExecutor js = (JavascriptExecutor) driver;
+		try {
+			Thread.sleep(1000);
+			/*Actions action = new Actions(driver);
+			action.click(quoteDetailLightningPage.seElement).build().perform();*/
+			quoteDetailLightningPage.seInputElement.sendKeys(SEContact);
+			waitABit(2000);
+			quoteDetailLightningPage.seAutoSelectElement.click();
+		} catch (Exception e) {
+			Assert.fail(
+					TestID + ": @" + System.currentTimeMillis() + "@" + "Error while providing SE");
+		}
+		return new QuoteDetailSteps();
+	}
+	
+	public SMAttachNewDocumentFormSteps clickOnAddGlobalAttachment(String TestID) throws Exception {
+		WebDriver driver = getDriver();
+		try {
+			quoteDetailLightningPage.addGlobalAttachmentBtn.click();
+			Thread.sleep(1000);
+			slf4jLogger.info(TestID + ":" +System.currentTimeMillis()
+					+ "Click on Add Global Attachment..... Success");
+			
+		} catch (Exception e) {
+			Assert.fail(TestID + ": @" +System.currentTimeMillis() + "@"
+					+ "Error while clicking on Add Global Attachment");
+		}
+		return new SMAttachNewDocumentFormSteps();
+	}
+	
+	public QuoteDetailSteps clickOnEnterRequiredContacts(String TestID) throws Exception {
+		try {
+			Thread.sleep(4000);
+			switchToOrderContactsTab();
+			quoteDetailLightningPage.addExistingContactButton.click();
+			Thread.sleep(2000);
+			slf4jLogger.info(TestID + ":" +System.currentTimeMillis()
+					+ "click on AddExisting contact Button.... Successful");
+
+		} catch (Exception e) {
+			Assert.fail(TestID + ": @" +System.currentTimeMillis() + "@"
+					+ "Error while clicking on required contacts");
+		}
+		return new QuoteDetailSteps();
+	}
+	
+	@Step
+	public void switchToOrderContactsTab() {
+		slf4jLogger.info("Switching to Order Contacts Tab");
+		WebDriver driver = getDriver();
+		WebDriverWait wait = new WebDriverWait(driver,10000);
+		WaitForPageToLoad(5000);
+		try {
+			wait.until(ExpectedConditions.elementToBeClickable(quoteDetailLightningPage.orderContactsTab));
+			quoteDetailLightningPage.orderContactsTab.click();
+			waitABit(3000);	
+			WaitForPageToLoad(5000);
+		} catch (Exception e) {
+			slf4jLogger.info("Inside Catch Block of Order Contacts Tab"+e.getMessage());
+			Assert.fail();
+		}
+	}
+	
+	public QuoteDetailSteps addNecessaryContacts(String TestID, String commonContact)
+			throws Exception {
+		try {
+		
+			WebDriver driver = getDriver();
+			int s=0;
+            List<WebElement> NoOfRows=driver.findElements(By.className("requiredInput"));
+            for(int i = 0; i < 5; i=i+2) {
+                  WebElement field=NoOfRows.get(i).findElement(By.tagName("input"));
+                  field.clear();
+                  field.sendKeys(commonContact);
+                  Thread.sleep(2000);
+                  List<WebElement> suggessions=driver.findElements(By.xpath("//ul[@class='ui-autocomplete ui-menu ui-widget ui-widget-content ui-corner-all']"));
+                  WebElement clickk=suggessions.get(s).findElement(By.tagName("a"));
+                  
+                  Actions actions=new Actions(driver);
+                  actions.moveToElement(clickk).click().build().perform();
+                 
+                  s++;
+            }
+            Thread.sleep(2000);
+            slf4jLogger.info(TestID+":"+System.currentTimeMillis()+"[Selecting on Necessary Contact ... Success]");
+            driver.findElement(By.xpath("//input[@value='Save']")).click();
+            slf4jLogger.info(TestID+":"+System.currentTimeMillis()+"Clicking on Save after Selecting Contact... Success");
+            
+            Thread.sleep(1000);
+ 
+		} catch (Exception e) {
+			Assert.fail(TestID + ": @" + System.currentTimeMillis() +"@"+ "[Selecting on Necessary Contact ... Failure]");
+		}
+		return new QuoteDetailSteps();
+	}
+	
+	@SuppressWarnings("unused")
+	public QuoteDetailPage clickSubmitToSwift_PreDeploy(String TestID) throws Exception {
+		WebDriver driver = getDriver();
+		WebDriverWait wait = new WebDriverWait(driver, 10000);
+		try {
+			Thread.sleep(2000);
+			driver.navigate().refresh();
+			wait.until(ExpectedConditions.elementToBeClickable(quoteDetailLightningPage.preDeployToSwiftButton));
+			quoteDetailLightningPage.preDeployToSwiftButton.click();
+			slf4jLogger.info(TestID + ":" +System.currentTimeMillis()
+					+ "Click On Submit to Predeploy .... Successful");
+			Thread.sleep(100);
+			if (!(quoteDetailLightningPage.successButton.getText().contains("Successfully Updated"))) {
+				Assert.fail(TestID + ": @" +System.currentTimeMillis() + "@"
+						+ "Error while reading success status after submitting to predeploy!!");
+			}
+
+			/*slf4jLogger.info(TestID + ":" +System.currentTimeMillis()
+					+ "Verified success message for Submitting to predeploy..!! ");
+			((JavascriptExecutor) driver).executeScript(
+					"document.getElementById('j_id0:SubmitPopup').getElementsByTagName('input')[0].click()");
+			quoteDetailPage.businessOrderIDFromSMPredeploy.get(2).getText();*/
+
+		} catch (Exception e) {
+			slf4jLogger.info(
+					TestID + ":" +System.currentTimeMillis() + "Click On Submit to predeploy .... Failure");
+			if (e.getMessage().isEmpty()) {
+				Assert.fail(TestID + ": @" +System.currentTimeMillis() + "@"
+						+ "Error Occured while Clicking on Submit to Predeploy. ");
+			} else if (e.getMessage().contains(": @")) {
+				Assert.fail(e.getMessage());
+			} else {
+				Assert.fail(TestID + ": @" +System.currentTimeMillis() + "@" + e);
+			}
+		}
+		return new QuoteDetailPage();
+
+	}
+
+	public ScenarioDetailPage clickOnQuoteName(String TestID) throws Exception {
+		try {
+			WebDriver driver = getDriver();
+			driver.manage().timeouts().implicitlyWait(4, TimeUnit.SECONDS);
+			productSummaryPage.quoteName.click();
+			slf4jLogger.info(TestID + ":" +System.currentTimeMillis() + "Click on quote...success");
+			driver.manage().timeouts().implicitlyWait(45, TimeUnit.SECONDS);
+		} catch (Exception e) {
+			Assert.fail(
+					TestID + ": @" + System.currentTimeMillis() + "@" + "Error while clicking on quote");
+		}
+		return new ScenarioDetailPage();
+	}
+	
+	@Step
+	public void verifyPredeployCheck(String TestID) throws Exception {
+		try {
+			WebDriver driver = getDriver();
+			
+			JavascriptExecutor js = (JavascriptExecutor)driver;
+			js.executeScript("arguments[0].scrollIntoView();", quoteDetailLightningPage.preDeployCheck);
+			driver.switchTo().defaultContent();
+			Thread.sleep(4000);
+			slf4jLogger.info(TestID + ":" +System.currentTimeMillis() + "Switched to default frame");
+			slf4jLogger.info(TestID + ":" +System.currentTimeMillis() + "Scrolled down......");
+			if (!(quoteDetailLightningPage.preDeployCheck.getAttribute("title").contains("Checked"))) {
+				Assert.fail(TestID + ": @" +System.currentTimeMillis() + "@"
+						+ "Error while verifying predeploy checkbox in Quote Number..!!");
+			}
+			slf4jLogger.info(TestID + ":" +System.currentTimeMillis() + "Click on quote...success");
+			driver.manage().timeouts().implicitlyWait(45, TimeUnit.SECONDS);
+		} catch (Exception e) {
+			Assert.fail(
+					TestID + ": @" +System.currentTimeMillis() + "@" + "Error while clicking on quote");
+		}
+		
+	}
+	
+	public QuoteDetailSteps provideNAE_MSA_CCM_VAE_HAULAndSave(String TestID, String salesEngineerContact,
+			String CCMContact, String VAEContact, String haulAppricability, String submitToSwiftApplicability,
+					String MSAPricingApplicability) throws Exception {
+				
+				WebDriver driver = getDriver();
+				slf4jLogger.info(TestID + ":" + System.currentTimeMillis()
+						+ "Provide NAE MSA CCM VAE and HAUL value and Save....Started");
+				provideSE(TestID, salesEngineerContact);
+				
+				slf4jLogger.info(TestID + ":" + System.currentTimeMillis() + "Select of NAE contact: "
+						+ salesEngineerContact + "..... Success");
+				provideCCM(TestID, CCMContact);
+				slf4jLogger.info(TestID + ":" + System.currentTimeMillis() + "Select of CCM contact: " + CCMContact
+						+ "..... Success");
+				Thread.sleep(1000);
+				provideHaulApplicability(haulAppricability);
+				slf4jLogger.info(TestID + ":" + System.currentTimeMillis() + "Select of Haul applicability : "
+						+ haulAppricability + ".... Success");
+				Thread.sleep(1000);
+				slf4jLogger.info(TestID + ":" + System.currentTimeMillis() + "Select Submit to Hot Cut applicability "
+						+ "No" + ".... Success");
+				quoteDetailLightningPage.saveButton.click();
+				slf4jLogger.info(
+						TestID + ":" +System.currentTimeMillis() + "Clicking on Save button.... Success");
+				Thread.sleep(1000);
+				slf4jLogger.info(TestID + ":" + System.currentTimeMillis()
+						+ "Provide MSA Pricing applicability...started");
+				Thread.sleep(1000);
+				provideMSAPricingApplicability(MSAPricingApplicability);
+				slf4jLogger.info(TestID + ":" + System.currentTimeMillis() + "Provide MSA Pricing applicability..."
+						+ "..... Success");
+				Thread.sleep(1000);
+				
+				providePortingNumberApplicability("No");
+				Thread.sleep(1000);
+				
+				quoteDetailLightningPage.saveButton.click();
+				slf4jLogger.info(TestID + ":" + System.currentTimeMillis() + "Clicking on Save button.... Success");
+				
+				Thread.sleep(100);
+				slf4jLogger.info(TestID + ":" + System.currentTimeMillis()
+						+ "Provide  MSA CCM VAE and HAUL value and Save....Success");
+				return new QuoteDetailSteps();
+		
+			}
+	
+	public QuoteDetailSteps clickBillingAccountButton(String TestID) {
+
+		try {
+			Thread.sleep(10000);
+			quoteDetailLightningPage.billingAccountButton.click();
+			Thread.sleep(2000);
+			slf4jLogger.info(TestID + ":" + System.currentTimeMillis()
+					+ "click on Billing Account Button.... Successful");
+			
+		} catch (Exception e) {
+			slf4jLogger.error("Error while cliking on Billing Account button");
+		}
+		return new QuoteDetailSteps();
+	}
+	
+	public QuoteDetailSteps selectBillingAccount(String TestID) throws Exception {
+		WebDriver driver = getDriver();
+		WebDriverWait wait = new WebDriverWait(driver,30);
+		try {
+			driver.navigate().refresh();
+			
+			Thread.sleep(1000);
+			slf4jLogger.info(TestID + ":" +System.currentTimeMillis()+ "Select Billing Account .... Started");
+			
+			wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id='j_id0:accountSearchFields:j_id125']")));
+			
+			wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("/html/body/form/div[4]/div/div/div[2]/div[1]/div[2]/table/tbody/tr/td/div/table/tbody")));
+			
+				Thread.sleep(5000);
+				driver.findElement(By.xpath("/html/body/form/div[4]/div/div/div[2]/div[1]/div[2]/table/tbody/tr/td/div/table/tbody/tr/td[1]/input")).click();
+				Thread.sleep(5000);
+				driver.findElement(By.xpath("//input[contains(@id,'checkAllBox')]")).click();
+				Thread.sleep(5000);
+				
+				driver.findElement(By.xpath("//*[@id='j_id0:accountSearchFields:j_id67:j_id68:updateSel']")).click();
+				Thread.sleep(5000);
+				System.out.println(driver.findElement(By.className("messageText")).getText());
+				for (int j = 0; j < 10; j++) {
+					if (!driver.findElement(By.className("messageText")).getText().contains(
+							"BAN information will be synced onto Quote Line Items from Scenario Manager. You can return to Opportunity Quote now.")) {
+						System.out.println("Inside loop");
+						((JavascriptExecutor) driver).executeScript("document.querySelectorAll('[value=\"Update All\"]')[0].click()");
+						
+						Thread.sleep(1000);
+					}
+					else {
+						break;
+					}
+					Thread.sleep(3000);
+					
+				}
+			
+				driver.findElement(By.xpath("//input[@value='Return to Quote']")).click();
+				Thread.sleep(5000);
+				
+			
+			slf4jLogger.info(TestID + ":" + System.currentTimeMillis()
+					+ " Click on Return To Scenario Button .... Success");
+			
+			Thread.sleep(10000);
+
+		} catch (Exception e) {
+			slf4jLogger.error(TestID + ":" + System.currentTimeMillis() + "Error in Selecting Billing Account...");
+			Assert.fail(TestID + ": @" + System.currentTimeMillis() + "@"
+					+ "Error in Selecting Billing Account...");
+		}
+
+		return new QuoteDetailSteps();
+
+	}
+	
+	public QuoteDetailSteps provideHaulApplicability(String HaulApplies) throws Exception {
+		WebDriver driver = getDriver();
+		try {
+			quoteDetailLightningPage.haulElement.click();
+			quoteDetailLightningPage.haulInputElement.sendKeys(HaulApplies);
+		} catch (Exception e) {
+			Assert.fail("Error while providing Hot and Cut Replacement");
+		}
+		return new QuoteDetailSteps();
+
+	}
+	
+	public void provideMSAPricingApplicability(String MSAPricingApplicability) throws Exception {
+		WebDriver driver = getDriver();
+		Actions action = new Actions(driver);
+		try {
+		    action.click(quoteDetailLightningPage.msaPricingElement).build().perform();
+			quoteDetailLightningPage.msaPricingInputElement.click();
+			quoteDetailLightningPage.msaPricingInputElement.sendKeys(MSAPricingApplicability);
+		} catch (Exception e) {
+			Assert.fail("Error while providing MSA Pricing Applicability");
+		}
+	}
+	
+	public void providePortingNumberApplicability(String portingApplies) throws Exception {
+		WebDriver driver = getDriver();
+		try {
+			quoteDetailLightningPage.portingNumberElement.click();
+			quoteDetailLightningPage.portingNumberInputElement.sendKeys(portingApplies);
+		} catch (Exception e) {
+
+			Assert.fail("Error while providing Porting and Number Applicability");
+
+		}
+		
+	}
+	
+	public String ClickSubmitToSwift(String TestID) throws Exception {
+		WebDriver driver = getDriver();
+		Thread.sleep(20000);
+		
+		driver.navigate().refresh();
+		Thread.sleep(2000);
+		quoteDetailLightningPage.submitToSwiftButton.click();
+		String Status = "";
+		try {
+			
+			Thread.sleep(5000);
+			if(TestID.equals("2060")) {
+				Thread.sleep(5000);
+				gatingError23(TestID);
+			}
+			
+			Thread.sleep(6000);
+			WebElement okButton = driver.findElement(By.xpath("//span[@id='j_id0:SubmitPopup']/div[2]/input"));
+			okButton.click();
+			slf4jLogger.info(TestID + System.currentTimeMillis() + ":" + "Click On Submit to Swift .... Successful");
+			Thread.sleep(3000);
+			
+
+
+		} catch (Exception e) {
+			slf4jLogger.info(TestID + System.currentTimeMillis() + ":" + "Click On Submit to Swift .... Failure");
+			Assert.fail(TestID + ": @" + System.currentTimeMillis() + "@"
+					+ "Error Occured while Clicking on Submit to swift. Please check the status in SM");
+		}
+		return Status;
+
+	}
+	
+	@Step
+	public void switchToDetailsTab() {
+		slf4jLogger.info("Switching to Details Tab");
+		WebDriver driver = getDriver();
+		WebDriverWait wait = new WebDriverWait(driver,10000);
+		WaitForPageToLoad(5000);
+		try {
+			wait.until(ExpectedConditions.elementToBeClickable(quoteDetailLightningPage.detailsTab));
+			quoteDetailLightningPage.detailsTab.click();
+			waitABit(3000);	
+			WaitForPageToLoad(5000);
+		} catch (Exception e) {
+			slf4jLogger.info("Inside Catch Block of Details Tab"+e.getMessage());
+			Assert.fail();
+		}
+	}
+	
+	/**
+	 * Method to read and verify currency
+	 * 
+	 * @param driver
+	 * @return
+	 * @throws Exception
+	 */
+	public QuoteDetailSteps readAndVerifyCurrency(String TestID, String currency) throws Exception {
+		try {
+			WebDriver driver = getDriver();
+			WebDriverWait wait = new WebDriverWait(driver,5000);
+			Thread.sleep(100);
+			switchToDetailsTab();
+			wait.until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//a[text()='Sold Quote Information']"))));
+			String Currency = driver.findElement(By.xpath(
+					"//span[text()='Quote Currency']/parent::div/following-sibling::div/span/span"))
+					.getText();
+			if (!(currency.contains(Currency))) {
+				Assert.fail(TestID + ": @" + System.currentTimeMillis() + "@"
+						+ "Error in displaying Currency......;");
+			}
+			String MRC = driver.findElement(By.xpath(
+					"//span[text()='Total Quote MRC']/parent::div/following-sibling::div/span/span"))
+					.getText();
+			String NRC = driver.findElement(By.xpath(
+					"//span[text()='Total Quote NRC']/parent::div/following-sibling::div/span/span"))
+					.getText();
+			if (!(MRC.contains("USD") && !(NRC.contains("USD")))) {
+				Assert.fail(
+						TestID + ": @" + System.currentTimeMillis() + "@" + "Error in converting Currency");
+			}
+			slf4jLogger.info(TestID + ":" + System.currentTimeMillis()
+					+ "Currency Verified in ScenarioManagerDetail Page");
+		} catch (Exception e) {
+			Assert.fail(TestID + ": @" + System.currentTimeMillis() + "@"
+					+ "Error while raeding and verifying currency");
+		}
+		return new QuoteDetailSteps();
+	}
+
+	public QuoteDetailSteps clickOnQuoteLineItem(String TestID) throws Exception {
+		try {
+			WebDriver driver = getDriver();
+			switchToLineItemsTab();
+			driver.findElement(By.xpath("//table/tbody/tr/th[@data-label='Quote Line Item Name']/lightning-primitive-cell-factory/span/div/lightning-primitive-custom-cell/force-lookup/div/force-hoverable-link/div/a"))
+					.click();
+			
+			Thread.sleep(100);
+		} catch (Exception e) {
+			Assert.fail(TestID + ": @" + System.currentTimeMillis() + "@"
+					+ "Error occured while clicking on Quote Line Item");
+
+		}
+		return new QuoteDetailSteps();
+	}
+	
+	@Step
+	public void switchToLineItemsTab() {
+		slf4jLogger.info("Switching to Quote Line Items Tab");
+		WebDriver driver = getDriver();
+		WebDriverWait wait = new WebDriverWait(driver,10000);
+		WaitForPageToLoad(5000);
+		try {
+			wait.until(ExpectedConditions.elementToBeClickable(quoteDetailLightningPage.lineItemsTab));
+			quoteDetailLightningPage.lineItemsTab.click();
+			waitABit(3000);	
+			WaitForPageToLoad(5000);
+		} catch (Exception e) {
+			slf4jLogger.info("Inside Catch Block of Quote Line Items Tab"+e.getMessage());
+			Assert.fail();
+		}
+	}
+	
+	@Step
+	public void gatingError23(String TestID) throws InterruptedException{
+		try {
+			slf4jLogger.info("Gating Rule 23 Method...");
+			WebDriver driver = getDriver();
+			WebDriverWait wait = new WebDriverWait(driver,30);
+			
+			Thread.sleep(5000);
+			productSummaryPage.count++;
+			if(productSummaryPage.count==1) {
+				wait.until(ExpectedConditions.visibilityOf(quoteDetailLightningPage.swiftSubmitErrorMessagePopup));
+				String Message = driver.findElement(By.xpath("//*[@class='slds-notify slds-notify_alert slds-theme_alert-texture slds-theme_error slds-p-bottom_medium' and @role='alert']")).getText();
+				slf4jLogger.info("Message: " +Message);
+
+				if(Message.equalsIgnoreCase("Room, Suite, Floor or Basement is Required for this Package. Click 'Add Service Location' to satisfy this requirement."))
+					slf4jLogger.info("Gating Rule 23 identified...");
+				else
+					slf4jLogger.info("Gating Rule 23 not available...");
+			}
+			else if(productSummaryPage.count==2)
+				slf4jLogger.info("New Message: " +driver.findElement(By.xpath("/html/body/div[4]/div[2]/div[3]/div[2]/div/div[2]/div/div/div/div/div/div/div[2]/section/div/div")).getText());
+			Thread.sleep(5000);
+		}
+			catch(Exception e) {
+				slf4jLogger.info(e.getMessage());
+				Assert.fail(e.getMessage());
+			}
+		}
+	
+	
+	@Step
+	public void addServiceLocation(String TestID) throws InterruptedException{
+		try {
+			slf4jLogger.info("Add Service Location Method...");
+			WaitForPageToLoad(5000);
+			Thread.sleep(10000);
+
+			WebDriver driver = getDriver();
+			WebDriverWait wait = new WebDriverWait(driver,30);
+			
+			clickOnAddServiceLocation(TestID);
+			Thread.sleep(5000);
+			WaitForPageToLoad(5000);
+			
+			driver.switchTo().frame("theIframe");
+			/*WaitForPageToLoad(5000);
+			driver.findElement(By.xpath("/html/body/div[6]/div[1]/div[4]/div[2]/button[3]")).click();*/
+			
+			WaitForPageToLoad(5000);
+			WaitForPageToLoad(5000);
+			Thread.sleep(10000);
+			productSummaryPage.ButtontoaddServiceLocationButtonEnable.click();
+			WaitForPageToLoad(5000);
+			Thread.sleep(1000);
+			productSummaryPage.addServiceLocationText2.click();
+			WaitForPageToLoad(5000);
+			Thread.sleep(1000);
+			productSummaryPage.addServiceLocationText2.sendKeys("Floor 1 Suite 110");
+			WaitForPageToLoad(5000);
+			Thread.sleep(1000);
+			productSummaryPage.addServiceLocationText2.sendKeys(Keys.ENTER);
+			Thread.sleep(10000);
+			
+			driver.switchTo().defaultContent();
+			
+			driver.findElement(By.xpath("/html/body/div/div[3]/table/tbody/tr/td/a[2]")).click();
+			Thread.sleep(10000);
+		}
+			catch(Exception e) {
+				slf4jLogger.info(e.getMessage());
+				Assert.fail(e.getMessage());
+			}
+		}
+	public QuoteDetailSteps clickOnAddServiceLocation(String TestID) throws Exception {
+		WebDriver driver = getDriver();
+		try {
+			quoteDetailLightningPage.addServiceLocationsButton.click();
+			Thread.sleep(1000);
+			slf4jLogger.info(TestID + ":" +System.currentTimeMillis()
+					+ "Click on Add Service Location..... Success");
+			
+		} catch (Exception e) {
+			Assert.fail(TestID + ": @" +System.currentTimeMillis() + "@"
+					+ "Error while clicking on Add Service Location");
+		}
+		return new QuoteDetailSteps();
+	}
+
+}

@@ -1,0 +1,160 @@
+package com.ctl.it.qa.bpms.pages;
+
+import java.util.List;
+
+import org.openqa.selenium.WebElement;
+
+import net.serenitybdd.core.annotations.findby.FindBy;
+import net.serenitybdd.core.pages.WebElementFacade;
+
+public class OpportunityDetailLightningPage {
+	
+	@FindBy(xpath = "//*[@title='Agreement']")
+	public WebElement stageLabelAgreement;
+	
+	@FindBy(xpath = "//*[@title='Proposed']")
+	public WebElement stageLabelProposed;
+	
+	@FindBy(xpath = "//*[@title='Qualified']")
+	public WebElement stageLabelQualified;
+	
+	@FindBy(xpath = "//button/span[contains(text(),'Mark as Current Stage')]")
+	public WebElement markStageAs;
+	
+	@FindBy(xpath = "/html/body/div[4]/div[2]/div/div[2]/div/div[2]/div/force-dependent-field-data-primer/force-dependent-field-tree-root/ul/li[2]/force-dependent-field-item/div/lightning-input-field/lightning-picklist/lightning-combobox/label")
+	public WebElement winLossReasonLabel;
+	
+	@FindBy(name = "Primary_Loss_Reason__c")
+	public WebElement reasonNone;
+	
+	@FindBy(xpath = "//lightning-base-combobox-item[@data-value='Won - Customer Relationship']")
+	public WebElement reasonWonCustRelnship;
+	
+	@FindBy(xpath = "//button[contains(text(),'Done')]")
+	public WebElement btnDone;
+	
+	@FindBy(xpath = "/html/body/div[4]/div[1]/section/div[1]/div[2]/div[2]/div[1]/div/div/div/div/div/one-record-home-flexipage2/forcegenerated-adg-rollup_component___force-generated__flexipage_-record-page___-opportunity_-record_-page___-opportunity___-v-i-e-w/forcegenerated-flexipage_opportunity_record_page_opportunity__view_js/record_flexipage-record-page-decorator/div[1]/records-record-layout-event-broker/slot/slot/flexipage-record-home-with-subheader-template-desktop2/div/div[3]/div[1]/slot/slot/flexipage-component2[2]/slot/flexipage-tabset2/div/lightning-tabset/div/slot/slot/slot/flexipage-tab2[1]/slot/flexipage-component2/slot/flexipage-tabset2/div/lightning-tabset/div/slot/slot/slot/flexipage-tab2[1]/slot/flexipage-component2/slot/flexipage-aura-wrapper/div/article/div/div[2]/div/div/div[2]/div/section/div[1]/div/div/div/div/div[16]/div[2]/div/div[2]/button/lightning-primitive-icon/svg")
+	public WebElement opportunityProbabilityEditPencil;
+	
+	@FindBy(xpath = "/html/body/div[4]/div[1]/section/div[1]/div[2]/div[2]/div[1]/div/div/div/div/div/one-record-home-flexipage2/forcegenerated-adg-rollup_component___force-generated__flexipage_-record-page___-opportunity_-record_-page___-opportunity___-v-i-e-w/forcegenerated-flexipage_opportunity_record_page_opportunity__view_js/record_flexipage-record-page-decorator/div[1]/records-record-layout-event-broker/slot/slot/flexipage-record-home-with-subheader-template-desktop2/div/div[3]/div[1]/slot/slot/flexipage-component2[2]/slot/flexipage-tabset2/div/lightning-tabset/div/slot/slot/slot/flexipage-tab2[1]/slot/flexipage-component2/slot/flexipage-tabset2/div/lightning-tabset/div/slot/slot/slot/flexipage-tab2[1]/slot/flexipage-component2/slot/flexipage-aura-wrapper/div/article/div/div[2]/div/div/div[2]/div/section/div[2]/div/div[1]/div/div/div/div/div[16]/div[2]/div/div/div/input")
+	public WebElement opportunityProbability;
+	
+	@FindBy(xpath = "//button[@title='Save']")
+	public WebElement btnSave;
+	
+	@FindBy(xpath = "//button[text()='Generate a Document']")
+	public WebElementFacade generateDocument;
+	
+	@FindBy(id="j_id0:j_id2:relatedQuotesId:j_id45:j_id49")
+	public WebElement moveSMQuote;
+	
+	@FindBy(xpath = "//a[@title='Opportunities']")
+	public WebElementFacade opportunityTab;
+	
+	@FindBy(css = "iframe[title='OpportunityQuotes']")
+	public WebElementFacade oppQuotesFrame;
+	
+	@FindBy(xpath = "//*[@id='quoteGrid']/div[4]/div[3]/div/div/div[8]")
+	public WebElementFacade mrcXpath;
+	
+	@FindBy(xpath = "//*[@id='quoteGrid']/div[4]/div[3]/div/div/div[9]")
+	public WebElementFacade nrcXpath;
+	
+	@FindBy(xpath = "//*[@id=\"quoteGrid\"]/div[4]/div[3]/div/div/div[2]/a[1]")
+	public WebElementFacade copyScenario;
+	
+	@FindBy(xpath = "/html/body/form/span[1]/div[2]/div/div/div/div/div[2]/div/table/tbody/tr[1]/td[1]/input")
+	public WebElementFacade selectButton1;
+	
+	@FindBy(id = "j_id0:j_id2:j_id72:j_id101:0:j_id106")
+	public WebElementFacade selectButton2;
+	
+	@FindBy(xpath = "//*[@id='j_id0:j_id2:j_id140:j_id167']")
+	public WebElementFacade okButton1;
+	
+	@FindBy(xpath = "//input[@id='j_id0:j_id1:j_id153:j_id180']")
+	public WebElementFacade okButton2;
+	
+	@FindBy(xpath = "//input[@id='j_id0:j_id2:j_id155:j_id182']")
+	public WebElementFacade okButton3;
+	
+	@FindBy(xpath = "//input[@class='btn' and @value='OK']")
+	public List<WebElement> okButtons;
+	
+	@FindBy(xpath = "//*[@id='quoteGrid']/div[4]/div[3]/div/div")
+	public List<WebElement> scenarios;
+	
+	@FindBy(xpath = "//*[@id='quoteGrid']/div[4]/div[3]/div/div[2]/div[5]/a")
+	public WebElementFacade copiedScenarioLink;
+	
+	@FindBy(xpath = ".//*[@id='j_id0:j_id2:relatedQuotesId:j_id56']/div/div/div[4]/div[3]/div/div[1]/div[8]")
+	public WebElementFacade totalQuoteMRCXpath;
+	
+	@FindBy(xpath = ".//*[@id='j_id0:j_id2:relatedQuotesId:j_id56']/div/div/div[4]/div[3]/div/div[2]/div[8]/span")
+	public WebElementFacade copyTotalQuoteMRCXpath;
+	
+	@FindBy(xpath="//*[@id='page:myForm:pb:infoPBS:j_id59:j_id61']/div/select")
+	public WebElement docType;
+	
+	@FindBy(xpath="//*[@id='page:myForm:pb:infoPBS:j_id98:j_id100']/div/input")
+	public WebElement docName;
+	
+	@FindBy(xpath="/html/body/div/div[3]/table/tbody/tr/td[2]/form/div[2]/div/div/div/div/div[3]/table/tbody/tr/td[2]/input[1]")
+	public WebElement generateDocumentnextButton;
+	
+	@FindBy(xpath="//*[@id='page:myForm:messages:j_id15:j_id16:0:j_id17:j_id18:j_id30']/ul/li[2]")
+	public WebElementFacade errorXpath;
+	
+	@FindBy(xpath="//input[@class='btn']")
+	public WebElementFacade cancel;
+	
+	@FindBy(xpath="/html/body/div/div[3]/table/tbody/tr/td[2]/div[11]/div[1]/div/div[2]/table/tbody/tr[3]/td[9]")
+	public WebElementFacade error1;
+	
+	@FindBy(xpath="//*[@id='aSG0R000000Ch0D_00N2A00000DoTKC_body']/table/tbody/tr[3]/td[9]")
+	public WebElementFacade error2;
+	
+	@FindBy(xpath="/html/body/div[1]/div[3]/table/tbody/tr/td[2]/div[4]/div[2]/div[2]/table/tbody/tr/td[2]/div/a")
+	public WebElementFacade pspError;
+	
+	@FindBy(xpath="/html/body/div/div[3]/table/tbody/tr/td[2]/form/div[2]/div/div/div/div/div[2]/div[2]/div[2]/table/tbody/tr[1]/td/span/div/select")
+	public WebElement replacementContractualForm;
+	
+	@FindBy(xpath="//*[@id='page:myForm:pb:ProposalAddlInfo:j_id124:j_id126']/div/select/option[2]")
+	public WebElementFacade proposalAddlInfo;
+	
+	@FindBy(xpath="/html/body/div/div[3]/table/tbody/tr/td[2]/form/div[2]/div/div/div/div/div[3]/table/tbody/tr/td[2]/input[2]")
+	public WebElement generateDocumentInsertSubmit;
+	
+	@FindBy(xpath="/html/body/div[1]/div[3]/table/tbody/tr/td[2]/div[4]/div[2]/div[2]/table/tbody/tr[2]/td[2]/a")
+	public WebElement documentID;
+	
+	@FindBy(xpath="//*[@id='ep']/div[2]/div[2]/table/tbody/tr[2]/td[2]/a")
+	public WebElement documentIDXpath;
+	
+	@FindBy(xpath = "//*[@id='quoteGrid']/div[4]/div[3]/div/div/div[11]")
+	public WebElement pendingApprovals;
+	
+	@FindBy(xpath="//*[@id='quoteGrid']/div[4]/div[3]/div/div[1]/div[7]")
+	public WebElement cpqStatus;
+	
+	@FindBy(xpath = "//*[@id='quoteGrid']/div[4]/div[3]/div/div/div[5]/a")
+	public WebElementFacade scenarioManagerLink;
+	
+	@FindBy(xpath="/html/body/div[1]/div[3]/table/tbody/tr/td[2]/div[4]/div[2]/div[4]/table/tbody/tr[3]/td[2]/a")
+	public WebElement moveToOppDetailPageLink;
+	
+	@FindBy(xpath = "//*[@id='ep']/div[2]/div[4]/table/tbody/tr[4]/td[3]")
+	public WebElement salesRegionTag;
+	
+	@FindBy(xpath = "//*[@id='00NF000000CeunI_ileinner']")
+	public WebElement salesRegionLabel;
+	
+	@FindBy(id = "opp3_ileinner")
+	public WebElementFacade opportunityNameText;
+
+	@FindBy(xpath = "//*[@id='opp4_ileinner']/a")
+	public WebElementFacade opportunityAccountNameText;
+
+	
+}

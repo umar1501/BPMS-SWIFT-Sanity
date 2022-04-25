@@ -1,0 +1,716 @@
+package com.ctl.it.qa.bpms.steps;
+
+import java.util.List;
+import java.util.concurrent.TimeUnit;
+
+import org.junit.Assert;
+import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.Keys;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Select;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import com.ctl.it.qa.bpms.pages.OpportunityDetailPage;
+import com.ctl.it.qa.bpms.pages.ProductConfigPage;
+import com.ctl.it.qa.bpms.pages.QuoteDetailPage;
+import com.ctl.it.qa.bpms.pages.ScenarioDetailPage;
+import com.ctl.it.qa.staf.Steps;
+
+import net.thucydides.core.annotations.Step;
+
+
+@SuppressWarnings("serial")
+public class QuoteDetailSteps extends Steps{
+
+	private final Logger slf4jLogger = LoggerFactory.getLogger(QuoteDetailSteps.class);
+	
+	ScenarioDetailPage scenarioDetailPage;
+	
+	DiscountingProfitabilitySteps discountingProfitabilityPage;
+	
+	ProductConfigPage productConfigPage;
+	
+	OpportunityDetailPage opportunityDetailPage;
+	
+	QuoteDetailPage quoteDetailPage;
+	
+	private static String boid ;
+
+    public static String getboid(){
+        return QuoteDetailSteps.boid;
+    }
+
+    public static void setboid(String boid){
+    	QuoteDetailSteps.boid = boid;
+    }
+	
+	
+	@SuppressWarnings("deprecation")
+	public QuoteDetailSteps provideCCM_SE_PreDeploy(String TestID, String CCMContact, String SEContact) throws Exception {
+		try {
+			provideCCM_PreDeploy(TestID, CCMContact);
+			slf4jLogger.info(TestID + ":" + System.currentTimeMillis() + "Select of CCM contact: " + CCMContact
+					+ "..... Success");
+			Thread.sleep(100);
+			provideSE(TestID, SEContact);
+			slf4jLogger.info(TestID + ":" +System.currentTimeMillis() + "Select of CCM contact: " + SEContact
+					
+					+ "..... Success");
+			Thread.sleep(100);
+			quoteDetailPage.saveButton.click();
+			slf4jLogger.info(
+					TestID + ":" +System.currentTimeMillis() + "Clicking on Save button.... Success");
+			Thread.sleep(1000);
+			slf4jLogger.info(TestID + ":" +System.currentTimeMillis()
+					+ "Provide CCM and SE value and Save....Success");
+			
+
+		} catch (Exception e) {
+			slf4jLogger.error(TestID + ":" +System.currentTimeMillis() + e);
+			Assert.fail(TestID + ": @" +System.currentTimeMillis() + "@"
+					+ "Error occured while providing CCM and SE value and Save");
+		}
+		return this;
+	}
+	
+	@SuppressWarnings("deprecation")
+	public QuoteDetailSteps provideCCM_PreDeploy(String TestID, String CCMContact) throws Exception {
+		WebDriver driver = getDriver();
+		Actions action = new Actions(driver);
+		try {
+		action.doubleClick(quoteDetailPage.ccmElement).build().perform();
+		quoteDetailPage.ccmInputElement.sendKeys(CCMContact);
+		driver.findElement(By.xpath("//*[@id=\"ep\"]/div[2]/div[7]/table/tbody/tr[1]/td[1]")).click();
+		slf4jLogger.info(
+				TestID + ":" +System.currentTimeMillis() + "Selecting CCM.... Success");
+		
+		} catch (Exception e) {
+			Assert.fail(TestID + ": @" +System.currentTimeMillis() + "@" + "Error while adding CCM");
+		}
+		return new QuoteDetailSteps();
+	}
+	public QuoteDetailSteps provideSE(String TestID, String SEContact) throws Exception {
+		WebDriver driver = getDriver();
+		JavascriptExecutor js = (JavascriptExecutor) driver;
+		try {
+			js.executeScript("window.scrollBy(0,300)", "");
+			Thread.sleep(1000);
+			Actions action = new Actions(driver);
+			action.doubleClick(quoteDetailPage.seElement).build().perform();
+			Thread.sleep(2000);
+			quoteDetailPage.seInputElement.sendKeys(SEContact);
+		} catch (Exception e) {
+			Assert.fail(
+					TestID + ": @" + System.currentTimeMillis() + "@" + "Error while providing SE");
+		}
+		return new QuoteDetailSteps();
+	}
+	
+	public SMAttachNewDocumentFormSteps clickOnAddGlobalAttachment(String TestID) throws Exception {
+		WebDriver driver = getDriver();
+		try {
+			((JavascriptExecutor) driver)
+						.executeScript("document.querySelectorAll('[value=\"Add Global Attachment\"]')[0].click()");
+			
+			Thread.sleep(1000);
+			slf4jLogger.info(TestID + ":" +System.currentTimeMillis()
+					+ "Click on Add Global Attachment..... Success");
+			
+		} catch (Exception e) {
+			Assert.fail(TestID + ": @" +System.currentTimeMillis() + "@"
+					+ "Error while clicking on Add Global Attachment");
+		}
+		return new SMAttachNewDocumentFormSteps();
+	}
+	public QuoteDetailSteps clickOnEnterRequiredContacts(String TestID) throws Exception {
+		try {
+			Thread.sleep(4000);
+			quoteDetailPage.addExistingContactButton.click();
+			Thread.sleep(2000);
+			slf4jLogger.info(TestID + ":" +System.currentTimeMillis()
+					+ "click on AddExisting contact Button.... Successful");
+			// 
+
+		} catch (Exception e) {
+			Assert.fail(TestID + ": @" +System.currentTimeMillis() + "@"
+					+ "Error while clicking on required contacts");
+		}
+		return new QuoteDetailSteps();
+	}
+	public QuoteDetailSteps addNecessaryContacts(String TestID, String commonContact)
+			throws Exception {
+		try {
+		
+			WebDriver driver = getDriver();
+			int s=0;
+            List<WebElement> NoOfRows=driver.findElements(By.className("requiredInput"));
+            for(int i = 0; i < 5; i=i+2) {
+                  WebElement field=NoOfRows.get(i).findElement(By.tagName("input"));
+                  field.clear();
+                  field.sendKeys(commonContact);
+                  Thread.sleep(2000);
+                  List<WebElement> suggessions=driver.findElements(By.xpath("//ul[@class='ui-autocomplete ui-menu ui-widget ui-widget-content ui-corner-all']"));
+                  WebElement clickk=suggessions.get(s).findElement(By.tagName("a"));
+                  
+                  Actions actions=new Actions(driver);
+                  actions.moveToElement(clickk).click().build().perform();
+                 
+                  s++;
+            }
+            Thread.sleep(2000);
+            slf4jLogger.info(TestID+":"+System.currentTimeMillis()+"[Selecting on Necessary Contact ... Success]");
+            driver.findElement(By.xpath("//input[@value='Save']")).click();
+            slf4jLogger.info(TestID+":"+System.currentTimeMillis()+"Clicking on Save after Selecting Contact... Success");
+            
+            Thread.sleep(1000);
+ 
+		} catch (Exception e) {
+			Assert.fail(TestID + ": @" + System.currentTimeMillis() +"@"+ "[Selecting on Necessary Contact ... Failure]");
+		}
+		return new QuoteDetailSteps();
+	}
+
+	@SuppressWarnings("unused")
+	public QuoteDetailPage clickSubmitToSwift_PreDeploy(String TestID) throws Exception {
+		WebDriver driver = getDriver();
+//		try {
+//			
+//			
+//			Wait<WebDriver> wait = new WebDriverWait(driver, 10000);
+//			
+//				driver.navigate().refresh();
+//				//wait.until(ExpectedConditions.visibilityOf(quoteDetailPage.status));
+//			//if (!(quoteDetailPage.status.getText().equals("Ready to Submit"))) {
+//			//	Assert.fail(TestID + ": @" +System.currentTimeMillis() + "@"
+//			//			+ "Ready Status is not displayed!!");
+//			//}
+//			//slf4jLogger.info(TestID + ":" +System.currentTimeMillis() + "Verified ready status..!!");
+//		} catch (Exception e) {
+//			slf4jLogger.info(
+//					TestID + ":" +System.currentTimeMillis() + "Error while reading predeploy status...!!!");
+//		}
+
+		try {
+			Thread.sleep(2000);
+			driver.navigate().refresh();
+			((JavascriptExecutor) driver).executeScript("document.getElementsByName('submit_pre_deploy')[0].click();");
+			slf4jLogger.info(TestID + ":" +System.currentTimeMillis()
+					+ "Click On Submit to Predeploy .... Successful");
+			Thread.sleep(100);
+			if (!(quoteDetailPage.successButton.getText().equals("Successfully Updated"))) {
+				Assert.fail(TestID + ": @" +System.currentTimeMillis() + "@"
+						+ "Error while reading success status after submitting to predeploy!!");
+			}
+
+			slf4jLogger.info(TestID + ":" +System.currentTimeMillis()
+					+ "Verified success message for Submitting to predeploy..!! ");
+			((JavascriptExecutor) driver).executeScript(
+					"document.getElementById('j_id0:SubmitPopup').getElementsByTagName('input')[0].click()");
+			quoteDetailPage.businessOrderIDFromSMPredeploy.get(2).getText();
+
+		} catch (Exception e) {
+			slf4jLogger.info(
+					TestID + ":" +System.currentTimeMillis() + "Click On Submit to predeploy .... Failure");
+			if (e.getMessage().isEmpty()) {
+				Assert.fail(TestID + ": @" +System.currentTimeMillis() + "@"
+						+ "Error Occured while Clicking on Submit to Predeploy. ");
+			} else if (e.getMessage().contains(": @")) {
+				Assert.fail(e.getMessage());
+			} else {
+				Assert.fail(TestID + ": @" +System.currentTimeMillis() + "@" + e);
+			}
+		}
+		return new QuoteDetailPage();
+
+	}
+	
+	public ScenarioDetailPage clickOnQuoteName(String TestID) throws Exception {
+		try {
+			WebDriver driver = getDriver();
+			driver.manage().timeouts().implicitlyWait(4, TimeUnit.SECONDS);
+			quoteDetailPage.quoteName.click();
+			slf4jLogger.info(TestID + ":" +System.currentTimeMillis() + "Click on quote...success");
+			driver.manage().timeouts().implicitlyWait(45, TimeUnit.SECONDS);
+		} catch (Exception e) {
+			Assert.fail(
+					TestID + ": @" + System.currentTimeMillis() + "@" + "Error while clicking on quote");
+		}
+		return new ScenarioDetailPage();
+	}
+	
+	@Step
+	public void verifyPredeployCheck(String TestID) throws Exception {
+		try {
+			WebDriver driver = getDriver();
+			
+			JavascriptExecutor js = (JavascriptExecutor)driver;
+			js.executeScript("arguments[0].scrollIntoView();", quoteDetailPage.preDeployCheck);
+			driver.switchTo().defaultContent();
+			Thread.sleep(4000);
+			slf4jLogger.info(TestID + ":" +System.currentTimeMillis() + "Switched to default frame");
+			slf4jLogger.info(TestID + ":" +System.currentTimeMillis() + "Scrolled down......");
+			if (!(quoteDetailPage.preDeployCheck.getAttribute("title").contains("Checked"))) {
+				Assert.fail(TestID + ": @" +System.currentTimeMillis() + "@"
+						+ "Error while verifying predeploy checkbox in Quote Number..!!");
+			}
+			slf4jLogger.info(TestID + ":" +System.currentTimeMillis() + "Click on quote...success");
+			driver.manage().timeouts().implicitlyWait(45, TimeUnit.SECONDS);
+		} catch (Exception e) {
+			Assert.fail(
+					TestID + ": @" +System.currentTimeMillis() + "@" + "Error while clicking on quote");
+		}
+		
+	}
+
+	public QuoteDetailSteps provideNAE_MSA_CCM_VAE_HAULAndSave(String TestID, String salesEngineerContact,
+			String CCMContact, String VAEContact, String haulAppricability, String submitToSwiftApplicability,
+					String MSAPricingApplicability) throws Exception {
+				
+				WebDriver driver = getDriver();
+				slf4jLogger.info(TestID + ":" + System.currentTimeMillis()
+						+ "Provide NAE MSA CCM VAE and HAUL value and Save....Started");
+				provideSE(TestID, salesEngineerContact);
+				
+				slf4jLogger.info(TestID + ":" + System.currentTimeMillis() + "Select of NAE contact: "
+						+ salesEngineerContact + "..... Success");
+				slf4jLogger.info(TestID + ":" + System.currentTimeMillis()
+						+ "Provide MSA Pricing applicability...started");
+				Thread.sleep(1000);
+				provideMSAPricingApplicability(MSAPricingApplicability);
+				slf4jLogger.info(TestID + ":" + System.currentTimeMillis() + "Provide MSA Pricing applicability..."
+						+ "..... Success");
+				Thread.sleep(1000);
+				provideCCM(TestID, CCMContact);
+				slf4jLogger.info(TestID + ":" + System.currentTimeMillis() + "Select of CCM contact: " + CCMContact
+						+ "..... Success");
+				Thread.sleep(1000);
+				providePortingNumberApplicability("No");
+				Thread.sleep(1000);
+				provideHaulApplicability(haulAppricability);
+				slf4jLogger.info(TestID + ":" + System.currentTimeMillis() + "Select of Haul applicability : "
+						+ haulAppricability + ".... Success");
+				Thread.sleep(1000);
+				slf4jLogger.info(TestID + ":" + System.currentTimeMillis() + "Select Submit to Hot Cut applicability "
+						+ "No" + ".... Success");
+				quoteDetailPage.saveButton.click();
+				slf4jLogger.info(TestID + ":" + System.currentTimeMillis() + "Clicking on Save button.... Success");
+				
+				Thread.sleep(100);
+				slf4jLogger.info(TestID + ":" + System.currentTimeMillis()
+						+ "Provide  MSA CCM VAE and HAUL value and Save....Success");
+				return new QuoteDetailSteps();
+		
+			}
+	
+	public QuoteDetailSteps clickBillingAccountButton(String TestID) {
+
+		try {
+			Thread.sleep(10000);
+			quoteDetailPage.billingAccountButton.click();
+			Thread.sleep(2000);
+			slf4jLogger.info(TestID + ":" + System.currentTimeMillis()
+					+ "click on Billing Account Button.... Successful");
+			
+		} catch (Exception e) {
+			slf4jLogger.error("Error while cliking on Billing Account button");
+		}
+		return new QuoteDetailSteps();
+	}
+	
+	public QuoteDetailSteps selectBillingAccount(String TestID) throws Exception {
+		WebDriver driver = getDriver();
+		WebDriverWait wait = new WebDriverWait(driver,30);
+		try {
+			driver.navigate().refresh();
+			
+			Thread.sleep(2000);
+			slf4jLogger.info(TestID + ":" +System.currentTimeMillis()+ "Select Billing Account .... Started");
+			
+			wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id='j_id0:accountSearchFields:j_id125']")));
+			
+			wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("/html/body/div/div[3]/table/tbody/tr/td[2]/form/div[4]/div/div/div[2]/div[1]/div[2]/table/tbody/tr/td/div/table/tbody")));
+			
+				Thread.sleep(5000);
+				driver.findElement(By.xpath("/html/body/div/div[3]/table/tbody/tr/td[2]/form/div[4]/div/div/div[2]/div[1]/div[2]/table/tbody/tr/td/div/table/tbody/tr/td[1]/input[@class='btn']")).click();
+				Thread.sleep(5000);
+				driver.findElement(By.xpath("//input[contains(@id,'checkAllBox')]")).click();
+				Thread.sleep(5000);
+				
+				driver.findElement(By.xpath("/html/body/div/div[3]/table/tbody/tr/td[2]/form/div[3]/div/div/div[1]/table/tbody/tr/td[2]/input[2]")).click();
+				Thread.sleep(5000);
+				System.out.println(driver.findElement(By.className("messageText")).getText());
+				for (int j = 0; j < 10; j++) {
+					if (!driver.findElement(By.className("messageText")).getText().contains(
+							"BAN information will be synced onto Quote Line Items from Scenario Manager. You can return to Opportunity Quote now.")) {
+						System.out.println("Inside loop");
+						((JavascriptExecutor) driver).executeScript("document.querySelectorAll('[value=\"Update All\"]')[0].click()");
+						
+						Thread.sleep(1000);
+					}
+					else {
+						break;
+					}
+					Thread.sleep(3000);
+					
+				}
+			
+				driver.findElement(By.xpath("/html/body/div/div[3]/table/tbody/tr/td[2]/form/div[3]/div/div/div[1]/table/tbody/tr/td[2]/input[3]")).click();
+				Thread.sleep(5000);
+				
+			
+			slf4jLogger.info(TestID + ":" + System.currentTimeMillis()
+					+ " Click on Return To Scenario Button .... Success");
+			
+			Thread.sleep(10000);
+
+		} catch (Exception e) {
+			slf4jLogger.error(TestID + ":" + System.currentTimeMillis() + "Error in Selecting Billing Account...");
+			Assert.fail(TestID + ": @" + System.currentTimeMillis() + "@"
+					+ "Error in Selecting Billing Account...");
+		}
+
+		return new QuoteDetailSteps();
+
+	}
+
+	public void provideMSAPricingApplicability(String MSAPricingApplicability) throws Exception {
+		WebDriver driver = getDriver();
+		try {
+			
+			Actions action = new Actions(driver);
+			//WebElement MSAPricingElement = (WebElement) ((JavascriptExecutor) driver).executeScript("return document.getElementsByClassName('detailList')[5].getElementsByTagName('td')[1]");
+			WebElement MSAPricingElement=driver.findElement(By.id("00N2A00000DoTFD_ilecell"));
+			action.doubleClick(MSAPricingElement).build().perform();
+			//String MSAPricingElementID = (String) ((JavascriptExecutor) driver).executeScript("return document.getElementsByClassName('detailList')[5].getElementsByTagName('td')[1].getElementsByTagName('select')[0].getAttribute('id')");
+			String MSAPricingElementID = driver.findElement(By.xpath("//*[@id='00N2A00000DoTFD']/option[1]")).getText();
+			Select MCAPriceInputSelectElement = new Select(driver.findElement(By.id(MSAPricingElementID)));
+			MCAPriceInputSelectElement.selectByValue(MSAPricingApplicability);
+		} catch (Exception e) {
+
+			Actions action = new Actions(driver);
+			WebElement MSAPricingElement = (WebElement) ((JavascriptExecutor) driver).executeScript(
+					"return  document.getElementsByClassName('detailList')[2].getElementsByTagName('tr')[0].getElementsByTagName('td')[1]");
+			action.doubleClick(MSAPricingElement).build().perform();
+			Thread.sleep(1000);
+			String MSAPricingElementID = (String) ((JavascriptExecutor) driver).executeScript(
+					"return  document.getElementsByClassName('detailList')[2].getElementsByTagName('tr')[0].getElementsByTagName('td')[1].getElementsByTagName('select')[0].getAttribute('id')");
+			Thread.sleep(1000);
+			Select MCAPriceInputSelectElement = new Select(driver.findElement(By.id(MSAPricingElementID)));
+			Thread.sleep(1000);
+			MCAPriceInputSelectElement.selectByValue(MSAPricingApplicability);
+		}
+
+	}
+	
+	public void provideCCM(String TestID, String CCMContact) throws Exception {
+		WebDriver driver = getDriver();
+		String CCMElementID = "";
+		try {
+			Actions action = new Actions(driver);
+			WebElement CCMElement = (WebElement) ((JavascriptExecutor) driver).executeScript(
+					"return  document.getElementsByClassName('detailList')[5].getElementsByTagName('td')[3]");
+			action.doubleClick(CCMElement).build().perform();
+			CCMElementID = (String) ((JavascriptExecutor) driver).executeScript(
+					"return document.getElementsByClassName('detailList')[5].getElementsByTagName('td')[3].getElementsByTagName('input')[3].getAttribute('id')");
+			WebElement CCMInputElement = driver.findElement(By.id(CCMElementID));
+			CCMInputElement.sendKeys(CCMContact);
+		} catch (Exception e) {
+			try {
+				Actions action = new Actions(driver);
+				WebElement CCMElement = (WebElement) ((JavascriptExecutor) driver).executeScript(
+						"return   document.getElementsByClassName('detailList')[2].getElementsByTagName('tr')[0].getElementsByTagName('td')[3]");
+				action.doubleClick(CCMElement).build().perform();
+				CCMElementID = (String) ((JavascriptExecutor) driver).executeScript(
+						"return  document.getElementsByClassName('detailList')[2].getElementsByTagName('tr')[0].getElementsByTagName('td')[3].getElementsByTagName('input')[3].getAttribute('id')");
+				WebElement CCMInputElement = driver.findElement(By.id(CCMElementID));
+				CCMInputElement.sendKeys(CCMContact);
+			} catch (Exception ex) {
+				Assert.fail(
+						TestID + ": @" + System.currentTimeMillis() + "@" + "Error while adding CCM");
+			}
+		}
+		try {
+			driver.findElement(By.xpath("//*[@id=\"head_01B2A00000fz0K3_ep\"]")).click();
+			
+			Thread.sleep(1000);
+		} catch (Exception e) {
+			Assert.fail(TestID + ": @" + System.currentTimeMillis() + "@" + "Error while adding CCM");
+		}
+
+	}
+	
+	public void providePortingNumberApplicability(String portingApplies) throws Exception {
+		WebDriver driver = getDriver();
+		try {
+			
+			Actions action = new Actions(driver);
+			//WebElement PortingElement = (WebElement) ((JavascriptExecutor) driver).executeScript("return document.getElementsByClassName('detailList')[5].getElementsByTagName('td')[5]");
+			WebElement PortingElement = driver.findElement(By.id("00N2A00000DoTFZ_ilecell"));
+			action.doubleClick(PortingElement).build().perform();
+			//String PortingElementID = (String) ((JavascriptExecutor) driver).executeScript("return document.getElementsByClassName('detailList')[5].getElementsByTagName('td')[5].getElementsByTagName('select')[0].getAttribute('id')");
+			String PortingElementID = driver.findElement(By.xpath("//*[@id=\"00N2A00000DoTFZ\"]/option[1]")).getText();
+			Select PortingSelectElement = new Select(driver.findElement(By.id(PortingElementID)));
+			PortingSelectElement.selectByVisibleText(portingApplies);
+		} catch (Exception e) {
+
+			Actions action = new Actions(driver);
+			WebElement PortingElement = (WebElement) ((JavascriptExecutor) driver).executeScript(
+					"return  document.getElementsByClassName('detailList')[2].getElementsByTagName('tr')[1].getElementsByTagName('td')[1]");
+			action.doubleClick(PortingElement).build().perform();
+			Thread.sleep(1000);
+			String PortingElementID = (String) ((JavascriptExecutor) driver).executeScript(
+					"return  document.getElementsByClassName('detailList')[2].getElementsByTagName('tr')[1].getElementsByTagName('td')[1].getElementsByTagName('select')[0].getAttribute('id')");
+			Thread.sleep(1000);
+			Select PortingElementSelectElement = new Select(driver.findElement(By.id(PortingElementID)));
+			Thread.sleep(1000);
+			PortingElementSelectElement.selectByValue(portingApplies);
+
+		}
+		
+	}
+	
+	public QuoteDetailSteps provideHaulApplicability(String HaulApplies) throws Exception {
+		WebDriver driver = getDriver();
+		try {
+			
+			Actions action = new Actions(driver);
+			WebElement HaulElement = (WebElement) ((JavascriptExecutor) driver).executeScript(
+					"return document.getElementsByClassName('detailList')[5].getElementsByTagName('td')[9]");
+			action.doubleClick(HaulElement).build().perform();
+			String HaulElementID = (String) ((JavascriptExecutor) driver).executeScript(
+					"return document.getElementsByClassName('detailList')[5].getElementsByTagName('td')[9].getElementsByTagName('select')[0].getAttribute('id')");
+			Select HaulSelectElement = new Select(driver.findElement(By.id(HaulElementID)));
+			HaulSelectElement.selectByVisibleText(HaulApplies);
+		} catch (Exception e) {
+			Actions action = new Actions(driver);
+			WebElement HaulElement = (WebElement) ((JavascriptExecutor) driver).executeScript(
+					"return  document.getElementsByClassName('detailList')[2].getElementsByTagName('tr')[2].getElementsByTagName('td')[1]");
+			action.doubleClick(HaulElement).build().perform();
+			Thread.sleep(1000);
+			String HaulElementID = (String) ((JavascriptExecutor) driver).executeScript(
+					"return  document.getElementsByClassName('detailList')[2].getElementsByTagName('tr')[2].getElementsByTagName('td')[1].getElementsByTagName('select')[0].getAttribute('id')");
+			Thread.sleep(1000);
+			Select PortingElementSelectElement = new Select(driver.findElement(By.id(HaulElementID)));
+			Thread.sleep(1000);
+			PortingElementSelectElement.selectByValue(HaulApplies);
+		}
+		return new QuoteDetailSteps();
+
+	}
+	
+	public String ClickSubmitToSwift(String TestID) throws Exception {
+			WebDriver driver = getDriver();
+			Thread.sleep(20000);
+			WebDriverWait wait = new WebDriverWait(driver,30);
+			driver.navigate().refresh();
+			Thread.sleep(2000);
+			quoteDetailPage.submitToSwiftButton.get(0).click();
+			String Status = "";
+			try {
+				
+				Thread.sleep(5000);
+				if(TestID.equals("2060")) {
+					Thread.sleep(5000);
+					gatingError23(TestID);
+				}
+				
+				Thread.sleep(6000);
+				WebElement okButton = driver.findElement(By.xpath("//span[@id='j_id0:SubmitPopup']/div[2]/input"));
+				okButton.click();
+				slf4jLogger.info(TestID + System.currentTimeMillis() + ":" + "Click On Submit to Swift .... Successful");
+				Thread.sleep(3000);
+				
+				wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id='00N2A00000DoTFx_ileinner']")));
+				slf4jLogger.info(TestID + System.currentTimeMillis() + ":" + "Setting up the BOID");
+				WebElement BoId = driver.findElement(By.xpath("//*[@id='00N2A00000DoTFx_ileinner']"));
+				setboid(BoId.getText());
+	
+			} catch (Exception e) {
+				slf4jLogger.info(TestID + System.currentTimeMillis() + ":" + "Click On Submit to Swift .... Failure");
+				Assert.fail(TestID + ": @" + System.currentTimeMillis() + "@"
+						+ "Error Occured while Clicking on Submit to swift. Please check the status in SM");
+			}
+			return Status;
+	
+		}
+		
+
+/**
+ * Method to read and verify currency
+ * 
+ * @param driver
+ * @return
+ * @throws Exception
+ */
+public QuoteDetailSteps readAndVerifyCurrency(String TestID, String currency) throws Exception {
+	try {
+		WebDriver driver = getDriver();
+		Thread.sleep(100);
+		String Currency = driver.findElement(By.xpath(
+				"/html/body/div/div[3]/table/tbody/tr/td[2]/div[4]/div[2]/div[6]/table/tbody/tr[3]/td[2]/div"))
+				.getText();
+		if (!(currency.contains(Currency))) {
+			Assert.fail(TestID + ": @" + System.currentTimeMillis() + "@"
+					+ "Error in displaying Currency......;");
+		}
+		String MRC = driver.findElement(By.xpath(
+				"/html/body/div/div[3]/table/tbody/tr/td[2]/div[4]/div[2]/div[6]/table/tbody/tr[7]/td[2]/div"))
+				.getText();
+		String NRC = driver.findElement(By.xpath(
+				"/html/body/div/div[3]/table/tbody/tr/td[2]/div[4]/div[2]/div[6]/table/tbody/tr[8]/td[2]/div"))
+				.getText();
+		if (!(MRC.contains("USD") && (NRC.contains("USD")))) {
+			Assert.fail(
+					TestID + ": @" + System.currentTimeMillis() + "@" + "Error in converting Currency");
+		}
+		slf4jLogger.info(TestID + ":" + System.currentTimeMillis()
+				+ "Currency Verified in ScenarioManagerDetail Page");
+	} catch (Exception e) {
+		Assert.fail(TestID + ": @" + System.currentTimeMillis() + "@"
+				+ "Error while raeding and verifying currency");
+	}
+	return new QuoteDetailSteps();
+}
+
+public QuoteDetailSteps clickOnQuoteLineItem(String TestID) throws Exception {
+	try {
+		WebDriver driver = getDriver();
+		driver.findElement(By.xpath(".//*[@id='bodyCell']/div[11]/div[1]/div/div[2]/table/tbody/tr[2]/th/a"))
+				.click();
+		
+		Thread.sleep(100);
+	} catch (Exception e) {
+		Assert.fail(TestID + ": @" + System.currentTimeMillis() + "@"
+				+ "Error occured while clicking on Quote Line Item");
+
+	}
+	return new QuoteDetailSteps();
+}
+/**
+ * Method to click on opportunity
+ * 
+ * @param driver
+ * @return
+ * @throws Exception
+ */
+public OpportunityDetailSteps clickOnOpportunity(WebDriver driver, String TestID) throws Exception {
+	try {
+		Thread.sleep(100);
+		driver.findElement(By.xpath("//*[@id=\"ep\"]/div[2]/div[12]/table/tbody/tr[6]/td[2]/a")).click();
+		Thread.sleep(100);
+	} catch (Exception e) {
+		Assert.fail(TestID + ": @" + System.currentTimeMillis() + "@"
+				+ "Error while clicking on opportunity");
+	}
+	return new OpportunityDetailSteps();
+}
+/**
+ * Method toread and verify currency in line item
+ * 
+ * @param driver
+ * @throws Exception
+ */
+public void readAndVerifyCurrencyInLineItem(WebDriver driver, String TestID) throws Exception {
+	try {
+		Thread.sleep(100);
+		String MRC = driver.findElement(By.xpath(
+				"/html/body/div[1]/div[3]/table/tbody/tr/td[2]/div[4]/div[2]/div[6]/table/tbody/tr[1]/td[2]"))
+				.getText();
+		String NRC = driver.findElement(By.xpath(
+				"/html/body/div[1]/div[3]/table/tbody/tr/td[2]/div[4]/div[2]/div[6]/table/tbody/tr[2]/td[2]"))
+				.getText();
+		if (!(MRC.contains("USD") && (NRC.contains("USD")))) {
+			Assert.fail(
+					TestID + ": @" + System.currentTimeMillis() + "@" + "Error in converting Currency");
+		}
+		slf4jLogger.info(
+				TestID + ":" + System.currentTimeMillis() + "Currency verified in IN Line Item......");
+		clickOnOpportunity(driver, TestID);
+	} catch (Exception e) {
+		Assert.fail(TestID + ": @" + System.currentTimeMillis() + "@"
+				+ "Error occured while reading and verifying Line Item");
+	}
+}
+
+@Step
+public void gatingError23(String TestID) throws InterruptedException{
+	try {
+		slf4jLogger.info("Gating Rule 23 Method...");
+		WebDriver driver = getDriver();
+		WebDriverWait wait = new WebDriverWait(driver,30);
+		
+		Thread.sleep(5000);
+		scenarioDetailPage.count++;
+		if(scenarioDetailPage.count==1) {
+			wait.until(ExpectedConditions.visibilityOf(quoteDetailPage.swiftSubmitErrorMessagePopup));
+			String Message = driver.findElement(By.xpath("//*[@id='j_id0:j_id5:j_id6:j_id7:0:j_id8:j_id9:j_id21']/ul/li[2]")).getText();
+			slf4jLogger.info("Message: " +Message);
+
+			if(Message.equalsIgnoreCase("Room, Suite, Floor or Basement is Required for this Package. Click 'Add Service Location' to satisfy this requirement."))
+				slf4jLogger.info("Gating Rule 23 identified...");
+			else
+				slf4jLogger.info("Gating Rule 23 not available...");
+		}
+		else if(scenarioDetailPage.count==2)
+			slf4jLogger.info("New Message: " +driver.findElement(By.xpath("/html/body/div/div[3]/table/tbody/tr/td[2]/span[2]/div[2]/span/span/div/table/tbody/tr[1]/td[2]/div")).getText());
+		Thread.sleep(5000);
+	}
+		catch(Exception e) {
+			slf4jLogger.info(e.getMessage());
+			Assert.fail(e.getMessage());
+		}
+	}
+	
+@Step
+public void addServiceLocation(String TestID) throws InterruptedException{
+	try {
+		slf4jLogger.info("Add Service Location Method...");
+		WaitForPageToLoad(5000);
+		Thread.sleep(10000);
+
+		WebDriver driver = getDriver();
+		WebDriverWait wait = new WebDriverWait(driver,30);
+		
+		driver.findElement(By.name("add_service_locations")).click();
+		Thread.sleep(5000);
+		WaitForPageToLoad(5000);
+		
+		driver.switchTo().frame("theIframe");
+		WaitForPageToLoad(5000);
+		driver.findElement(By.xpath("/html/body/div[6]/div[1]/div[4]/div[2]/button[3]")).click();
+		
+		WaitForPageToLoad(5000);
+		WaitForPageToLoad(5000);
+		Thread.sleep(10000);
+		scenarioDetailPage.ButtontoaddServiceLocationButtonEnable.click();
+		WaitForPageToLoad(5000);
+		Thread.sleep(1000);
+		scenarioDetailPage.addServiceLocationText2.click();
+		WaitForPageToLoad(5000);
+		Thread.sleep(1000);
+		scenarioDetailPage.addServiceLocationText2.sendKeys("Floor 1 Suite 110");
+		WaitForPageToLoad(5000);
+		Thread.sleep(1000);
+		scenarioDetailPage.addServiceLocationText2.sendKeys(Keys.ENTER);
+		Thread.sleep(10000);
+		
+		driver.switchTo().defaultContent();
+		
+		driver.findElement(By.xpath("/html/body/div/div[3]/table/tbody/tr/td/a[2]")).click();
+		Thread.sleep(10000);
+	}
+		catch(Exception e) {
+			slf4jLogger.info(e.getMessage());
+			Assert.fail(e.getMessage());
+		}
+	}
+
+
+
+}

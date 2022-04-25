@@ -1,0 +1,192 @@
+package com.ctl.it.qa.bpms.pages;
+
+import java.util.List;
+
+import org.openqa.selenium.By;
+
+import com.ctl.it.qa.staf.Page;
+
+import net.serenitybdd.core.annotations.findby.FindBy;
+import net.serenitybdd.core.pages.WebElementFacade;
+
+public class VendorBidManagementPage extends Page {
+	
+	@FindBy(xpath = ".//*[@id='scenarioDetailHomeLink']")
+	public WebElementFacade scenariodetailspagelink;
+	
+	@FindBy(xpath = ".//*[@id='selectAllCheckBox']")
+	public List<WebElementFacade> selectAllCheckBox;
+	
+	@FindBy(xpath = ".//*[@id='SubmitVendorBid']")
+	public WebElementFacade SubmitVendorBid;
+	
+	@FindBy(xpath = ".//*[@id='vendorbid-grid']/div[2]/table/tbody/tr")
+	public List<WebElementFacade> rocRows;
+	
+	@FindBy(xpath = ".//*[@id='vendorbid-grid']/div[2]/table/tbody/tr[1]/td[9]")
+	public WebElementFacade rocAddress1;
+	
+	@FindBy(xpath = ".//*[@id='vendorbid-grid']/div[2]/table/tbody/tr[2]/td[9]")
+	public WebElementFacade rocAddress2;
+	
+	@FindBy(xpath = "./html/body/div[5]/div[2]/div[1]/div[1]/div/table/thead/tr/th[3]")
+	public WebElementFacade infoheader;
+	
+	@FindBy(xpath = "//*[@id=\"vendorbid-grid\"]/div[2]/table/tbody/tr/td[4]/span")
+	public WebElementFacade Approval_Status;
+	
+	@FindBy(xpath = "//*[@id=\"vendorbid-grid\"]/div[2]/table/tbody/tr/td[10]")
+	public WebElementFacade Port_Speed;
+	
+	@FindBy(xpath = "//*[@id=\"vendorbid-grid\"]/div[2]/table/tbody/tr/td[11]")
+	public WebElementFacade bandwidth;
+	
+	@FindBy(xpath = "//*[@id=\"vendorbid-grid\"]/div[2]/table/tbody/tr[2]/td[11]")
+	public WebElementFacade ASide_bandwidth;
+	
+	@FindBy(xpath = "//*[@id=\"vendorbid-grid\"]/div[2]/table/tbody/tr[1]/td[11]")
+	public WebElementFacade ZSide_bandwidth;
+	
+	@FindBy(xpath = "//*[@id=\"vendorbid-grid\"]/div[2]/table/tbody/tr/td[20]")
+	public WebElementFacade AccessDiversity;
+	
+	@FindBy(xpath = "//*[@id=\"vendorbid-grid\"]/div[2]/table/tbody/tr[2]/td[20]")
+	public WebElementFacade ASide_AccessDiversity;
+	
+	@FindBy(xpath = "//*[@id=\"vendorbid-grid\"]/div[2]/table/tbody/tr[1]/td[20]")
+	public WebElementFacade ZSide_AccessDiversity;
+	
+	@FindBy(xpath = "//*[@id=\"vendorbid-grid\"]/div[2]/table/tbody/tr/td[22]")
+	public WebElementFacade Specific_Vendor_Reqsts;
+	
+	@FindBy(xpath = "//*[@id=\"vendorbid-grid\"]/div[2]/table/tbody/tr[2]/td[22]")
+	public WebElementFacade ASide_Specific_Vendor_Reqsts;
+	
+	@FindBy(xpath = "//*[@id=\"vendorbid-grid\"]/div[2]/table/tbody/tr[1]/td[22]")
+	public WebElementFacade ZSide_Specific_Vendor_Reqsts;
+	
+	@FindBy(xpath = "//*[@id=\"vendorbid-grid\"]/div[2]/table/tbody/tr[2]/td[23]/span")
+	public WebElementFacade ASide_Specific_Vendor_Notes;
+	
+	@FindBy(xpath = "//*[@id=\"vendorbid-grid\"]/div[2]/table/tbody/tr[1]/td[23]/span")
+	public WebElementFacade ZSide_Specific_Vendor_Notes;
+	
+	@FindBy(xpath = "//*[@id=\"vendorbid-grid\"]/div[2]/table/tbody/tr/td[24]")
+	public WebElementFacade Route_Diversity;
+	
+	@FindBy(xpath = "//*[@id=\"vendorbid-grid\"]/div[2]/table/tbody/tr[2]/td[24]")
+	public WebElementFacade ASide_Route_Diversity;
+	
+	@FindBy(xpath = "//*[@id=\"vendorbid-grid\"]/div[2]/table/tbody/tr[1]/td[24]")
+	public WebElementFacade ZSide_Route_Diversity;
+	
+	@FindBy(xpath = "//*[@id=\"vendorbid-grid\"]/div[2]/table/tbody/tr[2]/td[25]/span")
+	public WebElementFacade ASide_Route_Diversity_Notes;
+	
+	@FindBy(xpath = "//*[@id=\"vendorbid-grid\"]/div[2]/table/tbody/tr[1]/td[25]/span")
+	public WebElementFacade ZSide_Route_Diversity_Notes;
+		
+	@FindBy(xpath = "//*[@id=\"vendorbid-grid\"]/div[2]/table/tbody/tr/td[26]")
+	public WebElementFacade Vendor_Equip_Diversity;
+	
+	@FindBy(xpath = "//*[@id=\"vendorbid-grid\"]/div[2]/table/tbody/tr[2]/td[26]")
+	public WebElementFacade ASide_Vendor_Equip_Diversity;
+	
+	@FindBy(xpath = "//*[@id=\"vendorbid-grid\"]/div[2]/table/tbody/tr[1]/td[26]")
+	public WebElementFacade ZSide_Vendor_Equip_Diversity;
+	
+	@FindBy(xpath = "//*[@id=\"vendorbid-grid\"]/div[2]/table/tbody/tr[2]/td[27]/span")
+	public WebElementFacade ASide_Vendor_Equip_Diversity_Notes;
+	
+	@FindBy(xpath = "//*[@id=\"vendorbid-grid\"]/div[2]/table/tbody/tr[1]/td[27]/span")
+	public WebElementFacade ZSide_Vendor_Equip_Diversity_Notes;
+	
+	@FindBy(xpath = "//*[@id=\"vendorbid-grid\"]/div[2]/table/tbody/tr/td[28]")
+	public WebElementFacade Bldng_Entrance_Diveristy;
+	
+	@FindBy(xpath = "//*[@id=\"vendorbid-grid\"]/div[2]/table/tbody/tr[2]/td[28]")
+	public WebElementFacade ASide_Bldng_Entrance_Diveristy;
+	
+	@FindBy(xpath = "//*[@id=\"vendorbid-grid\"]/div[2]/table/tbody/tr[1]/td[28]")
+	public WebElementFacade ZSide_Bldng_Entrance_Diveristy;
+	
+	@FindBy(xpath = "//*[@id=\"vendorbid-grid\"]/div[2]/table/tbody/tr[2]/td[29]/span")
+	public WebElementFacade ASide_Bldng_Entrance_Diveristy_Notes;
+	
+	@FindBy(xpath = "//*[@id=\"vendorbid-grid\"]/div[2]/table/tbody/tr[1]/td[29]/span")
+	public WebElementFacade ZSide_Bldng_Entrance_Diveristy_Notes;
+	
+	@FindBy(xpath = "//*[@id=\"vendorbid-grid\"]/div[2]/table/tbody/tr/td[31]/span")
+	public WebElementFacade ROC_Instructions;
+	
+	@FindBy(xpath = "//*[@id=\"vendorbid-grid\"]/div[2]/table/tbody/tr/td[32]")
+	public WebElementFacade Phone_Number;
+	
+	@FindBy(xpath = "//*[@id=\"vendorbid-grid\"]/div[2]/table/tbody/tr[2]/td[33]")
+	public WebElementFacade ASide_SpecialID;
+	
+	@FindBy(xpath = "//*[@id=\"vendorbid-grid\"]/div[2]/table/tbody/tr[2]/td[17]")
+	public WebElementFacade Multi_term_Request;
+	
+	@FindBy(xpath = "//*[@id=\"vendorbid-grid\"]/div[2]/table/tbody/tr[2]/td[18]")
+	public WebElementFacade Requested_terms;
+	
+	
+	@FindBy(xpath = "//*[@id=\"vendorbid-grid\"]/div[2]/table/tbody/tr/td[4]")
+	public WebElementFacade GuruBidCheck;
+	
+	@FindBy(className = "grid-checkbox")
+	public WebElementFacade GridCheckbox;
+	
+	@FindBy(className = "grid-checkbox")
+	public List<WebElementFacade> Checkbox;
+	
+	@FindBy(xpath = "/html/body/div[5]/div[2]/div[1]/div[2]/table/tbody/tr/td[4]/span")
+	public WebElementFacade VendorBidCheck;
+	
+	@FindBy(xpath = "/html/body/div[5]/div[2]/div[1]/div[2]/table/tbody/tr/td[5]")
+	public WebElementFacade rocGuruID;
+	
+	@FindBy(xpath ="/html/body/div[5]/div[2]/div[1]/div[2]/table/tbody/tr/td[3]/i")
+	public WebElementFacade rocInfo;
+	
+	@FindBy(xpath =".//*[@aria-label='Filter']")
+	public WebElementFacade filter;
+	
+	@FindBy(xpath ="/html/body/div[21]/form")
+	public WebElementFacade filter_popup;
+	
+	@FindBy(xpath="/html/body/div[21]/form/div")
+	public WebElementFacade filter_popup_selected_items;
+	
+	@FindBy(xpath="/html/body/div[21]/form/button[1]")
+	public WebElementFacade filter_submit;
+	
+	@FindBy(xpath="/html/body/div[21]/form/button[2]")
+	public WebElementFacade filter_clear;
+	
+	@FindBy(xpath = "/html/body/div[5]/div[2]/div[1]/div[2]/table/tbody/tr[1]/td[7]")
+	public WebElementFacade first_product;
+	
+	@FindBy(xpath = "/html/body/div[5]/div[2]/div[1]/div[2]/table/tbody/tr[2]/td[7]")
+	public WebElementFacade second_product;
+	
+	@FindBy(xpath = "/html/body/div[5]/div[2]/div[1]/div[2]/table/tbody/tr[1]/td[5]")
+	public WebElementFacade first_rocGuruID;
+	
+	@FindBy(xpath = "/html/body/div[5]/div[2]/div[1]/div[2]/table/tbody/tr[2]/td[5]")
+	public WebElementFacade second_rocGuruID;
+	
+	@FindBy(id = "export-vendorbid-button")
+	public WebElementFacade exportBidRequest;
+	
+	@FindBy(className = "fa fa-pencil")
+	public WebElementFacade editPencilVendorBid;
+	
+	@Override
+	public WebElementFacade getUniqueElementInPage() {
+		
+		return scenariodetailspagelink;
+	}
+
+}

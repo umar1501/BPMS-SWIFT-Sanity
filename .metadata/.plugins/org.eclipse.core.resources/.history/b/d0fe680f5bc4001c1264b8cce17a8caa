@@ -1,0 +1,120 @@
+package com.ctl.it.qa.bpms.pages;
+
+import java.util.List;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
+
+import com.ctl.it.qa.staf.Page;
+
+import net.serenitybdd.core.annotations.findby.FindBy;
+import net.serenitybdd.core.pages.WebElementFacade;
+
+public class QuoteDetailPage extends Page{
+
+	@FindBy(id = "CoTermEndDate")
+	public WebElementFacade coTermEndDate;
+
+	@FindBy(xpath = "/html/body/div/div[3]/table/tbody/tr/td[2]/div[7]/div[1]/div/div[1]/table/tbody/tr/td[2]/input[2]")
+	public WebElementFacade addExistingContactButton;
+
+	@FindBy(name = "select_billing_account")
+	public WebElementFacade billingAccountButton;
+
+	@FindBy(name = "add_service_locations")
+	public WebElementFacade addServiceLocationsButton;
+
+	@FindBy(name = "submit_to_swift")
+	public List<WebElementFacade> submitToSwiftButton;
+
+	@FindBy(name = "inlineEditSave")
+	public WebElementFacade saveButton;
+	
+	@FindBy(id = "CF00N2A00000DoTF3_ileinner")
+	public WebElementFacade ccmElement;
+	
+	@FindBy(id = "CF00N2A00000DoTFs_ileinner")
+	public WebElementFacade seElement;
+	
+	@FindBy(id = "00N2A00000DoTFU_ileinner")
+	public WebElementFacade status;
+	
+	@FindBy(id = "00N2A00000DoTFa_chkbox")
+	public WebElementFacade preDeployCheck;
+	
+	@FindBy(id = "j_id0:j_id5:j_id6:j_id7:0:j_id8:j_id9:j_id11")
+	public WebElementFacade successButton;
+
+	@FindBy(xpath = "//td[@class='dataCol col02 inlineEditLock']")
+	public List<WebElementFacade> businessOrderIDFromSMPredeploy;
+	
+	@FindBy(id = "CF00N2A00000DoTFs")
+	public WebElementFacade seInputElement;
+	
+	@FindBy(id = "CF00N2A00000DoTF3")
+	public WebElementFacade ccmInputElement;
+	
+	@FindBy(xpath = "/html/body/div/div[2]/table/tbody/tr/td[2]/div[4]/div[2]/div[4]/table/tbody/tr[1]/td[4]/div")
+	public WebElementFacade scenarioMangerOrderStatus;
+
+	@FindBy(xpath = "/html/body/div[1]/div[2]/table/tbody/tr/td[2]/div[4]/div[2]/div[9]/table/tbody/tr[3]/td[4]/div")
+	public WebElementFacade predeployOrderStatus;
+	        
+	@FindBy(xpath = "/html/body/div/div[3]/table/tbody/tr/td[2]/div[4]/div[2]/div[3]/table/tbody/tr[2]/td[2]/div/a")
+	public WebElementFacade quoteName;
+	
+	@FindBy(xpath = "//*[@id=\"quoteGrid\"]/div[4]/div[3]/div/div/div[4]/a")
+	public WebElementFacade quoteNumber;
+	
+	@FindBy(id = "CF00N2A00000DoTF3Icon")
+	public WebElementFacade ccmSearch;
+	
+	@FindBy(xpath = "//*[@id='Contact_body']/table/tbody/tr[2]/th/a")
+	public WebElementFacade selectCCM;
+	
+	@FindBy(id = "CF00N2A00000DoTFsIcon")
+	public WebElementFacade seSearch;
+	
+	@FindBy(xpath = "//*[@id='new']/div/div[3]/div/div[2]/table/tbody/tr[2]/th/a")
+	public WebElementFacade selectSE;
+	
+	@FindBy(name = "submit_pre_deploy")
+	public WebElementFacade submitPreDeploy;
+	
+	@FindBy(xpath = "//*[@id='ep']/div[2]/div[9]/table/tbody/tr[3]/td[3]")
+	public WebElementFacade preDeployStatusLabel;
+	
+	@FindBy(id = "00N2A00000DoTFb_ileinner")
+	public WebElementFacade preDeployStatus;
+	
+	@FindBy(xpath = "//*[@id='00N2A00000DoTFn_ileinner']/a")
+	public WebElementFacade quoteNameLink;
+	
+	@FindBy(xpath = "//*[@id='j_id0:gaForm:Information:documentContent:j_id42:j_id46']/span/span/a")
+	public WebElementFacade estimatedSignedDate;
+	
+	@FindBy(xpath = "//*[@id='j_id0:gaForm:Information:documentContent:j_id49:j_id53']/span/span/a")
+	public WebElementFacade estimatedCRD;
+	
+	@FindBy(xpath = "//*[@id='j_id0:gaForm:Information:pageBlock:bottom']/input[3]")
+	public WebElementFacade addAttachment;
+
+	@FindBy(xpath = "//*[@id='ucAttachment_fileAttach']")
+	public  WebElementFacade xpathBrowseButtonForFileAttachement;
+	
+	@FindBy(id = "j_id0:gaForm:Information:documentInformation:docName")
+	public  WebElementFacade xpathattachedDocumentNameText;
+	
+	@FindBy(xpath = "/html/body/div/div[3]/table/tbody/tr/td[2]/span[2]/div[2]")
+	public  WebElementFacade swiftSubmitErrorMessagePopup;
+	
+	@FindBy(xpath = "/html/body/div/div[3]/table/tbody/tr/td[2]/span[2]/div[2]/span/span/div/table/tbody/tr[1]/td[2]/div/span/h4")
+	public  WebElementFacade swiftSubmitErrorMessagePopupHeaderText;
+	
+	@Override
+	public WebElementFacade getUniqueElementInPage() {
+		
+		return scenarioMangerOrderStatus;
+	}
+
+}

@@ -1,0 +1,66 @@
+package com.ctl.it.qa.bpms.pages;
+
+import java.util.Set;
+
+import net.serenitybdd.core.annotations.findby.FindBy;
+import net.serenitybdd.core.pages.WebElementFacade;
+
+public class OpportunityPage extends SfaPage{
+	
+	SfaContractPage sfaContractPage;
+
+	@FindBy(xpath = "(//input[@name = 'generate_contract'])[1]")
+	public WebElementFacade btn_generate_contract;
+	
+	@Override
+	public WebElementFacade getUniqueElementInPage() {
+		return btn_generate_contract;
+	}
+	
+public void generateContract() throws InterruptedException {
+	
+	waitABit(6000);
+	setParentHandle();
+	this.btn_generate_contract.click();
+	waitABit(6000);
+//	waitForChildWindowToAppear(60);
+	
+	String parentWindow =  getDriver().getWindowHandle();
+	System.out.println("Parent Window:  "+ parentWindow);
+	
+	Set<String> allWindowHandles = getDriver().getWindowHandles();
+	
+	System.out.println(allWindowHandles.size());
+	 
+	for(String handle : allWindowHandles)
+	{
+	System.out.println("Window Handle:  " + handle);
+	
+//	getDriver().switchTo().window(handle);
+	
+	//System.out.println(getTitle());
+	
+	/*if(handle.equalsIgnoreCase(parentWindow))
+		continue;
+	
+	System.out.println(getTitle());*/
+	
+	try {
+		getDriver().switchTo().window(handle);
+		sfaContractPage.maximize();
+	//	shouldExist(sfaContractPage,10);
+		if(sfaContractPage.btn_next_top.isDisplayed())
+		break;
+	} catch (Exception e) {
+		e.printStackTrace();
+	}
+	
+	
+		
+			
+	
+	}
+	/*switchToChildWindow();
+	System.out.println(getTitle());*/
+}
+}

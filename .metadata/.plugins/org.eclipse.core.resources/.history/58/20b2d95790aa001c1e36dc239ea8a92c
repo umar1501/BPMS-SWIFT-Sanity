@@ -1,0 +1,95 @@
+
+@BPMSAutomation
+Feature: CMMC Validation for Authorized and UnAuthorized User Access
+  @PL
+  Scenario Outline: Validation for UnAuthorized User - DIA
+    
+    Given login to salesforce "<FederalUserType>"
+    When Go to opportunity tab and create a opportunity with OppurtunityAccName "<OppAccID>" and OppurtunityName  "<OppurtunityName>" and OppurtunityDt "<OppurtunityDt>" and OppurtunityStage "<OppurtunityStage>"
+    When Go to Scenario Manager quote tab and create a scenario as scenarioName "<ScenarioName>" , Currency "<Currency>" , TestID "<TestID>"
+    When go to Scenario Detail page and create a new product package
+    When Go to manage location and search for address "<Address>"
+    When Go to configure package and select PackageType "<PackageType>" and product "<product>"
+    When Go to Product configuration page and select attributes "<TestID>" , "<AttributesList>"
+    When Click on Finish and save the changes "<TestID>"
+    When verify the product package created product "<product>"
+    When Go to discounting page and save changes
+    Then Verify for the CMMC validation attributes in Summary Page "<TestID>" , "<OppurtunityAccName>" , "<OppurtunityName>"
+    Then Go to Opportunity Details page and Submit the order to Swift "<TestID>" , "<OppurtunityDt>"
+    Then Verify for the CMMC validation attributes in SFDC Page "<TestID>" , "<OppurtunityAccName>" , "<OppurtunityName>"		
+		Then I load the Order Package in Swift by its "Business Order Id" for "New" status using "<BOID>"
+    Then I should validate customer as "<OppurtunityAccName>" for Authorised user
+    Then I should validate and complete the First task 
+    Then I Should Validate and complete GOD task
+    Then I Should validate and complete welcome customer and customer cord task for HDIC "<ENV>"
+    Then I should validate and complete waiting for Downstream system task in metastorm "<ENV>"
+    Then I should validate and complete Order Validation task.    
+    Given User Launches BPMS Portal and logs in as "Rajneesh" with valid credentials
+		When User Navigates to Orders Page
+		And User fetch the orderId from database "<ID>"
+		And User Enters Search Criteria with SearchOnIDType as "<Type Of ID>" and SearchOnID on Orders Page
+		And User clicks on search button
+		Then Results Grid is displayed with details
+		And User validates Results Grid with following data for ID
+		| Order Action | Order Status | Order Type | Service Type | Product | Product Component | Terminating Region Code |Customer Name|
+		| Install | Accepted | New | Transport-or-Data | Dedicated Internet Access | Access - On Net-or-IP Enhanced Services| NA |Acxiom LLC|
+		| Install | Accepted | New | Data-or-Transport | Dedicated Internet Access | IP Enhanced Services-or-Access - On Net| NA |Acxiom LLC|
+		When User clicks on Manage Order link against "Access - On Net" type
+		Then User validates the Customer Name in the Manage order page
+		|Customer Name|
+		|Acxiom LLC   |
+		Then User Navigates to Task Reporting Page
+		And User Selects Task Status Filter as "All"
+		And User Clicks on Domain Criteria Tab
+		And User Enters Search Criteria with SearchOnIDType as "<Type Of ID>" and SearchOnID on Task Reporting Page
+		And User clicks on search button
+		Then Results Grid is displayed with details
+		And User validates the Customer Name in the task reporting page
+		|Customer Name|
+		|Acxiom LLC   |
+		And User validates Results Grid and completes all the available tasks
+
+
+ 
+    Examples: 
+      | FederalUserType | OppAccID | OppurtunityAccName | OppurtunityName | OppurtunityDt | OppurtunityStage | ScenarioName           | Currency         | Address                                                                   | PackageType | product                   | AttributesList                                                                                                              | TestID  |  ENV| BOID    |Type Of ID 				|ID |
+      | UnAuthorized    | 1-M98HN  | Acxiom LLC| CMMC_Auth_DIA   | 12/28/2021     | Identified       | CMMC_Auth_DIA_Scenario | US Dollars - USD | 1660 INTERNATIONAL DRIVE, MC LEAN, VIRGINIA, UNITED STATES, 22102,1,MPOE; | New         | Dedicated Internet Access | Bandwidth:Fast E;BillingMethod:Flat Rate;InsideWiring:Standard Delivery - To the MPoE (Customer Provided);RouterPOP:DENVER; |  25533 |   2 | 2219307 |Customer Order Id |552161148 |
+
+
+    @PL1
+    Scenario Outline: Validation for E2E from Swift to BPMS - DIA 
+    #Given I am logged in as a user in Swift in specified environment "<ENV>" with Account ID "<Account_ID>"
+    #When I craete the order package with required products for Cllis "<Clli>" "<ENV>" "<Product>" "<AttributesList>"  
+    #And I update the contact details "<Contact>"
+    #Then I should validate and complete the tasks generated "<ENV>" "<Order_Type>"
+    Given User Launches BPMS Portal and logs in as "Rajneesh" with valid credentials
+		When User Navigates to Orders Page
+		And User fetch the sanity orderId from database "<ID>"
+	#	And User fetch the orderId from database "<ID>"
+		And User Enters Search Criteria with SearchOnIDType as "<Type Of ID>" and SearchOnID on Orders Page
+		And User clicks on search button
+		Then Results Grid is displayed with details
+		And User validates Results Grid with following data for ID
+		| Order Action | Order Status | Order Type | Service Type | Product | Product Component | Terminating Region Code |Customer Name|
+		| Install | Accepted | New | Transport-or-Data | Dedicated Internet Access | Access - On Net-or-IP Enhanced Services| NA |Acxiom LLC|
+		| Install | Accepted | New | Data-or-Transport | Dedicated Internet Access | IP Enhanced Services-or-Access - On Net| NA |Acxiom LLC|
+		When User clicks on Manage Order link against "Access - On Net" type
+		Then User validates the Customer Name in the Manage order page
+		|Customer Name|
+		|Acxiom LLC   |
+		Then User Navigates to Task Reporting Page
+		And User Selects Task Status Filter as "All"
+		And User Clicks on Domain Criteria Tab
+		And User Enters Search Criteria with SearchOnIDType as "<Type Of ID>" and SearchOnID on Task Reporting Page
+		And User clicks on search button
+		Then Results Grid is displayed with details
+		And User validates the Customer Name in the task reporting page
+		|Customer Name|
+		|Acxiom LLC   |
+		And User validates Results Grid and completes all the available tasks
+   
+
+    Examples: 
+     | Type Of ID        |ID                  | ENV | Account_ID |  Clli   | Contact        | Order_Type | Product                  | AttributesList |
+     | Customer Order Id |552390631-443856845 |  1  | 5176906 	 | NYCMNY83| Anistasia Bills|  Install   | Dedicated Internet Acces | Circuit_Type:DS3;Port_Type:Flat Rate;InsideWiring:Extended Delivery - To the Customer Suite (Lumen Provided);| 
+  

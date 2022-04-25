@@ -1,0 +1,21 @@
+package com.ctl.it.qa.bpms.pages;
+
+import com.ctl.it.qa.staf.Page;
+
+import net.serenitybdd.core.annotations.findby.FindBy;
+import net.serenitybdd.core.pages.WebElementFacade;
+
+public class ImportPage extends Page{
+
+	@FindBy(xpath=".//*[@id='liImport']")
+	public WebElementFacade import_tab;
+	
+	
+	
+	@Override
+	public WebElementFacade getUniqueElementInPage() {
+		
+		return import_tab;
+	}
+
+}

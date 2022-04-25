@@ -1,0 +1,258 @@
+package com.ctl.it.qa.bpms.steps;
+
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.List;
+import java.util.Properties;
+
+import org.junit.Assert;
+import org.openqa.selenium.Alert;
+import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.remote.LocalFileDetector;
+import org.openqa.selenium.remote.RemoteWebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.slf4j.LoggerFactory;
+
+import com.ctl.it.qa.bpms.pages.QuoteDetailPage;
+import com.ctl.it.qa.bpms.pages.SMAttachNewDocumentFormPage;
+import com.ctl.it.qa.staf.Steps;
+
+
+
+@SuppressWarnings("serial")
+public class SMAttachNewDocumentFormSteps extends Steps {
+
+	public final org.slf4j.Logger slf4jLogger = LoggerFactory.getLogger(SMAttachNewDocumentFormSteps.class);
+	protected static final Properties propertiesObject = new Properties();
+	SMAttachNewDocumentFormPage smAttachNewDocumentFormPage;
+	QuoteDetailPage quoteDetailPage;
+	Alert alert;
+
+	public SMAttachNewDocumentFormSteps() {
+
+	}
+
+	public QuoteDetailSteps enterValuesForAttachNewDocument(String TestID, String docName, String docType,
+			String docTerm, String nonStranderdSelect, String docFinalFlag) throws Exception {
+		
+		slf4jLogger.info(TestID + ":" +System.currentTimeMillis()+ "[Enter Details for New Company Document .... Started]");
+		WebDriver driver = getDriver();
+		try {
+				WaitForPageToLoad(6000);
+				Thread.sleep(4000);
+				WaitForPageToLoad(4000);
+				quoteDetailPage.xpathattachedDocumentNameText.click();
+				Thread.sleep(4000);
+				quoteDetailPage.xpathattachedDocumentNameText.sendKeys(docName);
+				WaitForPageToLoad(4000);
+				
+				try{
+					driver.findElement(By.xpath("//*[@id=\"j_id0:gaForm:Information:documentContent:j_id36:j_id40\"]/span/span/a")).click();
+				}catch (Exception e) {
+						quoteDetailPage.estimatedSignedDate.click();
+					}
+				Thread.sleep(5000);
+				WebElement SOF_Option = driver.findElement(By.id("j_id0:gaForm:Information:documentContent:documentType"));
+				SOF_Option.click();
+				SOF_Option.sendKeys(docType);
+				Thread.sleep(6000);
+				driver.findElement(By.xpath("/html/body/div/div[3]/table/tbody/tr/td[2]/span[2]/form/div[1]/div/div/div/div/div[2]/div[2]/div[2]/table/tbody/tr/th[1]/label")).click();
+				Thread.sleep(3000);
+					
+				Thread.sleep(3000);
+				WaitForPageToLoad(4000);
+				quoteDetailPage.addAttachment.click();
+				WaitForPageToLoad(4000);
+				Thread.sleep(5000);
+				attachDocument(docName);
+		}
+		catch (Exception e) {
+			Assert.fail(TestID + ": @" + System.currentTimeMillis() +"@"+"Error while entering document parameters");
+		}
+		return new QuoteDetailSteps();
+
+	}
+
+	public SMAttachNewDocumentFormSteps attacheNecessaryDocument(String TestID, String docName) throws Exception {
+		try {
+			slf4jLogger.info(TestID + ":" +System.currentTimeMillis()+ "Entering into attacheNecessaryDocument Method");			
+			WebDriver driver = getDriver();
+			Thread.sleep(3000);
+			slf4jLogger.info(TestID + ":" +System.currentTimeMillis()+ "[Attach New Company document .... Started]");
+			driver.switchTo().defaultContent();		
+			try {
+				Thread.sleep(2000);
+				driver.switchTo().frame("0662A000002KmdA");
+				Thread.sleep(1000);
+			} catch (Exception e) {
+				Thread.sleep(2000);
+				driver.switchTo().frame("066A0000001nDzb");
+				Thread.sleep(1000);
+			}
+			ExpectedConditions.frameToBeAvailableAndSwitchToIt("theIframe");
+			slf4jLogger.info(TestID + ":" +System.currentTimeMillis()+ "Frame got switched");	
+			
+			driver.switchTo().frame(0);
+			
+			Thread.sleep(60000);
+			slf4jLogger.info(TestID + ":" +System.currentTimeMillis()+ "Current Url 8" + driver.getCurrentUrl());
+			try{
+				List<WebElement> a = driver.findElements(By.xpath("/html/body/form/div[3]/div/div[1]/table/tbody/tr/td[1]/input"));
+				System.out.println(a.size());
+				
+			}catch (Exception e) {
+				slf4jLogger.info(e.getMessage());
+			}
+			try {	
+				smAttachNewDocumentFormPage.fileAttach
+				.sendKeys(propertiesObject.getProperty("ResourceLocation") + docName.replace(" ", "") + ".pdf");
+			}
+			catch(Exception e)
+			{
+				slf4jLogger.info(TestID + ":" +System.currentTimeMillis()+ " Entering into File Upload Catch Section");
+				WebElement El = driver.findElement(By.xpath("/html/body/form/div[3]/div/div[1]/table/tbody/tr/td[1]/input"));
+				((RemoteWebElement) El ).setFileDetector(new LocalFileDetector()); 
+				El.sendKeys(propertiesObject.getProperty("ResourceLocation") + docName.replace(" ", "") + ".pdf");		
+				
+			}
+			slf4jLogger.info(TestID + ":" +System.currentTimeMillis()+ "Click on browse button .... Success");
+			WebElement AddButton = (WebElement) ((JavascriptExecutor) driver)
+					.executeScript("return document.getElementById('ucAttachment_btnAdd');");
+			AddButton.click();
+			
+			Thread.sleep(5000);		
+			slf4jLogger.info(TestID + ":" +System.currentTimeMillis()+ "[Attach New Company document .... Success]");
+			driver.switchTo().defaultContent();
+			Thread.sleep(2000);
+			driver.switchTo().defaultContent();
+			Thread.sleep(20000);
+		} catch (Exception e) {
+			Assert.fail(TestID + ": @" + System.currentTimeMillis() +"@"+ "Error occured while uploading the document");
+
+		}
+		return this;
+	}
+
+	@SuppressWarnings("unused")
+	public QuoteDetailSteps enterValuesForAttachNewDocument_PreDeploy(String TestID, String docName,
+			String docTerm) throws Exception {
+		WebDriver driver = getDriver();
+		
+		JavascriptExecutor jsExecutor;
+		jsExecutor = (JavascriptExecutor) driver;
+		 
+		try {
+			
+			slf4jLogger.info(TestID + ":" +System.currentTimeMillis()+ "[Enter Details for New Company Document .... Started]");
+			try {
+					WaitForPageToLoad(6000);
+					Thread.sleep(4000);
+					WaitForPageToLoad(4000);
+					quoteDetailPage.xpathattachedDocumentNameText.click();
+					quoteDetailPage.xpathattachedDocumentNameText.sendKeys(docName);
+					WaitForPageToLoad(4000);
+					try{
+						quoteDetailPage.estimatedSignedDate.click();
+						Thread.sleep(3000);
+						quoteDetailPage.estimatedCRD.click();
+					}catch (Exception e) {
+						driver.findElement(By.xpath("//*[@id=\"j_id0:gaForm:Information:documentContent:j_id36:j_id40\"]/span/span/a")).click();
+					}
+				
+					WaitForPageToLoad(4000);
+					quoteDetailPage.addAttachment.click();
+					WaitForPageToLoad(4000);
+					Thread.sleep(5000);
+					attachDocument(docName);
+				}
+			catch (Exception e) {
+				Assert.fail(TestID + ": @" + System.currentTimeMillis() +"@"+"Error while entering document parameters");
+			}
+			return new QuoteDetailSteps();
+
+		} catch (Exception e) {
+			slf4jLogger.info(TestID + ":" +System.currentTimeMillis()+ "Exception Occured 301: " );
+			
+			Assert.fail(TestID + ": @" + System.currentTimeMillis() +"@"+ "Exception while uploadng document for pre-deploy" );
+		}
+		return new QuoteDetailSteps();
+
+	}
+	
+	public QuoteDetailSteps attachDocument(String docName) throws Exception {
+		WebDriver driver = getDriver();
+		try {
+		      File myObj = new File(docName.replace(" ", "") + ".pdf");
+		      if (myObj.createNewFile()) {
+		    	  slf4jLogger.info("File created");
+		      } else {
+		    	  slf4jLogger.info("File already exists.");
+		      }
+		}
+		catch (IOException e) {
+		    	slf4jLogger.info("An error occurred.");
+		    	slf4jLogger.info(e.getMessage());
+		 }
+		
+		FileWriter myWriter = null;
+		
+		try {
+		      myWriter = new FileWriter(docName.replace(" ", "") + ".pdf");
+		      myWriter.write("Procedure in progress...!!!");
+		      
+		      slf4jLogger.info("Successfully wrote to the file.");
+		    } catch (IOException e) {
+		      System.out.println("An error occurred.");
+		      slf4jLogger.info(e.getMessage());
+		    }
+		finally {
+			myWriter.close();
+		}
+	
+		driver.switchTo().frame("theIframe");
+		WaitForPageToLoad(5000);
+		
+		File file = new File(docName.replace(" ", "") + ".pdf");
+		String path = file.getAbsolutePath();
+		
+		Thread.sleep(90000);
+		try {	
+			slf4jLogger.info("TRY BLOCK");
+			ExpectedConditions.visibilityOf(quoteDetailPage.xpathBrowseButtonForFileAttachement);
+			quoteDetailPage.xpathBrowseButtonForFileAttachement.sendKeys(path);
+		}
+		catch(Exception e)
+		{
+			slf4jLogger.info("CATCH BLOCK");
+			((RemoteWebElement) quoteDetailPage.xpathBrowseButtonForFileAttachement).setFileDetector(new LocalFileDetector()); 
+			quoteDetailPage.xpathBrowseButtonForFileAttachement.sendKeys(path);
+		}
+
+		WebElement AddButton = (WebElement) ((JavascriptExecutor) driver).executeScript("return document.getElementById('ucAttachment_btnAdd');");
+		AddButton.click();
+		
+		Thread.sleep(5000);
+      WaitForPageToLoad(5000);
+      WaitForPageToLoad(5000);
+      WaitForPageToLoad(5000);
+      Thread.sleep(5000);
+		if(driver.findElement(By.xpath("//*[@id='ucAttachment_loadingLabel']")).getText().contains("UPLOAD COMPLETE!")){
+			Thread.sleep(5000);
+			driver.switchTo().defaultContent();
+			Thread.sleep(5000);
+			driver.findElement(By.partialLinkText("Back to Record")).click();
+			slf4jLogger.info("Pass");
+		}
+		else {
+			slf4jLogger.info("Fail");
+			System.exit(0);
+		}
+		WaitForPageToLoad(5000);
+		return new QuoteDetailSteps();
+	}
+
+}

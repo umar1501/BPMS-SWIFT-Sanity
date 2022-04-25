@@ -1,0 +1,123 @@
+package com.ctl.it.qa.bpms.pages;
+
+import java.util.List;
+
+import org.openqa.selenium.WebElement;
+
+import com.ctl.it.qa.staf.Page;
+
+import net.serenitybdd.core.annotations.findby.FindBy;
+import net.serenitybdd.core.pages.WebElementFacade;
+
+public class SalesforceHomePage extends Page {
+	
+	@FindBy(id = "_validationMessage")
+	public WebElementFacade scenariovalidationerror;
+
+	@FindBy(id = "Opportunity_Tab")
+	public WebElementFacade opportunityTab;
+	
+	@FindBy(id = "opp11")
+	public WebElement opportunityStage;
+	
+	@FindBy(id = "opp3")
+	public WebElementFacade opportunityName;
+
+	@FindBy(id = "opp4")
+	public WebElementFacade opportunityAccountName;
+
+	@FindBy(id = "opp7")
+	public WebElementFacade opportunityAmmount;
+
+	@FindBy(id = "opp9")
+	public WebElementFacade opportunityClosedDate;
+	
+	@FindBy(xpath = ".//input[@name='new']")
+	public WebElementFacade newBtn;
+	
+	@FindBy(xpath = "/html/body/div[3]/div/div[2]/table/tbody/tr[2]/td[2]/div[2]/span[1]/span/span[2]/span")
+	public WebElementFacade currencytext;
+	
+	@FindBy(xpath = ".//*[@id='bottomButtonRow']/input[1]")
+	public WebElementFacade continueBtn;
+	
+	@FindBy(xpath = ".//*[@id=\"opp4_autoCompleteRowId_0\"]/strong")
+	public WebElement accselect;
+	
+	@FindBy(xpath = ".//*[@id=\"bottomButtonRow\"]/input[1]")
+	public WebElement saveBtn;
+
+	@FindBy(xpath = ".//*[@id='topButtonRow']/input[@name='level_3']")
+	public WebElement level3btn;
+	
+	@FindBy(xpath = ".//*[@id='scenario-header']/tbody/tr[3]/td[2]")
+	public WebElement scenarioID;
+	
+	@FindBy(xpath = ".//*[@id='scenario-header']/tbody/tr[2]/td[2]")
+	public WebElement scenarioNameHeader;
+	
+//	@FindBy(id = "j_id0:j_id2:relatedQuotesId:j_id39:j_id41")
+//	public WebElement newSMQuoteBtnITV1;
+	
+	@FindBy(xpath = ".//*[@value='New Scenario Manager Quote']")
+	public WebElement newSMQuoteBtnITV4;
+	
+	@FindBy(xpath = ".//*[@value='New Scenario Manager Quote']")
+	public WebElement newSMQuoteBtn;
+	
+//	@FindBy(xpath = "//*[@id='mat-input-0']")
+	@FindBy(xpath = "//input[@name='quoteName']")
+	public WebElement scenarioName;
+	
+	@FindBy(xpath = "/html/body/div[1]/div[4]/div/div/div/mat-option")
+	public List<WebElement> scenarioCurrencyOptions;
+	
+	@FindBy(xpath= "/html/body/div[1]/div[2]/div/mat-dialog-container/app-create-quote/mat-dialog-content/div[3]/mat-form-field/div/div[2]/div/mat-error") 
+	public WebElement validationMessage;
+	
+	@FindBy(id = "mat-select-0")
+	public WebElement currency;
+	
+	@FindBy(xpath = ".//*[@class='mat-select-value']")
+	public WebElement currencyOptions;
+	
+	@FindBy(xpath = "//*[text()='SAVE']")
+	public WebElement saveButton;
+	
+	@FindBy(id = "mat-select-0-panel")
+	public WebElement currencyList;
+	
+	@FindBy(xpath = ".//*[@id='ScenarioDesc']")
+	public WebElement scenarioDesc;
+	
+	@FindBy(xpath = "/html/body/div[4]/div[1]/section/header/div[2]/span/div[2]/ul/li[8]/span/button/div/span[1]/div/span")
+	public WebElement user;
+	
+	@FindBy(linkText = "Switch to Salesforce Classic") 
+	public WebElement classicSwitchLink;
+	
+	@FindBy(id = "errorDiv_ep")
+	public WebElement errorMessage;
+	
+	@FindBy(className = "errorMsg")
+	public WebElement accountErrorMessage;
+	
+	@FindBy(xpath="/html/body/div[1]/div[3]/table/tbody/tr/td[2]/form/div/div[2]/div[3]/table/tbody/tr[1]/td[2]/div/div[2]")
+	public WebElement accountErrorMessageXpath;
+	
+	@FindBy(className ="lookupIcon")
+	public WebElement lookupIcon;
+	
+	@FindBy(xpath="/html/body/div/div[3]/div/div/div[2]/div/div[2]/table/tbody/tr[2]/th/a")
+	public WebElement firstAccount;
+	
+	@FindBy(linkText = "Scenario Manager") 
+	public WebElement smquoteLink;
+	
+	@Override
+	public WebElementFacade getUniqueElementInPage() {
+		
+		return opportunityTab;
+	}
+
+}

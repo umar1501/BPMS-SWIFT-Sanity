@@ -1,0 +1,119 @@
+package com.ctl.it.qa.bpms.pages;
+
+import java.util.List;
+
+import org.openqa.selenium.WebElement;
+
+import com.ctl.it.qa.staf.Page;
+
+import net.serenitybdd.core.annotations.findby.FindBy;
+import net.serenitybdd.core.pages.WebElementFacade;
+
+public class SalesforceHomeLightningPage extends Page{
+	
+	@FindBy(xpath = "//div/div/a[@class='switch-to-lightning']") 
+	public WebElement LightningSwitchLink;
+	
+	@FindBy(xpath = "//span[contains(text(),'Opportunities')]/parent::a/following-sibling::one-app-nav-bar-item-dropdown/div")
+    public WebElementFacade opportunityTabDrpdwn;
+    
+    @FindBy(xpath = "//span[contains(text(),'New Opportunity')]")
+    public WebElementFacade newOpportunityLink;
+    
+  //  @FindBy(xpath = "//span[contains(text(),'Customer Solution Quote')]/parent::div/parent::label/div/span")
+    @FindBy(xpath = "//span[contains(text(),'Customer Solution Quote')]/parent::div")
+    public WebElementFacade level3QuoteOpportunityRadioBtn;
+    
+    @FindBy(xpath = "//div[@class='inlineFooter']//button/span[contains(text(),'Next')]")
+    public WebElementFacade nextBtn;
+    
+    @FindBy(xpath = "(//input[@placeholder='Search Accounts...'])[1]")
+    public WebElementFacade opportunityAccountName;
+    
+    @FindBy(xpath = "/html/body/div[4]/div[2]/div/div[2]/div/div[2]/div/div/div[1]/records-modal-lwc-detail-panel-wrapper/records-record-layout-event-broker/slot/records-lwc-detail-panel/records-base-record-form/div/div/div/div/records-lwc-record-layout/forcegenerated-detailpanel_opportunity___0122a000000s3nhqaq___full___create___recordlayout2/force-record-layout-block/slot/force-record-layout-section[1]/div/h3")
+    public WebElementFacade outsideElement;
+    
+    @FindBy(xpath = "(//input[@placeholder='Search Accounts...'])[1]/parent::div//following-sibling::div//ul//li/lightning-base-combobox-item[@class='slds-media slds-listbox__option slds-media_center slds-listbox__option_entity']")
+    public WebElementFacade accselect;
+    
+  //@FindBy(name = "Name")
+    @FindBy(xpath = "//label[contains(text(),'Opportunity Name')]//following-sibling::div/input")
+    public WebElementFacade opportunityName;
+    
+    @FindBy(xpath = "//label[@class='slds-form-element__label'][contains(.,'*Sub-Type')]")
+    public WebElementFacade opportunitySubtype;
+    
+    @FindBy(xpath = "//span[@title='New Service'][contains(.,'New Service')]")
+    public WebElementFacade opportunitySubtypeNewService;
+    
+    @FindBy(xpath = "//label[@class='slds-form-element__label'][contains(.,'*Stage')]")
+    public WebElementFacade opportunityStage;
+    
+    @FindBy(xpath = "//span[@title='Qualified'][contains(.,'Qualified')]")
+    public WebElementFacade opportunityStageQualified;
+    
+    @FindBy(xpath = "//label[contains(.,'*Close Date')]")
+    public WebElementFacade opportunityClosedDate;
+    
+    //@FindBy(xpath = "//td//span[contains(text(),'30')]")
+    @FindBy(xpath = "//span[@tabindex='-1'][contains(.,'28')]")
+    public WebElementFacade opportunityClosedDateSelect;
+    
+    @FindBy(xpath = "//button[@name='SaveEdit'][contains(.,'Save')]")
+    public WebElementFacade OpportunitySaveBtn;
+    
+   // @FindBy(linkText = "Quotes")
+    @FindBy(xpath = "//a[text()='Quotes']")
+	public WebElement quotesTab;
+	
+    @FindBy(xpath = "//*[@id='j_id0:j_id2:relatedQuotesId']/div[1]/table/tbody/tr/td[1]/h2")
+    public WebElementFacade quotesTitle;
+    
+    @FindBy(id = "j_id0:j_id2:relatedQuotesId:j_id45:j_id48")
+	public WebElement newSMQuoteBtnITV2;
+	
+	@FindBy(id = "j_id0:j_id2:relatedQuotesId:j_id45:j_id48")
+	public WebElement newSMQuoteBtn;
+	
+	@FindBy(xpath = "//input[@name='quoteName']")
+	public WebElement scenarioName;
+    
+	@FindBy(xpath= "/html/body/div[1]/div[2]/div/mat-dialog-container/app-create-quote/mat-dialog-content/div[3]/mat-form-field/div/div[2]/div/mat-error") 
+	public WebElement validationMessage;
+	
+	@FindBy(id = "mat-select-0")
+	public WebElement currency;
+	
+	@FindBy(id = "mat-select-0-panel")
+	public WebElement currencyList;
+	
+	@FindBy(xpath = "/html/body/div[1]/div[4]/div/div/div/mat-option")
+	public List<WebElement> scenarioCurrencyOptions;
+	
+	@FindBy(xpath = "//*[text()='SAVE']")
+	public WebElement saveButton;
+	
+	@FindBy(linkText = "Scenario Manager") 
+	public WebElement smquoteLink;
+	
+	@FindBy(xpath="//*[@class='slds-grid forceSearchBaseSearchPage forceSearchSearch']/div/div/div/div[2]/div/div/table/tbody/tr/td[1]/a")
+	public WebElement firstAccount;
+	
+    /*@FindBy(xpath = "//span[contains(text(),'Show 11 more actions')]")
+    public WebElementFacade opptny_drpdwn;
+    
+    @FindBy(xpath = "//span[contains(text(),'Opportunity Currency')]//parent::span//following-sibling::div")
+    public WebElementFacade oppty_currency;
+    
+    @FindBy(xpath = "//a[contains(text(),'GBP - British Pound')]")
+    public WebElementFacade opptny_currency_GBP;
+    
+    @FindBy(xpath = "//h2[contains(text(),'Service Location Detail')]")
+    public WebElementFacade lbl_service_location_detail;*/
+    
+	@Override
+	public WebElementFacade getUniqueElementInPage() {
+		 return opportunityTabDrpdwn;
+	}
+
+}

@@ -1,0 +1,47 @@
+cucumber.runtime.CucumberException: java.util.regex.PatternSyntaxException: Illegal repetition near index 25
+I Verify the Account info {string} {string}
+                         ^
+	at cucumber.runtime.java.JavaBackend.addStepDefinition(JavaBackend.java:149)
+	at cucumber.runtime.java.MethodScanner.scan(MethodScanner.java:63)
+	at cucumber.runtime.java.MethodScanner.scan(MethodScanner.java:40)
+	at cucumber.runtime.java.JavaBackend.loadGlue(JavaBackend.java:79)
+	at cucumber.runner.Runner.<init>(Runner.java:45)
+	at cucumber.runtime.Runtime.<init>(Runtime.java:65)
+	at cucumber.runtime.Runtime.<init>(Runtime.java:45)
+	at cucumber.runtime.Runtime.<init>(Runtime.java:41)
+	at net.serenitybdd.cucumber.CucumberWithSerenityRuntime.createSerenityEnabledRuntime(CucumberWithSerenityRuntime.java:38)
+	at net.serenitybdd.cucumber.CucumberWithSerenityRuntime.using(CucumberWithSerenityRuntime.java:28)
+	at net.serenitybdd.cucumber.CucumberWithSerenity.createRuntime(CucumberWithSerenity.java:73)
+	at cucumber.api.junit.Cucumber.<init>(Cucumber.java:78)
+	at net.serenitybdd.cucumber.CucumberWithSerenity.<init>(CucumberWithSerenity.java:54)
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance(Unknown Source)
+	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(Unknown Source)
+	at java.lang.reflect.Constructor.newInstance(Unknown Source)
+	at org.junit.internal.builders.AnnotatedBuilder.buildRunner(AnnotatedBuilder.java:104)
+	at org.junit.internal.builders.AnnotatedBuilder.runnerForClass(AnnotatedBuilder.java:86)
+	at org.junit.runners.model.RunnerBuilder.safeRunnerForClass(RunnerBuilder.java:59)
+	at org.junit.internal.builders.AllDefaultPossibilitiesBuilder.runnerForClass(AllDefaultPossibilitiesBuilder.java:26)
+	at org.junit.runners.model.RunnerBuilder.safeRunnerForClass(RunnerBuilder.java:59)
+	at org.junit.internal.requests.ClassRequest.getRunner(ClassRequest.java:33)
+	at org.eclipse.jdt.internal.junit4.runner.JUnit4TestLoader.createUnfilteredTest(JUnit4TestLoader.java:87)
+	at org.eclipse.jdt.internal.junit4.runner.JUnit4TestLoader.createTest(JUnit4TestLoader.java:73)
+	at org.eclipse.jdt.internal.junit4.runner.JUnit4TestLoader.loadTests(JUnit4TestLoader.java:46)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:522)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:760)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.run(RemoteTestRunner.java:460)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.main(RemoteTestRunner.java:206)
+Caused by: java.util.regex.PatternSyntaxException: Illegal repetition near index 25
+I Verify the Account info {string} {string}
+                         ^
+	at java.util.regex.Pattern.error(Unknown Source)
+	at java.util.regex.Pattern.closure(Unknown Source)
+	at java.util.regex.Pattern.sequence(Unknown Source)
+	at java.util.regex.Pattern.expr(Unknown Source)
+	at java.util.regex.Pattern.compile(Unknown Source)
+	at java.util.regex.Pattern.<init>(Unknown Source)
+	at java.util.regex.Pattern.compile(Unknown Source)
+	at cucumber.runtime.java.JavaBackend.pattern(JavaBackend.java:185)
+	at cucumber.runtime.java.JavaBackend.addStepDefinition(JavaBackend.java:144)
+	... 29 more
+

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?><testrun name="CukesTest" project="BPM-PORTALTESTS" tests="1" started="1" failures="0" errors="1" ignored="0">
+  <testsuite name="com.ctl.it.qa.bpms.tests.CukesTest" time="504.459">
+    <testsuite name="Feature: BPMS sanity testing" time="504.459">
+      <testcase name="End to end Validation from Swift to BPMS - DIA Sanity" classname="BPMS sanity testing" time="504.459">
+        <error>java.lang.IllegalStateException: failure 'net.thucydides.core.webdriver.exceptions.ElementShouldBeEnabledException: Expected enabled element was not enabled'&#13;
+	at com.ibm.icu.impl.Assert.fail(Assert.java:17)&#13;
+	at com.ibm.icu.impl.Assert.fail(Assert.java:14)&#13;
+	at com.ctl.it.qa.bpms.steps.RegressionSteps.User_should_validate_and_complete_the_tasks_generated(RegressionSteps.java:304)&#13;
+	at com.ctl.it.qa.bpms.steps.RegressionSteps$$EnhancerByCGLIB$$afcfbb84.CGLIB$User_should_validate_and_complete_the_tasks_generated$5(&lt;generated&gt;)&#13;
+	at com.ctl.it.qa.bpms.steps.RegressionSteps$$EnhancerByCGLIB$$afcfbb84$$FastClassByCGLIB$$7c0632ea.invoke(&lt;generated&gt;)&#13;
+	at net.sf.cglib.proxy.MethodProxy.invokeSuper(MethodProxy.java:228)&#13;
+	at net.thucydides.core.steps.StepInterceptor.invokeMethod(StepInterceptor.java:478)&#13;
+	at net.thucydides.core.steps.StepInterceptor.executeTestStepMethod(StepInterceptor.java:463)&#13;
+	at net.thucydides.core.steps.StepInterceptor.runTestStep(StepInterceptor.java:438)&#13;
+	at net.thucydides.core.steps.StepInterceptor.runOrSkipMethod(StepInterceptor.java:179)&#13;
+	at net.thucydides.core.steps.StepInterceptor.testStepResult(StepInterceptor.java:166)&#13;
+	at net.thucydides.core.steps.StepInterceptor.intercept(StepInterceptor.java:72)&#13;
+	at com.ctl.it.qa.bpms.steps.RegressionSteps$$EnhancerByCGLIB$$afcfbb84.User_should_validate_and_complete_the_tasks_generated(&lt;generated&gt;)&#13;
+	at com.ctl.it.qa.bpms.tests.stepdefinitions.RegressionUserStepDefinition.User_should_validate_and_complete_the_tasks_generated(RegressionUserStepDefinition.java:106)&#13;
+	at ✽.User should validate and complete the tasks generated(src/test/resources/Features/E2E.feature:14)&#13;
+&#13;
+</error>
+      </testcase>
+    </testsuite>
+  </testsuite>
+</testrun>

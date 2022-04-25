@@ -1,0 +1,26 @@
+# Below property is to specify the browser
+# Options are firefox, chrome, iexplorer
+webdriver.driver= chrome
+#webdriver.driver= firefox
+webdriver.chrome.driver= C:\\Users\\ac91162\\webdriver\\chromedriver.exe
+#webdriver.gecko.driver= C:\\Users\\ac91162\\webdriver\\geckodriver.exe
+# Below property is to wait for specific amount of time in milli seconds before timing out
+webdriver.timeouts.implicitlywait=30000
+# Below property is to define when to take screenshots
+# Other Screenshot options are FOR_EACH_ACTION, BEFORE_AND_AFTER_EACH_STEP, AFTER_EACH_STEP
+#Test
+#chrome.switches=--no-sandbox,--window-size=1420,1080,--headless,--disable-gpu
+serenity.take.screenshots=FOR_FAILURES
+# Below property is to define driver capabilities. It specifies to ignore the security domains for iexplorer
+serenity.driver.capabilities=INTRODUCE_FLAKINESS_BY_IGNORING_SECURITY_DOMAINS:true
+#serenity.driver.capabilities=INTRODUCE_FLAKINESS_BY_IGNORING_SECURITY_DOMAINS:true
+#newly added properties
+#Below 4 properties are the configuration for Splunk Logs
+#application.name=BPMS
+#LOG_HOME=C:/TestAuto/SplunkLogs
+#ARCHIVE_HOME=C:/TestAuto/SplunkLogs/archived
+#DEBUG_LEVEL=INFO
+#DEBUG_LEVEL=DEBUG
+#to run jenkins jobs in local machine
+#staf.environment.key=TEST2
+#staf.testtype.key=SANITY

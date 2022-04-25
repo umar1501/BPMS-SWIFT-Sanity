@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?><testrun name="CukesTest" project="BPM-PORTALTESTS" tests="1" started="1" failures="0" errors="0" ignored="0">
+  <testsuite name="com.ctl.it.qa.bpms.tests.CukesTest" incomplete="true">
+    <testsuite name="Feature: BPMS sanity testing" incomplete="true">
+      <testcase name="End to end Validation from Swift to BPMS - DIA Sanity" classname="BPMS sanity testing" incomplete="true"/>
+    </testsuite>
+  </testsuite>
+</testrun>
